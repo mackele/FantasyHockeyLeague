@@ -1,0 +1,690 @@
+html {
+    position:relative; 
+    min-height: 100%;
+
+}
+body{
+    
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0;
+    
+    
+}
+
+p, a, h3, h4, label{
+    margin:0;
+    padding:10px;
+    text-decoration: none;
+    color:#2C3E5A;
+}
+
+h3 {
+    padding:10px;
+    margin:0;
+}
+select {
+    cursor: pointer;
+    background-color:#F2F2F2;
+}
+#search_button, .submit_button {
+    border: none;
+    padding: 5px 15px;
+    background-color: #2C3E5A;
+    color: white;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0;
+   
+}
+
+#search_button:hover, .submit_button:hover {
+    background-color: #56657B;
+}
+
+
+/*css till menyn */
+button {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 16px;
+    padding:10px;
+    height: 81px;
+    cursor: pointer;
+}
+
+.help >a {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    width: 82px;
+    height: 25px;
+}
+
+.dropdown:hover, .help:hover{
+    background-color:#56657B ;
+}
+
+.dropdown_content > a:hover {
+    text-decoration: underline;
+}
+
+
+#log img {
+    max-width: 85px;
+}
+#nav_right {
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+}
+
+.points p {
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.log_out {
+    margin: 10px;
+    background-color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding:5px;
+    box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
+}
+.log_out:hover{
+    box-shadow: none;
+}
+
+nav {
+   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#28313e+1,2c3e5a+50,56657b+100 */
+    background: #28313e; /* Old browsers */
+    background: -moz-linear-gradient(left,  #28313e 1%, #2c3e5a 50%, #56657b 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #28313e 1%,#2c3e5a 50%,#56657b 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #28313e 1%,#2c3e5a 50%,#56657b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28313e', endColorstr='#56657b',GradientType=1 ); /* IE6-9 */
+
+    color: white;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 3;
+}
+
+.left_nav {
+    display: flex;
+    align-items: center; 
+}
+#menu {
+    display:flex;
+    overflow:hidden;
+}
+.dropdown, .help {
+    overflow: hidden;
+    float: left;
+  
+    
+}
+.dropdown .dropbtn, .help {
+    cursor: pointer;
+    border: none;
+    background-color: inherit;
+    color:white;
+    font-weight: bold;
+    
+}
+  
+.dropdown_content {
+    display: none;
+    position: absolute;
+    min-width: 160px;
+    z-index: 1;
+    
+    background-color: white;
+}
+
+.dropdown_content::before {
+    content: '';
+    background-color: white;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 32px;
+    top:-6px;
+    transform: rotate(45deg);
+}
+
+.dropdown_content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+
+  #help > button {
+      display: flex;
+      height: 81px;
+      align-items: center;
+      cursor: pointer;
+  }
+  #questionmark {
+      height: 12px;
+      width:12px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      margin: 3px;
+      
+  }
+  
+  #questionmark  p {
+    color:#41526a;
+      font-weight: bold;
+      font-size: 10px;
+      margin-left: 2px;
+  }
+
+.show {
+    display:block;
+    box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
+    
+}
+
+.foldable {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin:20px;
+    box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
+}
+
+.foldable > header {
+    position: unset;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding:20px;
+    
+}
+
+.foldable div {
+    padding:10px;
+    font-size: 14px;
+    border-top: solid #F2F2F2;;
+}
+
+footer{
+   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#28313e+1,2c3e5a+50,56657b+100 */
+    background: #28313e; /* Old browsers */
+    background: -moz-linear-gradient(left,  #28313e 1%, #2c3e5a 50%, #56657b 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #28313e 1%,#2c3e5a 50%,#56657b 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #28313e 1%,#2c3e5a 50%,#56657b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28313e', endColorstr='#56657b',GradientType=1 ); /* IE6-9 */
+
+    
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+footer p {
+        color: white;
+    }
+
+/*css till index*/
+
+#index_body h5, #index_body h3 {
+    color: #CE1126;
+    font-weight: bold;
+    padding-bottom: 20px;
+    margin:0;
+}
+.bottom_row {
+    display: flex;
+    flex-wrap: wrap;
+    margin:20px;
+    
+}
+
+.top_row {
+    margin:20px;
+}
+
+table {
+    font-size: 14px;  
+    border-collapse: collapse; 
+    margin: auto;
+}
+
+th, td {
+    padding:7px;
+}
+.bold {
+    font-weight: bold;
+}
+.divide {
+    border-bottom: solid 2px #28313E;
+}
+
+tr:nth-child(even) {
+    background-color: #F2F2F2;
+}
+
+
+#match_table, #hockey_score_table, #highscore_table {
+    padding:10px;
+    margin: auto;
+    text-align: center;  
+}
+
+/* css till my_players*/
+.slide_show {
+    max-width: 80%;
+    margin: auto;
+    padding-bottom: 40px;
+}
+.next_arrow, .prev_arrow {
+    position: absolute;
+    top: 50%;
+    display: block;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    -webkit-transform: translate(0,-50%);
+    -ms-transform: translate(0,-50%);
+    transform: translate(0,-50%);
+    cursor: pointer;
+    border: none;
+    font-size: 20px;
+    line-height: 1;
+    background-color: transparent;
+    color: #2C3E5A;
+}
+
+.next_arrow {
+    right: -25px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.prev_arrow {
+    left: -25px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+.slick_slide {
+    width: 200px;
+    
+}
+
+.slide_show img {
+
+    max-width: 100%;
+    height: auto;
+    
+      
+}
+
+#body_my_players, #index_body, #forum_body, #guide_body, #buy_players_body, #match_histor, main, #write_post_body, #topscorer_body,#forum_body, #guide_body, #write_post_body {
+    margin:auto;
+    max-width: 80%;
+    padding: 101px 0 50px 0;
+    height: 100%;
+
+   
+}
+#forum_body,  #write_post_body {
+    background-color: #F2F2F2;
+    margin: 0px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 87vh;
+}
+
+
+.arrow {
+    border: solid #2C3E5A;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    color:#2C3E5A;
+  }
+  
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+  }
+
+h2 {
+    text-align: center;
+    padding: 10px;
+    color:#CE1126;
+    font-weight: bold;
+    font-size: 36px;
+}
+
+/* css till registrering */
+
+.login_register_form {
+    display: block;
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+
+ .menu_form * {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+ .input_text {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+
+    width: 40%;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+
+/* css till matchhistorik */
+
+
+#match_history > section {
+    padding: 5px;
+    text-align: center;
+}
+
+.teams {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.team_1 {
+    border: 2px solid green;
+    width: 200px;
+    margin:10px;
+}
+
+.team_2 {
+    border: 3px solid red;
+    width: 200px;
+    margin:10px;
+}
+
+/* css till match */
+
+#forwards {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+main img {
+    width: 200px;
+}
+
+main div {
+    padding: 10px;
+    text-align: center;
+}
+
+#defense {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+#defense_goalie {
+    display: flex;
+    justify-content: center;
+}
+
+.lock {
+    background-color: #2C3E5A;
+    border: none;
+    margin:auto;
+    color: white;
+    height: fit-content;
+    
+}
+.lock:hover {
+    background-color: #56657B;
+}
+
+
+
+/*Css till forum*/
+#wiki_article{
+width: 80%;
+background-color: white;
+
+}
+#article_div {
+    background-color: #F2F2F2;
+    height: 200px;
+    margin: 40px;
+    box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
+}
+
+#title {
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+}
+
+#text_in_post {
+    text-align: center;
+    padding:10px;
+}
+
+#user_and_date {
+    display: flex;
+    font-size: 12px;
+    padding:5px;
+}
+
+/*css till buy_players */
+
+#buy_players_body {
+    display: flex;
+    flex-direction: column;
+}
+
+#searchbuy {
+    display: flex;
+    
+}
+
+#content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 200px;
+    height: 300px;
+    box-sizing: border-box;
+    margin: 20px;
+}
+
+.card p {
+    font-size: 12px;
+    padding:5px 0;
+}
+
+.card__inner {
+    width: 200px;
+    height: 300px;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    position: relative;
+}
+
+.card__inner.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.card__face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    overflow: hidden;
+    box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
+}
+
+.card__face--front {
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: end;
+}
+
+.card__face--front h2 {
+    color: white;
+    background-color: black;
+}
+
+.card__face--back {
+    background-color: #F2F2F2;
+    transform: rotateY(180deg);
+}
+
+.card__content {
+    width: 100%;
+    height: 100%;
+}
+
+.card__header {
+    position: relative;
+    padding:10px;
+}
+
+.card__header:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    border-radius: 0 0 50% 0;
+}
+.costs {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding:15px;
+    border-top: solid #F2F2F2;
+   
+    
+}
+.cost_button {
+    padding:5px 10px;
+    height: fit-content;
+    border: none;
+    background-color: #2C3E5A;
+    cursor: pointer;
+    color: white;
+}
+.cost_button:hover {
+    background-color: #56657B;
+}
+.costs h5 {
+margin:0;
+
+}
+.FHLcategory {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+
+/*Css till write_post*/
+#post {
+    padding: 20px;
+    background-color: white;
+    width: 80%;
+    
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
+    background: white;
+    margin: auto;
+    
+
+}
+
+.title_div, .text_div, .post_category {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0 2px 0;
+    width: 100%;
+
+}
+
+form input, form textarea, form select {
+    background-color: #F2F2F2;
+    border: solid 1px #2C3E5A;
+    color:#2C3E5A;
+    padding: 5px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+form input:focus-visible, form textarea:focus-visible, form select:focus-visible {
+    border: solid 2px #2C3E5A; 
+}
+
+form textarea {
+    width: 100%;
+    height: 100px;
+}
+
+#form >* {
+    margin:10px;
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>FHL</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+</head>
+<body>
+    <nav>
+        <div class="left_nav">
+            <div id="log">
+                <a href="index.html">
+                    <img src="FHL.png" alt="Logga" href="index.html">
+                </a>
+            </div>
+            <div id="menu">
+                <div class="dropdown">
+                    <button class="dropbtn" onclick="dropFunction_players()">Hockeyspelare</button>
+                
+                    <div class="dropdown_content" id="hockey_players">
+                        <a href="topscorer.html">Statistik över spelare</a>
+                        <a href="buy_players.html">Köpa spelare</a>
+                        <a href="my_players.html">Mina spelare</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="dropbtn" onclick="dropFunction_matches()">Matcher</button>
+                
+                    <div class="dropdown_content" id="matches">
+                        <a href="match.html">Lägg Match</a>
+                        <a href="matchhistory.html">Min Matchhistorik</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="dropbtn" onclick="dropFunction_posts()">Inlägg</button>
+                
+                    <div class="dropdown_content" id="posts">
+                        <a href="forum.html">Forum</a>
+                        <a href="write_post.html">Skapa Inlägg</a>
+                        <a href="">Mina Inlägg</a>
+                    </div>
+                </div>
+                <div id="help">
+                   <div id="help">
+                    <button class="help">Hjälp 
+                        <a href="guide.html"></a>
+                        <div id="questionmark">
+                            <p> ?</p>
+                        </div>
+                    </button> 
+                </div>
+                </div>
+            </div>
+        </div>
+       
+        <div id="nav_right">
+            <div class="points">
+               <p>P</p>  <!--Från databasen skrivs användarens poäng ut-->
+            </div>
+            <div class="log_out">
+                <a href="index.html">Logga ut</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="login_register_form">
+
+        <h2>Skapa Konto</h2>
+
+        <form class="menu_form">
+            <label for="fname">Förnamn:</label>
+            <input type="text" id="fname" name="förnamn" placeholder="Förnamn" class="input_text" required>
+
+            <label for="lname">Efternamn:</label>
+            <input type="text" id="lname" name="efternamn" placeholder="Efternamn" class="input_text" required>
+
+            <label for="mail">Epost:</label>
+            <input type="email" id="mail" name="epost" placeholder="Epost" class="input_text" required>
+
+            <label for="username">Användarnamn:</label>
+            <input type="text" id="username" name="användarnamn"  placeholder="Användarnamn" class="input_text" required>
+
+            <label for="password">Lösenord:</label>
+            <input type="password" id="password" name="lösenord" placeholder="Lösenord" class="input_text" required>
+
+            <input type="submit" value="Skapa Konto" class="submit_button">
+        </form>
+
+    
+
+    </main>
+    
+    <footer>
+        <p>Copyright© by FHL</p>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="script.js"></script> 
+</body>
+
+</html>
