@@ -687,3 +687,7 @@ form textarea {
 #form >* {
     margin:10px;
 }
+
+.topscorer_title{
+    text-align: center;
+}
