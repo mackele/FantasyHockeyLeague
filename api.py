@@ -15,7 +15,10 @@ import json
 #print(response)
 
 #Har inte förstått hur man gör med SHLs API än
-API_ENDPOINT = 'openapi.shl.se'
+
+
+
+API_ENDPOINT = 'http://openapi.shl.se'
 Client_id = '0727233fb0228d3e8b4fd4c972610210'
 Client_secret = '9301628f4d7101d44389e04e63f17d93183a86087dda5722bdc8a7ed366e8934'
 REDIRECT_URI = 'google.se'
@@ -33,9 +36,9 @@ def exchange_code(code):
         'Content-Type': 'application/x-www-form-urlencoded'
     }
 
-    r = requests.post(API_ENDPOINT + '/ouath2/token', data=data, headers=headers)
+    r = requests.post(API_ENDPOINT + '/ouath2/', data=data, headers=headers)
     r.raise_for_status()
     return r.json()
 
 #token = exchange_code('https://openapi.shl.se/oauth2/token')
-exchange_code('open-shl')
+exchange_code('0727233fb0228d3e8b4fd4c9726102109301628f4d7101d44389e04e63f17d93183a86087dda5722bdc8a7ed366e8934')
