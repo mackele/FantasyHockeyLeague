@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <!--Länkar till static style.css, för att ändra tillbaka till "vanliga" är det bara att ha href ="/static/style.css"-->
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <title>FHL</title>
     <!--Browser icon-->
     <link rel="icon" href="/FHL.png">
@@ -18,8 +19,9 @@
     <nav>
         <div class="left_nav">
             <div id="log">
-                <a href="index.html">
-                    <img src="FHL.png" alt="Logga" href="index.html">
+                <a href="/">
+                    <!--Ändrat från img src="FHL.png" till "{{url_for('static', filename = 'FHL.png')}}" för att fungera med flask-->
+                    <img src="{{url_for('static', filename = 'FHL.png')}}" alt="Logga" href="index.html">
                 </a>
             </div>
             <div id="menu">
@@ -27,32 +29,32 @@
                     <button class="dropbtn" onclick="dropFunction_players()">Hockeyspelare</button>
                 
                     <div class="dropdown_content" id="hockey_players">
-                        <a href="topscorer.html">Statistik över spelare</a>
-                        <a href="buy_players.html">Köpa spelare</a>
-                        <a href="my_players.html">Mina spelare</a>
+                        <a href="/top-spelare">Statistik över spelare</a>
+                        <a href="/köp-spelare">Köpa spelare</a>
+                        <a href="/mina-spelare">Mina spelare</a>
                     </div>
                 </div>
                 <div class="dropdown">
                     <button class="dropbtn" onclick="dropFunction_matches()">Matcher</button>
                 
                     <div class="dropdown_content" id="matches">
-                        <a href="match.html">Lägg Match</a>
-                        <a href="matchhistory.html">Min Matchhistorik</a>
+                        <a href="/match">Lägg Match</a>
+                        <a href="/match-historik">Min Matchhistorik</a>
                     </div>
                 </div>
                 <div class="dropdown">
                     <button class="dropbtn" onclick="dropFunction_posts()">Inlägg</button>
                 
                     <div class="dropdown_content" id="posts">
-                        <a href="forum.html">Forum</a>
-                        <a href="write_post.html">Skapa Inlägg</a>
+                        <a href="/forum">Forum</a>
+                        <a href="/inlägg">Skapa Inlägg</a>
                         <a href="">Mina Inlägg</a>
                     </div>
                 </div>
                 <div id="help">
                    <div id="help">
                     <button class="help">Hjälp 
-                        <a href="guide.html"></a>
+                        <a href="/guide"></a>
                         <div id="questionmark">
                             <p> ?</p>
                         </div>
@@ -424,7 +426,10 @@
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    <script src="script.js"></script> 
+    <!-- gamla javascript länken <script src="script.js"></script> -->
+    <script src="{{url_for('static', filename = 'script.js')}}"></script>
+
+    
 </body>
 
 </html>

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <!--Länkar till static style.css, för att ändra tillbaka till "vanliga" är det bara att ha href ="/static/style.css"-->
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <title>FHL</title>
     <!--Browser icon-->
     <link rel="icon" href="/FHL.png">
@@ -105,7 +106,8 @@
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    <script src="script.js"></script> 
+    <!-- gamla javascript länken <script src="script.js"></script> -->
+    <script src="{{url_for('static', filename = 'script.js')}}"></script> 
 </body>
 
 </html>

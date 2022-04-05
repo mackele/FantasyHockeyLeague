@@ -10,7 +10,7 @@ FHL = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@FHL.route('/buy-players/')
+@FHL.route('/köp-spelare/')
 def buy_players():
     return render_template('buy_players.html')
 
@@ -30,7 +30,7 @@ def login():
 def match():
     return render_template('match.html')
 
-@FHL.route('/matchhistorik/')
+@FHL.route('/match-historik/')
 def match_history():
     return render_template('matchhistory.html')
 
