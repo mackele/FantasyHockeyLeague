@@ -1,20 +1,14 @@
 #Imported modules 
-from flask import Flask, render_template, request, redirect
-
+from flask import Flask, render_template, redirect, url_for, request, redirect
 
 
 #Application 
 FHL = Flask(__name__)
 
 
-
 @FHL.route('/')
 def index():
     return render_template('index.html')
-
-
-
-
 
 
 #Server
