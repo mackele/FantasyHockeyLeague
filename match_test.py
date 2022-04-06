@@ -125,7 +125,7 @@ def get_data_rangers():
     else:
         print("Player does not exist")
 
-    return url 
+
 
 get_data_rangers()
 
