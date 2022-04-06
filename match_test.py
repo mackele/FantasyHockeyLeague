@@ -6,7 +6,7 @@ def request(url):
         data = response.json()
         print(json.dumps(data, indent=1, sort_keys=True))
 
-def get_data(): 
+def get_data_rangers(): 
 
     team_input = input("Enter an active player in New York Rangers: ")
 
@@ -127,5 +127,5 @@ def get_data():
 
     return url 
 
-get_data()
+get_data_rangers()
 
