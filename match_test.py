@@ -6,7 +6,7 @@ def request(url):
         data = response.json()
         print(json.dumps(data, indent=1, sort_keys=True))
 
-def get_data_rangers(): 
+def get_data_for_rangers(): 
 
     team_input = input("Enter an active player in New York Rangers: ")
 
@@ -125,7 +125,4 @@ def get_data_rangers():
     else:
         print("Player does not exist")
 
-
-
-get_data_rangers()
-
+get_data_for_rangers()
