@@ -9,18 +9,16 @@ from datetime import datetime
 #Application 
 FHL = Flask(__name__)
 
-#SQL Select connect to route (create function to it?)
+#SQL function connect 
+#SQL function disconnect 
+
+#SQL-SELECT connect to route
 connection = psycopg2.connect(user="grupp2_onlinestore", 
 password="n8siil4c",
 host="pgserver.mau.se",
 port="5432",
 database="grupp2_onlinestore")
 cursor = connection.cursor()
-
-
-
-#SQL function connect 
-#SQL function disconnect 
 
 
 #Index 
