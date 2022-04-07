@@ -12,13 +12,7 @@ FHL = Flask(__name__)
 #SQL function connect 
 #SQL function disconnect 
 
-#SQL-SELECT connect to route
-connection = psycopg2.connect(user="grupp2_onlinestore", 
-password="n8siil4c",
-host="pgserver.mau.se",
-port="5432",
-database="grupp2_onlinestore")
-cursor = connection.cursor()
+
 
 
 #Index 
@@ -78,7 +72,8 @@ def top_scorer():
 #Forum
 @FHL.route('/forum/')
 def forum():
-    cursor.execute("""select * from forum_test""")
+
+    cursor.execute("""select * from fhl_forum_form""")
     data = cursor.fetchall()
     return render_template('forum.html', fhldata=data)
 
@@ -87,6 +82,15 @@ def forum():
 @FHL.route('/inlägg/')
 def write_post():
     return render_template('write_post.html')
+
+
+#SQL-SELECT connect to route (Change)
+connection = psycopg2.connect(user="grupp2_onlinestore", 
+password="n8siil4c",
+host="pgserver.mau.se",
+port="5432",
+database="grupp2_onlinestore")
+cursor = connection.cursor()
 
 
 #New post form data
@@ -104,22 +108,23 @@ def form():
         port="5432",
         database="grupp2_onlinestore")
         cursor = connection.cursor()
-
-        #In fhl_forum add variable fhl_user (foreign key to fhl_user(user_name))
+        
 
         #Need to add .get in order to function as variable and INSERT to database
-        title = request.form.get("title")
-        category = request.form.get("category")
-        text = request.form.get("text")
-        likes = 21 
-
-        #Time
         today = date.today()
         now = datetime.now()
         time = now.strftime("%H:%M:%S")
+        #Username (Change)
+        username = "NA"
+        title = request.form.get("title")
+        category = request.form.get("category")
+        text = request.form.get("text")
+        #Static for now, a Could for later! (Change)
+        likes = 21 
 
-        PostgreSQL_insert = """ INSERT INTO forum_test (datetime, title, category, text, likes) VALUES (%s, %s, %s, %s, %s)"""
-        insert_to = (time, title, category, text, likes)
+
+        PostgreSQL_insert = """ INSERT INTO fhl_forum_form (datetime, username, title, category, text, likes) VALUES (%s, %s, %s, %s, %s, %s)"""
+        insert_to = (time, username, title, category, text, likes)
         cursor.execute(PostgreSQL_insert, insert_to)
 
         connection.commit()

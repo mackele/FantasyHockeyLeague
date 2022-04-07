@@ -20,7 +20,6 @@
         <div class="left_nav">
             <div id="log">
                 <a href="/">
-                    <!--Ändrat från img src="FHL.png" till "{{url_for('static', filename = 'FHL.png')}}" för att fungera med flask-->
                     <img src="{{url_for('static', filename = 'FHL.png')}}" alt="Logga" href="index.html">
                 </a>
             </div>
@@ -79,21 +78,27 @@
             <h2>Forum</h2>
 
             <!--Loop-->
-            {% for row in fhldata %}
+            {% for data in fhldata %}
             <div id="article_div">
                 <div id="user_and_date">
-                    <!--Username-->
-                    <p>Användare: {{ row[1] }}</p>
+
+                    <!--Username (Change)-->
+                    <p>Användare: {{ data[2] }}</p>
+
                     <!--Date-->
-                    <p>Datum: {{ row[0] }}</p>
+                    <p>Datum: {{ data[0] }}</p>
+
                 </div>
                 <div id="title">
+
                     <!--Title-->
-                    <p>{{ row[2] }}</p>
+                    <p>{{ data[3] }}</p>
+
                 </div>
+
                 <!--Text-->
                 <div id="text_in_post">
-                    <p>{{ row[4] }}</p>
+                    <p>{{ data[5] }}</p>
         
                 </div>
                     
@@ -110,7 +115,6 @@
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    <!-- gamla javascript länken <script src="script.js"></script> -->
     <script src="{{url_for('static', filename = 'script.js')}}"></script>
 </body>
 
