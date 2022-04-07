@@ -20,7 +20,6 @@
         <div class="left_nav">
             <div id="log">
                 <a href="/">
-                    <!--Ändrat från img src="FHL.png" till "{{url_for('static', filename = 'FHL.png')}}" för att fungera med flask-->
                     <img src="{{url_for('static', filename = 'FHL.png')}}" alt="Logga" href="index.html">
                 </a>
             </div>
@@ -77,27 +76,36 @@
     <div id="write_post_body">
         <div id="post">
             <h2>Skriv ett inlägg</h2>
-            <form id="form">
+
+            <form action="/form" method="post" id="form">
+
                 <div class="title_div">
-                    <label for="name-field">Titel</label>
-                    <input id="name-field" type="text" name="titel">
+
+                    <label for="title">Titel</label>
+                    <input type="text" id="title" name="title">
+
                 </div>
 
                 <div class="post_category">
-                    <label for="posts">Välj kategori</label>
-                        <select name="posts" id="posts" required>
+                    <label for="category">Välj kategori</label>
+
+                        <select id="category" name="category">
+
                             <option value="players">Spelare</option>
                             <option value="match">Matcher</option>
                             <option value="team">Lag</option>
-                        </select>                
+                        </select>    
+
                 </div>
                 <div class="text_div">
-                    <label for="meddelande">Text</label>
-                    <textarea id="meddelande" name="message"></textarea>
+
+                    <label for="text">Text</label>
+                    <textarea id="text" name="text"></textarea>
+
                 </div>
                 
 
-                <input class="submit_button" type="submit" value="skicka">
+                <input class="submit_button" type="submit" value="Skicka">
             </form>                       
         </div>
     </div>
@@ -107,7 +115,6 @@
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    <!-- gamla javascript länken <script src="script.js"></script> -->
     <script src="{{url_for('static', filename = 'script.js')}}"></script> 
 </body>
 
