@@ -128,5 +128,115 @@ def get_data_for_rangers():
 def run_teams():
     get_data_for_rangers()
 
-run_teams()
+
+
+    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
+    data = request(url[1])
+
+    print(data)
+
+    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
+    data = request(url[1])
+
+    print(data)
+
+    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
+    data = request(url[1])
+
+    print(data)
+
+    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
+    data = request(url[1])
+
+    print(data)
+
+    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
+    data = request(url[1])
+
+    print(data)
+
+    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
+    data = request(url[1])
+
+    print(data)
+
+
+
+
+
+
+    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
+    data = request(url[1])
+
+    print(data)
+
+    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
+    data = request(url[1])
+
+    print(data)
+
+    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
+    data = request(url[1])
+
+    print(data)
+
+    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
+    data = request(url[1])
+
+    print(data)
+
+    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
+    data = request(url[1])
+
+    print(data)
+
+    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
+    data = request(url[1])
+
+    print(data)
+
+    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
+    data = request(url[1])
+
+    print(data)
+
+    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
+    data = request(url[1])
+
+    print(data)
+
+    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
+    data = request(url[1])
+
+    print(data)
+
+    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
+    data = request(url[1])
+
+    print(data)
+
+    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
+    data = request(url[1])
+
+    print(data)
+
+    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
+    data = request(url[1])
+
+    print(data)
+
+    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
+    data = request(url[1])
+
+    print(data)
+
+    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
+    data = request(url[1])
+
+    print(data)
+
+    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
+    data = request(url[1])
+
+    print(data)
 
