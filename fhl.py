@@ -2,9 +2,21 @@
 from flask import Flask, render_template, redirect, url_for, request, redirect
 import psycopg2
 from psycopg2 import Error
+from datetime import date
+from datetime import datetime
+
 
 #Application 
 FHL = Flask(__name__)
+
+#SQL Select connect to route (create function to it?)
+connection = psycopg2.connect(user="grupp2_onlinestore", 
+password="n8siil4c",
+host="pgserver.mau.se",
+port="5432",
+database="grupp2_onlinestore")
+cursor = connection.cursor()
+
 
 
 #SQL function connect 
@@ -68,7 +80,9 @@ def top_scorer():
 #Forum
 @FHL.route('/forum/')
 def forum():
-    return render_template('forum.html')
+    cursor.execute("""select * from forum_test""")
+    data = cursor.fetchall()
+    return render_template('forum.html', fhldata=data)
 
 
 #Forum posts
@@ -100,8 +114,13 @@ def form():
         text = request.form.get("text")
         likes = 21 
 
-        PostgreSQL_insert = """ INSERT INTO forum_test (title, category, text, likes) VALUES (%s, %s, %s, %s)"""
-        insert_to = (title, category, text, likes)
+        #Time
+        today = date.today()
+        now = datetime.now()
+        time = now.strftime("%H:%M:%S")
+
+        PostgreSQL_insert = """ INSERT INTO forum_test (datetime, title, category, text, likes) VALUES (%s, %s, %s, %s, %s)"""
+        insert_to = (time, title, category, text, likes)
         cursor.execute(PostgreSQL_insert, insert_to)
 
         connection.commit()
@@ -120,6 +139,14 @@ def form():
             
             #Redirect
             return render_template('forum.html')
+
+
+
+
+
+
+
+
 
 
 

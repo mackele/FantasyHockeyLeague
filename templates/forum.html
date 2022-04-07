@@ -77,46 +77,30 @@
     <div id="forum_body">
         <div id="wiki_article">
             <h2>Forum</h2>
+
+            <!--Loop-->
+            {% for row in fhldata %}
             <div id="article_div">
                 <div id="user_and_date">
-                    <p>Användare:</p>
-                    <p>Datum:</p>
+                    <!--Username-->
+                    <p>Användare: {{ row[1] }}</p>
+                    <!--Date-->
+                    <p>Datum: {{ row[0] }}</p>
                 </div>
                 <div id="title">
-                    <p>Titel</p>
+                    <!--Title-->
+                    <p>{{ row[2] }}</p>
                 </div>
+                <!--Text-->
                 <div id="text_in_post">
-                    <p>Content</p>
+                    <p>{{ row[4] }}</p>
         
                 </div>
+                    
             </div>
-            <div id="article_div">
-                <div id="user_and_date">
-                    <p>Användare:</p>
-                    <p>Datum:</p>
-                </div>
-                <div id="title">
-                    <p>Titel</p>
-                </div>
-                <div id="text_in_post">
-                    <p>Content</p>
-        
-                </div>
-                
-            </div>
-            <div id="article_div">
-                <div id="user_and_date">
-                    <p>Användare:</p>
-                    <p>Datum:</p>
-                </div>
-                <div id="title">
-                    <p>Titel</p>
-                </div>
-                <div id="text_in_post">
-                    <p>Content</p>
-        
-                </div>
-                
+            {% endfor %}
+            <!--/Loop-->
+
             </div>
         </div>    
     </div>
