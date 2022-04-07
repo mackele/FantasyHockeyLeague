@@ -66,7 +66,6 @@ def top_scorer():
 
     Ex: players = get_players() hämtar alla spelare som finns. Se m.py för exakt uppläg SQL
     '''
-    #Hämtar korrekt SQL fråga från m.py där databasfunktionerna finns
     players = get_players()
     return render_template('topscorer.html', players = players)
 
