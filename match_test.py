@@ -125,4 +125,7 @@ def get_data_for_rangers():
     else:
         print("Player does not exist")
 
-get_data_for_rangers()
+def teams():
+    get_data_for_rangers()
+
+teams()
