@@ -1,7 +1,7 @@
 import requests
 import json
 
-def test():
+def get():
     # Enter Team Id and Season Number (ex if season 2020-2021, enter 20202021)
     team_input = input("Enter a valid team: ")
     season_input = input("Enter a valid season (yyyyyyyy): ")
@@ -50,4 +50,4 @@ def test():
 
 
 # Run func 
-test()
+get()

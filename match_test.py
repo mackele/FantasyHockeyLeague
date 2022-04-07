@@ -129,5 +129,3 @@ def run_teams():
     get_data_for_rangers()
 
 run_teams()
-
-
