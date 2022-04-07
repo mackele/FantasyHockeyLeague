@@ -89,6 +89,7 @@ def write_post():
     return render_template('write_post.html')
 
 
+#New post form data
 @FHL.route('/form', methods=['POST'])
 def form():
     """
