@@ -7,6 +7,10 @@ from psycopg2 import Error
 FHL = Flask(__name__)
 
 
+#SQL function connect 
+#SQL function disconnect 
+
+
 #Index 
 @FHL.route('/')
 def index():
