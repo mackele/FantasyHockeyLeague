@@ -58,6 +58,15 @@ def match_history():
 #Toplist
 @FHL.route('/top-spelare')
 def top_scorer():
+    '''
+    Funktionen skickar in nestlade listor av spelare beroende på vilken utsökning som gäller, 
+    exempel på detta är vilken position spelare har, vilken poäng de har osv...
+
+    Denna data hämtas genom m.py där alla databasfrågor finns
+
+    Ex: players = get_players() hämtar alla spelare som finns. Se m.py för exakt uppläg SQL
+    '''
+    #Hämtar korrekt SQL fråga från m.py där databasfunktionerna finns
     players = get_players()
     return render_template('topscorer.html', players = players)
 
