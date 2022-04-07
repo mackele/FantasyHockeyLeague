@@ -1,5 +1,6 @@
 #Imported modules 
 from flask import Flask, render_template, redirect, url_for, request, redirect
+from m import *
 
 
 #Application 
@@ -57,7 +58,8 @@ def match_history():
 #Toplist
 @FHL.route('/top-spelare')
 def top_scorer():
-    return render_template('topscorer.html')
+    players = get_players()
+    return render_template('topscorer.html', players = players)
 
 
 #Forum

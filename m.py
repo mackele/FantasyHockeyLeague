@@ -4,7 +4,7 @@ import sys
 from datetime import date
 from datetime import datetime
 
-def print_players():
+def get_players():
     """
     Function displays all products in store
     """
@@ -22,7 +22,13 @@ def print_players():
         cursor.execute("""select * from fhl_players""")
         players = cursor.fetchall()
 
-        print(players)
+        cursor.close()
+        return players
+
+        #print(players)
+
+        for player in players:
+            print(player)
 
         #for row in players:
          #   print("{:<25}{:<25}{:<25}{:<25}{:<25}{:<25}".format(row[0], row[1], row[2], row[3], f"{row[4]} kr/st", f"{row[5]} st"))
@@ -39,5 +45,3 @@ def print_players():
         if connection:
             cursor.close()
             connection.close()
-
-print_players()
