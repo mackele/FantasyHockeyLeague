@@ -1,6 +1,7 @@
 import json 
 import requests 
 
+
 def request(url):
         response = requests.get(url)
         data = response.json()
@@ -128,115 +129,4 @@ def get_data_for_rangers():
 def run_teams():
     get_data_for_rangers()
 
-
-
-    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
-    data = request(url[1])
-
-    print(data)
-
-    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
-    data = request(url[1])
-
-    print(data)
-
-    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
-    data = request(url[1])
-
-    print(data)
-
-    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
-    data = request(url[1])
-
-    print(data)
-
-    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
-    data = request(url[1])
-
-    print(data)
-
-    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
-    data = request(url[1])
-
-    print(data)
-
-
-
-
-
-
-    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
-    data = request(url[1])
-
-    print(data)
-
-    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
-    data = request(url[1])
-
-    print(data)
-
-    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
-    data = request(url[1])
-
-    print(data)
-
-    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
-    data = request(url[1])
-
-    print(data)
-
-    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
-    data = request(url[1])
-
-    print(data)
-
-    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
-    data = request(url[1])
-
-    print(data)
-
-    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
-    data = request(url[1])
-
-    print(data)
-
-    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
-    data = request(url[1])
-
-    print(data)
-
-    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
-    data = request(url[1])
-
-    print(data)
-
-    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
-    data = request(url[1])
-
-    print(data)
-
-    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
-    data = request(url[1])
-
-    print(data)
-
-    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
-    data = request(url[1])
-
-    print(data)
-
-    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
-    data = request(url[1])
-
-    print(data)
-
-    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
-    data = request(url[1])
-
-    print(data)
-
-    url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
-    data = request(url[1])
-
-    print(data)
-
+run_teams()
