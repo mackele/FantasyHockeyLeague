@@ -9,8 +9,9 @@ from datetime import datetime
 #Application 
 FHL = Flask(__name__)
 
-#SQL function connect 
-#SQL function disconnect 
+
+#SQL connect (Create function)
+#SQL disconnect (Create function)
 
 
 
