@@ -112,9 +112,9 @@ def form():
         
 
         #Need to add .get in order to function as variable and INSERT to database
-        today = date.today()
+        todaydate = date.today()
         now = datetime.now()
-        time = now.strftime("%H:%M:%S")
+        todaytime = now.strftime("%H:%M:%S")
         #Username (Change)
         username = "NA"
         title = request.form.get("title")
@@ -124,8 +124,8 @@ def form():
         likes = 21 
 
 
-        PostgreSQL_insert = """ INSERT INTO fhl_forum_form (datetime, username, title, category, text, likes) VALUES (%s, %s, %s, %s, %s, %s)"""
-        insert_to = (time, username, title, category, text, likes)
+        PostgreSQL_insert = """ INSERT INTO fhl_forum_form (date, datetime, username, title, category, text, likes) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
+        insert_to = (todaydate, todaytime, username, title, category, text, likes)
         cursor.execute(PostgreSQL_insert, insert_to)
 
         connection.commit()
