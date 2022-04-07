@@ -1,7 +1,6 @@
 import json 
 import requests 
 
-
 def request(url):
         response = requests.get(url)
         data = response.json()
@@ -130,3 +129,5 @@ def run_teams():
     get_data_for_rangers()
 
 run_teams()
+
+
