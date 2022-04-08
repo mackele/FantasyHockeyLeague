@@ -25,14 +25,32 @@ def get_all_players():
         players = []
 
         for list in info:
-            f_name = list[1]
+            id = list[0],
+            f_name = list[1],
+            l_name = list[2],
+            team = list[3],
+            position = list[4],
+            goal = list[5],
+            penalty_time = list[6],
+            assists = list[7],
+            description = list[8],
+            image = list[9],
+            price = list[10]
+
             players.append({
-                "f_name": f_name
+                "id": id,
+                "f_name": f_name,
+                "l_name": l_name,
+                "team": team,
+                "position": position,
+                "goal": goal,
+                "penalty_time": penalty_time,
+                "assists": assists,
+                "description": description,
+                "image": image,
+                "price": price
             })
             
-
-
-        print(players)
 
         cursor.close()
         return players
@@ -48,5 +66,3 @@ def get_all_players():
         if connection:
             cursor.close()
             connection.close()
-
-get_all_players()

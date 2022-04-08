@@ -78,6 +78,7 @@
 
         <!--Header for Topscorer-->
             <h2>Topplista</h2>
+            <p>{{players}}</p>
 
             <!--Top Scorer - Points-->    
             <div class="content">
@@ -96,7 +97,7 @@
                                             <!--Hämta namn från databas-->
                                             
                                             
-                                            <h3>{{players[0][1]}} {{players[0][2]}}</h3>
+                                            <h3>{{player.f_name}} {{player.l_name}}</h3>
                                             
                                             
                                             <!--Hämta poäng från databas ("Poäng: " + database value)-->
