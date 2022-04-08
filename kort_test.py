@@ -1,6 +1,6 @@
 #Imported modules 
 from flask import Flask, render_template, redirect, url_for, request, redirect
-from m import *
+from database import *
 
 
 #Application 
@@ -60,13 +60,13 @@ def match_history():
 def top_scorer():
     '''
     Funktionen skickar in nestlade listor av spelare beroende på vilken utsökning som gäller, 
-    exempel på detta är vilken position spelare har, vilken poäng de har osv...
+    exempel på detta är vilken position spelare har, vilken poäng de har osv.
 
     Denna data hämtas genom m.py där alla databasfrågor finns
 
     Ex: players = get_players() hämtar alla spelare som finns. Se m.py för exakt uppläg SQL
     '''
-    players = get_players()
+    players = get_all_players()
     return render_template('topscorer.html', players = players)
 
 

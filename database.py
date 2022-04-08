@@ -4,7 +4,7 @@ import sys
 from datetime import date
 from datetime import datetime
 
-def get_players():
+def get_all_players():
     """
     Function displays all products in store
     """

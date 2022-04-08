@@ -87,15 +87,19 @@
 
                     <div class="slide_show">
                         <div class="one_time">
-                            
-                            {%for player in players%}
+                            {%for index, player in enumerate(players)%}
+                                
                                 <div class="card">
                                     <div class="card__inner">
                                         <div class="card__face card__face--front">                              
                                             <!--Player statistics-->
                                             <img src="{{url_for('static', filename = 'FHL.png')}}">
                                             <!--Hämta namn från databas-->
-                                            <h3>Mattias Sjögren</h3>
+                                            
+                                            
+                                            <h3>{{players[index][1]}} {{players[index][2]}}</h3>
+                                            
+                                            
                                             <!--Hämta poäng från databas ("Poäng: " + database value)-->
                                             <h4>Poäng: </h4>
                                         </div>
@@ -120,7 +124,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>                            
+                                </div>                           
                             {%endfor%}
             
                            
