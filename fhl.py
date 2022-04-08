@@ -160,6 +160,7 @@ def form():
             return render_template('forum.html', fhldata=data)
 
 
+#Form posts categorized (Not working)
 @FHL.route('/category', methods=['POST','GET'])
 def get_form():
     """
@@ -201,8 +202,10 @@ def get_form():
         if connection:
             cursor.close()
             connection.close()
-
 get_form()
+
+
+
 
 #Server
 FHL.run(host="127.0.0.1", port=8080, debug=True)
