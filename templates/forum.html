@@ -75,22 +75,27 @@
 
     <div id="forum_body">
         <div id="wiki_article">
+            
+            <div id="forumheader">
             <!--Header-->
-            <h2>Forum</h2>
+            <h2 id="forumtitle">Forum</h2>
 
-            <!--Category, access the choice through Python-->
-            <form action="/category" method="post" id="category" name="category">
-            
-            <div class="post_category">
-                <label for="category">Välj kategori</label>
-                <select>
-                    <option name="category" value="player">Spelare</option>
-                    <option name="category" value="game">Matcher</option>
-                    <option name="category" value="team">Lag</option>
-                </select>    
+            <article  class="foldable" id="forumcategory">
+                <header>
+                    <!--Category, access the choice through Python-->
+                    <form action="/category" method="post" id="category" name="category">
+                    <label for="category">Välj kategori</label>
+                    <p><i class="arrow down"></i></p>
+                </header>
+                    <select id="category" name="category">
+                        <option name="category" value="player">Spelare</option>
+                        <option name="category" value="game">Matcher</option>
+                        <option name="category" value="team">Lag</option>
+                    </select>    
+                    </form>
+            </article>
+
             </div>
-            
-            </form>
 
             <!--Loop-->
             {% for data in fhldata %}
