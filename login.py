@@ -12,7 +12,8 @@ import  flask_login
 FHL = Flask(__name__)
 FHL.secret_key='hej' #ändra senare!
 
-login_manager=flask_login.loginManager()
+#Stort L?
+login_manager=flask_login.LoginManager()
 login_manager.init_app (FHL)
 
 
