@@ -80,26 +80,23 @@
             <!--Loop-->
             {% for data in fhldata %}
             <div id="article_div">
-                <div id="user_and_date">
 
+                <div id="user_and_date">
                     <!--Username (Change)-->
                     <p>Användare: {{ data[3] }}</p>
 
                     <!--Date-->
                     <p>Datum: {{ data[0] }} {{ data[1] }}</p>
-
                 </div>
+            
                 <div id="title">
-
                     <!--Title-->
                     <p>{{ data[4] }}</p>
-
                 </div>
 
                 <!--Text-->
                 <div id="text_in_post">
                     <p>{{ data[6] }}</p>
-        
                 </div>
                     
             </div>
