@@ -22,7 +22,6 @@ database="grupp2_onlinestore")
 cursor = connection.cursor()
 
 
-
 #Index 
 @FHL.route('/')
 def index():
@@ -139,7 +138,7 @@ def form():
             cursor.close()
             connection.close()
             
-            #Redirect (Change)
+            #Redirect
             connection = psycopg2.connect(user="grupp2_onlinestore", 
             password="n8siil4c",
             host="pgserver.mau.se",
