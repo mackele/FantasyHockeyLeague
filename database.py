@@ -20,20 +20,23 @@ def get_all_players():
         cursor = connection.cursor()
     
         cursor.execute("""select * from fhl_players""")
-        players = cursor.fetchall()
+        info = cursor.fetchall()
+
+        players = []
+
+        for list in info:
+            f_name = list[1]
+            players.append({
+                "f_name": f_name
+            })
+            
+
+
+        print(players)
 
         cursor.close()
         return players
 
-        #print(players)
-
-        for player in players:
-            print(player)
-
-        #for row in players:
-         #   print("{:<25}{:<25}{:<25}{:<25}{:<25}{:<25}".format(row[0], row[1], row[2], row[3], f"{row[4]} kr/st", f"{row[5]} st"))
-        
-        cursor.close()
 
 
     except (Exception, Error) as error:
@@ -45,3 +48,5 @@ def get_all_players():
         if connection:
             cursor.close()
             connection.close()
+
+get_all_players()
