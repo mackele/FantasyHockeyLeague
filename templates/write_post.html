@@ -75,39 +75,40 @@
 
     <div id="write_post_body">
         <div id="post">
+
+            <!--Header-->
             <h2>Skriv ett inlägg</h2>
 
+            <!--Form-->
             <form action="/form" method="post" id="form">
 
+                <!--Title-->
                 <div class="title_div">
-
                     <label for="title">Titel</label>
                     <input type="text" id="title" name="title">
-
                 </div>
 
+                <!--Category-->
                 <div class="post_category">
                     <label for="category">Välj kategori</label>
-
                         <select id="category" name="category">
-
-                            <option value="players">Spelare</option>
-                            <option value="match">Matcher</option>
-                            <option value="team">Lag</option>
+                            <option name="category" value="player">Spelare</option>
+                            <option name="category" value="game">Matcher</option>
+                            <option name="category" value="team">Lag</option>
                         </select>    
-
                 </div>
                 
+                <!--Text-->
                 <div class="text_div">
-
                     <label for="text">Text</label>
                     <textarea id="text" name="text"></textarea>
-
                 </div>
                 
-
+                <!--Send-->
                 <input class="submit_button" type="submit" value="Skicka">
-            </form>                       
+            </form>      
+            <!--/Form-->
+            
         </div>
     </div>
 
