@@ -13,6 +13,13 @@ FHL = Flask(__name__)
 #SQL connect (Create function)
 #SQL disconnect (Create function)
 
+#SQL-SELECT connect to route (Change)
+connection = psycopg2.connect(user="grupp2_onlinestore", 
+password="n8siil4c",
+host="pgserver.mau.se",
+port="5432",
+database="grupp2_onlinestore")
+cursor = connection.cursor()
 
 
 
@@ -73,7 +80,6 @@ def top_scorer():
 #Forum
 @FHL.route('/forum/')
 def forum():
-
     cursor.execute("""select * from fhl_forum_form""")
     data = cursor.fetchall()
     return render_template('forum.html', fhldata=data)
@@ -83,15 +89,6 @@ def forum():
 @FHL.route('/inlägg/')
 def write_post():
     return render_template('write_post.html')
-
-
-#SQL-SELECT connect to route (Change)
-connection = psycopg2.connect(user="grupp2_onlinestore", 
-password="n8siil4c",
-host="pgserver.mau.se",
-port="5432",
-database="grupp2_onlinestore")
-cursor = connection.cursor()
 
 
 #New post form data
@@ -142,8 +139,16 @@ def form():
             cursor.close()
             connection.close()
             
-            #Redirect
-            return render_template('forum.html')
+            #Redirect (Change)
+            connection = psycopg2.connect(user="grupp2_onlinestore", 
+            password="n8siil4c",
+            host="pgserver.mau.se",
+            port="5432",
+            database="grupp2_onlinestore")
+            cursor = connection.cursor()
+            cursor.execute("""select * from fhl_forum_form""")
+            data = cursor.fetchall()
+            return render_template('forum.html', fhldata=data)
 
 
 
