@@ -82,6 +82,59 @@
             <!--Top Scorer - Points-->    
             <div class="content">
 
+                <!--TEST ATT PRINTA UT-->
+                <h3 class="topscorer_title">TEST ALLA SPELARE</h3>
+
+                    <div class="slide_show">
+                        <div class="one_time">
+                            {%for index, player in enumerate(players)%}
+                                
+                                <div class="card">
+                                    <div class="card__inner">
+                                        <div class="card__face card__face--front">                              
+                                            <!--Player statistics-->
+                                            <img src="{{url_for('static', filename = 'FHL.png')}}">
+                                            <!--Hämta namn från databas-->
+                                            
+                                            
+                                            <h3>{{players[index][1]}} {{players[index][2]}}</h3>
+                                            
+                                            
+                                            <!--Hämta poäng från databas ("Poäng: " + database value)-->
+                                            <h4>Poäng: </h4>
+                                        </div>
+
+                                        <div class="card__face card__face--back">
+                                            <div class="card__content">
+                                                <div class="card__header">
+                                                    <!--Spelarstatistik från databasen-->
+                                                    <!--Hämta namn-->
+                                                    <h4>Mattias Sjögren</h4>
+                                                    <!--Hämta lag-->
+                                                    <p>Lag:</p>
+                                                    <!--Hämta position-->
+                                                    <p>Position:</p>
+                                                    <!--Hämta antal mål-->
+                                                    <p>Mål:</p>
+                                                    <!--Hämta antal assit-->
+                                                    <p>Assist:</p>
+                                                    <!--Hämta antal utvisningsminuter-->
+                                                    <p>Utvisningsminuter:</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                           
+                            {%endfor%}
+            
+                           
+                            
+                            
+                        </div>
+                    </div>
+                </div>  
+                
+                
                 <!--Score title-->
                 <h3 class="topscorer_title">Poäng</h3>
 
