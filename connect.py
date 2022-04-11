@@ -11,7 +11,7 @@ class Postgres ():
                 port="5432",
                 database="grupp2_onlinestore")
             self.cur=self.con.cursor()
-            return self.cur
+            return (self.cur, self.con)
 
         except:
             traceback.print_exc()
