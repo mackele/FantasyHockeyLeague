@@ -7,6 +7,7 @@ from datetime import date
 from datetime import datetime
 import database
 import  flask_login 
+import hashlib
 
 
 #Application 
@@ -45,7 +46,8 @@ def login():
 
     mail=request.form['mail']
     password=request.form['password']
-    user=database.login(mail, password) 
+    hash_password=hashlib.md5(password.encode()).hexdigest()
+    user=database.login(mail, hash_password) 
 
     if len(user)>0:
         user=User()
@@ -91,8 +93,9 @@ def registration():
     mail=request.form['mail']
     username=request.form['username']
     password=request.form['password']
+    hash_password=hashlib.md5(password.encode()).hexdigest()
 
-    user=database.registrations(username, mail, f_name, l_name, password)
+    user=database.registrations(username, mail, f_name, l_name, hash_password)
     print("fhl", user)
     
     return render_template('login.html')
@@ -115,6 +118,10 @@ def buy_players():
 @FHL.route('/mina-spelare/')
 @flask_login.login_required
 def my_players():
+
+    """
+    den inloggade användarens mail sparas i denna: current_user.id. denna används för att ta ut saker ur databasen.
+    """
     return render_template('my_players.html')
 
 
