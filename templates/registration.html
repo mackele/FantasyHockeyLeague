@@ -24,82 +24,45 @@
                     <img src="{{url_for('static', filename = 'FHL.png')}}" alt="Logga" href="index.html">
                 </a>
             </div>
-            <div id="menu">
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="dropFunction_players()">Hockeyspelare</button>
-                
-                    <div class="dropdown_content" id="hockey_players">
-                        <a href="/top-spelare">Statistik över spelare</a>
-                        <a href="/köp-spelare">Köpa spelare</a>
-                        <a href="/mina-spelare">Mina spelare</a>
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="dropFunction_matches()">Matcher</button>
-                
-                    <div class="dropdown_content" id="matches">
-                        <a href="/match">Lägg Match</a>
-                        <a href="/match-historik">Min Matchhistorik</a>
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="dropFunction_posts()">Inlägg</button>
-                
-                    <div class="dropdown_content" id="posts">
-                        <a href="/forum">Forum</a>
-                        <a href="/inlägg">Skapa Inlägg</a>
-                        <a href="">Mina Inlägg</a>
-                    </div>
-                </div>
-                <div id="help">
-                   <div id="help">
-                    <button class="help">Hjälp 
-                        <a href="/guide"></a>
-                        <div id="questionmark">
-                            <p> ?</p>
-                        </div>
-                    </button> 
-                </div>
-                </div>
-            </div>
-        </div>
-       
-        <div id="nav_right">
-            <div class="points">
-               <p>P</p>  <!--Från databasen skrivs användarens poäng ut-->
-            </div>
-            <div class="log_out">
-                <a href="index.html">Logga ut</a>
-            </div>
         </div>
     </nav>
+    <div id="registration_body">
+        <main class="login_register_form">
 
-    <main class="login_register_form">
-
-        <h2>Skapa Konto</h2>
-
-        <form class="menu_form">
-            <label for="fname">Förnamn:</label>
-            <input type="text" id="fname" name="fname" placeholder="Förnamn" class="input_text" required>
-
-            <label for="lname">Efternamn:</label>
-            <input type="text" id="lname" name="lname" placeholder="Efternamn" class="input_text" required>
-
-            <label for="mail">Epost:</label>
-            <input type="email" id="mail" name="mail" placeholder="Epost" class="input_text" required>
-
-            <label for="username">Användarnamn:</label>
-            <input type="text" id="username" name="username"  placeholder="Användarnamn" class="input_text" required>
-
-            <label for="password">Lösenord:</label>
-            <input type="password" id="password" name="lösenord" placeholder="Lösenord" class="input_text" required>
-
-            <input type="submit" value="Skapa Konto" class="submit_button">
-        </form>
-
+            <h2>Skapa Konto</h2>
     
+            <form id="form" action="/registration" method="post">
+                <div class="login_div">
+                    <label for="fname">Förnamn:</label>
+                    <input type="text" id="fname" name="fname" placeholder="Förnamn" required>
+                </div>
+                
+                <div class="login_div">
+                    <label for="lname">Efternamn:</label>
+                    <input type="text" id="lname" name="lname" placeholder="Efternamn" required>
+                </div>
+                
+                <div class="login_div">
+                    <label for="mail">Epost:</label>
+                <input type="email" id="mail" name="mail" placeholder="Epost" required>
+                </div>
+                
+                <div class="login_div">
+                    <label for="username">Användarnamn:</label>
+                    <input type="text" id="username" name="username"  placeholder="Användarnamn" required>
+                </div>
+               
+                <div class="login_div">
+                    <label for="password">Lösenord:</label>
+                    <input type="password" id="password" name="password" placeholder="Lösenord" required>
+                </div>
+                
+                <input type="submit" value="Skapa Konto" class="submit_button">
+            </form>
 
-    </main>
+        </main>
+    </div>
+    
     
     <footer>
         <p>Copyright© by FHL</p>

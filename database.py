@@ -128,24 +128,33 @@ def registrations(username, mail, f_name, l_name, password):
         port="5432",
         database="grupp2_onlinestore")
         cursor = connection.cursor()
-    
-        postgreSQL_insert = """ insert into fhl_user (user_name, mail, f_name, l_name, password)
-                                    select %s, %s, %s, %s,%s
-                                        where not exists (
-                                            select user_name, mail, f_name, l_name, password from fhl_user
-                                                where user_name=%s and mail=%s, f_name=%s, l_name=%s, password=%s)"""               
-        insert_to = (username, mail, f_name, l_name, password)
+
+        cursor.execute("""select user_name, mail from fhl_user
+                            where user_name=%s or mail=%s""",
+                                (username, mail))
+        user = cursor.fetchall()
+
+        
+
+        if len(user)==0:
+            points=100
+            postgreSQL_insert = (""" insert into fhl_user (user_name, mail, f_name, l_name, password, points)
+                                        values (%s, %s, %s, %s, %s, %s) """)
+                                        
+        insert_to = (username, mail, f_name, l_name, password, points)
+        print (username, mail, f_name, l_name, password, points)
         cursor.execute(postgreSQL_insert, insert_to)
         connection.commit()
         cursor.close()
         
 
     except (Exception, Error) as error:
-        print("Error while connectin to PostgreSQL", error)
-
-
+        print( error)
+    
     #Close database connection 
     finally:
         if connection:
             cursor.close()
             connection.close()
+
+    return user

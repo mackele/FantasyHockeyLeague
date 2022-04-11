@@ -27,6 +27,7 @@ cursor = connection.cursor()
 
 #Index 
 @FHL.route('/')
+@flask_login.login_required
 def index():
     return render_template('index.html')
 
@@ -58,8 +59,6 @@ class User (flask_login.UserMixin):
 
 @login_manager.user_loader
 def user_loader(mail):
-   # db_user=database.get_user(mail)
-
     user = User()
     user.id = mail
     return user
@@ -67,31 +66,36 @@ def user_loader(mail):
 @FHL.route('/protected')
 @flask_login.login_required 
 def protected():
-    return 'Logged in as: ' + flask_login.current_user.id
+    return render_template('index.html')
 
-@FHL.route('/')
+#logga ut 
+@FHL.route('/logout')
 def logout():
     flask_login.logout_user()
-    return 'logged out'
+    return render_template('unauthorized_index.html')
 
+#index för icke inloggade
 @login_manager.unauthorized_handler
 def unauthorized_handler():
-    return 'hej', 401
+    return render_template('unauthorized_index.html')
 
 
+# registration
 @FHL.route('/registration', methods=['GET','POST'])
 def registration():
     if request.method == 'GET':
-        return render_template('login.html')
+        return render_template('registration.html')
     
     f_name=request.form['fname']
     l_name=request.form['lname']
     mail=request.form['mail']
     username=request.form['username']
     password=request.form['password']
-    database.registrations(f_name, l_name, mail, username, password) 
 
-    return render_template('index.html')
+    user=database.registrations(username, mail, f_name, l_name, password)
+    print("fhl", user)
+    
+    return render_template('login.html')
 
 
 #Guide
@@ -102,24 +106,28 @@ def guide():
 
 #Buy players
 @FHL.route('/köp-spelare/')
+@flask_login.login_required
 def buy_players():
     return render_template('buy_players.html')
 
 
 #My players
 @FHL.route('/mina-spelare/')
+@flask_login.login_required
 def my_players():
     return render_template('my_players.html')
 
 
 #Game
 @FHL.route('/match/')
+@flask_login.login_required
 def match():
     return render_template('match.html')
 
 
 #Game history
 @FHL.route('/match-historik/')
+@flask_login.login_required
 def match_history():
     return render_template('matchhistory.html')
 
@@ -131,7 +139,7 @@ def top_scorer():
 
 
 #Forum
-@FHL.route('/forum/')
+@FHL.route('/forum')
 def forum():
     cursor.execute("""select * from fhl_forum_form""")
     data = cursor.fetchall()
@@ -140,6 +148,7 @@ def forum():
 
 #Forum posts
 @FHL.route('/inlägg/')
+@flask_login.login_required
 def write_post():
     return render_template('write_post.html')
 
