@@ -6,7 +6,7 @@ from datetime import datetime
 
 def get_all_players():
     """
-    Function displays all products in store
+    Funktion som hämtar alla spelare till en lista av lexikon som sedan används i fhl.py
     """
 
     
