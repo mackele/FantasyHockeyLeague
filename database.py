@@ -81,6 +81,41 @@ def login(mail, password):
 
     return user
 
+def get_user(mail):
+    """
+    Function get users
+    """
+    #Connect to database
+    try: 
+        connection = psycopg2.connect(user="grupp2_onlinestore", 
+        password="n8siil4c",
+        host="pgserver.mau.se",
+        port="5432",
+        database="grupp2_onlinestore")
+        cursor = connection.cursor()
+    
+        cursor.execute("""select mail
+                            from fhl_user
+                                where mail=%s""",
+                                (mail,))
+        user = cursor.fetchall()
+
+        cursor.close()
+        
+
+    except (Exception, Error) as error:
+        print("Error while connectin to PostgreSQL", error)
+
+
+    #Close database connection 
+    finally:
+        if connection:
+            cursor.close()
+            connection.close()
+
+    return user
+
+
 def registrations(username, mail, f_name, l_name, password):
     """
     Function get users

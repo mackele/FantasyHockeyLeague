@@ -12,7 +12,7 @@ login_manager=flask_login.LoginManager()
 login_manager.init_app (FHL)
 
 @FHL.route('/login', methods=['GET', 'POST'])
-def login():
+def log_in():
     if Flask.request.method == 'GET':
         return Flask.render_tamplate('login.html')
 

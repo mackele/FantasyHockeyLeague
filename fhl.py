@@ -1,10 +1,12 @@
 #Imported modules 
+from operator import truediv
 from flask import Flask, render_template, redirect, url_for, request, redirect
 import psycopg2
 from psycopg2 import Error
 from datetime import date
 from datetime import datetime
-import login
+import database
+import  flask_login 
 
 
 #Application 
@@ -30,17 +32,66 @@ def index():
 
 
 #Sign in
-@FHL.route('/login/')
-def log():
-    exec(open('login.py').read()) #ingen bra lösning!§
-    return render_template('login.html')
-    
+FHL.secret_key='hej' #ändra senare!
+
+login_manager=flask_login.LoginManager()
+login_manager.init_app (FHL)
+
+@FHL.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('login.html')
+
+    mail=request.form['mail']
+    password=request.form['password']
+    user=database.login(mail, password) 
+
+    if len(user)>0:
+        user=User()
+        user.id=mail
+        flask_login.login_user(user)
+        return redirect(url_for('protected'))
+    return 'Bad login'
+
+class User (flask_login.UserMixin):
+    pass
+
+@login_manager.user_loader
+def user_loader(mail):
+   # db_user=database.get_user(mail)
+
+    user = User()
+    user.id = mail
+    return user
+
+@FHL.route('/protected')
+@flask_login.login_required 
+def protected():
+    return 'Logged in as: ' + flask_login.current_user.id
+
+@FHL.route('/')
+def logout():
+    flask_login.logout_user()
+    return 'logged out'
+
+@login_manager.unauthorized_handler
+def unauthorized_handler():
+    return 'hej', 401
 
 
-#Sign up
-@FHL.route('/registrera/')
+@FHL.route('/registration', methods=['GET','POST'])
 def registration():
-    return render_template('registration.html')
+    if request.method == 'GET':
+        return render_template('login.html')
+    
+    f_name=request.form['fname']
+    l_name=request.form['lname']
+    mail=request.form['mail']
+    username=request.form['username']
+    password=request.form['password']
+    database.registrations(f_name, l_name, mail, username, password) 
+
+    return render_template('index.html')
 
 
 #Guide
