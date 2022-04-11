@@ -1,9 +1,13 @@
 #Imported modules 
+from operator import truediv
 from flask import Flask, render_template, redirect, url_for, request, redirect
 import psycopg2
 from psycopg2 import Error
 from datetime import date
 from datetime import datetime
+import database
+import  flask_login 
+import hashlib
 
 
 #Application 
@@ -34,20 +38,77 @@ cursor = connection.cursor()
 
 #Index 
 @FHL.route('/')
+@flask_login.login_required
 def index():
     return render_template('index.html')
 
 
 #Sign in
-@FHL.route('/login/')
+FHL.secret_key='hej' #ändra senare!
+
+login_manager=flask_login.LoginManager()
+login_manager.init_app (FHL)
+
+@FHL.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')
+    if request.method == 'GET':
+        return render_template('login.html')
+
+    mail=request.form['mail']
+    password=request.form['password']
+    hash_password=hashlib.md5(password.encode()).hexdigest()
+    user=database.login(mail, hash_password) 
+
+    if len(user)>0:
+        user=User()
+        user.id=mail
+        flask_login.login_user(user)
+        return redirect(url_for('protected'))
+    return 'Bad login'
+
+class User (flask_login.UserMixin):
+    pass
+
+@login_manager.user_loader
+def user_loader(mail):
+    user = User()
+    user.id = mail
+    return user
+
+@FHL.route('/protected')
+@flask_login.login_required 
+def protected():
+    return render_template('index.html')
+
+#logga ut 
+@FHL.route('/logout')
+def logout():
+    flask_login.logout_user()
+    return render_template('unauthorized_index.html')
+
+#index för icke inloggade
+@login_manager.unauthorized_handler
+def unauthorized_handler():
+    return render_template('unauthorized_index.html')
 
 
-#Sign up
-@FHL.route('/registrera/')
+# registration
+@FHL.route('/registration', methods=['GET','POST'])
 def registration():
-    return render_template('registration.html')
+    if request.method == 'GET':
+        return render_template('registration.html')
+    
+    f_name=request.form['fname']
+    l_name=request.form['lname']
+    mail=request.form['mail']
+    username=request.form['username']
+    password=request.form['password']
+    hash_password=hashlib.md5(password.encode()).hexdigest()
+
+    user=database.registrations(username, mail, f_name, l_name, hash_password)
+    print("fhl", user)
+    
+    return render_template('login.html')
 
 
 #Guide
@@ -58,24 +119,32 @@ def guide():
 
 #Buy players
 @FHL.route('/köp-spelare/')
+@flask_login.login_required
 def buy_players():
     return render_template('buy_players.html')
 
 
 #My players
 @FHL.route('/mina-spelare/')
+@flask_login.login_required
 def my_players():
+
+    """
+    den inloggade användarens mail sparas i denna: current_user.id. denna används för att ta ut saker ur databasen.
+    """
     return render_template('my_players.html')
 
 
 #Game
 @FHL.route('/match/')
+@flask_login.login_required
 def match():
     return render_template('match.html')
 
 
 #Game history
 @FHL.route('/match-historik/')
+@flask_login.login_required
 def match_history():
     return render_template('matchhistory.html')
 
@@ -87,7 +156,7 @@ def top_scorer():
 
 
 #Forum
-@FHL.route('/forum/')
+@FHL.route('/forum')
 def forum():
     cursor.execute("""select * from fhl_forum_form""")
     data = cursor.fetchall()
@@ -96,6 +165,7 @@ def forum():
 
 #Forum posts
 @FHL.route('/inlägg/')
+@flask_login.login_required
 def write_post():
     return render_template('write_post.html')
 

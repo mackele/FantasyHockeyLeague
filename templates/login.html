@@ -15,79 +15,39 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
 </head>
-<body>
+<body id="gray">
     <nav>
         <div class="left_nav">
             <div id="log">
                 <a href="/">
                     <!--Ändrat från img src="FHL.png" till "{{url_for('static', filename = 'FHL.png')}}" för att fungera med flask-->
-                    <img src="{{url_for('static', filename = 'FHL.png')}}" alt="Logga" href="index.html">
+                    <img src="{{url_for('static', filename = 'FHL.png')}}" alt="Logga">
                 </a>
-            </div>
-            <div id="menu">
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="dropFunction_players()">Hockeyspelare</button>
-                
-                    <div class="dropdown_content" id="hockey_players">
-                        <a href="/top-spelare">Statistik över spelare</a>
-                        <a href="/köp-spelare">Köpa spelare</a>
-                        <a href="/mina-spelare">Mina spelare</a>
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="dropFunction_matches()">Matcher</button>
-                
-                    <div class="dropdown_content" id="matches">
-                        <a href="/match">Lägg Match</a>
-                        <a href="/match-historik">Min Matchhistorik</a>
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="dropFunction_posts()">Inlägg</button>
-                
-                    <div class="dropdown_content" id="posts">
-                        <a href="/forum">Forum</a>
-                        <a href="/inlägg">Skapa Inlägg</a>
-                        <a href="">Mina Inlägg</a>
-                    </div>
-                </div>
-                <div id="help">
-                   <div id="help">
-                    <button class="help">Hjälp 
-                        <a href="/guide"></a>
-                        <div id="questionmark">
-                            <p> ?</p>
-                        </div>
-                    </button> 
-                </div>
-                </div>
-            </div>
-        </div>
-       
-        <div id="nav_right">
-            <div class="points">
-               <p>P</p>  <!--Från databasen skrivs användarens poäng ut-->
-            </div>
-            <div class="log_out">
-                <a href="index.html">Logga ut</a>
             </div>
         </div>
     </nav>
-    <main class="login_register_form">
+    <div id="login_body">
+        <main class="login_register_form">
 
-        <h2>Logga in</h2>
-
-        <form class="menu_form">
-            <label for="mail">Epost:</label>
-            <input type="email" id="mail" name="epost" placeholder="Epost" class="input_text" required>
-
-            <label for="password">Lösenord:</label>
-            <input type="password" id="password" name="lösenord" placeholder="Lösenord" class="input_text" required>
-
-            <input type="submit" value="Logga in" class="submit_button">
-        </form>
-
-    </main>
+            <h2>Logga in</h2>
+    
+            <form id="form" action="/login" method="post">
+                <div class="login_div">
+                    <label for="mail">Epost:</label>
+                    <input type="email" id="mail" name="mail" placeholder="Epost" required>
+                </div>
+                
+                <div class="login_div">
+                    <label for="password">Lösenord:</label>
+                    <input type="password" id="password" name="password" placeholder="Lösenord" required>
+                </div>
+                
+                <input type="submit" value="Logga in" class="submit_button">
+            </form>
+    
+        </main>
+    </div>
+   
     
     <footer>
         <p>Copyright© by FHL</p>

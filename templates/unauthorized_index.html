@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Länkar till static style.css, för att ändra tillbaka till "vanliga" är det bara att ha href ="/static/style.css"-->
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <title>FHL</title>
+    <!--Browser icon-->
+    <link rel="icon" href="/static/FHL.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+</head>
+<body>
+    <nav>
+        <div class="left_nav">
+            <div id="log">
+                <a href="/">
+                    <!--Ändrat från img src="FHL.png" till "{{url_for('static', filename = 'FHL.png')}}" för att fungera med flask-->
+                    <img src="{{url_for('static', filename = 'FHL.png')}}" alt="Logga" >
+                </a>
+            </div>
+        </div>
+       
+        <div id="nav_right">
+            <div class="registration">
+                <a href="/registration">Registrera konto</a>
+            </div>
+            <div class="log_out">
+                <a href="/login">Logga in</a>
+            </div>
+        </div>
+    </nav>
+    <div id="index_body">
+        <div class="top_row">
+            <div id="highscore_table">
+                <h5>Fantasy Hockey League</h5>
+                <h3>Highscore</h3>
+                <table>
+                    <tr>
+                        <th> </th>
+                        <th>Användare</th>
+                        <th>Antal lagda mather</th>
+                        <th>poäng</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            1.
+                        </td>
+                        <td> 
+                            <!--information från databasen där de spelare med högst poäng tas ut-->
+                        </td>
+                        <td></td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            2.
+                        </td>
+                        <td>  </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            3.
+                        </td>
+                        <td>  </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            4.
+                        </td>
+                        <td></td>
+                        <td> </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            5.
+                        </td>
+                        <td>  </td>
+                        <td></td>
+                        <td> </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="bottom_row">
+            <div id="match_table">
+                <h3>Kommande matcher</h3>
+                <table>
+                    <tr>
+                        <th>Hemmalag</th>
+                        <th></th>
+                        <th>Bortalag</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!--Information om laget--> Timrå
+                        </td>
+                        <td>
+                            <p> 19:00</p>
+                            <p>Cmore</p>
+                        </td>
+                        <td>
+                            <!--Information om laget--> Rögle
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!--Information om laget-->
+                        </td>
+                        <td>
+                            <p></p>
+                            <p></p>
+                        </td>
+                        <td>
+                            <!--Information om laget-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!--Information om laget-->
+                        </td>
+                        <td>
+                            <p></p>
+                            <p></p>
+                        </td>
+                        <td>
+                            <!--Information om laget-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!--Information om laget-->
+                        </td>
+                        <td>
+                            <p></p>
+                            <p></p>
+                        </td>
+                        <td>
+                            <!--Information om laget-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!--Information om laget-->
+                        </td>
+                        <td>
+                            <p></p>
+                            <p></p>
+                        </td>
+                        <td>
+                            <!--Information om laget-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!--Information om laget-->
+                        </td>
+                        <td>
+                            <p></p>
+                            <p></p>
+                        </td>
+                        <td>
+                            <!--Information om laget-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!--Information om laget-->
+                        </td>
+                        <td>
+                            <p></p>
+                            <p></p>
+                        </td>
+                        <td>
+                            <!--Information om laget-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!--Information om laget-->
+                        </td>
+                        <td>
+                            <p></p>
+                            <p></p>
+                        </td>
+                        <td>
+                            <!--Information om laget-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!--Information om laget-->
+                        </td>
+                        <td>
+                            <p></p>
+                            <p></p>
+                        </td>
+                        <td>
+                            <!--Information om laget-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!--Information om laget-->
+                        </td>
+                        <td>
+                            <p> </p>
+                            <p></p>
+                        </td>
+                        <td>
+                            <!--Information om laget-->
+                        </td>
+                    </tr>
+                   
+                </table>
+    
+            </div>
+            <div id="hockey_score_table">
+                <h3>Lagresultat</h3>
+                <table>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>GP</th>
+                        <th>G</th>
+                        <th>GA</th>
+                        <th>+/-</th>
+                        <th>Poäng</th>
+                    </tr>
+                    <tr>
+                        <td>1.</td>
+                        <td> <!--lagbild--> </td>
+                        <td>Rögle</td>
+                        <td>51</td>
+                        <td>152</td>
+                        <td>129</td>
+                        <td>23</td>
+                        <td class="bold">97</td>
+                    </tr>
+                    <tr>
+                        <td>2.</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="bold"></td>
+                    </tr>
+                    <tr>
+                        <td>3.</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="bold"></td>
+                    </tr>
+                    <tr>
+                        <td>4.</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="bold"></td>
+                    </tr>
+                    <tr>
+                        <td>5.</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="bold"></td>
+                    </tr>
+                    <tr class="divide">
+                        <td>6.</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="bold"></td>
+                    </tr>
+                    <tr>
+                        <td>7.</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="bold"></td>
+                    </tr>
+                    <tr>
+                        <td>8.</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="bold"></td>
+                    </tr>
+                    <tr>
+                        <td>9.</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="bold"></td>
+                    </tr>
+                    <tr class="divide">
+                        <td>10.</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="bold"></td>
+                    </tr>
+                    <tr>
+                        <td>11.</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="bold"></td>
+                    </tr>
+                    <tr class="divide">
+                        <td>12.</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="bold"></td>
+                    </tr>
+                    <tr>
+                        <td>13.</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="bold"></td>
+                    </tr>
+                    <tr>
+                        <td>14.</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="bold"></td>
+                    </tr>
+                </table>
+    
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>Copyright© by FHL</p>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <!-- gamla javascript länken <script src="script.js"></script> -->
+    <script src="{{url_for('static', filename = 'script.js')}}"></script>
+
+    
+</body>
+
+</html>

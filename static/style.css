@@ -10,9 +10,10 @@ body{
     font-weight: 400;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    margin: 0;
-    
-    
+    margin: 0;  
+}
+#gray {
+    background-color: #F2F2F2;
 }
 
 p, a, h3, h4, label{
@@ -103,8 +104,20 @@ button {
     padding:5px;
     box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
 }
-.log_out:hover{
+.log_out:hover, .registration:hover{
     box-shadow: none;
+}
+.registration {
+    margin: 10px;
+    background-color: #2c3e5a; 
+    font-size: 12px;
+    font-weight: bold;
+    padding:5px;
+    box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
+}
+
+.registration > a {
+    color: white;
 }
 
 nav {
@@ -349,7 +362,7 @@ tr:nth-child(even) {
       
 }
 
-#body_my_players, #index_body, #forum_body, #guide_body, #buy_players_body, #match_histor, main, #write_post_body, #topscorer_body,#forum_body, #guide_body, #write_post_body {
+#body_my_players, #index_body, #forum_body, #guide_body, #buy_players_body, #match_histor, main, #write_post_body, #topscorer_body,#forum_body, #guide_body, #write_post_body, #login_body, #registration_body {
     margin:auto;
     max-width: 80%;
     padding: 101px 0 50px 0;
@@ -357,7 +370,7 @@ tr:nth-child(even) {
 
    
 }
-#forum_body,  #write_post_body {
+#forum_body,  #write_post_body, #login_body, #registration_body{
     background-color: #F2F2F2;
     margin: 0px;
     max-width: 100%;
@@ -391,30 +404,10 @@ h2 {
 /* css till registrering */
 
 .login_register_form {
-    display: block;
+    padding: 20px;
+    background-color: white;
     width: 80%;
-    margin: auto;
-    text-align: center;
 }
-
- .menu_form * {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
- .input_text {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    text-align: center;
-
-    width: 40%;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-
-
 /* css till matchhistorik */
 
 
@@ -680,12 +673,13 @@ margin:0;
 
 }
 
-.title_div, .text_div, .post_category {
+.title_div, .text_div, .post_category, .login_div {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 0 0 2px 0;
     width: 100%;
+    margin:10px;
 
 }
 
@@ -698,7 +692,7 @@ form input, form textarea, form select {
     font-style: normal;
     font-weight: 400;
     letter-spacing: 0.18em;
-    text-transform: uppercase;
+    text-transform: initial;
 }
 form input:focus-visible, form textarea:focus-visible, form select:focus-visible {
     border: solid 2px #2C3E5A; 
@@ -709,9 +703,6 @@ form textarea {
     height: 100px;
 }
 
-#form >* {
-    margin:10px;
-}
 
 .topscorer_title{
     text-align: center;
