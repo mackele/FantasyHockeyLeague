@@ -403,6 +403,10 @@ h2 {
     margin-right: auto;
 }
 
+.menu_form > input {
+    text-transform: initial;
+}
+
  .input_text {
     margin-top: 10px;
     margin-bottom: 10px;

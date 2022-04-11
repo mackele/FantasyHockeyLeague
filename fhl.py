@@ -4,6 +4,7 @@ import psycopg2
 from psycopg2 import Error
 from datetime import date
 from datetime import datetime
+import login
 
 
 #Application 
@@ -30,8 +31,10 @@ def index():
 
 #Sign in
 @FHL.route('/login/')
-def login():
+def log():
+    exec(open('login.py').read()) #ingen bra lösning!§
     return render_template('login.html')
+    
 
 
 #Sign up
