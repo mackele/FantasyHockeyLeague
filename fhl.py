@@ -179,7 +179,7 @@ def forum():
     points=get_user_points()
     cursor.execute("""select * from fhl_forum_form""")
     data = cursor.fetchall()
-    return render_template('forum.html', points, fhldata=data)
+    return render_template('forum.html', points=points, fhldata=data)
 
 
 #Forum post for logged in user (Update to search for post where username = logged in username)
