@@ -6,12 +6,155 @@ from connect import Postgres
 
 
 def get_all_players():
+    """
+    Funktion som hämtar alla spelare till en lista av lexikon som sedan används i fhl.py
+    """
     with Postgres() as (cursor, conn):
         cursor.execute ("""select * from fhl_players""")
-        players=cursor.fetchall()
+        info=cursor.fetchall()
 
-    return players
+        players = []
 
+        for list in info:
+            id = list[0],
+            f_name = list[1],
+            l_name = list[2],
+            team = list[3],
+            position = list[4],
+            goal = list[5],
+            penalty_time = list[6],
+            assists = list[7],
+            description = list[8],
+            image = list[9],
+            price = list[10]
+
+            players.append({
+                "id": id,
+                "f_name": f_name,
+                "l_name": l_name,
+                "team": team,
+                "position": position,
+                "goal": goal,
+                "penalty_time": penalty_time,
+                "assists": assists,
+                "description": description,
+                "image": image,
+                "price": price
+            })
+
+        return players
+
+def get_top_scorer():
+
+    with Postgres() as (cursor, conn):
+        cursor.execute ("""select * from fhl_players
+        order by price desc LIMIT 5""")
+        info=cursor.fetchall()
+
+        players = []
+
+        for list in info:
+            id = list[0],
+            f_name = list[1],
+            l_name = list[2],
+            team = list[3],
+            position = list[4],
+            goal = list[5],
+            penalty_time = list[6],
+            assists = list[7],
+            description = list[8],
+            image = list[9],
+            price = list[10]
+
+            players.append({
+                "id": id,
+                "f_name": f_name,
+                "l_name": l_name,
+                "team": team,
+                "position": position,
+                "goal": goal,
+                "penalty_time": penalty_time,
+                "assists": assists,
+                "description": description,
+                "image": image,
+                "price": price
+            })
+
+        return players
+
+def get_most_player_goals():
+    with Postgres() as (cursor, conn):
+        cursor.execute ("""select * from fhl_players
+        order by goal desc LIMIT 5;""")
+        info=cursor.fetchall()
+
+        players = []
+
+        for list in info:
+            id = list[0],
+            f_name = list[1],
+            l_name = list[2],
+            team = list[3],
+            position = list[4],
+            goal = list[5],
+            penalty_time = list[6],
+            assists = list[7],
+            description = list[8],
+            image = list[9],
+            price = list[10]
+
+            players.append({
+                "id": id,
+                "f_name": f_name,
+                "l_name": l_name,
+                "team": team,
+                "position": position,
+                "goal": goal,
+                "penalty_time": penalty_time,
+                "assists": assists,
+                "description": description,
+                "image": image,
+                "price": price
+            })
+
+        return players
+
+def get_most_player_assists():
+    with Postgres() as (cursor, conn):
+        cursor.execute ("""select * from fhl_players
+        order by assists desc LIMIT 5;""")
+        info=cursor.fetchall()
+
+        players = []
+
+        for list in info:
+            id = list[0],
+            f_name = list[1],
+            l_name = list[2],
+            team = list[3],
+            position = list[4],
+            goal = list[5],
+            penalty_time = list[6],
+            assists = list[7],
+            description = list[8],
+            image = list[9],
+            price = list[10]
+
+            players.append({
+                "id": id,
+                "f_name": f_name,
+                "l_name": l_name,
+                "team": team,
+                "position": position,
+                "goal": goal,
+                "penalty_time": penalty_time,
+                "assists": assists,
+                "description": description,
+                "image": image,
+                "price": price
+            })
+
+        return players
 
 def login(mail, password):
     with Postgres() as (cursor, conn):

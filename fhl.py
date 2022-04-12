@@ -8,6 +8,7 @@ from datetime import datetime
 import database
 import  flask_login 
 import hashlib
+from database import *
 
 
 #Application 
@@ -152,7 +153,11 @@ def match_history():
 #Toplist
 @FHL.route('/top-spelare')
 def top_scorer():
-    return render_template('topscorer.html')
+    players = get_all_players()
+    top_players = get_top_scorer()
+    most_goals = get_most_player_goals()
+    most_assists = get_most_player_assists()
+    return render_template('topscorer.html', players = players, top_players = top_players, most_goals = most_goals, most_assists = most_assists)
 
 
 #Forum
