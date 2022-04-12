@@ -78,7 +78,7 @@ def user_loader(mail):
 @FHL.route('/protected')
 @flask_login.login_required 
 def protected():
-    points=write_out_points()
+    points=get_user_points()
     return render_template('index.html', points=points)
 
 #logga ut 
@@ -115,16 +115,16 @@ def registration():
 #Guide
 @FHL.route('/guide/')
 def guide():
-    point=write_out_points()
-    return render_template('guide.html', point)
+    points=get_user_points()
+    return render_template('guide.html', points=points)
 
 
 #Buy players
 @FHL.route('/köp-spelare/')
 @flask_login.login_required
 def buy_players():
-    point=write_out_points()
-    return render_template('buy_players.html', point)
+    points=get_user_points()
+    return render_template('buy_players.html', points=points)
 
 
 #My players
@@ -135,48 +135,48 @@ def my_players():
     """
     den inloggade användarens mail sparas i denna: current_user.id. denna används för att ta ut saker ur databasen.
     """
-    point=write_out_points()
-    return render_template('my_players.html', point)
+    points=get_user_points()
+    return render_template('my_players.html', points=points)
 
 
 #Game
 @FHL.route('/match/')
 @flask_login.login_required
 def match():
-    point=write_out_points()
-    return render_template('match.html', point)
+    points=get_user_points()
+    return render_template('match.html', points=points)
 
 
 #Game history
 @FHL.route('/match-historik/')
 @flask_login.login_required
 def match_history():
-    point=write_out_points()
-    return render_template('matchhistory.html', point)
+    points=get_user_points()
+    return render_template('matchhistory.html', points=points)
 
 
 #Toplist
 @FHL.route('/top-spelare')
 def top_scorer():
-    point=write_out_points()
-    return render_template('topscorer.html', point)
+    points=get_user_points()
+    return render_template('topscorer.html', points=points)
 
 
 #Forum
 @FHL.route('/forum')
 def forum():
-    point=write_out_points()
+    points=get_user_points()
     cursor.execute("""select * from fhl_forum_form""")
     data = cursor.fetchall()
-    return render_template('forum.html', point, fhldata=data)
+    return render_template('forum.html', points, fhldata=data)
 
 
 #Forum posts
 @FHL.route('/inlägg/')
 @flask_login.login_required
 def write_post():
-    point=write_out_points()
-    return render_template('write_post.html', point)
+    points=get_user_points()
+    return render_template('write_post.html', points=points)
 
 
 #New post form data
@@ -185,7 +185,7 @@ def form():
     """
     Function inserts post to database
     """
-    point=write_out_points()
+    points=get_user_points()
     #Connect to FHL Database
     try: 
         connection = psycopg2.connect(user="grupp2_onlinestore", 
@@ -236,7 +236,7 @@ def form():
             cursor = connection.cursor()
             cursor.execute("""select * from fhl_forum_form""")
             data = cursor.fetchall()
-            return render_template('forum.html', point, fhldata=data)
+            return render_template('forum.html', points=points, fhldata=data)
 
 
 #Form posts categorized (Not working)
@@ -287,18 +287,18 @@ get_form()
 
 @FHL.route('/points')
 @flask_login.login_required
-def write_out_points():
+def get_user_points():
     user_id=flask_login.current_user.id
     
     print("hejpådig", user_id)
     points=database.get_points(user_id)
     
     for i in points:
-        point=i[0]
+        points=i[0]
         
     
-    print(point)
-    return point
+    print(points)
+    return points
 
 
 
