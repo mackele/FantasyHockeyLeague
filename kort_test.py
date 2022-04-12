@@ -55,6 +55,7 @@ def match_history():
     return render_template('matchhistory.html')
 
 
+
 #Toplist
 @FHL.route('/top-spelare')
 def top_scorer():
