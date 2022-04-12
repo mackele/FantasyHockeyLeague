@@ -161,7 +161,6 @@ def match_history():
 @FHL.route('/top-spelare')
 def top_scorer():
     points=get_user_points()
-    return render_template('topscorer.html', points=points)
     '''
     Funktion skickar med sig en lista av lexikon players som hämtad från funktionen get_all_players som finns i 
     database.py. Denna lista sorteras sedan utifrån vad spelarkorten ska sorteras på, exempelvis mål, assist mm.
@@ -171,7 +170,7 @@ def top_scorer():
     top_players = sorted(players, key = lambda k: k['price'], reverse=True)
     most_goals = sorted(players, key = lambda k: k['goal'], reverse=True)
     most_assists = sorted(players, key = lambda k: k['assists'], reverse=True)
-    return render_template('topscorer.html', players = players, top_players = top_players, most_goals = most_goals, most_assists = most_assists)
+    return render_template('topscorer.html', players = players, top_players = top_players, most_goals = most_goals, most_assists = most_assists, points=points)
 
 
 #Forum
