@@ -156,7 +156,7 @@ def top_scorer():
 
 
 #Forum
-@FHL.route('/forum')
+@FHL.route('/forum/')
 def forum():
     cursor.execute("""select * from fhl_forum_form""")
     data = cursor.fetchall()
