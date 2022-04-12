@@ -174,6 +174,13 @@ def forum():
     return render_template('forum.html', fhldata=data)
 
 
+#Forum post for logged in user (Update to search for post where username = logged in username)
+@FHL.route('/forum/test/')
+def form_username():
+    cursor.execute(f"""select * from fhl_forum_form where username = 'Lukas';""")
+    data = cursor.fetchall()
+    return render_template('forum.html', fhldata=data)
+
 #Forum posts
 @FHL.route('/inlägg/')
 @flask_login.login_required
