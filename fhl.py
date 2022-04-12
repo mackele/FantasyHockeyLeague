@@ -302,8 +302,6 @@ def get_form():
         if connection:
             cursor.close()
             connection.close()
-        
-    
 get_form()
 
 @FHL.route('/points')
