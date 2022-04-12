@@ -4,10 +4,10 @@ import json
 def get():
     # Enter Team Id and Season Number (ex if season 2020-2021, enter 20202021)
     team_input = input("Enter a valid team: ")
-    season_input = input("Enter a valid season (yyyyyyyy): ")
+    season = "20202021"
 
     # Request
-    url = "https://statsapi.web.nhl.com/api/v1/teams/" + str(team_input) + "?expand=team.roster&season=" + season_input
+    url = "https://statsapi.web.nhl.com/api/v1/teams/" + str(team_input) + "?expand=team.roster&season=" + season
     response = requests.get(url)
     data = response.json()
 
@@ -24,7 +24,7 @@ def get():
 
     for i in team:
         leaf = team[i]
-        r = requests.get('https://statsapi.web.nhl.com/api/v1/people/' + str(leaf) + '/stats?stats=statsSingleSeason&season=' + season_input)
+        r = requests.get('https://statsapi.web.nhl.com/api/v1/people/' + str(leaf) + '/stats?stats=statsSingleSeason&season=' + season)
         data = json.loads(r.text)
 
         # Checks if there is points or assists, won't include players without points (rookies, goalies, etc)
@@ -46,7 +46,7 @@ def get():
             stats[i] = [0, 0, 0]
 
         # "Fine" print of received data 
-        print(json.dumps(stats, indent=1, sort_keys=True))
+        print(json.dumps(data, indent=1, sort_keys=True))
 
 
 # Run func 
