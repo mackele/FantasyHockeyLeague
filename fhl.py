@@ -42,7 +42,7 @@ cursor = connection.cursor()
 @FHL.route('/')
 @flask_login.login_required
 def index():
-    return render_template('index.html')
+    return render_template('unauthorized_index.html')
 
 
 #Sign in
@@ -81,7 +81,8 @@ def user_loader(mail):
 @FHL.route('/protected')
 @flask_login.login_required 
 def protected():
-    return render_template('index.html')
+    points=get_user_points()
+    return render_template('index.html', points=points)
 
 
 #logga ut 
@@ -119,14 +120,16 @@ def registration():
 #Guide
 @FHL.route('/guide/')
 def guide():
-    return render_template('guide.html')
+    points=get_user_points()
+    return render_template('guide.html', points=points)
 
 
 #Buy players
 @FHL.route('/köp-spelare/')
 @flask_login.login_required
 def buy_players():
-    return render_template('buy_players.html')
+    points=get_user_points()
+    return render_template('buy_players.html', points=points)
 
 
 #My players
@@ -137,26 +140,30 @@ def my_players():
     """
     den inloggade användarens mail sparas i denna: current_user.id. denna används för att ta ut saker ur databasen.
     """
-    return render_template('my_players.html')
+    points=get_user_points()
+    return render_template('my_players.html', points=points)
 
 
 #Game
 @FHL.route('/match/')
 @flask_login.login_required
 def match():
-    return render_template('match.html')
+    points=get_user_points()
+    return render_template('match.html', points=points)
 
 
 #Game history
 @FHL.route('/match-historik/')
 @flask_login.login_required
 def match_history():
-    return render_template('matchhistory.html')
+    points=get_user_points()
+    return render_template('matchhistory.html', points=points)
 
 
 #Toplist
 @FHL.route('/top-spelare')
 def top_scorer():
+    points=get_user_points()
     '''
     Funktion skickar med sig en lista av lexikon players som hämtad från funktionen get_all_players som finns i 
     database.py. Denna lista sorteras sedan utifrån vad spelarkorten ska sorteras på, exempelvis mål, assist mm.
@@ -166,15 +173,16 @@ def top_scorer():
     top_players = sorted(players, key = lambda k: k['price'], reverse=True)
     most_goals = sorted(players, key = lambda k: k['goal'], reverse=True)
     most_assists = sorted(players, key = lambda k: k['assists'], reverse=True)
-    return render_template('topscorer.html', players = players, top_players = top_players, most_goals = most_goals, most_assists = most_assists)
+    return render_template('topscorer.html', players = players, top_players = top_players, most_goals = most_goals, most_assists = most_assists, points=points)
 
 
 #Forum
 @FHL.route('/forum/')
 def forum():
+    points=get_user_points()
     cursor.execute("""select * from fhl_forum_form""")
     data = cursor.fetchall()
-    return render_template('forum.html', fhldata=data)
+    return render_template('forum.html', points=points, fhldata=data)
 
 
 #Forum post for logged in user (Update to search for post where username = logged in username)
@@ -188,7 +196,8 @@ def form_username():
 @FHL.route('/inlägg/')
 @flask_login.login_required
 def write_post():
-    return render_template('write_post.html')
+    points=get_user_points()
+    return render_template('write_post.html', points=points)
 
 
 #New post form data
@@ -197,7 +206,7 @@ def form():
     """
     Function inserts post to database
     """
-
+    points=get_user_points()
     #Connect to FHL Database
     try: 
         connection = psycopg2.connect(user="grupp2_onlinestore", 
@@ -248,7 +257,7 @@ def form():
             cursor = connection.cursor()
             cursor.execute("""select * from fhl_forum_form""")
             data = cursor.fetchall()
-            return render_template('forum.html', fhldata=data)
+            return render_template('forum.html', points=points, fhldata=data)
 
 
 #Form posts categorized (Not working)
@@ -293,7 +302,24 @@ def get_form():
         if connection:
             cursor.close()
             connection.close()
+        
+    
 get_form()
+
+@FHL.route('/points')
+@flask_login.login_required
+def get_user_points():
+    user_id=flask_login.current_user.id
+    
+    print("hejpådig", user_id)
+    points=database.get_points(user_id)
+    
+    for i in points:
+        points=i[0]
+        
+    
+    print(points)
+    return points
 
 
 
