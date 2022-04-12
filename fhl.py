@@ -1,4 +1,5 @@
 #Imported modules 
+from audioop import reverse
 from operator import truediv
 from flask import Flask, render_template, redirect, url_for, request, redirect
 import psycopg2
@@ -8,6 +9,7 @@ from datetime import datetime
 import database
 import  flask_login 
 import hashlib
+from database import *
 
 
 #Application 
@@ -160,16 +162,33 @@ def match_history():
 def top_scorer():
     points=get_user_points()
     return render_template('topscorer.html', points=points)
+    '''
+    Funktion skickar med sig en lista av lexikon players som hämtad från funktionen get_all_players som finns i 
+    database.py. Denna lista sorteras sedan utifrån vad spelarkorten ska sorteras på, exempelvis mål, assist mm.
+    '''
+
+    players = get_all_players()
+    top_players = sorted(players, key = lambda k: k['price'], reverse=True)
+    most_goals = sorted(players, key = lambda k: k['goal'], reverse=True)
+    most_assists = sorted(players, key = lambda k: k['assists'], reverse=True)
+    return render_template('topscorer.html', players = players, top_players = top_players, most_goals = most_goals, most_assists = most_assists)
 
 
 #Forum
-@FHL.route('/forum')
+@FHL.route('/forum/')
 def forum():
     points=get_user_points()
     cursor.execute("""select * from fhl_forum_form""")
     data = cursor.fetchall()
     return render_template('forum.html', points, fhldata=data)
 
+
+#Forum post for logged in user (Update to search for post where username = logged in username)
+@FHL.route('/forum/test/')
+def form_username():
+    cursor.execute(f"""select * from fhl_forum_form where username = 'Lukas';""")
+    data = cursor.fetchall()
+    return render_template('forum.html', fhldata=data)
 
 #Forum posts
 @FHL.route('/inlägg/')
@@ -200,7 +219,7 @@ def form():
         todaydate = date.today()
         now = datetime.now()
         todaytime = now.strftime("%H:%M:%S")
-        #Username (Change)
+        #Username (Change to username = logged in)
         username = "NA"
         title = request.form.get("title")
         category = request.form.get("category")

@@ -49,7 +49,7 @@
                     <div class="dropdown_content" id="posts">
                         <a href="/forum">Forum</a>
                         <a href="/inlägg">Skapa Inlägg</a>
-                        <a href="">Mina Inlägg</a>
+                        <a href="/forum/test">Mina Inlägg</a>
                     </div>
                 </div>
                 <div id="help">
@@ -78,6 +78,53 @@
         <!--Header for Topscorer-->
             <h2>Topplista</h2>
 
+            <!--TEST ATT PRINTA UT-->
+            <h3 class="topscorer_title">Alla spelare</h3>
+            <div class="slide_show">
+                <div class="one_time">
+                    {%for player in players%} 
+
+                        <div class="card">
+                            <div class="card__inner">
+                                <div class="card__face card__face--front">                              
+                                    <!--Player statistics-->
+                                    <img src="{{url_for('static', filename = 'FHL.png')}}">
+                                    <!--Hämta namn från databas-->                                                                  
+                                    <h3>{{player.f_name}} {{player.l_name}}</h3>                                  
+                                    <!--Hämta poäng från databas ("Poäng: " + database value)-->
+                                    <h4>Poäng: {{player.price}} </h4>
+                                </div>
+
+                                <div class="card__face card__face--back">
+                                    <div class="card__content">
+                                        <div class="card__header">
+                                            <!--Spelarstatistik från databasen-->
+                                            <!--Hämta namn-->
+                                            <h4>{{player.f_name}} {{player.l_name}}</h4>
+                                            <!--Hämta lag-->
+                                            <p>Lag: {{player.team}}</p>
+                                            <!--Hämta position-->
+                                            <p>Position: {{player.position}}</p>
+                                            <!--Hämta antal mål-->
+                                            <p>Mål: {{player.goal}}</p>
+                                            <!--Hämta antal assit-->
+                                            <p>Assist: {{player.assists}}</p>
+                                            <!--Hämta antal utvisningsminuter-->
+                                            <p>Utvisningsminuter: {{player.penalty_time}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                          
+                    {%endfor%}
+    
+                   
+                    
+                    
+                </div>
+            </div>
+        </div> 
+
             <!--Top Scorer - Points-->    
             <div class="content"> 
                 
@@ -86,182 +133,43 @@
 
                     <div class="slide_show">
                         <div class="one_time">
-                            
-                            <!--Player-->
-                            <div class="card">
-                                <div class="card__inner">
-                                    <div class="card__face card__face--front">
-                                        
-                                        <!--Player statistics-->
-                                        <img src="{{url_for('static', filename = 'FHL.png')}}">
-                                        <!--Hämta namn från databas-->
-                                        <h3>Mattias Sjögren</h3>
-                                        <!--Hämta poäng från databas ("Poäng: " + database value)-->
-                                        <h4>Poäng: </h4>
-                                    </div>
+                        
+                            {%for player in top_players%}   
+                                <!--Player-->
+                                <div class="card">
+                                    <div class="card__inner">
+                                        <div class="card__face card__face--front">
+                                            
+                                            <!--Player statistics-->
+                                            <img src="{{url_for('static', filename = 'FHL.png')}}">
+                                            <!--Hämta namn från databas-->
+                                            <h3>{{player.f_name}} {{player.l_name}}</h3>
+                                            <!--Hämta poäng från databas ("Poäng: " + database value)-->
+                                            <h4>Poäng: {{player.price}}</h4>
+                                        </div>
 
-                                    <div class="card__face card__face--back">
-                                        <div class="card__content">
-                                            <div class="card__header">
-                                                <!--Spelarstatistik från databasen-->
-                                                <!--Hämta namn-->
-                                                <h4>Mattias Sjögren</h4>
-                                                <!--Hämta lag-->
-                                                <p>Lag:</p>
-                                                <!--Hämta position-->
-                                                <p>Position:</p>
-                                                <!--Hämta antal mål-->
-                                                <p>Mål:</p>
-                                                <!--Hämta antal assit-->
-                                                <p>Assist:</p>
-                                                <!--Hämta antal utvisningsminuter-->
-                                                <p>Utvisningsminuter:</p>
+                                        <div class="card__face card__face--back">
+                                            <div class="card__content">
+                                                <div class="card__header">
+                                                    <!--Spelarstatistik från databasen-->
+                                                    <!--Hämta namn-->
+                                                    <h4>{{player.f_name}} {{player.l_name}}</h4>
+                                                    <!--Hämta lag-->
+                                                    <p>Lag: {{player.team}}</p>
+                                                    <!--Hämta position-->
+                                                    <p>Position: {{player.position}}</p>
+                                                    <!--Hämta antal mål-->
+                                                    <p>Mål: {{player.goal}}</p>
+                                                    <!--Hämta antal assit-->
+                                                    <p>Assist: {{player.assists}}</p>
+                                                    <!--Hämta antal utvisningsminuter-->
+                                                    <p>Utvisningsminuter: {{player.penalty_time}}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <!--Player-->
-                            <div class="card">
-                                <div class="card__inner">
-                                    <div class="card__face card__face--front">
-                                        
-                                        <!--Player statistics-->
-                                        <img src="{{url_for('static', filename = 'FHL.png')}}">
-                                        <!--Hämta namn från databas-->
-                                        <h3>Dennis Everberg</h3>
-                                        <!--Hämta poäng från databas ("Poäng: " + database value)-->
-                                        <h4>Poäng: </h4>
-                                    </div>
-
-                                    <div class="card__face card__face--back">
-                                        <div class="card__content">
-                                            <div class="card__header">
-                                                <!--Spelarstatistik från databasen-->
-                                                <!--Hämta namn-->
-                                                <h4>Dennis Everberg</h4>
-                                                <!--Hämta lag-->
-                                                <p>Lag:</p>
-                                                <!--Hämta position-->
-                                                <p>Position:</p>
-                                                <!--Hämta antal mål-->
-                                                <p>Mål:</p>
-                                                <!--Hämta antal assit-->
-                                                <p>Assist:</p>
-                                                <!--Hämta antal utvisningsminuter-->
-                                                <p>Utvisningsminuter:</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--Player-->
-                            <div class="card">
-                                <div class="card__inner">
-                                    <div class="card__face card__face--front">
-                                        
-                                        <!--Player statistics-->
-                                        <img src="{{url_for('static', filename = 'FHL.png')}}">
-                                        <!--Hämta namn från databas-->
-                                        <h3>Daniel Zaar</h3>
-                                        <!--Hämta poäng från databas ("Poäng: " + database value)-->
-                                        <h4>Poäng: </h4>
-                                    </div>
-
-                                    <div class="card__face card__face--back">
-                                        <div class="card__content">
-                                            <div class="card__header">
-                                                <!--Spelarstatistik från databasen-->
-                                                <!--Hämta namn-->
-                                                <h4>Daniel Zaar</h4>
-                                                <!--Hämta lag-->
-                                                <p>Lag:</p>
-                                                <!--Hämta position-->
-                                                <p>Position:</p>
-                                                <!--Hämta antal mål-->
-                                                <p>Mål:</p>
-                                                <!--Hämta antal assit-->
-                                                <p>Assist:</p>
-                                                <!--Hämta antal utvisningsminuter-->
-                                                <p>Utvisningsminuter:</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--Player-->
-                            <div class="card">
-                                <div class="card__inner">
-                                    <div class="card__face card__face--front">
-                                        
-                                        <!--Player statistics-->
-                                        <img src="{{url_for('static', filename = 'FHL.png')}}">
-                                        <!--Hämta namn från databas-->
-                                        <h3>Anton Bengtsson</h3>
-                                        <!--Hämta poäng från databas ("Poäng: " + database value)-->
-                                        <h4>Poäng: </h4>
-                                    </div>
-
-                                    <div class="card__face card__face--back">
-                                        <div class="card__content">
-                                            <div class="card__header">
-                                                <!--Spelarstatistik från databasen-->
-                                                <!--Hämta namn-->
-                                                <h4>Anton Bengtsson</h4>
-                                                <!--Hämta lag-->
-                                                <p>Lag:</p>
-                                                <!--Hämta position-->
-                                                <p>Position:</p>
-                                                <!--Hämta antal mål-->
-                                                <p>Mål:</p>
-                                                <!--Hämta antal assit-->
-                                                <p>Assist:</p>
-                                                <!--Hämta antal utvisningsminuter-->
-                                                <p>Utvisningsminuter:</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--Player-->
-                            <div class="card">
-                                <div class="card__inner">
-                                    <div class="card__face card__face--front">
-                                        
-                                        <!--Player statistics-->
-                                        <img src="{{url_for('static', filename = 'FHL.png')}}">
-                                        <!--Hämta namn från databas-->
-                                        <h3>Kodie Curran</h3>
-                                        <!--Hämta poäng från databas ("Poäng: " + database value)-->
-                                        <h4>Poäng: </h4>
-                                    </div>
-
-                                    <div class="card__face card__face--back">
-                                        <div class="card__content">
-                                            <div class="card__header">
-                                                <!--Spelarstatistik från databasen-->
-                                                <!--Hämta namn-->
-                                                <h4>Kodie Curran</h4>
-                                                <!--Hämta lag-->
-                                                <p>Lag:</p>
-                                                <!--Hämta position-->
-                                                <p>Position:</p>
-                                                <!--Hämta antal mål-->
-                                                <p>Mål:</p>
-                                                <!--Hämta antal assit-->
-                                                <p>Assist:</p>
-                                                <!--Hämta antal utvisningsminuter-->
-                                                <p>Utvisningsminuter:</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                            {%endfor%}
                         </div>
                     </div>
                 </div>       
@@ -275,182 +183,43 @@
 
                     <div class="slide_show">
                         <div class="one_time">
-                            
-                            <!--Player-->
-                            <div class="card">
-                                <div class="card__inner">
-                                    <div class="card__face card__face--front">
-                                        
-                                        <!--Player statistics-->
-                                        <img src="{{url_for('static', filename = 'FHL.png')}}">
-                                        <!--Hämta namn från databas-->
-                                        <h3>Erlend Lesund</h3>
-                                        <!--Hämta poäng från databas ("Poäng: " + database value)-->
-                                        <h4>Mål: </h4>
-                                    </div>
 
-                                    <div class="card__face card__face--back">
-                                        <div class="card__content">
-                                            <div class="card__header">
-                                                <!--Spelarstatistik från databasen-->
-                                                <!--Hämta namn-->
-                                                <h4>Erlend Lesund</h4>
-                                                <!--Hämta lag-->
-                                                <p>Lag:</p>
-                                                <!--Hämta position-->
-                                                <p>Position:</p>
-                                                <!--Hämta antal mål-->
-                                                <p>Mål:</p>
-                                                <!--Hämta antal assit-->
-                                                <p>Assist:</p>
-                                                <!--Hämta antal utvisningsminuter-->
-                                                <p>Utvisningsminuter:</p>
+                            {%for player in most_goals%}   
+                                <!--Player-->
+                                <div class="card">
+                                    <div class="card__inner">
+                                        <div class="card__face card__face--front">
+                                            
+                                            <!--Player statistics-->
+                                            <img src="{{url_for('static', filename = 'FHL.png')}}">
+                                            <!--Hämta namn från databas-->
+                                            <h3>{{player.f_name}} {{player.l_name}}</h3>
+                                            <!--Hämta poäng från databas ("Poäng: " + database value)-->
+                                            <h4>Poäng: {{player.price}}</h4>
+                                        </div>
+
+                                        <div class="card__face card__face--back">
+                                            <div class="card__content">
+                                                <div class="card__header">
+                                                    <!--Spelarstatistik från databasen-->
+                                                    <!--Hämta namn-->
+                                                    <h4>{{player.f_name}} {{player.l_name}}</h4>
+                                                    <!--Hämta lag-->
+                                                    <p>Lag: {{player.team}}</p>
+                                                    <!--Hämta position-->
+                                                    <p>Position: {{player.position}}</p>
+                                                    <!--Hämta antal mål-->
+                                                    <p>Mål: {{player.goal}}</p>
+                                                    <!--Hämta antal assit-->
+                                                    <p>Assist: {{player.assists}}</p>
+                                                    <!--Hämta antal utvisningsminuter-->
+                                                    <p>Utvisningsminuter: {{player.penalty_time}}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <!--Player-->
-                            <div class="card">
-                                <div class="card__inner">
-                                    <div class="card__face card__face--front">
-                                        
-                                        <!--Player statistics-->
-                                        <img src="{{url_for('static', filename = 'FHL.png')}}">
-                                        <!--Hämta namn från databas-->
-                                        <h3>Leon Bristedt</h3>
-                                        <!--Hämta poäng från databas ("Poäng: " + database value)-->
-                                        <h4>Mål: </h4>
-                                    </div>
-
-                                    <div class="card__face card__face--back">
-                                        <div class="card__content">
-                                            <div class="card__header">
-                                                <!--Spelarstatistik från databasen-->
-                                                <!--Hämta namn-->
-                                                <h4>Leon Bristedt</h4>
-                                                <!--Hämta lag-->
-                                                <p>Lag:</p>
-                                                <!--Hämta position-->
-                                                <p>Position:</p>
-                                                <!--Hämta antal mål-->
-                                                <p>Mål:</p>
-                                                <!--Hämta antal assit-->
-                                                <p>Assist:</p>
-                                                <!--Hämta antal utvisningsminuter-->
-                                                <p>Utvisningsminuter:</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--Player-->
-                            <div class="card">
-                                <div class="card__inner">
-                                    <div class="card__face card__face--front">
-                                        
-                                        <!--Player statistics-->
-                                        <img src="{{url_for('static', filename = 'FHL.png')}}">
-                                        <!--Hämta namn från databas-->
-                                        <h3>Ted Brithén</h3>
-                                        <!--Hämta poäng från databas ("Poäng: " + database value)-->
-                                        <h4>Mål: </h4>
-                                    </div>
-
-                                    <div class="card__face card__face--back">
-                                        <div class="card__content">
-                                            <div class="card__header">
-                                                <!--Spelarstatistik från databasen-->
-                                                <!--Hämta namn-->
-                                                <h4>Ted Brithén</h4>
-                                                <!--Hämta lag-->
-                                                <p>Lag:</p>
-                                                <!--Hämta position-->
-                                                <p>Position:</p>
-                                                <!--Hämta antal mål-->
-                                                <p>Mål:</p>
-                                                <!--Hämta antal assit-->
-                                                <p>Assist:</p>
-                                                <!--Hämta antal utvisningsminuter-->
-                                                <p>Utvisningsminuter:</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--Player-->
-                            <div class="card">
-                                <div class="card__inner">
-                                    <div class="card__face card__face--front">
-                                        
-                                        <!--Player statistics-->
-                                        <img src="{{url_for('static', filename = 'FHL.png')}}">
-                                        <!--Hämta namn från databas-->
-                                        <h3>Linus Sjödin</h3>
-                                        <!--Hämta poäng från databas ("Poäng: " + database value)-->
-                                        <h4>Mål: </h4>
-                                    </div>
-
-                                    <div class="card__face card__face--back">
-                                        <div class="card__content">
-                                            <div class="card__header">
-                                                <!--Spelarstatistik från databasen-->
-                                                <!--Hämta namn-->
-                                                <h4>Linus Sjödin</h4>
-                                                <!--Hämta lag-->
-                                                <p>Lag:</p>
-                                                <!--Hämta position-->
-                                                <p>Position:</p>
-                                                <!--Hämta antal mål-->
-                                                <p>Mål:</p>
-                                                <!--Hämta antal assit-->
-                                                <p>Assist:</p>
-                                                <!--Hämta antal utvisningsminuter-->
-                                                <p>Utvisningsminuter:</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--Player-->
-                            <div class="card">
-                                <div class="card__inner">
-                                    <div class="card__face card__face--front">
-                                        
-                                        <!--Player statistics-->
-                                        <img src="{{url_for('static', filename = 'FHL.png')}}">
-                                        <!--Hämta namn från databas-->
-                                        <h3>William Strömgren</h3>
-                                        <!--Hämta poäng från databas ("Poäng: " + database value)-->
-                                        <h4>Mål: </h4>
-                                    </div>
-
-                                    <div class="card__face card__face--back">
-                                        <div class="card__content">
-                                            <div class="card__header">
-                                                <!--Spelarstatistik från databasen-->
-                                                <!--Hämta namn-->
-                                                <h4>William Strömgren</h4>
-                                                <!--Hämta lag-->
-                                                <p>Lag:</p>
-                                                <!--Hämta position-->
-                                                <p>Position:</p>
-                                                <!--Hämta antal mål-->
-                                                <p>Mål:</p>
-                                                <!--Hämta antal assit-->
-                                                <p>Assist:</p>
-                                                <!--Hämta antal utvisningsminuter-->
-                                                <p>Utvisningsminuter:</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                            {%endfor%}
                         </div>
                     </div>
                 </div> 
@@ -464,182 +233,43 @@
 
                     <div class="slide_show">
                         <div class="one_time">
-                            
-                            <!--Player-->
-                            <div class="card">
-                                <div class="card__inner">
-                                    <div class="card__face card__face--front">
-                                        
-                                        <!--Player statistics-->
-                                        <img src="{{url_for('static', filename = 'FHL.png')}}">
-                                        <!--Hämta namn från databas-->
-                                        <h3>Ludvig Larsson</h3>
-                                        <!--Hämta poäng från databas ("Poäng: " + database value)-->
-                                        <h4>Assist: </h4>
-                                    </div>
 
-                                    <div class="card__face card__face--back">
-                                        <div class="card__content">
-                                            <div class="card__header">
-                                                <!--Spelarstatistik från databasen-->
-                                                <!--Hämta namn-->
-                                                <h4>Ludvig Larsson</h4>
-                                                <!--Hämta lag-->
-                                                <p>Lag:</p>
-                                                <!--Hämta position-->
-                                                <p>Position:</p>
-                                                <!--Hämta antal mål-->
-                                                <p>Mål:</p>
-                                                <!--Hämta antal assit-->
-                                                <p>Assist:</p>
-                                                <!--Hämta antal utvisningsminuter-->
-                                                <p>Utvisningsminuter:</p>
+                            {%for player in most_assists%}   
+                                <!--Player-->
+                                <div class="card">
+                                    <div class="card__inner">
+                                        <div class="card__face card__face--front">
+                                            
+                                            <!--Player statistics-->
+                                            <img src="{{url_for('static', filename = 'FHL.png')}}">
+                                            <!--Hämta namn från databas-->
+                                            <h3>{{player.f_name}} {{player.l_name}}</h3>
+                                            <!--Hämta poäng från databas ("Poäng: " + database value)-->
+                                            <h4>Poäng: {{player.price}}</h4>
+                                        </div>
+
+                                        <div class="card__face card__face--back">
+                                            <div class="card__content">
+                                                <div class="card__header">
+                                                    <!--Spelarstatistik från databasen-->
+                                                    <!--Hämta namn-->
+                                                    <h4>{{player.f_name}} {{player.l_name}}</h4>
+                                                    <!--Hämta lag-->
+                                                    <p>Lag: {{player.team}}</p>
+                                                    <!--Hämta position-->
+                                                    <p>Position: {{player.position}}</p>
+                                                    <!--Hämta antal mål-->
+                                                    <p>Mål: {{player.goal}}</p>
+                                                    <!--Hämta antal assit-->
+                                                    <p>Assist: {{player.assists}}</p>
+                                                    <!--Hämta antal utvisningsminuter-->
+                                                    <p>Utvisningsminuter: {{player.penalty_time}}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <!--Player-->
-                            <div class="card">
-                                <div class="card__inner">
-                                    <div class="card__face card__face--front">
-                                        
-                                        <!--Player statistics-->
-                                        <img src="{{url_for('static', filename = 'FHL.png')}}">
-                                        <!--Hämta namn från databas-->
-                                        <h3>Marco Kasper</h3>
-                                        <!--Hämta poäng från databas ("Poäng: " + database value)-->
-                                        <h4>Assist: </h4>
-                                    </div>
-
-                                    <div class="card__face card__face--back">
-                                        <div class="card__content">
-                                            <div class="card__header">
-                                                <!--Spelarstatistik från databasen-->
-                                                <!--Hämta namn-->
-                                                <h4>Marco Kasper</h4>
-                                                <!--Hämta lag-->
-                                                <p>Lag:</p>
-                                                <!--Hämta position-->
-                                                <p>Position:</p>
-                                                <!--Hämta antal mål-->
-                                                <p>Mål:</p>
-                                                <!--Hämta antal assit-->
-                                                <p>Assist:</p>
-                                                <!--Hämta antal utvisningsminuter-->
-                                                <p>Utvisningsminuter:</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--Player-->
-                            <div class="card">
-                                <div class="card__inner">
-                                    <div class="card__face card__face--front">
-                                        
-                                        <!--Player statistics-->
-                                        <img src="{{url_for('static', filename = 'FHL.png')}}">
-                                        <!--Hämta namn från databas-->
-                                        <h3>Philip Granath</h3>
-                                        <!--Hämta poäng från databas ("Poäng: " + database value)-->
-                                        <h4>Assist: </h4>
-                                    </div>
-
-                                    <div class="card__face card__face--back">
-                                        <div class="card__content">
-                                            <div class="card__header">
-                                                <!--Spelarstatistik från databasen-->
-                                                <!--Hämta namn-->
-                                                <h4>Philip Granath</h4>
-                                                <!--Hämta lag-->
-                                                <p>Lag:</p>
-                                                <!--Hämta position-->
-                                                <p>Position:</p>
-                                                <!--Hämta antal mål-->
-                                                <p>Mål:</p>
-                                                <!--Hämta antal assit-->
-                                                <p>Assist:</p>
-                                                <!--Hämta antal utvisningsminuter-->
-                                                <p>Utvisningsminuter:</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--Player-->
-                            <div class="card">
-                                <div class="card__inner">
-                                    <div class="card__face card__face--front">
-                                        
-                                        <!--Player statistics-->
-                                        <img src="{{url_for('static', filename = 'FHL.png')}}">
-                                        <!--Hämta namn från databas-->
-                                        <h3>William Wallinder</h3>
-                                        <!--Hämta poäng från databas ("Poäng: " + database value)-->
-                                        <h4>Assist: </h4>
-                                    </div>
-
-                                    <div class="card__face card__face--back">
-                                        <div class="card__content">
-                                            <div class="card__header">
-                                                <!--Spelarstatistik från databasen-->
-                                                <!--Hämta namn-->
-                                                <h4>William Wallinder</h4>
-                                                <!--Hämta lag-->
-                                                <p>Lag:</p>
-                                                <!--Hämta position-->
-                                                <p>Position:</p>
-                                                <!--Hämta antal mål-->
-                                                <p>Mål:</p>
-                                                <!--Hämta antal assit-->
-                                                <p>Assist:</p>
-                                                <!--Hämta antal utvisningsminuter-->
-                                                <p>Utvisningsminuter:</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--Player-->
-                            <div class="card">
-                                <div class="card__inner">
-                                    <div class="card__face card__face--front">
-                                        
-                                        <!--Player statistics-->
-                                        <img src="{{url_for('static', filename = 'FHL.png')}}">
-                                        <!--Hämta namn från databas-->
-                                        <h3>Niklas Hansson</h3>
-                                        <!--Hämta poäng från databas ("Poäng: " + database value)-->
-                                        <h4>Assist: </h4>
-                                    </div>
-
-                                    <div class="card__face card__face--back">
-                                        <div class="card__content">
-                                            <div class="card__header">
-                                                <!--Spelarstatistik från databasen-->
-                                                <!--Hämta namn-->
-                                                <h4>Niklas Hansson</h4>
-                                                <!--Hämta lag-->
-                                                <p>Lag:</p>
-                                                <!--Hämta position-->
-                                                <p>Position:</p>
-                                                <!--Hämta antal mål-->
-                                                <p>Mål:</p>
-                                                <!--Hämta antal assit-->
-                                                <p>Assist:</p>
-                                                <!--Hämta antal utvisningsminuter-->
-                                                <p>Utvisningsminuter:</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                            {%endfor%}
                         </div>
                     </div>
                 </div> 
