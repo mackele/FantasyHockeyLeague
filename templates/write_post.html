@@ -85,13 +85,13 @@
                 <!--Title-->
                 <div class="title_div">
                     <label for="title">Titel</label>
-                    <input type="text" id="title" name="title">
+                    <input type="text" id="title" name="title" required>
                 </div>
 
                 <!--Category-->
                 <div class="post_category">
                     <label for="category">Välj kategori</label>
-                        <select id="category" name="category">
+                        <select id="category" name="category" required>
                             <option name="category" value="player">Spelare</option>
                             <option name="category" value="game">Matcher</option>
                             <option name="category" value="team">Lag</option>
@@ -101,11 +101,11 @@
                 <!--Text-->
                 <div class="text_div">
                     <label for="text">Text</label>
-                    <textarea id="text" name="text"></textarea>
+                    <textarea id="text" name="text" required></textarea>
                 </div>
                 
                 <!--Send-->
-                <input class="submit_button" type="submit" value="Skicka">
+                <input class="submit_button" type="submit" value="Skicka" required>
             </form>      
             <!--/Form-->
             
