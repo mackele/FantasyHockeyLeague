@@ -52,4 +52,16 @@ def registrations(username, mail, f_name, l_name, password):
             print (username, mail, f_name, l_name, password, points)
             cursor.execute(postgreSQL_insert, insert_to)
             conn.commit()
- 
+
+def get_points(user_id):
+    with Postgres() as (cursor, conn):
+        with Postgres() as (cursor, conn):
+            cursor.execute("""select points
+                                from fhl_user
+                                    where mail=%s""",
+                                    (user_id,))
+            point = cursor.fetchall()
+    
+    return point
+        
+    return point
