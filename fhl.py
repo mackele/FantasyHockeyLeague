@@ -47,9 +47,9 @@ def index():
 
 #Sign in
 FHL.secret_key='hej' #ändra senare!
-
 login_manager=flask_login.LoginManager()
 login_manager.init_app (FHL)
+
 
 @FHL.route('/login', methods=['GET', 'POST'])
 def login():
@@ -68,25 +68,28 @@ def login():
         return redirect(url_for('protected'))
     return 'Bad login'
 
+
 class User (flask_login.UserMixin):
     pass
-
 @login_manager.user_loader
 def user_loader(mail):
     user = User()
     user.id = mail
     return user
 
+
 @FHL.route('/protected')
 @flask_login.login_required 
 def protected():
     return render_template('index.html')
+
 
 #logga ut 
 @FHL.route('/logout')
 def logout():
     flask_login.logout_user()
     return render_template('unauthorized_index.html')
+
 
 #index för icke inloggade
 @login_manager.unauthorized_handler
