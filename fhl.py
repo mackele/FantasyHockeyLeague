@@ -191,7 +191,7 @@ def form():
         todaydate = date.today()
         now = datetime.now()
         todaytime = now.strftime("%H:%M:%S")
-        #Username (Change)
+        #Username (Change to username = logged in)
         username = "NA"
         title = request.form.get("title")
         category = request.form.get("category")
