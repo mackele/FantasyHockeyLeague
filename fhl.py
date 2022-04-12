@@ -1,4 +1,5 @@
 #Imported modules 
+from audioop import reverse
 from operator import truediv
 from flask import Flask, render_template, redirect, url_for, request, redirect
 import psycopg2
@@ -153,10 +154,15 @@ def match_history():
 #Toplist
 @FHL.route('/top-spelare')
 def top_scorer():
+    '''
+    Funktion skickar med sig en lista av lexikon players som hämtad från funktionen get_all_players som finns i 
+    database.py. Denna lista sorteras sedan utifrån vad spelarkorten ska sorteras på, exempelvis mål, assist mm.
+    '''
+
     players = get_all_players()
-    top_players = get_top_scorer()
-    most_goals = get_most_player_goals()
-    most_assists = get_most_player_assists()
+    top_players = sorted(players, key = lambda k: k['price'], reverse=True)
+    most_goals = sorted(players, key = lambda k: k['goal'], reverse=True)
+    most_assists = sorted(players, key = lambda k: k['assists'], reverse=True)
     return render_template('topscorer.html', players = players, top_players = top_players, most_goals = most_goals, most_assists = most_assists)
 
 
