@@ -80,7 +80,7 @@ def registrations(username, mail, f_name, l_name, password):
 
         if len(user)==0:
             points=100
-            postgreSQL_insert = (""" insert into fhl_user (user_name, mail, f_name, l_name, password, points)
+            postgreSQL_insert = (""" insert into fhl_user (username, mail, f_name, l_name, password, points)
                                         values (%s, %s, %s, %s, %s, %s) """)
                                             
             insert_to = (username, mail, f_name, l_name, password, points)
