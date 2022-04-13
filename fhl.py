@@ -125,11 +125,22 @@ def guide():
 
 
 #Buy players
-@FHL.route('/köp-spelare/')
+@FHL.route('/köp-spelare/', methods=['GET', 'POST'])
 @flask_login.login_required
 def buy_players():
     points=get_user_points()
-    return render_template('buy_players.html', points=points)
+
+    players = get_all_players()
+
+    if request.method == 'POST':
+        player_id = request.form['id']
+        user_id=flask_login.current_user.id
+        #print(player_id)
+        #print(user_id)
+
+        add_purchased_player_to_team(user_id, player_id)
+    
+    return render_template('buy_players.html', points=points, players = players)
 
 
 #My players
@@ -185,10 +196,11 @@ def forum():
     return render_template('forum.html', points=points, fhldata=data)
 
 
-#Forum post for logged in user (Update to search for post where username = logged in username)
+#Forum post for logged in user 
 @FHL.route('/forum/test/')
 def form_username():
-    cursor.execute(f"""select * from fhl_forum_form where username = 'Lukas';""")
+    #(Update to search for post where username = logged in username)
+    cursor.execute(f"""select * from fhl_forum_form where fhl_user = 'NA@gmail.com';""")
     data = cursor.fetchall()
     return render_template('forum.html', fhldata=data)
 
@@ -222,7 +234,7 @@ def form():
         now = datetime.now()
         todaytime = now.strftime("%H:%M:%S")
         #Username (Change to username = logged in)
-        username = "NA"
+        fhl_user = "NA@gmail.com"
         title = request.form.get("title")
         category = request.form.get("category")
         text = request.form.get("text")
@@ -230,8 +242,8 @@ def form():
         likes = 21 
 
 
-        PostgreSQL_insert = """ INSERT INTO fhl_forum_form (date, datetime, username, title, category, text, likes) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
-        insert_to = (todaydate, todaytime, username, title, category, text, likes)
+        PostgreSQL_insert = """ INSERT INTO fhl_forum_form (date, datetime, fhl_user, title, category, text, likes) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
+        insert_to = (todaydate, todaytime, fhl_user, title, category, text, likes)
         cursor.execute(PostgreSQL_insert, insert_to)
 
         connection.commit()

@@ -69,18 +69,31 @@ def get_user(mail):
     
     return user
        
+def add_purchased_player_to_team(user_id, player_id):
+    with Postgres() as (cursor, conn): 
 
+        id = user_id  
+        
+        user_name = cursor.execute("""select user_name from fhl_user where mail='{{user_id}}'""")
+
+        print(user_name)
+        
+        ##join fhl_my_players on fhl_user.user_name = fhl_my_players.fhl_user;""")
+
+        #user = cursor.fetchall()
+
+        #postgreSQL_insert = ("""insert into fhl_my_players(fhl_user, player_id) values (%s, %s)""")
         
 def registrations(username, mail, f_name, l_name, password):
     with Postgres() as (cursor, conn):
-        cursor.execute("""select user_name, mail from fhl_user
-                                where user_name=%s or mail=%s""",
-                                    (username, mail))
+        cursor.execute("""select mail from fhl_user
+                                where  mail=%s""",
+                                    (mail,))
         user = cursor.fetchall()
 
         if len(user)==0:
             points=100
-            postgreSQL_insert = (""" insert into fhl_user (user_name, mail, f_name, l_name, password, points)
+            postgreSQL_insert = (""" insert into fhl_user (username, mail, f_name, l_name, password, points)
                                         values (%s, %s, %s, %s, %s, %s) """)
                                             
             insert_to = (username, mail, f_name, l_name, password, points)
