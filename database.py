@@ -73,9 +73,9 @@ def get_user(mail):
         
 def registrations(username, mail, f_name, l_name, password):
     with Postgres() as (cursor, conn):
-        cursor.execute("""select user_name, mail from fhl_user
-                                where user_name=%s or mail=%s""",
-                                    (username, mail))
+        cursor.execute("""select mail from fhl_user
+                                where  mail=%s""",
+                                    (mail,))
         user = cursor.fetchall()
 
         if len(user)==0:
