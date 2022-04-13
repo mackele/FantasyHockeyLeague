@@ -185,10 +185,11 @@ def forum():
     return render_template('forum.html', points=points, fhldata=data)
 
 
-#Forum post for logged in user (Update to search for post where username = logged in username)
+#Forum post for logged in user 
 @FHL.route('/forum/test/')
 def form_username():
-    cursor.execute(f"""select * from fhl_forum_form where username = 'Lukas';""")
+    #(Update to search for post where username = logged in username)
+    cursor.execute(f"""select * from fhl_forum_form where fhl_user = 'NA@gmail.com';""")
     data = cursor.fetchall()
     return render_template('forum.html', fhldata=data)
 
