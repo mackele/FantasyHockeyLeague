@@ -222,7 +222,7 @@ def form():
         now = datetime.now()
         todaytime = now.strftime("%H:%M:%S")
         #Username (Change to username = logged in)
-        username = "NA"
+        fhl_user = "NA@gmail.com"
         title = request.form.get("title")
         category = request.form.get("category")
         text = request.form.get("text")
@@ -230,8 +230,8 @@ def form():
         likes = 21 
 
 
-        PostgreSQL_insert = """ INSERT INTO fhl_forum_form (date, datetime, username, title, category, text, likes) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
-        insert_to = (todaydate, todaytime, username, title, category, text, likes)
+        PostgreSQL_insert = """ INSERT INTO fhl_forum_form (date, datetime, fhl_user, title, category, text, likes) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
+        insert_to = (todaydate, todaytime, fhl_user, title, category, text, likes)
         cursor.execute(PostgreSQL_insert, insert_to)
 
         connection.commit()
