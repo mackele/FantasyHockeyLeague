@@ -47,9 +47,9 @@ def index():
 
 #Sign in
 FHL.secret_key='hej' #ändra senare!
-
 login_manager=flask_login.LoginManager()
 login_manager.init_app (FHL)
+
 
 @FHL.route('/login', methods=['GET', 'POST'])
 def login():
@@ -68,14 +68,15 @@ def login():
         return redirect(url_for('protected'))
     return 'Bad login'
 
+
 class User (flask_login.UserMixin):
     pass
-
 @login_manager.user_loader
 def user_loader(mail):
     user = User()
     user.id = mail
     return user
+
 
 @FHL.route('/protected')
 @flask_login.login_required 
@@ -83,11 +84,13 @@ def protected():
     points=get_user_points()
     return render_template('index.html', points=points)
 
+
 #logga ut 
 @FHL.route('/logout')
 def logout():
     flask_login.logout_user()
     return render_template('unauthorized_index.html')
+
 
 #index för icke inloggade
 @login_manager.unauthorized_handler
@@ -219,7 +222,7 @@ def form():
         now = datetime.now()
         todaytime = now.strftime("%H:%M:%S")
         #Username (Change to username = logged in)
-        username = "NA"
+        fhl_user = "NA@gmail.com"
         title = request.form.get("title")
         category = request.form.get("category")
         text = request.form.get("text")
@@ -227,8 +230,8 @@ def form():
         likes = 21 
 
 
-        PostgreSQL_insert = """ INSERT INTO fhl_forum_form (date, datetime, username, title, category, text, likes) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
-        insert_to = (todaydate, todaytime, username, title, category, text, likes)
+        PostgreSQL_insert = """ INSERT INTO fhl_forum_form (date, datetime, fhl_user, title, category, text, likes) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
+        insert_to = (todaydate, todaytime, fhl_user, title, category, text, likes)
         cursor.execute(PostgreSQL_insert, insert_to)
 
         connection.commit()
@@ -299,8 +302,6 @@ def get_form():
         if connection:
             cursor.close()
             connection.close()
-        
-    
 get_form()
 
 @FHL.route('/points')
