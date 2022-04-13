@@ -125,7 +125,7 @@ def guide():
 
 
 #Buy players
-@FHL.route('/köp-spelare/')
+@FHL.route('/köp-spelare/', methods=['GET', 'POST'])
 @flask_login.login_required
 def buy_players():
     points=get_user_points()
