@@ -1,4 +1,3 @@
-from pstats import Stats
 import requests
 import numpy as np 
 import json
@@ -6,6 +5,7 @@ import pandas as pd
 import math
 
 def get():
+    # make input 
     playerid = "8479291"
     seasonid = "20202021"
     team_input = "10"
@@ -47,7 +47,7 @@ def get():
                 points = data['stats'][0]['splits'][0]['stat']['points']
             except:
                 points = 0
-            stats[i] = [playerName, goals, assists, points]
+            stats[i] = [goals, assists, points]
         else:
             stats[i] = [0, 0, 0]
 
