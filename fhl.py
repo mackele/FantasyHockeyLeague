@@ -114,7 +114,7 @@ def registration():
     user=database.registrations(username, mail, f_name, l_name, hash_password)
     print("fhl", user)
     
-    return render_template('login.html')
+    return render_template('index.html')
 
 
 #Guide
