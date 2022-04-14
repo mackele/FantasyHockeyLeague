@@ -1,19 +1,25 @@
 import requests
+import numpy as np 
 import json
+import pandas as pd
+import math
 
 def get():
-    # Enter Team Id and Season Number (ex if season 2020-2021, enter 20202021)
-    team_input = input("Enter a valid team: ")
-    season = "20202021"
+    # make input 
+    playerid = "8479291"
+    seasonid = "20202021"
+    team_input = "10"
 
     # Request
-    url = "https://statsapi.web.nhl.com/api/v1/teams/" + str(team_input) + "?expand=team.roster&season=" + season
+    url = "https://statsapi.web.nhl.com/api/v1/teams/" + str(team_input) + "?expand=team.roster&season=" + seasonid
     response = requests.get(url)
     data = response.json()
 
     data = data['teams'][0]['roster']['roster']
 
     team = {}
+
+    var = []
 
     for i in data:
         playerId = i['person']["id"]
@@ -24,7 +30,7 @@ def get():
 
     for i in team:
         leaf = team[i]
-        r = requests.get('https://statsapi.web.nhl.com/api/v1/people/' + str(leaf) + '/stats?stats=statsSingleSeason&season=' + season)
+        r = requests.get('https://statsapi.web.nhl.com/api/v1/people/' + str(leaf) + '/stats?stats=statsSingleSeason&season=' + seasonid)
         data = json.loads(r.text)
 
         # Checks if there is points or assists, won't include players without points (rookies, goalies, etc)
@@ -45,9 +51,9 @@ def get():
         else:
             stats[i] = [0, 0, 0]
 
-        # "Fine" print of received data 
-        print(json.dumps(stats, indent=1, sort_keys=True))
+        var.append(stats[i])
+
+    print(var)
 
 
-# Run func 
 get()

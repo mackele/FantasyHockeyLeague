@@ -125,11 +125,22 @@ def guide():
 
 
 #Buy players
-@FHL.route('/köp-spelare/')
+@FHL.route('/köp-spelare/', methods=['GET', 'POST'])
 @flask_login.login_required
 def buy_players():
     points=get_user_points()
-    return render_template('buy_players.html', points=points)
+
+    players = get_all_players()
+
+    if request.method == 'POST':
+        player_id = request.form['id']
+        user_id=flask_login.current_user.id
+        #print(player_id)
+        #print(user_id)
+
+        add_purchased_player_to_team(user_id, player_id)
+    
+    return render_template('buy_players.html', points=points, players = players)
 
 
 #My players
@@ -185,10 +196,11 @@ def forum():
     return render_template('forum.html', points=points, fhldata=data)
 
 
-#Forum post for logged in user (Update to search for post where username = logged in username)
+#Forum post for logged in user 
 @FHL.route('/forum/test/')
 def form_username():
-    cursor.execute(f"""select * from fhl_forum_form where username = 'Lukas';""")
+    #(Update to search for post where username = logged in username)
+    cursor.execute(f"""select * from fhl_forum_form where fhl_user = 'NA@gmail.com';""")
     data = cursor.fetchall()
     return render_template('forum.html', fhldata=data)
 
