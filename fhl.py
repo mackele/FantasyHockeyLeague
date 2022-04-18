@@ -16,28 +16,6 @@ from database import *
 FHL = Flask(__name__)
 
 
-#SQL connect (Create function)
-def fhl_database_connect():
-    """
-    Function allows user to connect to database
-    """ 
-
-
-#SQL disconnect (Create function)
-def fhl_database_disconnect():
-    """
-    Function allows user to disconnect from database
-    """
-
-#SQL-SELECT connect to route (Change)
-connection = psycopg2.connect(user="grupp2_onlinestore", 
-password="n8siil4c",
-host="pgserver.mau.se",
-port="5432",
-database="grupp2_onlinestore")
-cursor = connection.cursor()
-
-
 #Index 
 @FHL.route('/')
 @flask_login.login_required
@@ -191,18 +169,16 @@ def top_scorer():
 @FHL.route('/forum/')
 def forum():
     points=get_user_points()
-    cursor.execute("""select * from fhl_forum_form""")
-    data = cursor.fetchall()
-    return render_template('forum.html', points=points, fhldata=data)
+    fhldata=get_forum()
+    return render_template('forum.html', points=points, fhldata=fhldata)
 
 
 #Forum post for logged in user 
 @FHL.route('/forum/test/')
-def form_username():
-    #(Update to search for post where username = logged in username)
-    cursor.execute(f"""select * from fhl_forum_form where fhl_user = 'NA@gmail.com';""")
-    data = cursor.fetchall()
-    return render_template('forum.html', fhldata=data)
+def forum_username():
+    points=get_user_points()
+    fhluserdata = get_forum_username()
+    return render_template('forum.html', points=points, fhluserdata=fhluserdata)
 
 #Forum posts
 @FHL.route('/inlägg/')
@@ -219,57 +195,9 @@ def form():
     Function inserts post to database
     """
     points=get_user_points()
-    #Connect to FHL Database
-    try: 
-        connection = psycopg2.connect(user="grupp2_onlinestore", 
-        password="n8siil4c",
-        host="pgserver.mau.se",
-        port="5432",
-        database="grupp2_onlinestore")
-        cursor = connection.cursor()
-        
-
-        #Need to add .get in order to function as variable and INSERT to database
-        todaydate = date.today()
-        now = datetime.now()
-        todaytime = now.strftime("%H:%M:%S")
-        #Username (Change to username = logged in)
-        fhl_user = "NA@gmail.com"
-        title = request.form.get("title")
-        category = request.form.get("category")
-        text = request.form.get("text")
-        #Static for now, a Could for later! (Change)
-        likes = 21 
-
-
-        PostgreSQL_insert = """ INSERT INTO fhl_forum_form (date, datetime, fhl_user, title, category, text, likes) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
-        insert_to = (todaydate, todaytime, fhl_user, title, category, text, likes)
-        cursor.execute(PostgreSQL_insert, insert_to)
-
-        connection.commit()
-        count = cursor.rowcount
-
-
-    except (Exception, Error) as error:
-        print("Error while connectin to FHL Database", error)
-        
-
-    #Close connection to FHL Database
-    finally:
-        if connection:
-            cursor.close()
-            connection.close()
-            
-            #Redirect
-            connection = psycopg2.connect(user="grupp2_onlinestore", 
-            password="n8siil4c",
-            host="pgserver.mau.se",
-            port="5432",
-            database="grupp2_onlinestore")
-            cursor = connection.cursor()
-            cursor.execute("""select * from fhl_forum_form""")
-            data = cursor.fetchall()
-            return render_template('forum.html', points=points, fhldata=data)
+    post = post_forum()
+    fhldata = post_forum_redirect()
+    return render_template('forum.html', points=points, post=post, fhldata=fhldata)
 
 
 #Form posts categorized (Not working)
@@ -314,7 +242,7 @@ def get_form():
         if connection:
             cursor.close()
             connection.close()
-get_form()
+#get_form()
 
 @FHL.route('/points')
 @flask_login.login_required

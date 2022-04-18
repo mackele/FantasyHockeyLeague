@@ -3,6 +3,7 @@ import sys
 from datetime import date
 from datetime import datetime
 from connect import Postgres
+from flask import Flask, render_template, redirect, url_for, request, redirect
 
 
 def get_all_players():
@@ -58,7 +59,6 @@ def login(mail, password):
     
     return user
 
-
 def get_user(mail):
     with Postgres() as (cursor, conn):
         cursor.execute("""select mail
@@ -113,3 +113,71 @@ def get_points(user_id):
     return point
         
     return point
+
+def post_forum():
+    """
+    Function inserts post to database
+    """
+    with Postgres() as (cursor, conn):
+        with Postgres() as (cursor, conn):
+            #Need to add .get in order to function as variable and INSERT to database
+            todaydate = date.today()
+            now = datetime.now()
+            todaytime = now.strftime("%H:%M:%S")
+            #Username (Change to username = logged in)
+            fhl_user = "NA@gmail.com"
+            title = request.form.get("title")
+            category = request.form.get("category")
+            text = request.form.get("text")
+            #Static for now, a Could for later! (Change)
+            likes = 21 
+
+
+            PostgreSQL_insert = """ INSERT INTO fhl_forum_form (date, datetime, fhl_user, title, category, text, likes) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
+            insert_to = (todaydate, todaytime, fhl_user, title, category, text, likes)
+            cursor.execute(PostgreSQL_insert, insert_to)
+
+            conn.commit()
+            count = cursor.rowcount
+
+            cursor.close()
+            conn.close()
+
+def post_forum_redirect():
+    """
+    Function redirects user after saving post
+    """
+    with Postgres() as (cursor, conn):
+        cursor.execute("""select * from fhl_forum_form""")
+        data = cursor.fetchall()
+        fhldata = data
+        return fhldata
+
+def get_forum():
+    """
+    Function retrieves all form data
+    Used to display forum posts
+    """
+    with Postgres() as (cursor, conn):
+        with Postgres() as (cursor, conn):
+            cursor.execute("""select * from fhl_forum_form""")
+            data = cursor.fetchall()
+            fhldata=data
+    return fhldata
+    return fhldata
+
+def get_forum_username(user_id):
+    """
+    Function retrieves all form data posted by the logged in user
+    Used to display forum posts
+    """
+    with Postgres() as (cursor, conn):
+        with Postgres() as (cursor, conn):
+            user_id = user_id
+            #(Update to search for post where username = logged in username) 
+            # (user_id=flask_login.current_user.id)???
+            cursor.execute(f"""select * from fhl_forum_form where mail={user_id}""")
+            data = cursor.fetchall()
+            fhluserdata = data
+    return fhluserdata
+    return fhluserdata
