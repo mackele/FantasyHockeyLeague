@@ -173,10 +173,9 @@ def get_forum_username(user_id):
     """
     with Postgres() as (cursor, conn):
         with Postgres() as (cursor, conn):
-            user_id = user_id
             #(Update to search for post where username = logged in username) 
             # (user_id=flask_login.current_user.id)???
-            cursor.execute(f"""select * from fhl_forum_form where mail={user_id}""")
+            cursor.execute(f"""select * from fhl_forum_form where fhl_user='{user_id}'""")
             data = cursor.fetchall()
             fhluserdata = data
     return fhluserdata

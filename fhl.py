@@ -167,6 +167,7 @@ def top_scorer():
 
 #Forum
 @FHL.route('/forum/')
+@flask_login.login_required
 def forum():
     points=get_user_points()
     fhldata=get_forum()
@@ -175,10 +176,13 @@ def forum():
 
 #Forum post for logged in user 
 @FHL.route('/forum/test/')
+@flask_login.login_required
 def forum_username():
     points=get_user_points()
-    fhluserdata = get_forum_username()
+    user_id=flask_login.current_user.id
+    fhluserdata = get_forum_username(user_id)
     return render_template('forum.html', points=points, fhluserdata=fhluserdata)
+
 
 #Forum posts
 @FHL.route('/inlägg/')
