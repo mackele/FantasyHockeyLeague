@@ -150,7 +150,10 @@ def my_players():
     den inloggade användarens mail sparas i denna: current_user.id. denna används för att ta ut saker ur databasen.
     """
     points=get_user_points()
-    return render_template('my_players.html', points=points)
+    user_id=flask_login.current_user.id
+    players = get_users_players(user_id)
+    
+    return render_template('my_players.html', points=points, players = players)
 
 
 #Game

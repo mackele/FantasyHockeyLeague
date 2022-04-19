@@ -48,6 +48,45 @@ def get_all_players():
 
         return players
 
+def get_users_players(user_id):
+
+    with Postgres() as (cursor, conn):
+        cursor.execute ("""select * from fhl_players 
+            as f join fhl_my_players as m on f.id = m.player 
+                where m.fhl_user = %s""", (user_id,))
+        info=cursor.fetchall()
+
+        players = []
+
+        for list in info:
+            id = list[0]
+            f_name = list[1]
+            l_name = list[2]
+            team = list[3]
+            position = list[4]
+            goal = list[5]
+            penalty_time = list[6]
+            assists = list[7]
+            description = list[8]
+            image = list[9]
+            price = list[10]
+
+            players.append({
+                "id": id,
+                "f_name": f_name,
+                "l_name": l_name,
+                "team": team,
+                "position": position,
+                "goal": goal,
+                "penalty_time": penalty_time,
+                "assists": assists,
+                "description": description,
+                "image": image,
+                "price": price
+            })
+
+        return players
+
 def login(mail, password):
     with Postgres() as (cursor, conn):
         cursor.execute ( """select mail, password
