@@ -113,8 +113,6 @@ def buy_players():
     if request.method == 'POST':
         player_id = request.form['id']
         user_id=flask_login.current_user.id
-        #print(player_id)
-        #print(user_id)
 
         add_purchased_player_to_team(user_id, player_id)
     

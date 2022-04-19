@@ -21,16 +21,16 @@ def get_all_players():
         players = []
 
         for list in info:
-            id = list[0],
-            f_name = list[1],
-            l_name = list[2],
-            team = list[3],
-            position = list[4],
-            goal = list[5],
-            penalty_time = list[6],
-            assists = list[7],
-            description = list[8],
-            image = list[9],
+            id = list[0]
+            f_name = list[1]
+            l_name = list[2]
+            team = list[3]
+            position = list[4]
+            goal = list[5]
+            penalty_time = list[6]
+            assists = list[7]
+            description = list[8]
+            image = list[9]
             price = list[10]
 
             players.append({
@@ -72,17 +72,15 @@ def get_user(mail):
 def add_purchased_player_to_team(user_id, player_id):
     with Postgres() as (cursor, conn): 
 
-        id = user_id  
-        
-        user_name = cursor.execute("""select user_name from fhl_user where mail='{{user_id}}'""")
+        cursor.execute("""select * from fhl_my_players""")
+        user = cursor.fetchall()
 
-        print(user_name)
-        
-        ##join fhl_my_players on fhl_user.user_name = fhl_my_players.fhl_user;""")
+        postgreSQL_insert = """ insert into fhl_my_players (fhl_user, player) values(%s, %s)"""
+        insert_to = (user_id, player_id)
 
-        #user = cursor.fetchall()
+        cursor.execute(postgreSQL_insert, insert_to)
 
-        #postgreSQL_insert = ("""insert into fhl_my_players(fhl_user, player_id) values (%s, %s)""")
+        conn.commit()
         
 def registrations(username, mail, f_name, l_name, password):
     with Postgres() as (cursor, conn):
