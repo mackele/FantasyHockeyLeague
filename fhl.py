@@ -114,7 +114,7 @@ def registration():
     user=database.registrations(username, mail, f_name, l_name, hash_password)
     print("fhl", user)
     
-    return render_template('login.html')
+    return render_template('index.html')
 
 
 #Guide
@@ -135,10 +135,8 @@ def buy_players():
     if request.method == 'POST':
         player_id = request.form['id']
         user_id=flask_login.current_user.id
-        print(player_id)
-        print(user_id)
 
-        #add_purchased_player_to_team(user_id, player_id)
+        add_purchased_player_to_team(user_id, player_id)
     
     return render_template('buy_players.html', points=points, players = players)
 
