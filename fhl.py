@@ -71,6 +71,7 @@ def login():
 
 class User (flask_login.UserMixin):
     pass
+
 @login_manager.user_loader
 def user_loader(mail):
     user = User()
@@ -113,6 +114,8 @@ def registration():
 
     user=database.registrations(username, mail, f_name, l_name, hash_password)
     print("fhl", user)
+
+    # Skapa if return beroende på output
     
     return render_template('index.html')
 
@@ -125,22 +128,11 @@ def guide():
 
 
 #Buy players
-@FHL.route('/köp-spelare/', methods=['GET', 'POST'])
+@FHL.route('/köp-spelare/')
 @flask_login.login_required
 def buy_players():
     points=get_user_points()
-
-    players = get_all_players()
-
-    if request.method == 'POST':
-        player_id = request.form['id']
-        user_id=flask_login.current_user.id
-        #print(player_id)
-        #print(user_id)
-
-        add_purchased_player_to_team(user_id, player_id)
-    
-    return render_template('buy_players.html', points=points, players = players)
+    return render_template('buy_players.html', points=points)
 
 
 #My players
@@ -196,11 +188,10 @@ def forum():
     return render_template('forum.html', points=points, fhldata=data)
 
 
-#Forum post for logged in user 
+#Forum post for logged in user (Update to search for post where username = logged in username)
 @FHL.route('/forum/test/')
 def form_username():
-    #(Update to search for post where username = logged in username)
-    cursor.execute(f"""select * from fhl_forum_form where fhl_user = 'NA@gmail.com';""")
+    cursor.execute(f"""select * from fhl_forum_form where username = 'Lukas';""")
     data = cursor.fetchall()
     return render_template('forum.html', fhldata=data)
 
