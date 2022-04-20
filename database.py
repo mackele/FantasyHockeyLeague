@@ -213,7 +213,11 @@ def get_forum_username(user_id):
     """
     with Postgres() as (cursor, conn):
         with Postgres() as (cursor, conn):
-            cursor.execute(f"""select * from fhl_forum_form where fhl_user='{user_id}'""")
+            cursor.execute(f"""select date, datetime, article_id, fhl_user, title, category, text, likes, username 
+                            from fhl_forum_form
+                            join fhl_user
+                            on fhl_forum_form.fhl_user = fhl_user.mail
+                            where fhl_user = '{user_id}'""")
             fhluserdata = cursor.fetchall()
 
     return fhluserdata
