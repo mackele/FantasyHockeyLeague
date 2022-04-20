@@ -27,8 +27,6 @@ def index():
 FHL.secret_key='hej' #ändra senare!
 login_manager=flask_login.LoginManager()
 login_manager.init_app (FHL)
-
-
 @FHL.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
@@ -46,7 +44,6 @@ def login():
         return redirect(url_for('protected'))
     return 'Bad login'
 
-
 class User (flask_login.UserMixin):
     pass
 @login_manager.user_loader
@@ -56,6 +53,7 @@ def user_loader(mail):
     return user
 
 
+#Index
 @FHL.route('/protected')
 @flask_login.login_required 
 def protected():
@@ -63,7 +61,7 @@ def protected():
     return render_template('index.html', points=points)
 
 
-#logga ut 
+#Sign out
 @FHL.route('/logout')
 def logout():
     flask_login.logout_user()
@@ -76,7 +74,7 @@ def unauthorized_handler():
     return render_template('unauthorized_index.html')
 
 
-# registration
+#Registration
 @FHL.route('/registration', methods=['GET','POST'])
 def registration():
     if request.method == 'GET':
@@ -175,7 +173,7 @@ def forum():
     return render_template('forum.html', points=points, fhldata=fhldata)
 
 
-#Forum post for logged in user 
+#Forum posts created by logged in user
 @FHL.route('/forum/test/')
 @flask_login.login_required
 def forum_username():
@@ -185,7 +183,7 @@ def forum_username():
     return render_template('forum.html', points=points, fhluserdata=fhluserdata)
 
 
-#Forum posts
+#Forum form for creating new post
 @FHL.route('/inlägg/')
 @flask_login.login_required
 def write_post():
@@ -201,11 +199,13 @@ def form():
     Function inserts post to database
     """
     points=get_user_points()
-    post = post_forum()
+    #current user_id sends to function post_forum
+    user_id=flask_login.current_user.id
+    post = post_forum(user_id)
     fhldata = post_forum_redirect()
     return render_template('forum.html', points=points, post=post, fhldata=fhldata)
 
-
+#Logged in users points
 @FHL.route('/points')
 @flask_login.login_required
 def get_user_points():

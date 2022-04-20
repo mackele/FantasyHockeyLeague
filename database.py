@@ -151,7 +151,7 @@ def get_points(user_id):
         
     return point
 
-def post_forum():
+def post_forum(user_id):
     """
     Function inserts post to database
     """
@@ -161,14 +161,13 @@ def post_forum():
             todaydate = date.today()
             now = datetime.now()
             todaytime = now.strftime("%H:%M:%S")
-            #Username (Change to username = logged in)
-            fhl_user = 'lasse@gmail.com'
+            #Logged in user_id (user_id)
+            fhl_user = user_id
             title = request.form.get("title")
             category = request.form.get("category")
             text = request.form.get("text")
             #Static for now, a Could for later! (Change)
             likes = 21 
-
 
             PostgreSQL_insert = """ INSERT INTO fhl_forum_form (date, datetime, fhl_user, title, category, text, likes) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
             insert_to = (todaydate, todaytime, fhl_user, title, category, text, likes)
