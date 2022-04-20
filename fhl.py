@@ -190,6 +190,7 @@ def forum_username():
 @flask_login.login_required
 def write_post():
     points=get_user_points()
+    #user_id=flask_login.current_user.id? 
     return render_template('write_post.html', points=points)
 
 
