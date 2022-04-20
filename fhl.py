@@ -174,7 +174,7 @@ def forum():
 
 
 #Forum posts created by logged in user
-@FHL.route('/forum/test/')
+@FHL.route('/forum/mina/inlägg/')
 @flask_login.login_required
 def forum_username():
     points=get_user_points()
@@ -204,6 +204,7 @@ def form():
     post = post_forum(user_id)
     fhldata = post_forum_redirect()
     return render_template('forum.html', points=points, post=post, fhldata=fhldata)
+
 
 #Logged in users points
 @FHL.route('/points')
