@@ -185,7 +185,10 @@ def post_forum_redirect():
     Function redirects user after saving post
     """
     with Postgres() as (cursor, conn):
-        cursor.execute("""select * from fhl_forum_form""")
+        cursor.execute("""select date, datetime, article_id, fhl_user, title, category, text, likes, username 
+                            from fhl_forum_form
+                            join fhl_user
+                            on fhl_forum_form.fhl_user = fhl_user.mail""")
         data = cursor.fetchall()
         fhldata = data
         return fhldata
