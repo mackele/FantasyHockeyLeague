@@ -104,6 +104,15 @@ def guide():
 @FHL.route('/köp-spelare/', methods=['GET', 'POST'])
 @flask_login.login_required
 def buy_players():
+    '''
+    Funktion som först hämtar hur mycket poäng användaren har genon get_user_points() som finns i
+    database.py och sedan hämtar alla spelare som finns genom get_all_players() som också finns i 
+    database.py
+
+    När användaren sedan klickar på köp i html filen buy_players skickas ett formulär tillbaka
+    med id för den spelare som ska köpas. Sedan i funktionen add_purchased_player_to_team()
+    skickas spelaren och användarens id med och läggs sedan till i databasen
+    '''
     points=get_user_points()
 
     players = get_all_players()
@@ -123,7 +132,9 @@ def buy_players():
 def my_players():
 
     """
-    den inloggade användarens mail sparas i denna: current_user.id. denna används för att ta ut saker ur databasen.
+    Den inloggade användarens mail sparas i denna: current_user.id. denna används för att ta ut saker ur databasen.
+    Hämtar poäng och sedan vilka spelare som användaren har genom get_users_players() med användarens mail som 
+    parameter.
     """
     points=get_user_points()
     user_id=flask_login.current_user.id
