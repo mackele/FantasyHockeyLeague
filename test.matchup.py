@@ -1,12 +1,12 @@
 import requests
-import numpy as np 
+#import numpy as np 
 import json
-import pandas as pd
+#import pandas as pd
 import math
 
 def get():
     # make input 
-    playerid = "8479291"
+    #playerid = "8479291"
     seasonid = "20202021"
     team_input = "10"
 
