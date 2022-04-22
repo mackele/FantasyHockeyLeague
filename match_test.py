@@ -46,10 +46,6 @@ def get_data_for_rangers():
         url = "https://statsapi.web.nhl.com/api/v1/people/8476458"
         request(url)
 
-    elif team_input == "Mika Zibanejad":
-        url = "https://statsapi.web.nhl.com/api/v1/people/8476459"
-        request(url)
-
     elif team_input == "Barclay Goodrow":
         url = "https://statsapi.web.nhl.com/api/v1/people/8476624"
         request(url)
@@ -122,6 +118,11 @@ def get_data_for_rangers():
         url = "https://statsapi.web.nhl.com/api/v1/people/8482109"
         request(url)
 
+    elif team_input == "Mika Zibanejad":
+        url = "https://statsapi.web.nhl.com/api/v1/people/8476459/stats?stats=statsSingleSeason&season=20202021"
+        url1 = "https://statsapi.web.nhl.com/api/v1/people/8476459"
+        request(url)
+        request(url1)
     else:
         print("Player does not exist")
 

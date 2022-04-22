@@ -1,3 +1,4 @@
+from turtle import position
 import requests
 import json
 
@@ -48,6 +49,7 @@ def get():
         else:
             stats[i] = [0, 0, 0]
 
+
     for key, value in stats.items():
         name = key
         goals = value[0]
@@ -61,11 +63,9 @@ def get():
             "points": points
         })
 
-    print(players)
-
-            
-            
+        print(players)
 
 # Run func 
 get()
+
 
