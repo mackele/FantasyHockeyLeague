@@ -5,6 +5,7 @@ def get():
     # Enter Team Id and Season Number (ex if season 2020-2021, enter 20202021)
     team_input = input("Enter a valid team: ")
     season = "20202021"
+    
 
     # Request
     url = "https://statsapi.web.nhl.com/api/v1/teams/" + str(team_input) + "?expand=team.roster&season=" + season
@@ -20,7 +21,9 @@ def get():
         playerName = i['person']['fullName']
         team[playerName] = playerId
 
-    stats = {"Name": ["Goals", "Assists", "Points"]}
+    stats = {}
+
+    players = []
 
     for i in team:
         leaf = team[i]
@@ -45,9 +48,24 @@ def get():
         else:
             stats[i] = [0, 0, 0]
 
-        # "Fine" print of received data 
-        print(json.dumps(stats, indent=1, sort_keys=True))
+    for key, value in stats.items():
+        name = key
+        goals = value[0]
+        assists = value[1]
+        points = value[2]
 
+        players.append({
+            "name": name,
+            "goals": goals,
+            "assists": assists,
+            "points": points
+        })
+
+    print(players)
+
+            
+            
 
 # Run func 
 get()
+

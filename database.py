@@ -151,7 +151,7 @@ def get_points(user_id):
         
     return point
 
-def post_forum():
+def post_forum(user_id):
     """
     Function inserts post to database
     """
@@ -161,14 +161,13 @@ def post_forum():
             todaydate = date.today()
             now = datetime.now()
             todaytime = now.strftime("%H:%M:%S")
-            #Username (Change to username = logged in)
-            fhl_user = "NA@gmail.com"
+            #Logged in user_id (user_id)
+            fhl_user = user_id
             title = request.form.get("title")
             category = request.form.get("category")
             text = request.form.get("text")
             #Static for now, a Could for later! (Change)
             likes = 21 
-
 
             PostgreSQL_insert = """ INSERT INTO fhl_forum_form (date, datetime, fhl_user, title, category, text, likes) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
             insert_to = (todaydate, todaytime, fhl_user, title, category, text, likes)
@@ -185,7 +184,10 @@ def post_forum_redirect():
     Function redirects user after saving post
     """
     with Postgres() as (cursor, conn):
-        cursor.execute("""select * from fhl_forum_form""")
+        cursor.execute("""select date, datetime, article_id, fhl_user, title, category, text, likes, username 
+                            from fhl_forum_form
+                            join fhl_user
+                            on fhl_forum_form.fhl_user = fhl_user.mail""")
         data = cursor.fetchall()
         fhldata = data
         return fhldata
@@ -197,7 +199,10 @@ def get_forum():
     """
     with Postgres() as (cursor, conn):
         with Postgres() as (cursor, conn):
-            cursor.execute("""select * from fhl_forum_form""")
+            cursor.execute("""select date, datetime, article_id, fhl_user, title, category, text, likes, username 
+                            from fhl_forum_form
+                            join fhl_user
+                            on fhl_forum_form.fhl_user = fhl_user.mail""")
             data = cursor.fetchall()
             fhldata=data
     return fhldata
@@ -210,10 +215,56 @@ def get_forum_username(user_id):
     """
     with Postgres() as (cursor, conn):
         with Postgres() as (cursor, conn):
-            #(Update to search for post where username = logged in username) 
-            # (user_id=flask_login.current_user.id)???
-            cursor.execute(f"""select * from fhl_forum_form where fhl_user='{user_id}'""")
-            data = cursor.fetchall()
-            fhluserdata = data
+            cursor.execute(f"""select date, datetime, article_id, fhl_user, title, category, text, likes, username 
+                            from fhl_forum_form
+                            join fhl_user
+                            on fhl_forum_form.fhl_user = fhl_user.mail
+                            where fhl_user = '{user_id}'""")
+            fhluserdata = cursor.fetchall()
+
     return fhluserdata
     return fhluserdata
+
+#Form posts categorized (Not working)
+#@FHL.route('/category', methods=['POST','GET'])
+def get_form():
+    """
+    Function displays posts in selected category 
+    """
+
+    #Connect to FHL Database
+    try: 
+        connection = psycopg2.connect(user="grupp2_onlinestore", 
+        password="n8siil4c",
+        host="pgserver.mau.se",
+        port="5432",
+        database="grupp2_onlinestore")
+        cursor = connection.cursor()
+        
+        #User select  
+        category = 'player'
+        #request.get.category('category')
+        #cursor.execute (f""" SELECT * from fhl_forum_form where category = '{category}'; """)
+        #data = cursor.fetchall()
+        #return render_template('forum.html', fhldata=data)
+        
+
+        cursor.execute (f""" SELECT * from fhl_forum_form where category = '{category}'; """)
+        fhldata = cursor.fetchall()
+
+        for data in fhldata:
+            print("{:<25}{:<25}{:<25}{:<25}{:<25}{:<25}".format(data[0], data[1], data[3], data[4],  data[5], data[6]))
+        print("-"*150)
+        cursor.close()
+
+
+    except (Exception, Error) as error:
+        print("Error while connectin to FHL Database", error)
+        
+
+    #Close connection to FHL Database
+    finally:
+        if connection:
+            cursor.close()
+            connection.close()
+#get_form()

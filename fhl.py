@@ -27,8 +27,6 @@ def index():
 FHL.secret_key='hej' #ändra senare!
 login_manager=flask_login.LoginManager()
 login_manager.init_app (FHL)
-
-
 @FHL.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
@@ -46,7 +44,6 @@ def login():
         return redirect(url_for('protected'))
     return 'Bad login'
 
-
 class User (flask_login.UserMixin):
     pass
 
@@ -57,6 +54,7 @@ def user_loader(mail):
     return user
 
 
+#Index
 @FHL.route('/protected')
 @flask_login.login_required 
 def protected():
@@ -64,7 +62,7 @@ def protected():
     return render_template('index.html', points=points)
 
 
-#logga ut 
+#Sign out
 @FHL.route('/logout')
 def logout():
     flask_login.logout_user()
@@ -77,7 +75,7 @@ def unauthorized_handler():
     return render_template('unauthorized_index.html')
 
 
-# registration
+#Registration
 @FHL.route('/registration', methods=['GET','POST'])
 def registration():
     if request.method == 'GET':
@@ -109,6 +107,15 @@ def guide():
 @FHL.route('/köp-spelare/')
 @flask_login.login_required
 def buy_players():
+    '''
+    Funktion som först hämtar hur mycket poäng användaren har genon get_user_points() som finns i
+    database.py och sedan hämtar alla spelare som finns genom get_all_players() som också finns i 
+    database.py
+
+    När användaren sedan klickar på köp i html filen buy_players skickas ett formulär tillbaka
+    med id för den spelare som ska köpas. Sedan i funktionen add_purchased_player_to_team()
+    skickas spelaren och användarens id med och läggs sedan till i databasen
+    '''
     points=get_user_points()
 
     players = get_all_players()
@@ -128,7 +135,9 @@ def buy_players():
 def my_players():
 
     """
-    den inloggade användarens mail sparas i denna: current_user.id. denna används för att ta ut saker ur databasen.
+    Den inloggade användarens mail sparas i denna: current_user.id. denna används för att ta ut saker ur databasen.
+    Hämtar poäng och sedan vilka spelare som användaren har genom get_users_players() med användarens mail som 
+    parameter.
     """
     points=get_user_points()
     user_id=flask_login.current_user.id
@@ -185,6 +194,8 @@ def form_username():
     data = cursor.fetchall()
     return render_template('forum.html', fhldata=data)
     
+#Forum posts created by logged in user
+@FHL.route('/forum/mina/inlägg/')
 @flask_login.login_required
 def forum_username():
     points=get_user_points()
@@ -193,11 +204,12 @@ def forum_username():
     return render_template('forum.html', points=points, fhluserdata=fhluserdata)
 
 
-#Forum posts
+#Forum form for creating new post
 @FHL.route('/inlägg/')
 @flask_login.login_required
 def write_post():
     points=get_user_points()
+    #user_id=flask_login.current_user.id? 
     return render_template('write_post.html', points=points)
 
 
@@ -208,55 +220,14 @@ def form():
     Function inserts post to database
     """
     points=get_user_points()
-    post = post_forum()
+    #current user_id sends to function post_forum
+    user_id=flask_login.current_user.id
+    post = post_forum(user_id)
     fhldata = post_forum_redirect()
     return render_template('forum.html', points=points, post=post, fhldata=fhldata)
 
 
-#Form posts categorized (Not working)
-@FHL.route('/category', methods=['POST','GET'])
-def get_form():
-    """
-    Function displays posts in selected category 
-    """
-
-    #Connect to FHL Database
-    try: 
-        connection = psycopg2.connect(user="grupp2_onlinestore", 
-        password="n8siil4c",
-        host="pgserver.mau.se",
-        port="5432",
-        database="grupp2_onlinestore")
-        cursor = connection.cursor()
-        
-        #User select  
-        category = 'player'
-        #request.get.category('category')
-        #cursor.execute (f""" SELECT * from fhl_forum_form where category = '{category}'; """)
-        #data = cursor.fetchall()
-        #return render_template('forum.html', fhldata=data)
-        
-
-        cursor.execute (f""" SELECT * from fhl_forum_form where category = '{category}'; """)
-        fhldata = cursor.fetchall()
-
-        for data in fhldata:
-            print("{:<25}{:<25}{:<25}{:<25}{:<25}{:<25}".format(data[0], data[1], data[3], data[4],  data[5], data[6]))
-        print("-"*150)
-        cursor.close()
-
-
-    except (Exception, Error) as error:
-        print("Error while connectin to FHL Database", error)
-        
-
-    #Close connection to FHL Database
-    finally:
-        if connection:
-            cursor.close()
-            connection.close()
-#get_form()
-
+#Logged in users points
 @FHL.route('/points')
 @flask_login.login_required
 def get_user_points():
