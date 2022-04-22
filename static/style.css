@@ -648,7 +648,8 @@ margin:0;
 }
 .FHLcategory {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+    padding:10px;
     box-sizing: border-box;
     font-size: 12px;
 }

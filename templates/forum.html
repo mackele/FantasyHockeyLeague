@@ -80,12 +80,11 @@
             <!--Header-->
             <h2 id="forumtitle">Forum</h2>
 
-            <article  class="foldable" id="forumcategory">
+            <article class="FHLcategory" >
                 <header>
                     <!--Category, access the choice through Python-->
-                    <form action="/category" method="post" id="category" name="category">
-                    <label for="category">Välj kategori</label>
-                    <p><i class="arrow down"></i></p>
+                    <form action="/category" method="post" name="category">
+                    <label for="category">Filtrera:</label>
                 </header>
                     <select id="category" name="category">
                         <option name="category" value="player">Spelare</option>

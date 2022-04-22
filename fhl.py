@@ -1,9 +1,5 @@
 #Imported modules 
-from audioop import reverse
-from operator import truediv
 from flask import Flask, render_template, redirect, url_for, request, redirect
-import psycopg2
-from psycopg2 import Error
 from datetime import date
 from datetime import datetime
 import database
@@ -232,8 +228,6 @@ def form():
 @flask_login.login_required
 def get_user_points():
     user_id=flask_login.current_user.id
-    
-    print("hejpådig", user_id)
     points=database.get_points(user_id)
     
     for i in points:
