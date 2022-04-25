@@ -4,6 +4,7 @@ pip install:
 flask
 flask_login
 request
+psycopg2
 
 
 Filer:
