@@ -8,6 +8,7 @@ psycopg2
 
 
 Filer:
+Huvudfilen/main filer är FHL.py 
 Alla html filer är relevanta att kolla.
 Css är relevant att kolla.
 JavaScript filen är relevant att kolla på.
