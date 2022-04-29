@@ -72,8 +72,8 @@ def get_all_players():
 
     #Funktioner som lägger till målvakter respektive spelare, bara att köra de enskilt för att mata in i databasen
     
-    add_goalie_to_database(goalies)  
-    add_player_to_database(players)         
+    #add_goalie_to_database(goalies)  
+    #add_player_to_database(players)         
              
 get_all_players()
 
