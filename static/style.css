@@ -277,6 +277,7 @@ footer p {
 }
 .bottom_row {
     display: flex;
+    justify-content: space-around;
     flex-wrap: wrap;
     margin:20px;
     
@@ -307,10 +308,23 @@ tr:nth-child(even) {
 }
 
 
-#match_table, #hockey_score_table, #highscore_table {
+#highscore_table {
     padding:10px;
     margin: auto;
     text-align: center;  
+}
+#hockey_score_table, #match_table {
+    padding:10px;
+    text-align: center; 
+}
+
+#match_table{
+    padding-top: 44px ;
+}
+
+
+.team_loggo {
+    width: 50px;
 }
 
 /* css till my_players*/

@@ -8,6 +8,7 @@ import hashlib
 from database import *
 
 
+
 #Application 
 FHL = Flask(__name__)
 
@@ -16,7 +17,8 @@ FHL = Flask(__name__)
 @FHL.route('/')
 @flask_login.login_required
 def index():
-    return render_template('unauthorized_index.html')
+    team_rank=database.get_team_rank()
+    return render_template('index.html', team_rank=team_rank)
 
 
 #Sign in
@@ -68,7 +70,8 @@ def logout():
 #index för icke inloggade
 @login_manager.unauthorized_handler
 def unauthorized_handler():
-    return render_template('unauthorized_index.html')
+    team_rank=database.get_team_rank()
+    return render_template('unauthorized_index.html', team_rank=team_rank)
 
 
 #Registration

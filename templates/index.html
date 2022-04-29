@@ -264,6 +264,7 @@
     
             </div>
             <div id="hockey_score_table">
+                <h5>National Hockey League</h5>
                 <h3>Lagresultat</h3>
                 <table>
                     <tr>
@@ -271,153 +272,27 @@
                         <th></th>
                         <th></th>
                         <th>GP</th>
-                        <th>G</th>
-                        <th>GA</th>
-                        <th>+/-</th>
+                        <th>W</th>
+                        <th>L</th>
+                        <th>OT</th>
                         <th>Poäng</th>
                     </tr>
+                    
+                    {%for team in team_rank %}
                     <tr>
-                        <td>1.</td>
-                        <td> <!--lagbild--> </td>
-                        <td>Rögle</td>
-                        <td>51</td>
-                        <td>152</td>
-                        <td>129</td>
-                        <td>23</td>
-                        <td class="bold">97</td>
+                        <td>{{loop.index0 + 1}}.</td>
+                        <td class="team_loggo">
+                            <img alt="team loggo" src="{{team[1]}}">
+                        </td>
+                        <td>{{team[0]}}</td>
+                        <td>{{team[2]}}</td>
+                        <td>{{team[3]}}</td>
+                        <td>{{team[4]}}</td>
+                        <td>{{team[5]}}</td>
+                        <td class="bold">{{team[6]}}</td> 
                     </tr>
-                    <tr>
-                        <td>2.</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="bold"></td>
-                    </tr>
-                    <tr>
-                        <td>3.</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="bold"></td>
-                    </tr>
-                    <tr>
-                        <td>4.</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="bold"></td>
-                    </tr>
-                    <tr>
-                        <td>5.</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="bold"></td>
-                    </tr>
-                    <tr class="divide">
-                        <td>6.</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="bold"></td>
-                    </tr>
-                    <tr>
-                        <td>7.</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="bold"></td>
-                    </tr>
-                    <tr>
-                        <td>8.</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="bold"></td>
-                    </tr>
-                    <tr>
-                        <td>9.</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="bold"></td>
-                    </tr>
-                    <tr class="divide">
-                        <td>10.</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="bold"></td>
-                    </tr>
-                    <tr>
-                        <td>11.</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="bold"></td>
-                    </tr>
-                    <tr class="divide">
-                        <td>12.</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="bold"></td>
-                    </tr>
-                    <tr>
-                        <td>13.</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="bold"></td>
-                    </tr>
-                    <tr>
-                        <td>14.</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="bold"></td>
-                    </tr>
+                    {% endfor %}
                 </table>
-    
             </div>
         </div>
     </div>

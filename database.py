@@ -140,16 +140,36 @@ def registrations(username, mail, f_name, l_name, password):
 
 def get_points(user_id):
     with Postgres() as (cursor, conn):
-        with Postgres() as (cursor, conn):
-            cursor.execute("""select points
-                                from fhl_user
-                                    where mail=%s""",
-                                    (user_id,))
-            point = cursor.fetchall()
+        cursor.execute("""select points
+                            from fhl_user
+                                where mail=%s""",
+                                (user_id,))
+        point = cursor.fetchall()
     
     return point
         
-    return point
+def insert_team_rank(all_teams):
+    
+    with Postgres() as (cursor, conn):
+        for team in all_teams:
+            postgreSQL_insert = (""" insert into fhl_team_ranking (team_name, team_loggo, games_played, wines, losses, ot, points)
+                                        values (%s, %s, %s, %s, %s, %s, %s) """)
+                                            
+            insert_to = (team["teamName"], team["teamLoggo"], team["gamesPlayed"], team["wines"], team["losses"], team["ot"], team["points"])
+            
+            cursor.execute(postgreSQL_insert, insert_to)
+            conn.commit()
+            
+
+def get_team_rank():
+    
+    with Postgres() as (cursor, conn):
+        cursor.execute("""select *
+                            from fhl_team_Ranking
+                                order by points desc """)
+        team_rank= cursor.fetchall()
+        
+    return team_rank
 
 def post_forum(user_id):
     """

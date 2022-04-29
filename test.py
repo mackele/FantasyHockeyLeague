@@ -48,3 +48,5 @@ def get_all_players():
 get_all_players()
 
 #Tar ca 2 min att köra, allt syns inte i vsc men laddas (Allt syns i kommandotolken). 853 personer
+
+#Kolla tabellen i databasen innan detta insertas där.
