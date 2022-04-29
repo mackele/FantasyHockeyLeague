@@ -55,7 +55,6 @@ def get_all_players():
         info=cursor.fetchall()
 
         players = []
-        print(info)
 
         for list in info:
             id = list[0]
