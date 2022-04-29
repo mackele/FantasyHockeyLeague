@@ -181,22 +181,21 @@ def top_scorer():
 @FHL.route('/forum/')
 @flask_login.login_required
 def forum():
+    """
+    Funktionen visar samtliga foruminlägg
+    """
     points=get_user_points()
     fhldata=get_forum()
     return render_template('forum.html', points=points, fhldata=fhldata)
 
-
-#Forum post for logged in user (Update to search for post where username = logged in username)
-@FHL.route('/forum/test/')
-def form_username():
-    cursor.execute(f"""select * from fhl_forum_form where username = 'Lukas';""")
-    data = cursor.fetchall()
-    return render_template('forum.html', fhldata=data)
     
 #Forum posts created by logged in user
 @FHL.route('/forum/mina/inlägg/')
 @flask_login.login_required
 def forum_username():
+    """
+    Funktionen visas den inloggade användarens foruminlägg
+    """
     points=get_user_points()
     user_id=flask_login.current_user.id
     fhluserdata = get_forum_username(user_id)
@@ -207,6 +206,9 @@ def forum_username():
 @FHL.route('/inlägg/')
 @flask_login.login_required
 def write_post():
+    """
+    Functionen låter användaren skapa ett nytt foruminlägg
+    """
     points=get_user_points()
     #user_id=flask_login.current_user.id? 
     return render_template('write_post.html', points=points)
@@ -216,7 +218,7 @@ def write_post():
 @FHL.route('/form', methods=['POST'])
 def form():
     """
-    Function inserts post to database
+    Funktionen sparar ett foruminlägg till databasen
     """
     points=get_user_points()
     #current user_id sends to function post_forum
