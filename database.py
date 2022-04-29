@@ -327,5 +327,3 @@ def get_form():
             cursor.close()
             connection.close()
 #get_form()
-
-get_all_players()
