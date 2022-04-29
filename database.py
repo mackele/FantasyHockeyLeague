@@ -55,6 +55,7 @@ def get_all_players():
         info=cursor.fetchall()
 
         players = []
+        print(info)
 
         for list in info:
             id = list[0]
@@ -93,6 +94,8 @@ def get_users_players(user_id):
                 where m.fhl_user = %s""", (user_id,))
         info=cursor.fetchall()
 
+        
+
         players = []
 
         for list in info:
@@ -121,6 +124,7 @@ def get_users_players(user_id):
                 "image": image,
                 "price": price
             })
+        
 
         return players
 
@@ -324,3 +328,5 @@ def get_form():
             cursor.close()
             connection.close()
 #get_form()
+
+get_all_players()

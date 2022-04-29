@@ -22,6 +22,7 @@ def get_all_players():
             person_name=person["person"]["fullName"]
             person_id=person["person"]["id"]
             position=person["position"]["name"]
+            image_player = "http://nhl.bamcontent.com/images/headshots/current/168x168/" + str(person_id)+".jpg"
 
             season="20202021"
 
@@ -39,9 +40,8 @@ def get_all_players():
                         goal_goalie = 0
                         penalty_time_goalie = 0
                         assists_goalie = 0
-                        image_goalie = "Inget"
                         #Gjort lite ändringar så att det förs in i databasen i korrekt ordning
-                        goalies.append({"id":person_id, "team": team_name, "position": position, "goal": goal_goalie, "penalty_time": penalty_time_goalie, "assists": assists_goalie, "image": image_goalie, "price": price_goalie, "saves": saves, "name": person_name})
+                        goalies.append({"id":person_id, "team": team_name, "position": position, "goal": goal_goalie, "penalty_time": penalty_time_goalie, "assists": assists_goalie, "image": image_player, "price": price_goalie, "saves": saves, "name": person_name})
                         
 
             if position !="Goalie":
@@ -52,7 +52,8 @@ def get_all_players():
                         penalty_minutes=splits["stat"]["penaltyMinutes"]
                         price_player = round((int(goals) + int(assists)) - (int(penalty_minutes) / 4))
                         saves_player = 0
-                        image_player = "Inget"
+                        
+
                         #Gjort lite ändringar så att det förs in i databasen i korrekt ordning
                         players.append({
                             "id": person_id,
@@ -71,8 +72,8 @@ def get_all_players():
 
     #Funktioner som lägger till målvakter respektive spelare, bara att köra de enskilt för att mata in i databasen
     
-    #add_goalie_to_database(goalies)  
-    #add_player_to_database(players)         
+    add_goalie_to_database(goalies)  
+    add_player_to_database(players)         
              
 get_all_players()
 
