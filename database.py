@@ -4,8 +4,44 @@ from datetime import date
 from datetime import datetime
 from connect import Postgres
 from flask import Flask, render_template, redirect, url_for, request, redirect
+from psycopg2.extras import execute_values
 
 
+def add_goalie_to_database(goalies):
+    '''
+    Funktion som lägger in målvakter som hämtas i en lista med lexikon från APIn i test.py
+    '''
+
+    with Postgres() as (cursor, conn):
+        cursor.execute("""select * from fhl_players""")
+        
+
+        columns = goalies[0].keys()
+        query = "INSERT INTO fhl_players ({}) VALUES %s".format(','.join(columns))
+        values = [[value for value in goalie.values()] for goalie in goalies]
+
+        execute_values(cursor, query, values)
+        conn.commit()
+        
+
+def add_player_to_database(players):
+    '''
+    Funktion som lägger in spelare som hämtas i en lista med lexikon från APIn i test.py
+    '''
+
+    with Postgres() as (cursor, conn):
+        cursor.execute("""select * from fhl_players""")
+        
+
+        columns = players[0].keys()
+        query = "INSERT INTO fhl_players ({}) VALUES %s".format(','.join(columns))
+        values = [[value for value in player.values()] for player in players]
+
+        execute_values(cursor, query, values)
+        conn.commit()
+            
+
+    
 def get_all_players():
     """
     Funktion som hämtar alla spelare till en lista av lexikon som sedan används i fhl.py för att printa ut 
