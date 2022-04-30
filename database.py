@@ -186,19 +186,36 @@ def get_points(user_id):
         point = cursor.fetchall()
     
     return point
-        
+
+def delete_team_ranking():
+     with Postgres() as (cursor, conn):
+        postgreSQL_insert = (""" delete from fhl_team_ranking """)
+        cursor.execute(postgreSQL_insert)
+        conn.commit()
+    
 def insert_team_rank(all_teams):
     
     with Postgres() as (cursor, conn):
         for team in all_teams:
-            postgreSQL_insert = (""" insert into fhl_team_ranking (team_name, team_loggo, games_played, wines, losses, ot, points)
-                                        values (%s, %s, %s, %s, %s, %s, %s) """)
+            postgreSQL_insert = (""" insert into fhl_team_ranking (team_name, team_loggo, games_played, wines, losses, ot, points, time_stamp)
+                                        values (%s, %s, %s, %s, %s, %s, %s, %s) """)
                                             
-            insert_to = (team["teamName"], team["teamLoggo"], team["gamesPlayed"], team["wines"], team["losses"], team["ot"], team["points"])
+            insert_to = (team["teamName"], team["teamLoggo"], team["gamesPlayed"], team["wines"], team["losses"], team["ot"], team["points"], team["timestamp"])
             
             cursor.execute(postgreSQL_insert, insert_to)
             conn.commit()
-            
+
+
+def get_timestamp_fhl_team_ranking (todays_date):
+    with Postgres() as (cursor, conn):
+        cursor.execute("""select time_stamp
+                            from fhl_team_ranking
+                                where time_stamp=%s 
+                                    limit 1""",
+                                (todays_date,))
+        list = cursor.fetchall()
+    
+    return list
 
 def get_team_rank():
     
@@ -214,29 +231,29 @@ def post_forum(user_id):
     """
     Function inserts post to database
     """
+   
     with Postgres() as (cursor, conn):
-        with Postgres() as (cursor, conn):
-            #Need to add .get in order to function as variable and INSERT to database
-            todaydate = date.today()
-            now = datetime.now()
-            todaytime = now.strftime("%H:%M:%S")
-            #Logged in user_id (user_id)
-            fhl_user = user_id
-            title = request.form.get("title")
-            category = request.form.get("category")
-            text = request.form.get("text")
-            #Static for now, a Could for later! (Change)
-            likes = 21 
+        #Need to add .get in order to function as variable and INSERT to database
+        todaydate = date.today()
+        now = datetime.now()
+        todaytime = now.strftime("%H:%M:%S")
+        #Logged in user_id (user_id)
+        fhl_user = user_id
+        title = request.form.get("title")
+        category = request.form.get("category")
+        text = request.form.get("text")
+        #Static for now, a Could for later! (Change)
+        likes = 21 
 
-            PostgreSQL_insert = """ INSERT INTO fhl_forum_form (date, datetime, fhl_user, title, category, text, likes) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
-            insert_to = (todaydate, todaytime, fhl_user, title, category, text, likes)
-            cursor.execute(PostgreSQL_insert, insert_to)
+        PostgreSQL_insert = """ INSERT INTO fhl_forum_form (date, datetime, fhl_user, title, category, text, likes) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
+        insert_to = (todaydate, todaytime, fhl_user, title, category, text, likes)
+        cursor.execute(PostgreSQL_insert, insert_to)
 
-            conn.commit()
-            count = cursor.rowcount
+        conn.commit()
+        count = cursor.rowcount
 
-            cursor.close()
-            conn.close()
+        cursor.close()
+        conn.close()
 
 def post_forum_redirect():
     """

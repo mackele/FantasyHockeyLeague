@@ -6,6 +6,7 @@ import database
 import  flask_login 
 import hashlib
 from database import *
+import team_rank
 
 
 
@@ -17,8 +18,16 @@ FHL = Flask(__name__)
 @FHL.route('/')
 @flask_login.login_required
 def index():
-    team_rank=database.get_team_rank()
-    return render_template('index.html', team_rank=team_rank)
+    todaydate = date.today()
+    date_list=database.get_timestamp_fhl_team_ranking(todaydate)
+
+    if len(date_list) < 1:
+        database.delete_team_ranking()
+        team_rank.get_team_rank()
+
+    teams_ranking=database.get_team_rank()
+
+    return render_template('index.html', teams_ranking=teams_ranking)
 
 
 #Sign in
@@ -56,22 +65,38 @@ def user_loader(mail):
 @FHL.route('/protected')
 @flask_login.login_required 
 def protected():
+    todaydate = date.today()
+    date_list=database.get_timestamp_fhl_team_ranking(todaydate)
+
+    if len(date_list) < 1:
+        database.delete_team_ranking()
+        team_rank.get_team_rank()
+
+    teams_ranking=database.get_team_rank()
     points=get_user_points()
-    return render_template('index.html', points=points)
+    return render_template('index.html', points=points, teams_ranking=teams_ranking)
 
 
 #Sign out
 @FHL.route('/logout')
 def logout():
     flask_login.logout_user()
-    return render_template('unauthorized_index.html')
+    team_rank=database.get_team_rank()
+    return render_template('unauthorized_index.html', team_rank=team_rank)
 
 
 #index för icke inloggade
 @login_manager.unauthorized_handler
 def unauthorized_handler():
-    team_rank=database.get_team_rank()
-    return render_template('unauthorized_index.html', team_rank=team_rank)
+    todaydate = date.today()
+    date_list=database.get_timestamp_fhl_team_ranking(todaydate)
+
+    if len(date_list) < 1:
+        database.delete_team_ranking()
+        team_rank.get_team_rank()
+
+    teams_ranking=database.get_team_rank()
+    return render_template('unauthorized_index.html', teams_ranking=teams_ranking)
 
 
 #Registration
