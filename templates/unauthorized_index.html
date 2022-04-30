@@ -94,134 +94,33 @@
         </div>
         <div class="bottom_row">
             <div id="match_table">
-                <h3>Kommande matcher</h3>
+                <h3>Dagens NHL matcher:</h3>
                 <table>
                     <tr>
                         <th>Hemmalag</th>
                         <th></th>
                         <th>Bortalag</th>
                     </tr>
+                    {% for game in game_schedual%}
                     <tr>
                         <td>
-                            <!--Information om laget--> Timrå
+                            {{game[4]}}
+                            {% if game[5] > 1%}
+                            <img class="team_loggo" alt="team home loggo" src="{{game[5]}}">
+                            {% endif%}
                         </td>
                         <td>
-                            <p> 19:00</p>
-                            <p>Cmore</p>
+                            {{game[2]}}
+                            {{game[3]}}
                         </td>
                         <td>
-                            <!--Information om laget--> Rögle
+                            {{game[0]}}
+                            {% if game[1] > 0 %}
+                            <img class="team_loggo" alt="team home loggo" src="{{game[1]}}">
+                            {% endif %}
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <!--Information om laget-->
-                        </td>
-                        <td>
-                            <p></p>
-                            <p></p>
-                        </td>
-                        <td>
-                            <!--Information om laget-->
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <!--Information om laget-->
-                        </td>
-                        <td>
-                            <p></p>
-                            <p></p>
-                        </td>
-                        <td>
-                            <!--Information om laget-->
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <!--Information om laget-->
-                        </td>
-                        <td>
-                            <p></p>
-                            <p></p>
-                        </td>
-                        <td>
-                            <!--Information om laget-->
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <!--Information om laget-->
-                        </td>
-                        <td>
-                            <p></p>
-                            <p></p>
-                        </td>
-                        <td>
-                            <!--Information om laget-->
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <!--Information om laget-->
-                        </td>
-                        <td>
-                            <p></p>
-                            <p></p>
-                        </td>
-                        <td>
-                            <!--Information om laget-->
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <!--Information om laget-->
-                        </td>
-                        <td>
-                            <p></p>
-                            <p></p>
-                        </td>
-                        <td>
-                            <!--Information om laget-->
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <!--Information om laget-->
-                        </td>
-                        <td>
-                            <p></p>
-                            <p></p>
-                        </td>
-                        <td>
-                            <!--Information om laget-->
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <!--Information om laget-->
-                        </td>
-                        <td>
-                            <p></p>
-                            <p></p>
-                        </td>
-                        <td>
-                            <!--Information om laget-->
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <!--Information om laget-->
-                        </td>
-                        <td>
-                            <p> </p>
-                            <p></p>
-                        </td>
-                        <td>
-                            <!--Information om laget-->
-                        </td>
-                    </tr>
-                   
+                    {% endfor %}
                 </table>
     
             </div>

@@ -7,6 +7,7 @@ import  flask_login
 import hashlib
 from database import *
 import team_rank
+import play_schedual
 
 
 
@@ -19,15 +20,25 @@ FHL = Flask(__name__)
 @flask_login.login_required
 def index():
     todaydate = date.today()
-    date_list=database.get_timestamp_fhl_team_ranking(todaydate)
+    rank_date_list=database.get_timestamp_fhl_team_ranking(todaydate)
 
-    if len(date_list) < 1:
+    schedual_date_list=database.get_date_fhl_game_schedual (todaydate)
+
+    if len(rank_date_list) < 1:
         database.delete_team_ranking()
         team_rank.get_team_rank()
 
     teams_ranking=database.get_team_rank()
 
-    return render_template('index.html', teams_ranking=teams_ranking)
+    if len(schedual_date_list) < 1:
+        database.delete_play_schedual()
+        play_schedual.get_play_schedual ()
+    
+    game_schedual=database.get_game_schedual()
+
+    points=get_user_points()
+
+    return render_template('index.html', teams_ranking=teams_ranking, game_schedual=game_schedual, points=points)
 
 
 #Sign in
@@ -66,37 +77,68 @@ def user_loader(mail):
 @flask_login.login_required 
 def protected():
     todaydate = date.today()
-    date_list=database.get_timestamp_fhl_team_ranking(todaydate)
+    rank_date_list=database.get_timestamp_fhl_team_ranking(todaydate)
 
-    if len(date_list) < 1:
+    schedual_date_list=database.get_date_fhl_game_schedual (todaydate)
+
+    if len(rank_date_list) < 1:
         database.delete_team_ranking()
         team_rank.get_team_rank()
 
     teams_ranking=database.get_team_rank()
+
+    if len(schedual_date_list) < 1:
+        database.delete_play_schedual()
+        play_schedual.get_play_schedual ()
+    
+    game_schedual=database.get_game_schedual()
     points=get_user_points()
-    return render_template('index.html', points=points, teams_ranking=teams_ranking)
+    return render_template('index.html', points=points, teams_ranking=teams_ranking, game_schedual=game_schedual)
 
 
 #Sign out
 @FHL.route('/logout')
 def logout():
     flask_login.logout_user()
-    team_rank=database.get_team_rank()
-    return render_template('unauthorized_index.html', team_rank=team_rank)
+    todaydate = date.today()
+    rank_date_list=database.get_timestamp_fhl_team_ranking(todaydate)
+
+    schedual_date_list=database.get_date_fhl_game_schedual (todaydate)
+
+    if len(rank_date_list) < 1:
+        database.delete_team_ranking()
+        team_rank.get_team_rank()
+
+    teams_ranking=database.get_team_rank()
+
+    if len(schedual_date_list) < 1:
+        database.delete_play_schedual()
+        play_schedual.get_play_schedual ()
+    
+    game_schedual=database.get_game_schedual()
+    return render_template('unauthorized_index.html', teams_ranking=teams_ranking, game_schedual=game_schedual)
 
 
 #index för icke inloggade
 @login_manager.unauthorized_handler
 def unauthorized_handler():
     todaydate = date.today()
-    date_list=database.get_timestamp_fhl_team_ranking(todaydate)
+    rank_date_list=database.get_timestamp_fhl_team_ranking(todaydate)
 
-    if len(date_list) < 1:
+    schedual_date_list=database.get_date_fhl_game_schedual (todaydate)
+
+    if len(rank_date_list) < 1:
         database.delete_team_ranking()
         team_rank.get_team_rank()
 
     teams_ranking=database.get_team_rank()
-    return render_template('unauthorized_index.html', teams_ranking=teams_ranking)
+
+    if len(schedual_date_list) < 1:
+        database.delete_play_schedual()
+        play_schedual.get_play_schedual ()
+    
+    game_schedual=database.get_game_schedual()
+    return render_template('unauthorized_index.html', teams_ranking=teams_ranking, game_schedual=game_schedual)
 
 
 #Registration

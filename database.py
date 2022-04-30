@@ -227,6 +227,44 @@ def get_team_rank():
         
     return team_rank
 
+def delete_play_schedual():
+    with Postgres() as (cursor, conn):
+        postgreSQL_insert = (""" delete from fhl_game_schedual """)
+        cursor.execute(postgreSQL_insert)
+        conn.commit()
+
+def insert_play_schedual(current_days_games):
+    with Postgres() as (cursor, conn):
+        for play in current_days_games:
+            postgreSQL_insert = (""" insert into fhl_game_schedual (team_away_name, team_away_loggo, game_date, game_time, team_home_name, team_home_loggo)
+                                        values (%s, %s, %s, %s, %s, %s) """)
+                                            
+            insert_to = (play["team_away_name"], play["team_away_loggo"], play["game_date"], play["game_time"], play["team_home_name"], play["team_home_loggo"])
+            
+            cursor.execute(postgreSQL_insert, insert_to)
+            conn.commit()
+
+def get_date_fhl_game_schedual (todays_date):
+    with Postgres() as (cursor, conn):
+        cursor.execute("""select game_date
+                            from fhl_game_schedual
+                                where game_date=%s 
+                                    limit 1""",
+                                (todays_date,))
+        list = cursor.fetchall()
+    
+    return list
+
+def get_game_schedual():
+    
+    with Postgres() as (cursor, conn):
+        cursor.execute("""select *
+                            from fhl_game_schedual
+                                order by game_time """)
+        schedual= cursor.fetchall()
+        
+    return schedual
+
 def post_forum(user_id):
     """
     Function inserts post to database

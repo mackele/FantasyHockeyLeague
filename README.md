@@ -5,6 +5,7 @@ flask
 flask_login
 request
 psycopg2
+pytz
 
 
 Filer:
