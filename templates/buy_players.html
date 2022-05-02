@@ -95,9 +95,9 @@
                     <div class="card__inner">
                         <div class="card__face card__face--front">                              
                             <!--Player statistics-->
-                            <img src="{{url_for('static', filename = 'FHL.png')}}">
+                            <img src="{{player.image}}">
                             <!--Hämta namn från databas-->                                                                  
-                            <h3>{{player.f_name}} {{player.l_name}}</h3>                                  
+                            <h3>{{player.name}}</h3>                                  
                             <!--Hämta poäng från databas ("Poäng: " + database value)-->
                             <div class="costs">
                                 <h5>Pris: {{player.price}}</h5>
@@ -115,7 +115,7 @@
                                 <div class="card__header">
                                     <!--Spelarstatistik från databasen-->
                                     <!--Hämta namn-->
-                                    <h4>{{player.f_name}} {{player.l_name}}</h4>
+                                    <h4>{{player.name}}</h4>
                                     <!--Hämta lag-->
                                     <p>Lag: {{player.team}}</p>
                                     <!--Hämta position-->

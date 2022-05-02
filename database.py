@@ -58,27 +58,23 @@ def get_all_players():
 
         for list in info:
             id = list[0]
-            f_name = list[1]
-            l_name = list[2]
-            team = list[3]
-            position = list[4]
-            goal = list[5]
-            penalty_time = list[6]
-            assists = list[7]
-            description = list[8]
-            image = list[9]
-            price = list[10]
+            name = list[9]
+            team = list[1]
+            position = list[2]
+            goal = list[3]
+            penalty_time = list[4]
+            assists = list[5]
+            image = list[6]
+            price = list[7]
 
             players.append({
                 "id": id,
-                "f_name": f_name,
-                "l_name": l_name,
+                "name": name,
                 "team": team,
                 "position": position,
                 "goal": goal,
                 "penalty_time": penalty_time,
                 "assists": assists,
-                "description": description,
                 "image": image,
                 "price": price
             })
@@ -99,27 +95,23 @@ def get_users_players(user_id):
 
         for list in info:
             id = list[0]
-            f_name = list[1]
-            l_name = list[2]
-            team = list[3]
-            position = list[4]
-            goal = list[5]
-            penalty_time = list[6]
-            assists = list[7]
-            description = list[8]
-            image = list[9]
-            price = list[10]
+            name = list[9]
+            team = list[1]
+            position = list[2]
+            goal = list[3]
+            penalty_time = list[4]
+            assists = list[5]
+            image = list[6]
+            price = list[7]
 
             players.append({
                 "id": id,
-                "f_name": f_name,
-                "l_name": l_name,
+                "name": name,
                 "team": team,
                 "position": position,
                 "goal": goal,
                 "penalty_time": penalty_time,
                 "assists": assists,
-                "description": description,
                 "image": image,
                 "price": price
             })
