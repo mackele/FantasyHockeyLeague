@@ -43,13 +43,3 @@ def get_play_schedual ():
     
     database.insert_play_schedual(current_days_games)
             
-
-            
-
-    
-       
-
-
-
-
-get_play_schedual()

@@ -104,20 +104,20 @@
                     {% for game in game_schedual%}
                     <tr>
                         <td>
-                            {{game[4]}}
-                            {% if game[5] > 1%}
+                            <div class="bold">{{game[4]}}</div>
+                            
                             <img class="team_loggo" alt="team home loggo" src="{{game[5]}}">
-                            {% endif%}
+                            
                         </td>
                         <td>
-                            {{game[2]}}
-                            {{game[3]}}
+                            <div>{{game[2]}}</div>
+                            <div>{{game[3]}}</div>
                         </td>
                         <td>
-                            {{game[0]}}
-                            {% if game[1] > 0 %}
+                            <div class="bold">{{game[0]}}</div> 
+                            
                             <img class="team_loggo" alt="team home loggo" src="{{game[1]}}">
-                            {% endif %}
+                            
                         </td>
                     </tr>
                     {% endfor %}
@@ -145,7 +145,7 @@
                         <td class="team_loggo">
                             <img alt="team loggo" src="{{team[1]}}">
                         </td>
-                        <td>{{team[0]}}</td>
+                        <td class="bold">{{team[0]}}</td>
                         <td>{{team[2]}}</td>
                         <td>{{team[3]}}</td>
                         <td>{{team[4]}}</td>

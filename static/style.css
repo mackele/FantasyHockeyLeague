@@ -296,6 +296,16 @@ table {
 th, td {
     padding:7px;
 }
+
+#match_table div {
+    display:flex;
+    flex-direction: column;
+}
+
+#match_table td {
+    font-size: 10px;
+}
+
 .bold {
     font-weight: bold;
 }
@@ -319,9 +329,8 @@ tr:nth-child(even) {
 }
 
 #match_table{
-    padding-top: 44px ;
+    padding-top: 46px ;
 }
-
 
 .team_loggo {
     width: 50px;
@@ -379,7 +388,7 @@ tr:nth-child(even) {
 
 #body_my_players, #index_body, #forum_body, #guide_body, #buy_players_body, #match_histor, main, #write_post_body, #topscorer_body,#forum_body, #guide_body, #write_post_body, #login_body, #registration_body {
     margin:auto;
-    max-width: 80%;
+    max-width: 90%;
     padding: 101px 0 50px 0;
     height: 100%;
 
