@@ -37,10 +37,10 @@ def index():
         play_schedual.get_play_schedual ()
     
     game_schedual=database.get_game_schedual()
-
+    highscore =database.get_fhl_highscore()
     points=get_user_points()
 
-    return render_template('index.html', teams_ranking=teams_ranking, game_schedual=game_schedual, points=points)
+    return render_template('index.html', teams_ranking=teams_ranking, game_schedual=game_schedual, points=points, highscore=highscore)
 
 
 #Sign in
@@ -94,8 +94,9 @@ def protected():
         play_schedual.get_play_schedual ()
     
     game_schedual=database.get_game_schedual()
+    highscore =database.get_fhl_highscore()
     points=get_user_points()
-    return render_template('index.html', points=points, teams_ranking=teams_ranking, game_schedual=game_schedual)
+    return render_template('index.html', points=points, teams_ranking=teams_ranking, game_schedual=game_schedual, highscore=highscore)
 
 
 #Sign out
@@ -118,7 +119,9 @@ def logout():
         play_schedual.get_play_schedual ()
     
     game_schedual=database.get_game_schedual()
-    return render_template('unauthorized_index.html', teams_ranking=teams_ranking, game_schedual=game_schedual)
+    highscore =database.get_fhl_highscore()
+
+    return render_template('unauthorized_index.html', teams_ranking=teams_ranking, game_schedual=game_schedual, highscore=highscore)
 
 
 #index för icke inloggade
@@ -140,7 +143,8 @@ def unauthorized_handler():
         play_schedual.get_play_schedual ()
     
     game_schedual=database.get_game_schedual()
-    return render_template('unauthorized_index.html', teams_ranking=teams_ranking, game_schedual=game_schedual)
+    highscore =database.get_fhl_highscore()
+    return render_template('unauthorized_index.html', teams_ranking=teams_ranking, game_schedual=game_schedual, highscore=highscore)
 
 
 #Registration

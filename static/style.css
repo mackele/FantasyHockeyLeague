@@ -26,6 +26,7 @@ p, a, h3, h4, label{
 h3 {
     padding:10px;
     margin:0;
+    font-size: 30px;
 }
 select {
     cursor: pointer;
@@ -47,7 +48,7 @@ select {
 }
 
 #search_button:hover, .submit_button:hover {
-    background-color: #56657B;
+    background-color: #496A9B;
 }
 
 
@@ -73,7 +74,7 @@ button {
 }
 
 .dropdown:hover, .help:hover{
-    background-color:#56657B ;
+    background-color:#496A9B ;
 }
 
 .dropdown_content > a:hover {
@@ -82,8 +83,8 @@ button {
 
 
 #log img {
-    max-width: 70px;
-    padding:5px;
+    max-width: 60px;
+    padding:10px;
 }
 #nav_right {
     display: flex;
@@ -122,12 +123,12 @@ button {
 }
 
 nav {
-   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#28313e+1,2c3e5a+50,56657b+100 */
-    background: #28313e; /* Old browsers */
-    background: -moz-linear-gradient(left,  #28313e 1%, #2c3e5a 50%, #56657b 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(left,  #28313e 1%,#2c3e5a 50%,#56657b 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to right,  #28313e 1%,#2c3e5a 50%,#56657b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28313e', endColorstr='#56657b',GradientType=1 ); /* IE6-9 */
+   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#28313e+1,2c3e5a+50#496A9B+100 */
+    background: #213149; /* Old browsers */
+    background: -moz-linear-gradient(left,  #213149 1%,#496A9B 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #213149 1%, #496A9B 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #213149 1%,#496A9B 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28313e', endColorstr='#496A9B',GradientType=1 ); /* IE6-9 */
 
     color: white;
     font-size: 16px;
@@ -247,12 +248,12 @@ nav {
 }
 
 footer{
-   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#28313e+1,2c3e5a+50,56657b+100 */
-    background: #28313e; /* Old browsers */
-    background: -moz-linear-gradient(left,  #28313e 1%, #2c3e5a 50%, #56657b 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(left,  #28313e 1%,#2c3e5a 50%,#56657b 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to right,  #28313e 1%,#2c3e5a 50%,#56657b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28313e', endColorstr='#56657b',GradientType=1 ); /* IE6-9 */
+   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#28313e+1,2c3e5a+50#496A9B+100 */
+   background: #213149; /* Old browsers */
+    background: -moz-linear-gradient(left,  #213149 1%,#496A9B 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #213149 1%, #496A9B 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #213149 1%,#496A9B 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28313e', endColorstr='#496A9B',GradientType=1 ); /* IE6-9 */
 
     
     width: 100%;
@@ -494,7 +495,7 @@ main div {
     
 }
 .lock:hover {
-    background-color: #56657B;
+    background-color: #496A9B;
 }
 
 
@@ -532,7 +533,7 @@ background-color: white;
 #forumcategory {
     color: #F2F2F2;
     font-size: 10px;
-    background-color:#56657b;
+    background-color:#496A9B;
     box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
     width: 20%;
     margin: auto;
@@ -540,7 +541,7 @@ background-color: white;
 
 select {
     color:#F2F2F2;
-    background-color: #56657b;
+    background-color: #496A9B;
 }
 
 #user_and_date {
@@ -664,7 +665,7 @@ select {
     color: white;
 }
 .cost_button:hover {
-    background-color: #56657B;
+    background-color: #496A9B;
 }
 .costs h5 {
 margin:0;

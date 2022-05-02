@@ -44,51 +44,21 @@
                     <tr>
                         <th> </th>
                         <th>Användare</th>
-                        <th>Antal lagda mather</th>
+                        <th>Antal lagda mather</th> <!--behöver läggas till--> 
                         <th>poäng</th>
                     </tr>
+                    {% for user in highscore %}
                     <tr>
                         <td>
-                            1.
+                            {{loop.index0 + 1}}.
                         </td>
                         <td> 
-                            <!--information från databasen där de spelare med högst poäng tas ut-->
+                           {{user[0]}}
                         </td>
                         <td></td>
-                        <td> </td>
+                        <td>{{user[1]}} </td>
                     </tr>
-                    <tr>
-                        <td>
-                            2.
-                        </td>
-                        <td>  </td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            3.
-                        </td>
-                        <td>  </td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            4.
-                        </td>
-                        <td></td>
-                        <td> </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            5.
-                        </td>
-                        <td>  </td>
-                        <td></td>
-                        <td> </td>
-                    </tr>
+                    {% endfor %}
                 </table>
             </div>
         </div>

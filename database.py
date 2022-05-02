@@ -265,6 +265,16 @@ def get_game_schedual():
         
     return schedual
 
+def get_fhl_highscore():
+    with Postgres() as (cursor, conn):
+        cursor.execute("""select username, ranking 
+                            from fhl_user
+                                order by ranking desc
+                                    limit 5""")
+        highscore= cursor.fetchall()
+        
+    return highscore
+
 def post_forum(user_id):
     """
     Function inserts post to database
