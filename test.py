@@ -3,6 +3,10 @@ import json
 from database import *
 
 def get_all_players():
+    '''
+    Funktionen hämtar data från nhl:s api och sparar i en lista av lexikon.
+   
+    '''
     response_API=requests.get("https://statsapi.web.nhl.com/api/v1/teams?expand=team.roster")
     data = response_API.text
     json.loads(data) 

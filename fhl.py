@@ -49,6 +49,14 @@ login_manager=flask_login.LoginManager()
 login_manager.init_app (FHL)
 @FHL.route('/login', methods=['GET', 'POST'])
 def login():
+    '''
+    Funktionen visar html filen login.html om användaren klickar på "logga in" på webbsidan.
+    Funktionen hämtar datan som användaren fyllt in när denne försöker logga in. 
+    Lösenordet krypteras.
+    mail och lösenord skickas in i database.py för att kolla om datan finns i databasen eller inte. 
+    Om listan med mail och lösenord är längre än o så loggas användaren in och redirectas till index.html.
+    '''
+
     if request.method == 'GET':
         return render_template('login.html')
 
@@ -62,13 +70,18 @@ def login():
         user.id=mail
         flask_login.login_user(user)
         return redirect(url_for('protected'))
-    return 'Bad login'
+    
 
 class User (flask_login.UserMixin):
     pass
 
 @login_manager.user_loader
 def user_loader(mail):
+    '''
+        Funktionen sätter user.id till användarens mail. (En del av Flask_login)
+        return:
+            returnerar användarens mail som user.
+    '''
     user = User()
     user.id = mail
     return user
@@ -78,6 +91,21 @@ def user_loader(mail):
 @FHL.route('/protected')
 @flask_login.login_required 
 def protected():
+    '''
+        När användaren loggats in körs denna funktionen.
+
+        Funktionen skickar in dagens datum till database.py för att få se om dagens datum finns i tabellen fhl_team_ranking i databasen.
+        Om listan är mindre än 1 så körs fuktionen delete_team_ranking i database.py och funktionen get_team_rank i team_rank.py.
+
+        Funktionen skickar in dagens daturm till database. py för att se om dagens datum finns i tabellen fhl_game_schedual.
+        Om listan är mindre än 1 så körs funktionen delete_play_schedual i database.py och funktioen get_play_schedual från play_schedual.py
+
+        Funktionen hämtar get_game_schedual, get_team_rank, get_fhl_highscore från database.py och skickar med dessa listor till index.html tillsammans med användarens poäng
+
+        return:
+             returnerar index.html tillsammans med lagranking, spelschema, och poäng och highscore.
+
+    '''
     todaydate = date.today()
     rank_date_list=database.get_timestamp_fhl_team_ranking(todaydate)
 
@@ -102,6 +130,19 @@ def protected():
 #Sign out
 @FHL.route('/logout')
 def logout():
+    '''
+        Funktionen loggar ut användaren.
+        Funktionen skickar in dagens datum till database.py för att få se om dagens datum finns i tabellen fhl_team_ranking i databasen.
+        Om listan är mindre än 1 så körs fuktionen delete_team_ranking i database.py och funktionen get_team_rank i team_rank.py.
+
+        Funktionen skickar in dagens daturm till database. py för att se om dagens datum finns i tabellen fhl_game_schedual.
+        Om listan är mindre än 1 så körs funktionen delete_play_schedual i database.py och funktioen get_play_schedual från play_schedual.py
+
+        Funktionen hämtar get_game_schedual, get_team_rank, get_fhl_highscore från database.py och skickar med dessa listor till unauthorized_index.html
+
+        return:
+            returnerar unauthorized_index.html tillsammans med lagranking, spelschema och highscore.
+    '''
     flask_login.logout_user()
     todaydate = date.today()
     rank_date_list=database.get_timestamp_fhl_team_ranking(todaydate)
@@ -127,6 +168,19 @@ def logout():
 #index för icke inloggade
 @login_manager.unauthorized_handler
 def unauthorized_handler():
+    '''
+        Funktionen hanterar om användaren inte är inloggad.
+        Funktionen skickar in dagens datum till database.py för att få se om dagens datum finns i tabellen fhl_team_ranking i databasen.
+        Om listan är mindre än 1 så körs fuktionen delete_team_ranking i database.py och funktionen get_team_rank i team_rank.py.
+
+        Funktionen skickar in dagens daturm till database. py för att se om dagens datum finns i tabellen fhl_game_schedual.
+        Om listan är mindre än 1 så körs funktionen delete_play_schedual i database.py och funktioen get_play_schedual från play_schedual.py
+
+        Funktionen hämtar get_game_schedual, get_team_rank, get_fhl_highscore från database.py och skickar med dessa listor till unauthorized_index.html
+
+        return:
+            returnerar unauthorized_index.html tillsammans med lagranking, spelschema och highscore.
+    '''
     todaydate = date.today()
     rank_date_list=database.get_timestamp_fhl_team_ranking(todaydate)
 
@@ -150,6 +204,14 @@ def unauthorized_handler():
 #Registration
 @FHL.route('/registration', methods=['GET','POST'])
 def registration():
+    '''
+        Funktionen ger användaren registration.html när denne klickar på "Registrera".
+        Funktionen tar emot värdena som användaren fyllt i i formuläret på registration.html och skickar dessa till databasen för att som om dessa finns lagrade eller inte.
+        Om mailen redan finns registrerad så returneras registration.html tillbaka med felmeddelande om att mailen redan finns registreras. 
+        Om användarnamnet redan finns registrerat så returneras registration.html tillbaka med felmeddelande om att användarnamnet redan finns. 
+        Annars kommer kommer användarnen in i systemet.
+
+    '''
     if request.method == 'GET':
         return render_template('registration.html')
     
@@ -161,10 +223,13 @@ def registration():
     hash_password=hashlib.md5(password.encode()).hexdigest()
 
     user=database.registrations(username, mail, f_name, l_name, hash_password)
-    print("fhl", user)
 
-    # Skapa if return beroende på output
-    
+    for person in user:
+        if person[0]==mail:
+            return render_template("registration.html", existing_mail="Mailadressen du försöker använda finns redan registrerat, vänligen ange en annan mailadress eller logga in.")
+        elif person[1]==username:
+            return render_template("registration.html", existing_username="Användarnamnet du försöker använda finns redan registrerat, vänligen välj ett annat användarnamn ")
+        
     return render_template('index.html')
 
 

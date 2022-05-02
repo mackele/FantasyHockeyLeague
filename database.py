@@ -41,7 +41,6 @@ def add_player_to_database(players):
         conn.commit()
             
 
-    
 def get_all_players():
     """
     Funktion som hämtar alla spelare till en lista av lexikon som sedan används i fhl.py för att printa ut 
@@ -85,15 +84,22 @@ def get_all_players():
 
         return players
 
+
 def get_users_players(user_id):
+    '''
+        Funktion som hämtar den inloggade användarens köpta hockeyspelare.
+
+        args:
+            user_id är den inloggade användarens personliga id.
+        return:
+            Returnerar användarens köpta spelare till fhl.py
+    '''
 
     with Postgres() as (cursor, conn):
         cursor.execute ("""select * from fhl_players 
             as f join fhl_my_players as m on f.id = m.player 
                 where m.fhl_user = %s""", (user_id,))
         info=cursor.fetchall()
-
-        
 
         players = []
 
@@ -127,7 +133,16 @@ def get_users_players(user_id):
 
         return players
 
+
 def login(mail, password):
+    '''
+        Funktionen hämtar ut en lista med en specifik användare utifrån mail och lösenord från databasen.
+
+        args:
+            mail refererar till användaren som försöker logga in, mail.
+        return:
+            returnerar en lista med användarens mail och lösenord till fhl.py
+    '''
     with Postgres() as (cursor, conn):
         cursor.execute ( """select mail, password
                                 from fhl_user
@@ -137,7 +152,16 @@ def login(mail, password):
     
     return user
 
+
 def get_user(mail):
+    '''
+        Funktionen hämtar ut en användares mail från databasen.
+
+        args:
+            Syftar till användarens mail.
+        return: 
+            returnerar en lista med den aktuella användarens mail till fhl.py
+    '''
     with Postgres() as (cursor, conn):
         cursor.execute("""select mail
                             from fhl_user
@@ -146,7 +170,8 @@ def get_user(mail):
         user = cursor.fetchall()
     
     return user
-       
+
+
 def add_purchased_player_to_team(user_id, player_id):
     with Postgres() as (cursor, conn): 
 
@@ -159,13 +184,21 @@ def add_purchased_player_to_team(user_id, player_id):
         cursor.execute(postgreSQL_insert, insert_to)
 
         conn.commit()
-        
+
+
 def registrations(username, mail, f_name, l_name, password):
+    '''
+        Funktionen undersöker om användaren som försöker registrera sig redan finns i databasen. 
+        Om användaren inte är registrerad så registreras denne.
+
+        args:
+            Argumenten som skickas med är variabler från fhl.py som användaren fyllt i när denna försöker registrera sig. 
+    '''
     with Postgres() as (cursor, conn):
-        cursor.execute("""select mail from fhl_user
+        cursor.execute("""select mail, username from fhl_user
                                 where  mail=%s""",
                                     (mail,))
-        user = cursor.fetchall()
+        user = cursor.fetchal()
 
         if len(user)==0:
             points=100
@@ -177,7 +210,20 @@ def registrations(username, mail, f_name, l_name, password):
             cursor.execute(postgreSQL_insert, insert_to)
             conn.commit()
 
+        else:
+            return user
+
+
+
 def get_points(user_id):
+    '''
+        Funktionen hämtar ut en specifik användares aktuella poäng.
+
+        args:
+            syftar till den inloggade användaren.
+        return:
+            returnerar en lista med användarens poäng.
+    '''
     with Postgres() as (cursor, conn):
         cursor.execute("""select points
                             from fhl_user
@@ -187,13 +233,24 @@ def get_points(user_id):
     
     return point
 
+
 def delete_team_ranking():
-     with Postgres() as (cursor, conn):
+    '''
+        Funktionen raderar allt som finns i tabellen fhl_team_ranking i databasen om dagens datum inte stämmer 
+        överrens med det datum som är inlagt i databasen. Funktionen körs från fhl.py.
+    '''
+    with Postgres() as (cursor, conn):
         postgreSQL_insert = (""" delete from fhl_team_ranking """)
         cursor.execute(postgreSQL_insert)
         conn.commit()
     
 def insert_team_rank(all_teams):
+    '''
+        Funktionen lägger in nhl:S lags ranking i databasen. Funktionen körs efter att alla lag blivit raderade. Funktionen körs från fhl.py.
+
+        args: 
+            Lista med alla lags ranking med relevant information som hämtats från filen team_rank.py och nhl:s API.
+    '''
     
     with Postgres() as (cursor, conn):
         for team in all_teams:
@@ -207,6 +264,14 @@ def insert_team_rank(all_teams):
 
 
 def get_timestamp_fhl_team_ranking (todays_date):
+    '''
+        Funktionen hämtar datumet från tabellen fhl_team_rank som finns i databasen.
+
+        args:
+            syftar till dagens datum som skickas med från fhl.py
+        return:
+            returnerar en lista med resultatet från sökningen i databasen till fhl.py
+    '''
     with Postgres() as (cursor, conn):
         cursor.execute("""select time_stamp
                             from fhl_team_ranking
@@ -218,22 +283,40 @@ def get_timestamp_fhl_team_ranking (todays_date):
     return list
 
 def get_team_rank():
+    '''
+        Funktionen hämtar ut lagstatistiken från tabellen fhl_team_rank som finns i databasen och skickar denna till fhl.py.
+
+        return:
+            returnerar en lista med all information från tabellen fhl_team_ranking till fhl.py
+    '''
     
     with Postgres() as (cursor, conn):
         cursor.execute("""select *
-                            from fhl_team_Ranking
+                            from fhl_team_ranking
                                 order by points desc """)
         team_rank= cursor.fetchall()
         
     return team_rank
 
 def delete_play_schedual():
+    '''
+        Funktionen redarer allt från tabellen fhl_tame_schedual i databasen om dagens datum inte är samma som datumet i tabellen. 
+        Funktioen kallas från fhl.py
+    '''
+
     with Postgres() as (cursor, conn):
         postgreSQL_insert = (""" delete from fhl_game_schedual """)
         cursor.execute(postgreSQL_insert)
         conn.commit()
 
 def insert_play_schedual(current_days_games):
+    '''
+        Funktionen lägger in schemat för dagens matcher i tabellen fhl_game_schedual i databasen efter att tidigare data blivit raderat.
+        Funktionen kallas på från play_schedual.py.
+
+        args:
+            Lista med dagens matcher och tillhörande information som kommer från fhl_schedual och har hämtats från nhl:s api.
+    '''
     with Postgres() as (cursor, conn):
         for play in current_days_games:
             postgreSQL_insert = (""" insert into fhl_game_schedual (team_away_name, team_away_loggo, game_date, game_time, team_home_name, team_home_loggo)
@@ -245,6 +328,13 @@ def insert_play_schedual(current_days_games):
             conn.commit()
 
 def get_date_fhl_game_schedual (todays_date):
+    '''
+        Funktionen hämtar ut en lista med dagens datum från tabellen fhl_game_schedual i databasen
+        args:
+            variabel med dagens datum
+        return:
+            returnerar en lista med dagens datum om denna finns i tabellen, till fhl.py
+    '''
     with Postgres() as (cursor, conn):
         cursor.execute("""select game_date
                             from fhl_game_schedual
@@ -256,6 +346,12 @@ def get_date_fhl_game_schedual (todays_date):
     return list
 
 def get_game_schedual():
+    '''
+        Funktionen hämtar dagens match schema från fhl_game_schedual från databasen. 
+
+        return:
+            returnerar en lista med dagens matcher till fhl.py
+    '''
     
     with Postgres() as (cursor, conn):
         cursor.execute("""select *
@@ -266,6 +362,12 @@ def get_game_schedual():
     return schedual
 
 def get_fhl_highscore():
+    '''
+        Funktionen hämtar ut de 5 spelarna som har högst ranking från fhl_user.
+
+        return:
+            returnerar en list användarnamn och ranking med de 5 bästa spelarna till fhl.py
+    '''
     with Postgres() as (cursor, conn):
         cursor.execute("""select username, ranking 
                             from fhl_user

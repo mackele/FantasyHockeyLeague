@@ -3,11 +3,16 @@ import json
 import database
 from datetime import date
 
-"""
-    Funktionen hämtar lagstatistik från nhl:s API och sparar i en lista av lexikon. 
-"""
+
 
 def get_team_rank():
+
+    """
+    Funktionen körs från fhl.py
+    Funktionen hämtar lagstatistik från nhl:s API och sparar i en lista av lexikon. 
+    Listan skickas till funktionen insert_team_rank i database.py för att sparas i databasen
+    """
+    
     response_API=requests.get("https://statsapi.web.nhl.com/api/v1/standings")
     data = response_API.text
     json.loads(data) 
