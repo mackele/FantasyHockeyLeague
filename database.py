@@ -39,6 +39,7 @@ def add_player_to_database(players):
         execute_values(cursor, query, values)
         conn.commit()
 
+
 def add_players_to_list(info):
     '''
     Funktion som tar SQL frågan (info) och sedan tar denna och sorterar den i en lista av lexikon
@@ -77,6 +78,7 @@ def add_players_to_list(info):
 
     return players           
 
+
 def get_all_players():
     """
     Funktion som hämtar alla spelare till en lista av lexikon som sedan används i fhl.py för att printa ut 
@@ -93,6 +95,7 @@ def get_all_players():
 
         return players
 
+
 def get_center_players():
     """
     Funktion som hämtar alla center spelare till en lista av lexikon som sedan används i fhl.py för att printa ut 
@@ -108,6 +111,7 @@ def get_center_players():
         players = add_players_to_list(info)
 
         return players
+
 
 def get_right_forward_players():
     """
@@ -142,6 +146,7 @@ def get_left_forward_players():
 
         return players
 
+
 def get_defense_players():
     """
     Funktion som hämtar alla backar till en lista av lexikon som sedan används i fhl.py för att printa ut 
@@ -158,6 +163,7 @@ def get_defense_players():
 
         return players
 
+
 def get_goalie_players():
     """
     Funktion som hämtar alla målvakter till en lista av lexikon som sedan används i fhl.py för att printa ut 
@@ -173,6 +179,7 @@ def get_goalie_players():
         players = add_players_to_list(info)
 
         return players
+
 
 def get_users_players(user_id):
     '''
@@ -299,7 +306,6 @@ def registrations(username, mail, f_name, l_name, password):
             return user
 
 
-
 def get_points(user_id):
     '''
         Funktionen hämtar ut en specifik användares aktuella poäng.
@@ -328,7 +334,8 @@ def delete_team_ranking():
         postgreSQL_insert = (""" delete from fhl_team_ranking """)
         cursor.execute(postgreSQL_insert)
         conn.commit()
-    
+
+
 def insert_team_rank(all_teams):
     '''
         Funktionen lägger in nhl:S lags ranking i databasen. Funktionen körs efter att alla lag blivit raderade. Funktionen körs från fhl.py.
@@ -367,6 +374,7 @@ def get_timestamp_fhl_team_ranking (todays_date):
     
     return list
 
+
 def get_team_rank():
     '''
         Funktionen hämtar ut lagstatistiken från tabellen fhl_team_rank som finns i databasen och skickar denna till fhl.py.
@@ -383,6 +391,7 @@ def get_team_rank():
         
     return team_rank
 
+
 def delete_play_schedual():
     '''
         Funktionen redarer allt från tabellen fhl_tame_schedual i databasen om dagens datum inte är samma som datumet i tabellen. 
@@ -393,6 +402,7 @@ def delete_play_schedual():
         postgreSQL_insert = (""" delete from fhl_game_schedual """)
         cursor.execute(postgreSQL_insert)
         conn.commit()
+
 
 def insert_play_schedual(current_days_games):
     '''
@@ -412,6 +422,7 @@ def insert_play_schedual(current_days_games):
             cursor.execute(postgreSQL_insert, insert_to)
             conn.commit()
 
+
 def get_date_fhl_game_schedual (todays_date):
     '''
         Funktionen hämtar ut en lista med dagens datum från tabellen fhl_game_schedual i databasen
@@ -430,6 +441,7 @@ def get_date_fhl_game_schedual (todays_date):
     
     return list
 
+
 def get_game_schedual():
     '''
         Funktionen hämtar dagens match schema från fhl_game_schedual från databasen. 
@@ -446,6 +458,7 @@ def get_game_schedual():
         
     return schedual
 
+
 def get_fhl_highscore():
     '''
         Funktionen hämtar ut de 5 spelarna som har högst ranking från fhl_user.
@@ -461,6 +474,7 @@ def get_fhl_highscore():
         highscore= cursor.fetchall()
         
     return highscore
+
 
 def post_forum(user_id):
     """
@@ -490,6 +504,7 @@ def post_forum(user_id):
         cursor.close()
         conn.close()
 
+
 def post_forum_redirect():
     """
     Function redirects user after saving post
@@ -502,6 +517,7 @@ def post_forum_redirect():
         data = cursor.fetchall()
         fhldata = data
         return fhldata
+
 
 def get_forum():
     """
@@ -519,6 +535,7 @@ def get_forum():
     return fhldata
     return fhldata
 
+
 def get_forum_username(user_id):
     """
     Function retrieves all form data posted by the logged in user
@@ -535,6 +552,7 @@ def get_forum_username(user_id):
 
     return fhluserdata
     return fhluserdata
+
 
 #Form posts categorized (Not working)
 #@FHL.route('/category', methods=['POST','GET'])

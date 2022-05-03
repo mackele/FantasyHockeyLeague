@@ -293,7 +293,9 @@ def my_players():
 @flask_login.login_required
 def match():
     points=get_user_points()
-    return render_template('match.html', points=points)
+    user_id=flask_login.current_user.id
+    players = get_users_players(user_id)
+    return render_template('match.html', points=points, players=players)
 
 
 #Game history
