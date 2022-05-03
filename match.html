@@ -86,7 +86,7 @@
                 </div>
                     <div class="modal" id="modal">
                         <div class="modal-header">
-                          <div class="title">Forwards</div>
+                          <div class="title">Spelare för vald position</div>
                           <button data-close-button class="close-button">&times;</button>
                         </div>
                         <div class="modal-body">
@@ -129,23 +129,53 @@
 
             <div id="defense">
 
-                <div id="left_defense">
+                <div data-modal-target="#modal" class="left_defense">
                     <p>Vänster back</p>
                     <img src="FHL.png">
                 </div>
+                    <div class="modal" id="modal">
+                        <div class="modal-header">
+                          <div class="title">Defense</div>
+                          <button data-close-button class="close-button">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                          
+                        </div>
+                    </div>
+                <div id="overlay"></div>
 
-                <div id="right_defense">
+                <div data-modal-target="#modal" class="right_defense">
                     <p>Höger back</p>
                     <img src="FHL.png">
                 </div>
+                    <div class="modal" id="modal">
+                        <div class="modal-header">
+                          <div class="title">Defense</div>
+                          <button data-close-button class="close-button">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                          
+                        </div>
+                    </div>
+                <div id="overlay"></div>
 
             </div>
 
             <div id="defense_goalie">
-                <div id="goalie">
+                <div data-modal-target="#modal" class="defense_goalie">
                     <p>Målvakt</p>
                     <img src="FHL.png">
                 </div>
+                    <div class="modal" id="modal">
+                        <div class="modal-header">
+                          <div class="title">Goalie</div>
+                          <button data-close-button class="close-button">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                          
+                        </div>
+                    </div>
+                <div id="overlay"></div>
             </div>
 
         </section>

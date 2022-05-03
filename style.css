@@ -474,9 +474,21 @@ main div {
     text-align: center;
 }
 
+.left_defense:hover {
+    cursor: pointer;
+}
+
+.right_defense:hover {
+    cursor: pointer;
+}
+
 #defense_goalie {
     display: flex;
     justify-content: center;
+}
+
+.defense_goalie:hover {
+    cursor: pointer;
 }
 
 .lock {
