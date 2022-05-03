@@ -283,9 +283,11 @@ def my_players():
     """
     points=get_user_points()
     user_id=flask_login.current_user.id
-    players = get_users_players(user_id)
-    
-    return render_template('my_players.html', points=points, players = players)
+    goalie = get_users_goalie(user_id)
+    defenseman = get_users_defenseman(user_id)
+    forward = get_users_forward(user_id)
+    center = get_users_center(user_id)
+    return render_template('my_players.html', points=points, goalie=goalie, defenseman=defenseman, center=center, forward=forward)
 
 
 #Game

@@ -436,6 +436,48 @@ def get_users_right_wing(user_id):
         return right_wing
 
 
+def get_users_forward(user_id):
+    '''
+        Funktion hämtar användarens forwards
+        args:
+            user_id är den inloggade användarens personliga id.
+        return:
+            Returnerar användarens köpta spelare till fhl.py
+    '''
+
+    with Postgres() as (cursor, conn):
+        cursor.execute (f"""select * from fhl_players join fhl_my_players on fhl_players.id = fhl_my_players.player 
+                where fhl_my_players.fhl_user = '{user_id}' and (position = 'Right Wing' or position = 'Left Wing')""")
+        info=cursor.fetchall()
+
+        forward = []
+
+        for list in info:
+            id = list[0]
+            name = list[9]
+            team = list[1]
+            position = list[2]
+            goal = list[3]
+            penalty_time = list[4]
+            assists = list[5]
+            image = list[6]
+            price = list[7]
+
+            forward.append({
+                "id": id,
+                "name": name,
+                "team": team,
+                "position": position,
+                "goal": goal,
+                "penalty_time": penalty_time,
+                "assists": assists,
+                "image": image,
+                "price": price
+            })
+    
+        return forward
+
+
 def login(mail, password):
     '''
         Funktionen hämtar ut en lista med en specifik användare utifrån mail och lösenord från databasen.

@@ -97,8 +97,8 @@
             <h3>Forward</h3>
             <div class="slide_show">
                 <div class="one_time">
-                    {%for player in players%} 
 
+                    {% for player in forward %} 
                         <div class="card">
                             <div class="card__inner">
                                 <div class="card__face card__face--front">                              
@@ -132,7 +132,7 @@
                                 </div>
                             </div>
                         </div>                          
-                    {%endfor%}
+                    {% endfor %}
                 
                     <div class="card">
                         <div class="card__inner">
@@ -270,56 +270,42 @@
             <h3>Back</h3>
             <div class="slide_show">
                 <div class="one_time">
+                    
+                    {% for player in defenseman %} 
                     <div class="card">
                         <div class="card__inner">
-                            <div class="card__face card__face--front">
-                                <img src="{{url_for('static', filename = 'FHL.png')}}">
-                                <h3>Alex Ovechkin</h3>
-                                <div class="costs">
-                                    <h5>10p</h5>
-                                    <button class="cost_button">Sälj</button>
-                                </div>
+                            <div class="card__face card__face--front">                              
+                                <!--Player statistics-->
+                                <img src="{{player.image}}">
+                                <!--Hämta namn från databas-->                                                                  
+                                <h3>{{player.name}}</h3>                                  
+                                <!--Hämta poäng från databas ("Poäng: " + database value)-->
+                                <h4>Poäng: {{player.price}} </h4>
+                                <button class="cost_button">sälj</button>
                             </div>
+
                             <div class="card__face card__face--back">
                                 <div class="card__content">
                                     <div class="card__header">
-                                        <h4>John Tavares</h4>
-                                        <p>Lag:</p>
-                                        <p>Position:</p>
-                                        <p>Mål:</p>
-                                        <p>Strafftid:</p>
-                                        <p>Assists:</p>
-                                        <p>Kort beskrivning:</p>
+                                        <!--Spelarstatistik från databasen-->
+                                        <!--Hämta namn-->
+                                        <h4>{{player.name}}</h4>
+                                        <!--Hämta lag-->
+                                        <p>Lag: {{player.team}}</p>
+                                        <!--Hämta position-->
+                                        <p>Position: {{player.position}}</p>
+                                        <!--Hämta antal mål-->
+                                        <p>Mål: {{player.goal}}</p>
+                                        <!--Hämta antal assit-->
+                                        <p>Assist: {{player.assists}}</p>
+                                        <!--Hämta antal utvisningsminuter-->
+                                        <p>Utvisningsminuter: {{player.penalty_time}}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card">
-                        <div class="card__inner">
-                            <div class="card__face card__face--front">
-                                <img src="{{url_for('static', filename = 'FHL.png')}}">
-                                <h3>Alex Ovechkin</h3>
-                                <div class="costs">
-                                    <h5>10p</h5>
-                                    <button class="cost_button">Sälj</button>
-                                </div>
-                            </div>
-                            <div class="card__face card__face--back">
-                                <div class="card__content">
-                                    <div class="card__header">
-                                        <h4>John Tavares</h4>
-                                        <p>Lag:</p>
-                                        <p>Position:</p>
-                                        <p>Mål:</p>
-                                        <p>Strafftid:</p>
-                                        <p>Assists:</p>
-                                        <p>Kort beskrivning:</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div>                          
+                {% endfor %}
                     
                     <div class="card">
                         <div class="card__inner">
@@ -431,31 +417,42 @@
             <h3>Center</h3>
             <div class="slide_show">
                 <div class="one_time">
-                    <div class="card">
-                        <div class="card__inner">
-                            <div class="card__face card__face--front">
-                                <img src="{{url_for('static', filename = 'FHL.png')}}">
-                                <h3>Alex Ovechkin</h3>
-                                <div class="costs">
-                                    <h5>10p</h5>
-                                    <button class="cost_button">Sälj</button>
+
+                    {% for player in center %} 
+                        <div class="card">
+                            <div class="card__inner">
+                                <div class="card__face card__face--front">                              
+                                    <!--Player statistics-->
+                                    <img src="{{player.image}}">
+                                    <!--Hämta namn från databas-->                                                                  
+                                    <h3>{{player.name}}</h3>                                  
+                                    <!--Hämta poäng från databas ("Poäng: " + database value)-->
+                                    <h4>Poäng: {{player.price}} </h4>
+                                    <button class="cost_button">sälj</button>
                                 </div>
-                            </div>
-                            <div class="card__face card__face--back">
-                                <div class="card__content">
-                                    <div class="card__header">
-                                        <h4>John Tavares</h4>
-                                        <p>Lag:</p>
-                                        <p>Position:</p>
-                                        <p>Mål:</p>
-                                        <p>Strafftid:</p>
-                                        <p>Assists:</p>
-                                        <p>Kort beskrivning:</p>
+
+                                <div class="card__face card__face--back">
+                                    <div class="card__content">
+                                        <div class="card__header">
+                                            <!--Spelarstatistik från databasen-->
+                                            <!--Hämta namn-->
+                                            <h4>{{player.name}}</h4>
+                                            <!--Hämta lag-->
+                                            <p>Lag: {{player.team}}</p>
+                                            <!--Hämta position-->
+                                            <p>Position: {{player.position}}</p>
+                                            <!--Hämta antal mål-->
+                                            <p>Mål: {{player.goal}}</p>
+                                            <!--Hämta antal assit-->
+                                            <p>Assist: {{player.assists}}</p>
+                                            <!--Hämta antal utvisningsminuter-->
+                                            <p>Utvisningsminuter: {{player.penalty_time}}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        </div>                          
+                    {% endfor %}
                     
                     <div class="card">
                         <div class="card__inner">
@@ -541,31 +538,42 @@
             <h3>Målvakt</h3>
             <div class="slide_show">
                 <div class="one_time">
-                    <div class="card">
-                        <div class="card__inner">
-                            <div class="card__face card__face--front">
-                                <img src="{{url_for('static', filename = 'FHL.png')}}">
-                                <h3>Alex Ovechkin</h3>
-                                <div class="costs">
-                                    <h5>10p</h5>
-                                    <button class="cost_button">Sälj</button>
+
+                    {% for player in goalie %} 
+                        <div class="card">
+                            <div class="card__inner">
+                                <div class="card__face card__face--front">                              
+                                    <!--Player statistics-->
+                                    <img src="{{player.image}}">
+                                    <!--Hämta namn från databas-->                                                                  
+                                    <h3>{{player.name}}</h3>                                  
+                                    <!--Hämta poäng från databas ("Poäng: " + database value)-->
+                                    <h4>Poäng: {{player.price}} </h4>
+                                    <button class="cost_button">sälj</button>
                                 </div>
-                            </div>
-                            <div class="card__face card__face--back">
-                                <div class="card__content">
-                                    <div class="card__header">
-                                        <h4>John Tavares</h4>
-                                        <p>Lag:</p>
-                                        <p>Position:</p>
-                                        <p>Mål:</p>
-                                        <p>Strafftid:</p>
-                                        <p>Assists:</p>
-                                        <p>Kort beskrivning:</p>
+
+                                <div class="card__face card__face--back">
+                                    <div class="card__content">
+                                        <div class="card__header">
+                                            <!--Spelarstatistik från databasen-->
+                                            <!--Hämta namn-->
+                                            <h4>{{player.name}}</h4>
+                                            <!--Hämta lag-->
+                                            <p>Lag: {{player.team}}</p>
+                                            <!--Hämta position-->
+                                            <p>Position: {{player.position}}</p>
+                                            <!--Hämta antal mål-->
+                                            <p>Mål: {{player.goal}}</p>
+                                            <!--Hämta antal assit-->
+                                            <p>Assist: {{player.assists}}</p>
+                                            <!--Hämta antal utvisningsminuter-->
+                                            <p>Utvisningsminuter: {{player.penalty_time}}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        </div>                          
+                    {% endfor %}
                     
                     <div class="card">
                         <div class="card__inner">
