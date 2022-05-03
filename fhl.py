@@ -294,8 +294,12 @@ def my_players():
 def match():
     points=get_user_points()
     user_id=flask_login.current_user.id
-    players = get_users_players(user_id)
-    return render_template('match.html', points=points, players=players)
+    goalie = get_users_goalie(user_id)
+    defenseman = get_users_defenseman(user_id)
+    left_wing = get_users_left_wing(user_id)
+    center = get_users_center(user_id)
+    right_wing = get_users_right_wing(user_id)
+    return render_template('match.html', points=points, goalie=goalie, defenseman=defenseman, left_wing=left_wing, center=center, right_wing=right_wing)
 
 
 #Game history

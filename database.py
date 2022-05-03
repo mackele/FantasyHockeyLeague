@@ -226,6 +226,216 @@ def get_users_players(user_id):
         return players
 
 
+def get_users_goalie(user_id):
+    '''
+        Funktion hämtar användarens goalies
+        args:
+            user_id är den inloggade användarens personliga id.
+        return:
+            Returnerar användarens köpta spelare till fhl.py
+    '''
+
+    with Postgres() as (cursor, conn):
+        cursor.execute (f"""select * from fhl_players join fhl_my_players on fhl_players.id = fhl_my_players.player 
+                where fhl_my_players.fhl_user = '{user_id}' and position = 'Goalie'""")
+        info=cursor.fetchall()
+
+        goalie = []
+
+        for list in info:
+            id = list[0]
+            name = list[9]
+            team = list[1]
+            position = list[2]
+            goal = list[3]
+            penalty_time = list[4]
+            assists = list[5]
+            image = list[6]
+            price = list[7]
+
+            goalie.append({
+                "id": id,
+                "name": name,
+                "team": team,
+                "position": position,
+                "goal": goal,
+                "penalty_time": penalty_time,
+                "assists": assists,
+                "image": image,
+                "price": price
+            })
+    
+        return goalie
+
+
+def get_users_defenseman(user_id):
+    '''
+        Funktion hämtar användarens defenseman
+        args:
+            user_id är den inloggade användarens personliga id.
+        return:
+            Returnerar användarens köpta spelare till fhl.py
+    '''
+
+    with Postgres() as (cursor, conn):
+        cursor.execute (f"""select * from fhl_players join fhl_my_players on fhl_players.id = fhl_my_players.player 
+                where fhl_my_players.fhl_user = '{user_id}' and position = 'Defenseman'""")
+        info=cursor.fetchall()
+
+        defenseman = []
+
+        for list in info:
+            id = list[0]
+            name = list[9]
+            team = list[1]
+            position = list[2]
+            goal = list[3]
+            penalty_time = list[4]
+            assists = list[5]
+            image = list[6]
+            price = list[7]
+
+            defenseman.append({
+                "id": id,
+                "name": name,
+                "team": team,
+                "position": position,
+                "goal": goal,
+                "penalty_time": penalty_time,
+                "assists": assists,
+                "image": image,
+                "price": price
+            })
+    
+        return defenseman
+
+
+def get_users_left_wing(user_id):
+    '''
+        Funktion hämtar användarens left wings
+        args:
+            user_id är den inloggade användarens personliga id.
+        return:
+            Returnerar användarens köpta spelare till fhl.py
+    '''
+
+    with Postgres() as (cursor, conn):
+        cursor.execute (f"""select * from fhl_players join fhl_my_players on fhl_players.id = fhl_my_players.player 
+                where fhl_my_players.fhl_user = '{user_id}' and position = 'Left Wing'""")
+        info=cursor.fetchall()
+
+        left_wing = []
+
+        for list in info:
+            id = list[0]
+            name = list[9]
+            team = list[1]
+            position = list[2]
+            goal = list[3]
+            penalty_time = list[4]
+            assists = list[5]
+            image = list[6]
+            price = list[7]
+
+            left_wing.append({
+                "id": id,
+                "name": name,
+                "team": team,
+                "position": position,
+                "goal": goal,
+                "penalty_time": penalty_time,
+                "assists": assists,
+                "image": image,
+                "price": price
+            })
+    
+        return left_wing
+
+
+def get_users_center(user_id):
+    '''
+        Funktion hämtar användarens centers
+        args:
+            user_id är den inloggade användarens personliga id.
+        return:
+            Returnerar användarens köpta spelare till fhl.py
+    '''
+
+    with Postgres() as (cursor, conn):
+        cursor.execute (f"""select * from fhl_players join fhl_my_players on fhl_players.id = fhl_my_players.player 
+                where fhl_my_players.fhl_user = '{user_id}' and position = 'Center'""")
+        info=cursor.fetchall()
+
+        center = []
+
+        for list in info:
+            id = list[0]
+            name = list[9]
+            team = list[1]
+            position = list[2]
+            goal = list[3]
+            penalty_time = list[4]
+            assists = list[5]
+            image = list[6]
+            price = list[7]
+
+            center.append({
+                "id": id,
+                "name": name,
+                "team": team,
+                "position": position,
+                "goal": goal,
+                "penalty_time": penalty_time,
+                "assists": assists,
+                "image": image,
+                "price": price
+            })
+    
+        return center
+
+
+def get_users_right_wing(user_id):
+    '''
+        Funktion hämtar användarens right wings
+        args:
+            user_id är den inloggade användarens personliga id.
+        return:
+            Returnerar användarens köpta spelare till fhl.py
+    '''
+
+    with Postgres() as (cursor, conn):
+        cursor.execute (f"""select * from fhl_players join fhl_my_players on fhl_players.id = fhl_my_players.player 
+                where fhl_my_players.fhl_user = '{user_id}' and position = 'Right Wing'""")
+        info=cursor.fetchall()
+
+        right_wing = []
+
+        for list in info:
+            id = list[0]
+            name = list[9]
+            team = list[1]
+            position = list[2]
+            goal = list[3]
+            penalty_time = list[4]
+            assists = list[5]
+            image = list[6]
+            price = list[7]
+
+            right_wing.append({
+                "id": id,
+                "name": name,
+                "team": team,
+                "position": position,
+                "goal": goal,
+                "penalty_time": penalty_time,
+                "assists": assists,
+                "image": image,
+                "price": price
+            })
+    
+        return right_wing
+
+
 def login(mail, password):
     '''
         Funktionen hämtar ut en lista med en specifik användare utifrån mail och lösenord från databasen.

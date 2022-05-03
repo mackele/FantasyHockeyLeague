@@ -84,7 +84,7 @@
                 <div id="left_forward">
                     <p>Vänster forward</p>
                     <select name="left_forward" id="left_forward_option">
-                        {% for player in players %} 
+                        {% for player in left_wing %} 
                         <option value="">{{player.name}}</option>
                         {% endfor %}
                     </select>
@@ -93,7 +93,7 @@
                 <div id="center">
                     <p>Center</p>
                     <select name="center" id="center_option">
-                        {% for player in players %} 
+                        {% for player in center %} 
                         <option value="">{{player.name}}</option>
                         {% endfor %}
                     </select>
@@ -102,7 +102,7 @@
                 <div id="right_forward">
                     <p>Höger forward</p>
                     <select name="right_forward" id="right_forward_option">
-                        {% for player in players %} 
+                        {% for player in right_wing %} 
                         <option value="">{{player.name}}</option>
                         {% endfor %}
                     </select>
@@ -113,7 +113,7 @@
                 <div id="left_defense">
                     <p>Vänster back</p>
                     <select name="left_defense" id="left_defense_option">
-                        {% for player in players %} 
+                        {% for player in defenseman %} 
                         <option value="">{{player.name}}</option>
                         {% endfor %}
                     </select>
@@ -122,7 +122,7 @@
                 <div id="right_defense">
                     <p>Höger back</p>
                     <select name="right_defense" id="right_defenseoption">
-                        {% for player in players %} 
+                        {% for player in defenseman %} 
                         <option value="">{{player.name}}</option>
                         {% endfor %}
                     </select>
@@ -133,7 +133,7 @@
                 <div id="goalie">
                     <p>Målvakt</p>
                     <select name="goalie" id="goalie_defenseoption">
-                        {% for player in players %} 
+                        {% for player in goalie %} 
                         <option value="">{{player.name}}</option>
                         {% endfor %}
                     </select>
