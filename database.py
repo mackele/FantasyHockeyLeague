@@ -32,14 +32,48 @@ def add_player_to_database(players):
     with Postgres() as (cursor, conn):
         cursor.execute("""select * from fhl_players""")
         
-
         columns = players[0].keys()
         query = "INSERT INTO fhl_players ({}) VALUES %s".format(','.join(columns))
         values = [[value for value in player.values()] for player in players]
 
         execute_values(cursor, query, values)
         conn.commit()
-            
+
+def add_players_to_list(info):
+    '''
+    Funktion som tar SQL frågan (info) och sedan tar denna och sorterar den i en lista av lexikon
+    som sedan läggs till i en tom lista och skickas tillbaka
+
+    Return: players 
+    Som är alla de spelare som fanns i SQL-frågan
+    '''
+
+    players = []
+
+    for list in info:
+        id = list[0]
+        name = list[9]
+        team = list[1]
+        position = list[2]
+        goal = list[3]
+        penalty_time = list[4]
+        assists = list[5]
+        image = list[6]
+        price = list[7]
+
+        players.append({
+            "id": id,
+            "name": name,
+            "team": team,
+            "position": position,
+            "goal": goal,
+            "penalty_time": penalty_time,
+            "assists": assists,
+            "image": image,
+            "price": price
+        }) 
+
+    return players           
 
 def get_all_players():
     """
@@ -53,33 +87,90 @@ def get_all_players():
         cursor.execute ("""select * from fhl_players""")
         info=cursor.fetchall()
 
-        players = []
-
-        for list in info:
-            id = list[0]
-            name = list[9]
-            team = list[1]
-            position = list[2]
-            goal = list[3]
-            penalty_time = list[4]
-            assists = list[5]
-            image = list[6]
-            price = list[7]
-
-            players.append({
-                "id": id,
-                "name": name,
-                "team": team,
-                "position": position,
-                "goal": goal,
-                "penalty_time": penalty_time,
-                "assists": assists,
-                "image": image,
-                "price": price
-            })
+        players = add_players_to_list(info)
 
         return players
 
+def get_center_players():
+    """
+    Funktion som hämtar alla center spelare till en lista av lexikon som sedan används i fhl.py för att printa ut 
+    spelarkort.
+
+        Returns: center_players
+        Detta är en lista av lexikon med samtliga värden
+    """
+    with Postgres() as (cursor, conn):
+        cursor.execute ("""select * from fhl_players where position = 'Center' order by price desc""")
+        info=cursor.fetchall()
+
+        players = add_players_to_list(info)
+
+        return players
+
+def get_right_forward_players():
+    """
+    Funktion som hämtar alla höger forward spelare till en lista av lexikon som sedan används i fhl.py för att printa ut 
+    spelarkort.
+
+        Returns: center_players
+        Detta är en lista av lexikon med samtliga värden
+    """
+    with Postgres() as (cursor, conn):
+        cursor.execute ("""select * from fhl_players where position = 'Right Wing' order by price desc""")
+        info=cursor.fetchall()
+
+        players = add_players_to_list(info)
+
+        return players
+
+
+def get_left_forward_players():
+    """
+    Funktion som hämtar alla vänster forward spelare till en lista av lexikon som sedan används i fhl.py för att printa ut 
+    spelarkort.
+
+        Returns: center_players
+        Detta är en lista av lexikon med samtliga värden
+    """
+    with Postgres() as (cursor, conn):
+        cursor.execute ("""select * from fhl_players where position = 'Left Wing' order by price desc""")
+        info=cursor.fetchall()
+
+        players = add_players_to_list(info)
+
+        return players
+
+def get_defense_players():
+    """
+    Funktion som hämtar alla backar till en lista av lexikon som sedan används i fhl.py för att printa ut 
+    spelarkort.
+
+        Returns: center_players
+        Detta är en lista av lexikon med samtliga värden
+    """
+    with Postgres() as (cursor, conn):
+        cursor.execute ("""select * from fhl_players where position = 'Defenseman' order by price desc""")
+        info=cursor.fetchall()
+
+        players = add_players_to_list(info)
+
+        return players
+
+def get_goalie_players():
+    """
+    Funktion som hämtar alla målvakter till en lista av lexikon som sedan används i fhl.py för att printa ut 
+    spelarkort.
+
+        Returns: center_players
+        Detta är en lista av lexikon med samtliga värden
+    """
+    with Postgres() as (cursor, conn):
+        cursor.execute ("""select * from fhl_players where position = 'Goalie' order by price desc""")
+        info=cursor.fetchall()
+
+        players = add_players_to_list(info)
+
+        return players
 
 def get_users_players(user_id):
     '''

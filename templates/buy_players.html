@@ -88,8 +88,10 @@
 
         <h2>Köp spelare</h2>
 
+        <h3>Center</h3>
+
         <div class="one_time">
-            {%for player in players%} 
+            {%for player in centers%} 
 
                 <div class="card">
                     <div class="card__inner">
@@ -131,7 +133,202 @@
                         </div>
                     </div>
                 </div>                          
-            {%endfor%}  
+            {%endfor%}
+
+        </div>
+            
+        <h3>Höger forward</h3>
+
+        <div class="one_time">
+            {%for player in right_forwards%} 
+
+                <div class="card">
+                    <div class="card__inner">
+                        <div class="card__face card__face--front">                              
+                            <!--Player statistics-->
+                            <img src="{{player.image}}">
+                            <!--Hämta namn från databas-->                                                                  
+                            <h3>{{player.name}}</h3>                                  
+                            <!--Hämta poäng från databas ("Poäng: " + database value)-->
+                            <div class="costs">
+                                <h5>Pris: {{player.price}}</h5>
+                                <form method="post">
+                                    <input type="hidden" id="player_id" name="id" value={{player.id}}>
+
+                                    <input type = "submit" class="cost_button" value="Köp">
+                                </form>
+                                
+                            </div>
+                        </div>
+
+                        <div class="card__face card__face--back">
+                            <div class="card__content">
+                                <div class="card__header">
+                                    <!--Spelarstatistik från databasen-->
+                                    <!--Hämta namn-->
+                                    <h4>{{player.name}}</h4>
+                                    <!--Hämta lag-->
+                                    <p>Lag: {{player.team}}</p>
+                                    <!--Hämta position-->
+                                    <p>Position: {{player.position}}</p>
+                                    <!--Hämta antal mål-->
+                                    <p>Mål: {{player.goal}}</p>
+                                    <!--Hämta antal assit-->
+                                    <p>Assist: {{player.assists}}</p>
+                                    <!--Hämta antal utvisningsminuter-->
+                                    <p>Utvisningsminuter: {{player.penalty_time}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                          
+            {%endfor%}
+        </div>
+
+        <h3>Vänster forward</h3>
+
+        <div class="one_time">
+            {%for player in left_forwards%} 
+
+                <div class="card">
+                    <div class="card__inner">
+                        <div class="card__face card__face--front">                              
+                            <!--Player statistics-->
+                            <img src="{{player.image}}">
+                            <!--Hämta namn från databas-->                                                                  
+                            <h3>{{player.name}}</h3>                                  
+                            <!--Hämta poäng från databas ("Poäng: " + database value)-->
+                            <div class="costs">
+                                <h5>Pris: {{player.price}}</h5>
+                                <form method="post">
+                                    <input type="hidden" id="player_id" name="id" value={{player.id}}>
+
+                                    <input type = "submit" class="cost_button" value="Köp">
+                                </form>
+                                
+                            </div>
+                        </div>
+
+                        <div class="card__face card__face--back">
+                            <div class="card__content">
+                                <div class="card__header">
+                                    <!--Spelarstatistik från databasen-->
+                                    <!--Hämta namn-->
+                                    <h4>{{player.name}}</h4>
+                                    <!--Hämta lag-->
+                                    <p>Lag: {{player.team}}</p>
+                                    <!--Hämta position-->
+                                    <p>Position: {{player.position}}</p>
+                                    <!--Hämta antal mål-->
+                                    <p>Mål: {{player.goal}}</p>
+                                    <!--Hämta antal assit-->
+                                    <p>Assist: {{player.assists}}</p>
+                                    <!--Hämta antal utvisningsminuter-->
+                                    <p>Utvisningsminuter: {{player.penalty_time}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                          
+            {%endfor%}
+        </div>
+
+        <h3>Backar</h3>
+
+        <div class="one_time">
+            {%for player in defense%} 
+
+                <div class="card">
+                    <div class="card__inner">
+                        <div class="card__face card__face--front">                              
+                            <!--Player statistics-->
+                            <img src="{{player.image}}">
+                            <!--Hämta namn från databas-->                                                                  
+                            <h3>{{player.name}}</h3>                                  
+                            <!--Hämta poäng från databas ("Poäng: " + database value)-->
+                            <div class="costs">
+                                <h5>Pris: {{player.price}}</h5>
+                                <form method="post">
+                                    <input type="hidden" id="player_id" name="id" value={{player.id}}>
+
+                                    <input type = "submit" class="cost_button" value="Köp">
+                                </form>
+                                
+                            </div>
+                        </div>
+
+                        <div class="card__face card__face--back">
+                            <div class="card__content">
+                                <div class="card__header">
+                                    <!--Spelarstatistik från databasen-->
+                                    <!--Hämta namn-->
+                                    <h4>{{player.name}}</h4>
+                                    <!--Hämta lag-->
+                                    <p>Lag: {{player.team}}</p>
+                                    <!--Hämta position-->
+                                    <p>Position: {{player.position}}</p>
+                                    <!--Hämta antal mål-->
+                                    <p>Mål: {{player.goal}}</p>
+                                    <!--Hämta antal assit-->
+                                    <p>Assist: {{player.assists}}</p>
+                                    <!--Hämta antal utvisningsminuter-->
+                                    <p>Utvisningsminuter: {{player.penalty_time}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                          
+            {%endfor%}
+        </div>
+
+        <h3>Målvakter</h3>
+
+        <div class="one_time">
+            {%for player in goalies%} 
+
+                <div class="card">
+                    <div class="card__inner">
+                        <div class="card__face card__face--front">                              
+                            <!--Player statistics-->
+                            <img src="{{player.image}}">
+                            <!--Hämta namn från databas-->                                                                  
+                            <h3>{{player.name}}</h3>                                  
+                            <!--Hämta poäng från databas ("Poäng: " + database value)-->
+                            <div class="costs">
+                                <h5>Pris: {{player.price}}</h5>
+                                <form method="post">
+                                    <input type="hidden" id="player_id" name="id" value={{player.id}}>
+
+                                    <input type = "submit" class="cost_button" value="Köp">
+                                </form>
+                                
+                            </div>
+                        </div>
+
+                        <div class="card__face card__face--back">
+                            <div class="card__content">
+                                <div class="card__header">
+                                    <!--Spelarstatistik från databasen-->
+                                    <!--Hämta namn-->
+                                    <h4>{{player.name}}</h4>
+                                    <!--Hämta lag-->
+                                    <p>Lag: {{player.team}}</p>
+                                    <!--Hämta position-->
+                                    <p>Position: {{player.position}}</p>
+                                    <!--Hämta antal mål-->
+                                    <p>Mål: {{player.goal}}</p>
+                                    <!--Hämta antal assit-->
+                                    <p>Assist: {{player.assists}}</p>
+                                    <!--Hämta antal utvisningsminuter-->
+                                    <p>Utvisningsminuter: {{player.penalty_time}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                          
+            {%endfor%}
+        </div>
+
     </div>
 </div>
     <footer>

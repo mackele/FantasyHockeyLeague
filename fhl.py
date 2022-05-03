@@ -255,7 +255,11 @@ def buy_players():
     '''
     points=get_user_points()
 
-    players = get_all_players()
+    right_forwards = get_right_forward_players()
+    centers = get_center_players()
+    left_forwards = get_left_forward_players()
+    defense = get_defense_players()
+    goalies = get_goalie_players()
 
     if request.method == 'POST':
         player_id = request.form['id']
@@ -263,7 +267,8 @@ def buy_players():
 
         add_purchased_player_to_team(user_id, player_id)
     
-    return render_template('buy_players.html', points=points, players = players)
+    return render_template('buy_players.html', points=points, right_forwards = right_forwards, centers = centers,
+    left_forwards = left_forwards, defense = defense, goalies = goalies)
 
 
 #My players
