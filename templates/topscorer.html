@@ -73,55 +73,10 @@
         </div>
     </nav>
     
+    
     <div id="topscorer_body">
         <!--Header for Topscorer-->
         <h2>Topplista</h2>
-
-        <!--TEST ATT PRINTA UT-->
-        <h3 class="topscorer_title">Alla spelare</h3>
-        <div class="slide_show">
-            <div class="one_time">
-                {%for player in players%} 
-
-                    <div class="card">
-                        <div class="card__inner">
-                            <div class="card__face card__face--front">                              
-                                <!--Player statistics-->
-                                <img src="{{player.image}}">
-                                <!--Hämta namn från databas-->                                                                  
-                                <h3>{{player.name}}</h3>                                  
-                                <!--Hämta poäng från databas ("Poäng: " + database value)-->
-                                <h4>Poäng: {{player.price}} </h4>
-                            </div>
-
-                            <div class="card__face card__face--back">
-                                <div class="card__content">
-                                    <div class="card__header">
-                                        <!--Spelarstatistik från databasen-->
-                                        <!--Hämta namn-->
-                                        <h4>{{player.name}}</h4>
-                                        <!--Hämta lag-->
-                                        <p>Lag: {{player.team}}</p>
-                                        <!--Hämta position-->
-                                        <p>Position: {{player.position}}</p>
-                                        <!--Hämta antal mål-->
-                                        <p>Mål: {{player.goal}}</p>
-                                        <!--Hämta antal assit-->
-                                        <p>Assist: {{player.assists}}</p>
-                                        <!--Hämta antal utvisningsminuter-->
-                                        <p>Utvisningsminuter: {{player.penalty_time}}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                          
-                {%endfor%}
-
-                
-                
-                
-            </div>
-        </div>
 
         <!--Top Scorer - Points-->    
         <div class="content"> 
@@ -222,7 +177,7 @@
             </div>
         </div> 
 
-        
+
         <!--Top Scorer - Assists-->  
         <div class="content">
 
@@ -271,6 +226,49 @@
                 </div>
             </div> 
         </div>
+    
+
+        <!--Top Scorer - Alla spelare-->  
+        <h3 class="topscorer_title">Alla spelare</h3>
+            <div class="slide_show">
+                <div class="one_time">
+                    {% for player in players %} 
+
+                        <div class="card">
+                            <div class="card__inner">
+                                <div class="card__face card__face--front">                              
+                                    <!--Player statistics-->
+                                    <img src="{{player.image}}">
+                                    <!--Hämta namn från databas-->                                                                  
+                                    <h3>{{player.name}}</h3>                                  
+                                    <!--Hämta poäng från databas ("Poäng: " + database value)-->
+                                    <h4>Poäng: {{player.price}} </h4>
+                                </div>
+
+                                <div class="card__face card__face--back">
+                                    <div class="card__content">
+                                        <div class="card__header">
+                                            <!--Spelarstatistik från databasen-->
+                                            <!--Hämta namn-->
+                                            <h4>{{player.name}}</h4>
+                                            <!--Hämta lag-->
+                                            <p>Lag: {{player.team}}</p>
+                                            <!--Hämta position-->
+                                            <p>Position: {{player.position}}</p>
+                                            <!--Hämta antal mål-->
+                                            <p>Mål: {{player.goal}}</p>
+                                            <!--Hämta antal assit-->
+                                            <p>Assist: {{player.assists}}</p>
+                                            <!--Hämta antal utvisningsminuter-->
+                                            <p>Utvisningsminuter: {{player.penalty_time}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                          
+                    {% endfor %}
+                </div>
+            </div>
     </div>
 
     <footer>
