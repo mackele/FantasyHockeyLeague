@@ -45,7 +45,7 @@ def add_players_to_list(info):
     som sedan läggs till i en tom lista och skickas tillbaka
 
     Return: players 
-    Som är alla de spelare som fanns i SQL-frågan
+    Som är alla de spelare som fanns i SQL-frågan sorterade i en ny lista av lexikon
     '''
 
     players = []
@@ -60,6 +60,7 @@ def add_players_to_list(info):
         assists = list[5]
         image = list[6]
         price = list[7]
+        saves = list[8]
 
         players.append({
             "id": id,
@@ -70,7 +71,8 @@ def add_players_to_list(info):
             "penalty_time": penalty_time,
             "assists": assists,
             "image": image,
-            "price": price
+            "price": price,
+            "saves": saves
         }) 
 
     return players           
