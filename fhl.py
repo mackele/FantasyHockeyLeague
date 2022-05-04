@@ -303,21 +303,37 @@ def match():
     right_wing = get_users_right_wing(user_id)
 
     if request.method == 'POST':
-        left_forward_form = request.form['left_forward']
-        center_form = request.form['center']
-        right_forward_form = request.form['right_forward']
-        left_defense_form = request.form['left_defense']
-        right_defense_form = request.form['right_defense']
-        goalie_form = request.form['goalie']
+        left_forward_form = request.form['left_forward'].split(", ")
+        left_forward_id = left_forward_form[0]
+        left_forward_score = left_forward_form[1]
+
+        center_form = request.form['center'].split(", ")
+        center_id = center_form[0]
+        center_score = center_form[1]
+
+        right_forward_form = request.form['right_forward'].split(", ")
+        right_forward_id = right_forward_form[0]
+        right_forward_score = right_forward_form[1]
+
+        left_defense_form = request.form['left_defense'].split(", ")
+        left_defense_id = left_defense_form[0]
+        left_defense_score = left_defense_form[1]
+
+        right_defense_form = request.form['right_defense'].split(", ")
+        right_defense_id = right_defense_form[0]
+        right_defense_score = right_defense_form[1]
+
+        goalie_form = request.form['goalie'].split(", ")
+        goalie_id = goalie_form[0]
+        goalie_score = goalie_form[1]
+
+        score = int(left_forward_score) + int(center_score) + int(right_forward_score) + int(left_defense_score) + int(right_defense_score) + int(goalie_score)
 
         user_id=flask_login.current_user.id
 
-        print(left_forward_form)
-        print(center_form)
-        print(right_forward_form)
-        print(left_defense_form) 
-        print(right_defense_form)
-        print(goalie_form)
+        add_chosen_players_to_game(left_forward_id, center_id, right_forward_id, left_defense_id, 
+        right_defense_id, goalie_id, user_id, score)
+
 
     return render_template('match.html', points=points, goalie=goalie, defenseman=defenseman, left_wing=left_wing, center=center, right_wing=right_wing)
 
