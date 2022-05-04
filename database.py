@@ -853,9 +853,11 @@ def get_form():
 def add_chosen_players_to_game(left_forward, center, right_forward, left_defense, right_defense, goalie, user_id_form, score, team_name):
     with Postgres() as (cursor, conn):
 
-        PostgreSQL_insert = """ INSERT INTO fhl_team (team_id, team_name, match_score, left_forward, right_forward,
-        center, left_back, right_back, goalkeeper, fhl_user) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
-        insert_to = (team_id, team_name, score, left_forward, center, right_forward, left_defense, right_defense, goalie, user_id_form)
+        todaydate = date.today()
+
+        PostgreSQL_insert = """ INSERT INTO fhl_team (team_name, match_score, left_forward, right_forward,
+        center, left_back, right_back, goalkeeper, fhl_user, team_date) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+        insert_to = (team_name, score, left_forward, center, right_forward, left_defense, right_defense, goalie, user_id_form, todaydate)
         cursor.execute(PostgreSQL_insert, insert_to)
 
         conn.commit()
