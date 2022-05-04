@@ -75,15 +75,14 @@
 
     <main>
         <h2>Min match</h2>
-        
+        <form id="choose_players" method="post"></form>
+
         <section id="players">
                 <div id="forwards">
-
+                    
                     <div data-modal-target="#left-forward" class="left_forward">
                         <p>Vänster forward</p>
                     </div>
-
-                    <form id="choose_players" method="post">
 
                             <div class="modal" id="left-forward">
                                 <div class="modal-header">
@@ -109,8 +108,8 @@
                         </div>
                             <div class="modal" id="center">
                                 <div class="modal-header">
-                                <div class="title">Center</div>
-                                <button data-close-button class="close-button">&times;</button>
+                                    <div class="title">Center</div>
+                                    <button data-close-button class="close-button">&times;</button>
                                 </div>
                                 <div class="modal-body">
                                     <div id="center">
@@ -215,9 +214,12 @@
                 <div id="overlay"></div>
             </div>
 
-            </section>
+            
+
+            </section>          
             <div class="lock_div">
-                <input type = "submit" class = "lock" value = "Lås match">
+                <input type="text" placeholder="Ange ditt lags namn här..." name="team_name" required>
+                <input type = "submit" class = "lock" name = "Lås match">
             </div>
 
     </form>

@@ -850,12 +850,10 @@ def get_form():
             connection.close()
 #get_form()
 
-def add_chosen_players_to_game(left_forward, center, right_forward, left_defense, right_defense, goalie, user_id_form, score):
+def add_chosen_players_to_game(left_forward, center, right_forward, left_defense, right_defense, goalie, user_id_form, score, team_name):
     with Postgres() as (cursor, conn):
 
         team_id = 1
-        team_name = "Timrå"
-        
 
         PostgreSQL_insert = """ INSERT INTO fhl_team (team_id, team_name, match_score, left_forward, right_forward,
         center, left_back, right_back, goalkeeper, fhl_user) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""

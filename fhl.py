@@ -327,12 +327,14 @@ def match():
         goalie_id = goalie_form[0]
         goalie_score = goalie_form[1]
 
+        team_name = request.form['team_name']
+
         score = int(left_forward_score) + int(center_score) + int(right_forward_score) + int(left_defense_score) + int(right_defense_score) + int(goalie_score)
 
         user_id=flask_login.current_user.id
 
         add_chosen_players_to_game(left_forward_id, center_id, right_forward_id, left_defense_id, 
-        right_defense_id, goalie_id, user_id, score)
+        right_defense_id, goalie_id, user_id, score, team_name)
 
 
     return render_template('match.html', points=points, goalie=goalie, defenseman=defenseman, left_wing=left_wing, center=center, right_wing=right_wing)
