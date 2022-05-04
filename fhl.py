@@ -291,7 +291,7 @@ def my_players():
 
 
 #Game
-@FHL.route('/match/')
+@FHL.route('/match/', methods = ['GET', 'POST'])
 @flask_login.login_required
 def match():
     points=get_user_points()
@@ -301,6 +301,24 @@ def match():
     left_wing = get_users_left_wing(user_id)
     center = get_users_center(user_id)
     right_wing = get_users_right_wing(user_id)
+
+    if request.method == 'POST':
+        left_forward_form = request.form['left-forward']
+        #center_form = request.form['center']
+        #right_forward_form = request.form['right-forward']
+        #left_defense_form = request.form['left-defense']
+        #right_defense_form = request.form['right-defense']
+        #goalie_form = request.form['goalie']
+
+        user_id=flask_login.current_user.id
+
+        print(left_forward_form)
+        #print(center_form)
+        #print(right_forward_form)
+        #print(left_defense_form) 
+        #print(right_defense_form)
+        #print(goalie_form)
+
     return render_template('match.html', points=points, goalie=goalie, defenseman=defenseman, left_wing=left_wing, center=center, right_wing=right_wing)
 
 
