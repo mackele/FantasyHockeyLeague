@@ -853,8 +853,8 @@ def get_form():
 def add_chosen_players_to_game(left_forward, center, right_forward, left_defense, right_defense, goalie, user_id_form, score):
     with Postgres() as (cursor, conn):
 
-        team_id = 1
-        team_name = "Timrå"
+        team_id = 2
+        team_name = "Rögle BK"
         
 
         PostgreSQL_insert = """ INSERT INTO fhl_team (team_id, team_name, match_score, left_forward, right_forward,
