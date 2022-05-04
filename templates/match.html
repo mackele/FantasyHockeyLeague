@@ -95,7 +95,7 @@
                                         <p>Vänster forward</p>
                                         <select name="left_forward" id="left_forward_option" >
                                             {% for player in left_wing %} 
-                                            <option value="left_wing">{{player.name}}</option>                                
+                                            <option value="{{player.id}}">{{player.name}}</option>                                
                                             {% endfor %}                                            
                                         </select>                                        
                                     </div>
@@ -117,9 +117,7 @@
                                         <p>Center</p>
                                         <select name="center" id="center_option">
                                             {% for player in center %} 
-                                            <option value="center">{{player.name}}
-                                                <input type="hidden" id="player_id" name="center" value="{{player.id}}" required>
-                                            </option>
+                                            <option value="{{player.id}}">{{player.name}}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
@@ -141,9 +139,7 @@
                                         <p>Höger forward</p>
                                         <select name="right_forward" id="right_forward_option">
                                             {% for player in right_wing %} 
-                                            <option value="right_wing">{{player.name}}
-                                                <input type="hidden" id="player_id" name="right-forward" value="{{player.id}}" required>
-                                            </option>
+                                            <option value="{{player.id}}">{{player.name}}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
@@ -166,9 +162,7 @@
                                     <p>Vänster back</p>
                                     <select name="left_defense" id="left_defense_option">
                                         {% for player in defenseman %} 
-                                        <option value="left_defense">{{player.name}}
-                                            <input type="hidden" id="player_id" name="left-defense" value="{{player.id}}" required>
-                                        </option>
+                                        <option value="{{player.id}}">{{player.name}}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -189,9 +183,7 @@
                                     <p>Höger back</p>
                                     <select name="right_defense" id="right_defense_option">
                                         {% for player in defenseman %} 
-                                        <option value="right_defense">{{player.name}}
-                                            <input type="hidden" id="player_id" name="right-defense" value="{{player.id}}" required>
-                                        </option>
+                                        <option value="{{player.id}}">{{player.name}}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -214,9 +206,7 @@
                                 <p>Målvakt</p>
                                 <select name="goalie" id="goalie_option">
                                     {% for player in goalie %} 
-                                    <option value="goalie">{{player.name}}
-                                        <input type="hidden" id="player_id" name="goalie" value="{{player.id}}" required>
-                                    </option>
+                                    <option value="{{player.id}}">{{player.name}}</option>
                                     {% endfor %}
                                 </select>
                             </div>

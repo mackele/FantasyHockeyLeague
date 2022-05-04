@@ -303,21 +303,21 @@ def match():
     right_wing = get_users_right_wing(user_id)
 
     if request.method == 'POST':
-        left_forward_form = request.form['left-forward']
-        #center_form = request.form['center']
-        #right_forward_form = request.form['right-forward']
-        #left_defense_form = request.form['left-defense']
-        #right_defense_form = request.form['right-defense']
-        #goalie_form = request.form['goalie']
+        left_forward_form = request.form['left_forward']
+        center_form = request.form['center']
+        right_forward_form = request.form['right_forward']
+        left_defense_form = request.form['left_defense']
+        right_defense_form = request.form['right_defense']
+        goalie_form = request.form['goalie']
 
         user_id=flask_login.current_user.id
 
         print(left_forward_form)
-        #print(center_form)
-        #print(right_forward_form)
-        #print(left_defense_form) 
-        #print(right_defense_form)
-        #print(goalie_form)
+        print(center_form)
+        print(right_forward_form)
+        print(left_defense_form) 
+        print(right_defense_form)
+        print(goalie_form)
 
     return render_template('match.html', points=points, goalie=goalie, defenseman=defenseman, left_wing=left_wing, center=center, right_wing=right_wing)
 
