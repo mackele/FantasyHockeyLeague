@@ -78,14 +78,27 @@
         
         <section id="players">
                 <div id="forwards">
-                    <div id="left_forward">
+                    <div data-modal-target="#modal" class="left_forward">
                         <p>Vänster forward</p>
-                        <select name="left_forward" id="left_forward_option">
-                            {% for player in left_wing %} 
-                            <option value="left_wing">{{player.name}}</option>
-                            {% endfor %}
-                        </select>
+                        <img src="FHL.png">
                     </div>
+                        <div class="modal" id="modal">
+                            <div class="modal-header">
+                              <div class="title">Spelare för vald position</div>
+                              <button data-close-button class="close-button">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="left_forward">
+                                    <p>Vänster forward</p>
+                                    <select name="left_forward" id="left_forward_option">
+                                        {% for player in left_wing %} 
+                                        <option value="left_wing">{{player.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    <div id="overlay"></div>
 
                     <div id="center">
                         <p>Center</p>
