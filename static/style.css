@@ -238,7 +238,6 @@ nav {
 .show {
     display:block;
     box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
-    
 }
 
 .foldable {
@@ -862,6 +861,7 @@ form textarea {
         display: flex;
         flex-direction: column;
         
+        
     }
 
     .dropdown_content {
@@ -882,6 +882,13 @@ form textarea {
     #log {
         position: fixed;
         left: 51px;
+        
+
+    }
+
+    #log img {
+        max-width: 42px;
+        padding:6px;
     }
 
     .dropdown_content::before {
@@ -901,11 +908,12 @@ form textarea {
         background-color: inherit;
         color:white;
         font-weight: bold;
+        height: 50px;
     }
 
     .mobile div {
-        width: 35px;
-        height: 5px;
+        width: 30px;
+        height: 3px;
         background-color: white;
         margin: 6px 0;
     }
@@ -917,8 +925,27 @@ form textarea {
     }
     .show {
         display: contents;
-        box-shadow: none;
-        
+        box-shadow: none; 
+    }
+    .points p{
+        font-size: 29px;
+    }
+
+   /*Index */
+    td {
+        font-size: 10px;
+    }
+
+    td div {
+        padding: 0;
+    }
+
+    .dropdown:hover, .help:hover{
+        background-color:inherit ;
+       
+    }
+    .dropdown button:hover, .help button:hover{
+        color: #496A9B;
     }
 
 }

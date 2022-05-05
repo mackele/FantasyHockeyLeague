@@ -38,7 +38,7 @@ def get_play_schedual ():
             local_dt = time.replace(tzinfo=pytz.utc).astimezone(local_tz)
             game_play_local_timezone = local_tz.normalize(local_dt)
             game_play_date=game_play_local_timezone.strftime("%Y-%m-%d")
-            game_play_time=game_play_local_timezone.strftime("%H:%M:%S")
+            game_play_time=game_play_local_timezone.strftime("%H:%M")
 
             team_away_name=team["teams"]["away"]["team"]["name"]
             team_away_id=team["teams"]["away"]["team"]["id"]
