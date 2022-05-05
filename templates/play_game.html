@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Länkar till static style.css, för att ändra tillbaka till "vanliga" är det bara att ha href ="/static/style.css"-->
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <title>FHL match</title>
+    <!--Browser icon-->
+    <link rel="icon" href="/static/FHL.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+</head>
+<body>
+    <nav>
+        <div class="left_nav">
+            <div id="log">
+                <a href="/">
+                    <!--Ändrat från img src="FHL.png" till "{{url_for('static', filename = 'FHL.png')}}" för att fungera med flask-->
+                    <img src="{{url_for('static', filename = 'FHL.png')}}" alt="Logga" href="index.html">
+                </a>
+            </div>
+            <div id="menu">
+                <div class="dropdown">
+                    <button class="dropbtn" onclick="dropFunction_players()">Hockeyspelare</button>
+                
+                    <div class="dropdown_content" id="hockey_players">
+                        <a href="/top-spelare">Statistik över spelare</a>
+                        <a href="/köp-spelare">Köpa spelare</a>
+                        <a href="/mina-spelare">Mina spelare</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="dropbtn" onclick="dropFunction_matches()">Matcher</button>
+                
+                    <div class="dropdown_content" id="matches">
+                        <a href="/match">Lägg Match</a>
+                        <a href="/match-historik">Min Matchhistorik</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="dropbtn" onclick="dropFunction_posts()">Inlägg</button>
+                
+                    <div class="dropdown_content" id="posts">
+                        <a href="/forum">Forum</a>
+                        <a href="/inlägg">Skapa Inlägg</a>
+                        <a href="/forum/mina/inlägg">Mina Inlägg</a>
+                    </div>
+                </div>
+                <div id="help">
+                    <button class="help">Hjälp 
+                        <a href="/guide"></a>
+                        <div id="questionmark">
+                            <p> ?</p>
+                        </div>
+                    </button> 
+                </div>
+            </div>
+        </div>
+       
+        <div id="nav_right">
+            <div class="points">
+               <p>{{points}} P</p>  <!--Från databasen skrivs användarens poäng ut-->
+            </div>
+            <div class="log_out">
+
+                <a href="/logout">Logga ut</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <h1>Lag du kan utmana</h1>
+
+        <h2>Andras lag</h2>
+        {%for user in teams%}
+            <ul>
+                <li>Namn: {{user[0]}}. Score = {{user[1]}}<input type="button" value="Utmana {{user[0]}}"> </li>
+            </ul>
+        {%endfor%} 
+
+        <h2>Mina lag</h2>
+        {%for team in my_teams%}
+            <ul>
+                <li>Namn: {{team[0]}}. Score= {{team[1]}} <input type="button" value="Välj lag: {{team[0]}}"> </li>
+            </ul>
+        {%endfor%} 
+
+        <h2>Spela match</h2>
+
+        <form id="challenge_players" method="post">
+            <h3>Välj ditt lag:</h3>
+            <select name="my_team" id="left_forward_option" >
+                {%for team in my_teams%} 
+                <option value="{{team[1]}}">{{team[0]}}</option>                                
+                {%endfor%}                                            
+            </select>
+            
+            <h3>Välj vem du vill möta:</h3>
+            <select name="opponent_team" id="left_forward_option" >
+                {% for other_teams in teams%} 
+                <option value="{{other_teams[1]}}, {{other_teams[8]}}">{{other_teams[0]}}</option>                                
+                {%endfor%}                                            
+            </select>
+
+            <input type = "submit" class = "lock" name = "Spela">
+        </form>
+
+    </main>
+    
+    <footer>
+        <p>Copyright© by FHL</p>
+    </footer>
+</body>
+<script src="{{url_for('static', filename = 'script.js')}}"></script> 
+</html>
