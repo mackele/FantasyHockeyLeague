@@ -270,6 +270,48 @@ def buy_players():
     return render_template('buy_players.html', points=points, right_forwards = right_forwards, centers = centers,
     left_forwards = left_forwards, defense = defense, goalies = goalies)
 
+@FHL.route('/spela-match/', methods= ['GET', 'POST'])
+@flask_login.login_required
+def play_game():
+    '''
+    Route för att spela match
+    '''
+
+    user_id=flask_login.current_user.id
+    teams = get_other_users_lineup(user_id)
+    my_teams = get_users_lineup(user_id)
+
+    if request.method == 'POST':
+
+        opponent_team_form = request.form['opponent_team'].split(", ")
+        opponent_score = int(opponent_team_form[0])
+        opponent_user = opponent_team_form[1]
+
+        my_team_score_str = request.form['my_team']
+        my_team_score = int(my_team_score_str)
+        my_team_user = user_id
+
+        if my_team_score > opponent_score:
+            print("Du vinner!")
+            winner = my_team_user
+            looser = opponent_user
+
+            #add_game_to_match_history(my_team_user, opponent_user, winner, looser)
+            #Användaren får poäng
+
+        elif my_team_score < opponent_score:
+            print("Du förlorar!")
+            winner = opponent_user
+            looser = my_team_user
+
+            #add_game_to_match_history(my_team_user, opponent_user, winner, looser)
+            #Andra spelaren får poäng
+
+        else:
+            print("Vad ska vi göra när det blir lika?")
+
+
+    return render_template('play_game.html', teams = teams, my_teams = my_teams)
 
 #My players
 @FHL.route('/mina-spelare/')

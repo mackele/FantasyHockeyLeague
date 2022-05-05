@@ -858,6 +858,37 @@ def add_chosen_players_to_game(left_forward, center, right_forward, left_defense
         PostgreSQL_insert = """ INSERT INTO fhl_team (team_name, match_score, left_forward, right_forward,
         center, left_back, right_back, goalkeeper, fhl_user, team_date) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
         insert_to = (team_name, score, left_forward, center, right_forward, left_defense, right_defense, goalie, user_id_form, todaydate)
+
+        cursor.execute(PostgreSQL_insert, insert_to)
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+
+def get_other_users_lineup(user_id):
+    with Postgres() as (cursor, conn):
+        cursor.execute(f"""select * from fhl_team where fhl_user != '{user_id}';""")
+        teams= cursor.fetchall()
+        
+    return teams
+
+def get_users_lineup(user_id):
+    with Postgres() as (cursor, conn):
+        cursor.execute(f"""select * from fhl_team where fhl_user = '{user_id}';""")
+        teams= cursor.fetchall()
+        
+    return teams
+
+def add_game_to_match_history(team_1, team_2, winner, looser):
+    with Postgres() as (cursor, conn):
+
+        todaydate = date.today()
+
+        PostgreSQL_insert = """ INSERT INTO fhl_match_history (team_1, team_2, winner, loser,
+        match_date) VALUES (%s, %s, %s, %s, %s)"""
+        insert_to = (team_1, team_2, winner, looser, todaydate)
+
         cursor.execute(PostgreSQL_insert, insert_to)
 
         conn.commit()
