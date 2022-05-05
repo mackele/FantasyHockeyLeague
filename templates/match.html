@@ -25,39 +25,48 @@
                 </a>
             </div>
             <div id="menu">
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="dropFunction_players()">Hockeyspelare</button>
-                
-                    <div class="dropdown_content" id="hockey_players">
-                        <a href="/top-spelare">Statistik över spelare</a>
-                        <a href="/köp-spelare">Köpa spelare</a>
-                        <a href="/mina-spelare">Mina spelare</a>
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="dropFunction_matches()">Matcher</button>
-                
-                    <div class="dropdown_content" id="matches">
-                        <a href="/match">Lägg Match</a>
-                        <a href="/match-historik">Min Matchhistorik</a>
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="dropFunction_posts()">Inlägg</button>
-                
-                    <div class="dropdown_content" id="posts">
-                        <a href="/forum">Forum</a>
-                        <a href="/inlägg">Skapa Inlägg</a>
-                        <a href="/forum/mina/inlägg">Mina Inlägg</a>
-                    </div>
-                </div>
-                <div id="help">
-                    <button class="help">Hjälp 
-                        <a href="/guide"></a>
-                        <div id="questionmark">
-                            <p> ?</p>
+                <div id="mobile_menu">
+                    <button class="dropbtn mobile" onclick="dropFunction_mobile()">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </button>
+                    <div class="dropdown_mobile" id="mobile_content">
+                        <div class="dropdown">
+                            <button class="dropbtn" onclick="dropFunction_players()">Hockeyspelare</button>
+                        
+                            <div class="dropdown_content" id="hockey_players">
+                                <a href="/top-spelare">Statistik över spelare</a>
+                                <a href="/köp-spelare">Köpa spelare</a>
+                                <a href="/mina-spelare">Mina spelare</a>
+                            </div>
                         </div>
-                    </button> 
+                        <div class="dropdown">
+                            <button class="dropbtn" onclick="dropFunction_matches()">Matcher</button>
+                        
+                            <div class="dropdown_content" id="matches">
+                                <a href="/match">Lägg Match</a>
+                                <a href="/match-historik">Min Matchhistorik</a>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="dropbtn" onclick="dropFunction_posts()">Inlägg</button>
+                        
+                            <div class="dropdown_content" id="posts">
+                                <a href="/forum">Forum</a>
+                                <a href="/inlägg">Skapa Inlägg</a>
+                                <a href="/forum/mina/inlägg">Mina Inlägg</a>
+                            </div>
+                        </div>
+                        <div id="help">
+                            <button class="help">Hjälp 
+                                <a href="/guide"></a>
+                                <div id="questionmark">
+                                    <p> ?</p>
+                                </div>
+                            </button> 
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -218,7 +227,10 @@
 
             </section>          
             <div class="lock_div">
-                <input type="text" placeholder="Ange ditt lags namn här..." name="team_name" required>
+                <div class="team_name">
+                    <input type="text" placeholder="Ange ditt lags namn här..." name="team_name" required>
+                </div>
+                
                 <input type = "submit" class = "lock" name = "Lås match">
             </div>
 

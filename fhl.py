@@ -30,8 +30,6 @@ def index():
 
     teams_ranking=database.get_team_rank()
 
-    print(teams_ranking)
-
     if len(schedual_date_list) < 1:
         database.delete_play_schedual()
         play_schedual.get_play_schedual ()

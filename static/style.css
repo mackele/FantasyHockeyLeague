@@ -28,6 +28,10 @@ h3 {
     margin:0;
     font-size: 30px;
 }
+
+h4 {
+    font-size: 20px;
+}
 select {
     cursor: pointer;
     background-color:#F2F2F2;
@@ -83,7 +87,7 @@ button {
 
 
 #log img {
-    max-width: 60px;
+    max-width: 55px;
     padding:10px;
 }
 #nav_right {
@@ -149,9 +153,18 @@ nav {
     display: flex;
     align-items: center; 
 }
-#menu {
+#mobile_menu {
     display:flex;
     overflow:hidden;
+
+}
+
+.mobile{
+    display: none;
+}
+
+.dropdown_mobile {
+    display: flex;
 }
 .dropdown, .help {
     overflow: hidden;
@@ -251,6 +264,8 @@ nav {
     border-top: solid #F2F2F2;;
 }
 
+
+
 footer{
    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#28313e+1,2c3e5a+50#496A9B+100 */
    background: #213149; /* Old browsers */
@@ -339,6 +354,19 @@ tr:nth-child(even) {
 
 .team_loggo {
     width: 50px;
+}
+
+.lock_div {
+    display: flex;
+    flex-direction: column;
+}
+
+.team_name {
+    padding:20px;
+}
+
+.team_name input {
+    width: 210px;
 }
 
 /* css till my_players*/
@@ -588,6 +616,12 @@ select {
     padding:5px 0;
 }
 
+.card img {
+    height: 170px;
+    width: auto;
+    margin: auto;
+}
+
 .card__inner {
     width: 200px;
     height: 300px;
@@ -675,6 +709,8 @@ select {
 margin:0;
 
 }
+
+
 .FHLcategory {
     display: flex;
     justify-content: flex-end;
@@ -814,3 +850,75 @@ form textarea {
     opacity: 0;
     pointer-events: all;
   }
+
+
+
+  @media screen and (max-width: 889px)  {
+   nav {
+       align-items: flex-start;
+   }
+   
+    #mobile_menu {
+        display: flex;
+        flex-direction: column;
+        
+    }
+
+    .dropdown_content {
+        display: none;
+       
+    }
+    
+    .dropdown_content a {
+        float: none;
+        color: rgb(255, 255, 255);
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+      }
+
+
+    #log {
+        position: fixed;
+        left: 51px;
+    }
+
+    .dropdown_content::before {
+        display: none;
+    }
+
+    .left_nav {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: flex-start;
+        
+    }
+    .mobile{
+        display: block;
+        cursor: pointer;
+        border: none;
+        background-color: inherit;
+        color:white;
+        font-weight: bold;
+    }
+
+    .mobile div {
+        width: 35px;
+        height: 5px;
+        background-color: white;
+        margin: 6px 0;
+    }
+
+    .dropdown_mobile{
+        display: none;
+        
+
+    }
+    .show {
+        display: contents;
+        box-shadow: none;
+        
+    }
+
+}
