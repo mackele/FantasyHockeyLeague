@@ -268,13 +268,14 @@ def buy_players():
     return render_template('buy_players.html', points=points, right_forwards = right_forwards, centers = centers,
     left_forwards = left_forwards, defense = defense, goalies = goalies)
 
+
 @FHL.route('/spela-match/', methods= ['GET', 'POST'])
 @flask_login.login_required
 def play_game():
     '''
     Route för att spela match
     '''
-
+    points=get_user_points()
     user_id=flask_login.current_user.id
     teams = get_other_users_lineup(user_id)
     my_teams = get_users_lineup(user_id)
@@ -309,7 +310,8 @@ def play_game():
             print("Vad ska vi göra när det blir lika?")
 
 
-    return render_template('play_game.html', teams = teams, my_teams = my_teams)
+    return render_template('play_game.html', points=points, teams = teams, my_teams = my_teams)
+
 
 #My players
 @FHL.route('/mina-spelare/')
