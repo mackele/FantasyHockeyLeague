@@ -734,16 +734,13 @@ def post_forum(user_id):
     """
    
     with Postgres() as (cursor, conn):
-        #Need to add .get in order to function as variable and INSERT to database
         todaydate = date.today()
         now = datetime.now()
         todaytime = now.strftime("%H:%M:%S")
-        #Logged in user_id (user_id)
         fhl_user = user_id
-        title = request.form.get("title")
-        category = request.form.get("category")
-        text = request.form.get("text")
-        #Static for now, a Could for later! (Change)
+        title = request.form.get("titlee")
+        category = request.form.get("categoryy")
+        text = request.form.get("textt")
         likes = 21 
 
         PostgreSQL_insert = """ INSERT INTO fhl_forum_form (date, datetime, fhl_user, title, category, text, likes) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
@@ -771,17 +768,26 @@ def post_forum_redirect():
         return fhldata
 
 
-def get_forum():
+def get_forum(category):
     """
     Function retrieves all form data
     Used to display forum posts
     """
     with Postgres() as (cursor, conn):
         with Postgres() as (cursor, conn):
-            cursor.execute("""select date, datetime, article_id, fhl_user, title, category, text, likes, username 
+
+            if category == 'all':
+                        cursor.execute(f"""select date, datetime, article_id, fhl_user, title, category, text, likes, username 
                             from fhl_forum_form
                             join fhl_user
-                            on fhl_forum_form.fhl_user = fhl_user.mail""")
+                            on fhl_forum_form.fhl_user = fhl_user.mail """)
+
+            else:
+                cursor.execute(f"""select date, datetime, article_id, fhl_user, title, category, text, likes, username 
+                        from fhl_forum_form
+                        join fhl_user
+                        on fhl_forum_form.fhl_user = fhl_user.mail where category ='{category}'; """)
+                
             data = cursor.fetchall()
             fhldata=data
     return fhldata
@@ -804,51 +810,6 @@ def get_forum_username(user_id):
 
     return fhluserdata
     return fhluserdata
-
-
-#Form posts categorized (Not working)
-#@FHL.route('/category', methods=['POST','GET'])
-def get_form():
-    """
-    Function displays posts in selected category 
-    """
-
-    #Connect to FHL Database
-    try: 
-        connection = psycopg2.connect(user="grupp2_onlinestore", 
-        password="n8siil4c",
-        host="pgserver.mau.se",
-        port="5432",
-        database="grupp2_onlinestore")
-        cursor = connection.cursor()
-        
-        #User select  
-        category = 'player'
-        #request.get.category('category')
-        #cursor.execute (f""" SELECT * from fhl_forum_form where category = '{category}'; """)
-        #data = cursor.fetchall()
-        #return render_template('forum.html', fhldata=data)
-        
-
-        cursor.execute (f""" SELECT * from fhl_forum_form where category = '{category}'; """)
-        fhldata = cursor.fetchall()
-
-        for data in fhldata:
-            print("{:<25}{:<25}{:<25}{:<25}{:<25}{:<25}".format(data[0], data[1], data[3], data[4],  data[5], data[6]))
-        print("-"*150)
-        cursor.close()
-
-
-    except (Exception, Error) as error:
-        print("Error while connectin to FHL Database", error)
-        
-
-    #Close connection to FHL Database
-    finally:
-        if connection:
-            cursor.close()
-            connection.close()
-#get_form()
 
 
 def add_chosen_players_to_game(left_forward, center, right_forward, left_defense, right_defense, goalie, user_id_form, score, team_name):

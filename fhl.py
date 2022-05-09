@@ -268,7 +268,7 @@ def buy_players():
     return render_template('buy_players.html', points=points, right_forwards = right_forwards, centers = centers,
     left_forwards = left_forwards, defense = defense, goalies = goalies)
 
-
+#Play game
 @FHL.route('/spela-match/', methods= ['GET', 'POST'])
 @flask_login.login_required
 def play_game():
@@ -407,15 +407,22 @@ def top_scorer():
 
 
 #Forum
-@FHL.route('/forum/')
+@FHL.route('/forum/', methods = ['GET', 'POST'])
 @flask_login.login_required
 def forum():
     """
     Funktionen visar samtliga foruminlägg
     """
-    points=get_user_points()
-    fhldata=get_forum()
-    return render_template('forum.html', points=points, fhldata=fhldata)
+
+    if request.method == 'POST':
+        category = request.form['category']
+        print(category)
+        points=get_user_points()
+        fhldata=get_forum(category)
+        return render_template('forum.html', points=points, fhldata=fhldata)
+    else:
+        return render_template('forum.html')
+
 
     
 #Forum posts created by logged in user

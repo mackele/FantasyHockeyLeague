@@ -93,14 +93,16 @@
             <article class="FHLcategory" >
                 <header>
                     <!--Category, access the choice through Python-->
-                    <form action="/category" method="post" name="category">
-                    <label for="category">Filtrera:</label>
+            <form id="category" method="post">
+            <label for="category">Filtrera:</label>
                 </header>
                     <select id="category" name="category">
+                        <option name="category" value="all">Alla inlägg</option>
                         <option name="category" value="player">Spelare</option>
                         <option name="category" value="game">Matcher</option>
                         <option name="category" value="team">Lag</option>
                     </select>    
+                    <input type="submit" name="Filtrera">
                     </form>
             </article>
 
