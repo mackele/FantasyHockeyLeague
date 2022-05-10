@@ -35,7 +35,6 @@ def get_player_info():
 
     print(playerInfo)
 
-
 get_player_info()
 
 

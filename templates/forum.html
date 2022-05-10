@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--Länkar till static style.css, för att ändra tillbaka till "vanliga" är det bara att ha href ="/static/style.css"-->
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-    <title>FHL</title>
+    <title>FHL forum</title>
     <!--Browser icon-->
     <link rel="icon" href="/static/FHL.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,39 +25,49 @@
                 </a>
             </div>
             <div id="menu">
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="dropFunction_players()">Hockeyspelare</button>
-                
-                    <div class="dropdown_content" id="hockey_players">
-                        <a href="/top-spelare">Statistik över spelare</a>
-                        <a href="/köp-spelare">Köpa spelare</a>
-                        <a href="/mina-spelare">Mina spelare</a>
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="dropFunction_matches()">Matcher</button>
-                
-                    <div class="dropdown_content" id="matches">
-                        <a href="/match">Lägg Match</a>
-                        <a href="/match-historik">Min Matchhistorik</a>
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="dropFunction_posts()">Inlägg</button>
-                
-                    <div class="dropdown_content" id="posts">
-                        <a href="/forum">Forum</a>
-                        <a href="/inlägg">Skapa Inlägg</a>
-                        <a href="/forum/mina/inlägg">Mina Inlägg</a>
-                    </div>
-                </div>
-                <div id="help">
-                    <button class="help">Hjälp 
-                        <a href="/guide"></a>
-                        <div id="questionmark">
-                            <p> ?</p>
+                <div id="mobile_menu">
+                    <button class="dropbtn mobile" onclick="dropFunction_mobile()">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </button>
+                    <div class="dropdown_mobile" id="mobile_content">
+                        <div class="dropdown">
+                            <button class="dropbtn" onclick="dropFunction_players()">Hockeyspelare</button>
+                        
+                            <div class="dropdown_content" id="hockey_players">
+                                <a href="/top-spelare">Statistik över spelare</a>
+                                <a href="/köp-spelare">Köpa spelare</a>
+                                <a href="/mina-spelare">Mina spelare</a>
+                            </div>
                         </div>
-                    </button> 
+                        <div class="dropdown">
+                            <button class="dropbtn" onclick="dropFunction_matches()">Matcher</button>
+                        
+                            <div class="dropdown_content" id="matches">
+                                <a href="/match">Lägg Match</a>
+                                <a href="/spela-match">Spela Match</a>
+                                <a href="/match-historik">Min Matchhistorik</a>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="dropbtn" onclick="dropFunction_posts()">Inlägg</button>
+                        
+                            <div class="dropdown_content" id="posts">
+                                <a href="/forum">Forum</a>
+                                <a href="/inlägg">Skapa Inlägg</a>
+                                <a href="/forum/mina/inlägg">Mina Inlägg</a>
+                            </div>
+                        </div>
+                        <div id="help">
+                            <button class="help">Hjälp 
+                                <a href="/guide"></a>
+                                <div id="questionmark">
+                                    <p> ?</p>
+                                </div>
+                            </button> 
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -80,18 +90,19 @@
             <!--Header-->
             <h2 id="forumtitle">Forum</h2>
 
-            <article  class="foldable" id="forumcategory">
+            <article class="FHLcategory" >
                 <header>
                     <!--Category, access the choice through Python-->
-                    <form action="/category" method="post" id="category" name="category">
-                    <label for="category">Välj kategori</label>
-                    <p><i class="arrow down"></i></p>
+            <form id="category" method="post">
+            <label for="category">Filtrera:</label>
                 </header>
                     <select id="category" name="category">
+                        <option name="category" value="all">Alla inlägg</option>
                         <option name="category" value="player">Spelare</option>
                         <option name="category" value="game">Matcher</option>
                         <option name="category" value="team">Lag</option>
                     </select>    
+                    <input type="submit" name="Filtrera">
                     </form>
             </article>
 

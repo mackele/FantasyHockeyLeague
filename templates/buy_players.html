@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--Länkar till static style.css, för att ändra tillbaka till "vanliga" är det bara att ha href ="/static/style.css"-->
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-    <title>FHL</title>
+    <title>FHL köp spelare</title>
     <!--Browser icon-->
     <link rel="icon" href="/static/FHL.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,39 +25,49 @@
                 </a>
             </div>
             <div id="menu">
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="dropFunction_players()">Hockeyspelare</button>
-                
-                    <div class="dropdown_content" id="hockey_players">
-                        <a href="/top-spelare">Statistik över spelare</a>
-                        <a href="/köp-spelare">Köpa spelare</a>
-                        <a href="/mina-spelare">Mina spelare</a>
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="dropFunction_matches()">Matcher</button>
-                
-                    <div class="dropdown_content" id="matches">
-                        <a href="/match">Lägg Match</a>
-                        <a href="/match-historik">Min Matchhistorik</a>
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="dropFunction_posts()">Inlägg</button>
-                
-                    <div class="dropdown_content" id="posts">
-                        <a href="/forum">Forum</a>
-                        <a href="/inlägg">Skapa Inlägg</a>
-                        <a href="/forum/mina/inlägg">Mina Inlägg</a>
-                    </div>
-                </div>
-                <div id="help">
-                    <button class="help">Hjälp 
-                        <a href="/guide"></a>
-                        <div id="questionmark">
-                            <p> ?</p>
+                <div id="mobile_menu">
+                    <button class="dropbtn mobile" onclick="dropFunction_mobile()">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </button>
+                    <div class="dropdown_mobile" id="mobile_content">
+                        <div class="dropdown">
+                            <button class="dropbtn" onclick="dropFunction_players()">Hockeyspelare</button>
+                        
+                            <div class="dropdown_content" id="hockey_players">
+                                <a href="/top-spelare">Statistik över spelare</a>
+                                <a href="/köp-spelare">Köpa spelare</a>
+                                <a href="/mina-spelare">Mina spelare</a>
+                            </div>
                         </div>
-                    </button> 
+                        <div class="dropdown">
+                            <button class="dropbtn" onclick="dropFunction_matches()">Matcher</button>
+                        
+                            <div class="dropdown_content" id="matches">
+                                <a href="/match">Lägg Match</a>
+                                <a href="/spela-match">Spela Match</a>
+                                <a href="/match-historik">Min Matchhistorik</a>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="dropbtn" onclick="dropFunction_posts()">Inlägg</button>
+                        
+                            <div class="dropdown_content" id="posts">
+                                <a href="/forum">Forum</a>
+                                <a href="/inlägg">Skapa Inlägg</a>
+                                <a href="/forum/mina/inlägg">Mina Inlägg</a>
+                            </div>
+                        </div>
+                        <div id="help">
+                            <button class="help">Hjälp 
+                                <a href="/guide"></a>
+                                <div id="questionmark">
+                                    <p> ?</p>
+                                </div>
+                            </button> 
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -75,36 +85,31 @@
 
     <div id="buy_players_body">
         <div class="FHLcategory">
-            <form>
-                <input id="name-field" type="text" name="message">
-    
-                <input id="search_button" type="submit" value="SÖK">
-            </form>
             <div>
                 <label for="dog-names">Filtrera:</label>
                 <select name="dog-names" id="dog-names">
-                <option value="rigatoni">Namn</option>
-                <option value="dave">Lag</option>
-                <option value="pumpernickel">Rating</option>
-                <option value="reeses">Poäng</option>
-            </select>  
-            </div>
-            
-                          
+                    <option value="rigatoni">Namn</option>
+                    <option value="dave">Lag</option>
+                    <option value="pumpernickel">Rating</option>
+                    <option value="reeses">Poäng</option>
+                </select>  
+            </div>               
         </div>
 
         <h2>Köp spelare</h2>
 
+        <h3>Center</h3>
+
         <div class="one_time">
-            {%for player in players%} 
+            {%for player in centers%} 
 
                 <div class="card">
                     <div class="card__inner">
                         <div class="card__face card__face--front">                              
                             <!--Player statistics-->
-                            <img src="{{url_for('static', filename = 'FHL.png')}}">
+                            <img src="{{player.image}}">
                             <!--Hämta namn från databas-->                                                                  
-                            <h3>{{player.f_name}} {{player.l_name}}</h3>                                  
+                            <h4>{{player.name}}</h4>                                  
                             <!--Hämta poäng från databas ("Poäng: " + database value)-->
                             <div class="costs">
                                 <h5>Pris: {{player.price}}</h5>
@@ -122,7 +127,7 @@
                                 <div class="card__header">
                                     <!--Spelarstatistik från databasen-->
                                     <!--Hämta namn-->
-                                    <h4>{{player.f_name}} {{player.l_name}}</h4>
+                                    <h4>{{player.name}}</h4>
                                     <!--Hämta lag-->
                                     <p>Lag: {{player.team}}</p>
                                     <!--Hämta position-->
@@ -140,10 +145,198 @@
                 </div>                          
             {%endfor%}
 
+        </div>
+            
+        <h3>Höger forward</h3>
 
-        
+        <div class="one_time">
+            {%for player in right_forwards%} 
+
+                <div class="card">
+                    <div class="card__inner">
+                        <div class="card__face card__face--front">                              
+                            <!--Player statistics-->
+                            <img src="{{player.image}}">
+                            <!--Hämta namn från databas-->                                                                  
+                            <h4>{{player.name}}</h4>                                  
+                            <!--Hämta poäng från databas ("Poäng: " + database value)-->
+                            <div class="costs">
+                                <h5>Pris: {{player.price}}</h5>
+                                <form method="post">
+                                    <input type="hidden" id="player_id" name="id" value={{player.id}}>
+
+                                    <input type = "submit" class="cost_button" value="Köp">
+                                </form>
+                                
+                            </div>
+                        </div>
+
+                        <div class="card__face card__face--back">
+                            <div class="card__content">
+                                <div class="card__header">
+                                    <!--Spelarstatistik från databasen-->
+                                    <!--Hämta namn-->
+                                    <h4>{{player.name}}</h4>
+                                    <!--Hämta lag-->
+                                    <p>Lag: {{player.team}}</p>
+                                    <!--Hämta position-->
+                                    <p>Position: {{player.position}}</p>
+                                    <!--Hämta antal mål-->
+                                    <p>Mål: {{player.goal}}</p>
+                                    <!--Hämta antal assit-->
+                                    <p>Assist: {{player.assists}}</p>
+                                    <!--Hämta antal utvisningsminuter-->
+                                    <p>Utvisningsminuter: {{player.penalty_time}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                          
+            {%endfor%}
+        </div>
+
+        <h3>Vänster forward</h3>
+
+        <div class="one_time">
+            {%for player in left_forwards%} 
+
+                <div class="card">
+                    <div class="card__inner">
+                        <div class="card__face card__face--front">                              
+                            <!--Player statistics-->
+                            <img src="{{player.image}}">
+                            <!--Hämta namn från databas-->                                                                  
+                            <h4>{{player.name}}</h4>                                  
+                            <!--Hämta poäng från databas ("Poäng: " + database value)-->
+                            <div class="costs">
+                                <h5>Pris: {{player.price}}</h5>
+                                <form method="post">
+                                    <input type="hidden" id="player_id" name="id" value={{player.id}}>
+
+                                    <input type = "submit" class="cost_button" value="Köp">
+                                </form>
+                                
+                            </div>
+                        </div>
+
+                        <div class="card__face card__face--back">
+                            <div class="card__content">
+                                <div class="card__header">
+                                    <!--Spelarstatistik från databasen-->
+                                    <!--Hämta namn-->
+                                    <h4>{{player.name}}</h4>
+                                    <!--Hämta lag-->
+                                    <p>Lag: {{player.team}}</p>
+                                    <!--Hämta position-->
+                                    <p>Position: {{player.position}}</p>
+                                    <!--Hämta antal mål-->
+                                    <p>Mål: {{player.goal}}</p>
+                                    <!--Hämta antal assit-->
+                                    <p>Assist: {{player.assists}}</p>
+                                    <!--Hämta antal utvisningsminuter-->
+                                    <p>Utvisningsminuter: {{player.penalty_time}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                          
+            {%endfor%}
+        </div>
+
+        <h3>Backar</h3>
+
+        <div class="one_time">
+            {%for player in defense%} 
+
+                <div class="card">
+                    <div class="card__inner">
+                        <div class="card__face card__face--front">                              
+                            <!--Player statistics-->
+                            <img src="{{player.image}}">
+                            <!--Hämta namn från databas-->                                                                  
+                            <h4>{{player.name}}</h4>                                  
+                            <!--Hämta poäng från databas ("Poäng: " + database value)-->
+                            <div class="costs">
+                                <h5>Pris: {{player.price}}</h5>
+                                <form method="post">
+                                    <input type="hidden" id="player_id" name="id" value={{player.id}}>
+
+                                    <input type = "submit" class="cost_button" value="Köp">
+                                </form>
+                                
+                            </div>
+                        </div>
+
+                        <div class="card__face card__face--back">
+                            <div class="card__content">
+                                <div class="card__header">
+                                    <!--Spelarstatistik från databasen-->
+                                    <!--Hämta namn-->
+                                    <h4>{{player.name}}</h4>
+                                    <!--Hämta lag-->
+                                    <p>Lag: {{player.team}}</p>
+                                    <!--Hämta position-->
+                                    <p>Position: {{player.position}}</p>
+                                    <!--Hämta antal mål-->
+                                    <p>Mål: {{player.goal}}</p>
+                                    <!--Hämta antal assit-->
+                                    <p>Assist: {{player.assists}}</p>
+                                    <!--Hämta antal utvisningsminuter-->
+                                    <p>Utvisningsminuter: {{player.penalty_time}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                          
+            {%endfor%}
+        </div>
+
+        <h3>Målvakter</h3>
+
+        <div class="one_time">
+            {%for player in goalies%} 
+
+                <div class="card">
+                    <div class="card__inner">
+                        <div class="card__face card__face--front">                              
+                            <!--Player statistics-->
+                            <img src="{{player.image}}">
+                            <!--Hämta namn från databas-->                                                                  
+                            <h4>{{player.name}}</h4>                                  
+                            <!--Hämta poäng från databas ("Poäng: " + database value)-->
+                            <div class="costs">
+                                <h5>Pris: {{player.price}}</h5>
+                                <form method="post">
+                                    <input type="hidden" id="player_id" name="id" value={{player.id}}>
+
+                                    <input type = "submit" class="cost_button" value="Köp">
+                                </form>
+                                
+                            </div>
+                        </div>
+
+                        <div class="card__face card__face--back">
+                            <div class="card__content">
+                                <div class="card__header">
+                                    <!--Spelarstatistik från databasen-->
+                                    <!--Hämta namn-->
+                                    <h4>{{player.name}}</h4>
+                                    <!--Hämta lag-->
+                                    <p>Lag: {{player.team}}</p>
+                                    <!--Hämta position-->
+                                    <p>Position: {{player.position}}</p>
+                                    <!--Hämta antal räddningar-->
+                                    <p>Räddningar: {{player.saves}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                          
+            {%endfor%}
+        </div>
+
     </div>
-
+</div>
     <footer>
         <p>Copyright© by FHL</p>
     </footer>

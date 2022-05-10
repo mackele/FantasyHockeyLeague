@@ -1,15 +1,14 @@
 #Imported modules 
-from audioop import reverse
-from operator import truediv
 from flask import Flask, render_template, redirect, url_for, request, redirect
-import psycopg2
-from psycopg2 import Error
 from datetime import date
 from datetime import datetime
 import database
 import  flask_login 
 import hashlib
 from database import *
+import team_rank
+import play_schedual
+
 
 
 #Application 
@@ -20,7 +19,26 @@ FHL = Flask(__name__)
 @FHL.route('/')
 @flask_login.login_required
 def index():
-    return render_template('unauthorized_index.html')
+    todaydate = date.today()
+    rank_date_list=database.get_timestamp_fhl_team_ranking(todaydate)
+
+    schedual_date_list=database.get_date_fhl_game_schedual (todaydate)
+
+    if len(rank_date_list) < 1:
+        database.delete_team_ranking()
+        team_rank.get_team_rank()
+
+    teams_ranking=database.get_team_rank()
+
+    if len(schedual_date_list) < 1:
+        database.delete_play_schedual()
+        play_schedual.get_play_schedual ()
+    
+    game_schedual=database.get_game_schedual()
+    highscore =database.get_fhl_highscore()
+    points=get_user_points()
+
+    return render_template('index.html', teams_ranking=teams_ranking, game_schedual=game_schedual, points=points, highscore=highscore)
 
 
 #Sign in
@@ -29,6 +47,14 @@ login_manager=flask_login.LoginManager()
 login_manager.init_app (FHL)
 @FHL.route('/login', methods=['GET', 'POST'])
 def login():
+    '''
+    Funktionen visar html filen login.html om användaren klickar på "logga in" på webbsidan.
+    Funktionen hämtar datan som användaren fyllt in när denne försöker logga in. 
+    Lösenordet krypteras.
+    mail och lösenord skickas in i database.py för att kolla om datan finns i databasen eller inte. 
+    Om listan med mail och lösenord är längre än o så loggas användaren in och redirectas till index.html.
+    '''
+
     if request.method == 'GET':
         return render_template('login.html')
 
@@ -42,12 +68,18 @@ def login():
         user.id=mail
         flask_login.login_user(user)
         return redirect(url_for('protected'))
-    return 'Bad login'
+    
 
 class User (flask_login.UserMixin):
     pass
+
 @login_manager.user_loader
 def user_loader(mail):
+    '''
+        Funktionen sätter user.id till användarens mail. (En del av Flask_login)
+        return:
+            returnerar användarens mail som user.
+    '''
     user = User()
     user.id = mail
     return user
@@ -57,26 +89,127 @@ def user_loader(mail):
 @FHL.route('/protected')
 @flask_login.login_required 
 def protected():
+    '''
+        När användaren loggats in körs denna funktionen.
+
+        Funktionen skickar in dagens datum till database.py för att få se om dagens datum finns i tabellen fhl_team_ranking i databasen.
+        Om listan är mindre än 1 så körs fuktionen delete_team_ranking i database.py och funktionen get_team_rank i team_rank.py.
+
+        Funktionen skickar in dagens daturm till database. py för att se om dagens datum finns i tabellen fhl_game_schedual.
+        Om listan är mindre än 1 så körs funktionen delete_play_schedual i database.py och funktioen get_play_schedual från play_schedual.py
+
+        Funktionen hämtar get_game_schedual, get_team_rank, get_fhl_highscore från database.py och skickar med dessa listor till index.html tillsammans med användarens poäng
+
+        return:
+             returnerar index.html tillsammans med lagranking, spelschema, och poäng och highscore.
+
+    '''
+    todaydate = date.today()
+    rank_date_list=database.get_timestamp_fhl_team_ranking(todaydate)
+
+    schedual_date_list=database.get_date_fhl_game_schedual (todaydate)
+
+    if len(rank_date_list) < 1:
+        database.delete_team_ranking()
+        team_rank.get_team_rank()
+
+    teams_ranking=database.get_team_rank()
+
+    if len(schedual_date_list) < 1:
+        database.delete_play_schedual()
+        play_schedual.get_play_schedual ()
+    
+    game_schedual=database.get_game_schedual()
+    highscore =database.get_fhl_highscore()
     points=get_user_points()
-    return render_template('index.html', points=points)
+    return render_template('index.html', points=points, teams_ranking=teams_ranking, game_schedual=game_schedual, highscore=highscore)
 
 
 #Sign out
 @FHL.route('/logout')
 def logout():
+    '''
+        Funktionen loggar ut användaren.
+        Funktionen skickar in dagens datum till database.py för att få se om dagens datum finns i tabellen fhl_team_ranking i databasen.
+        Om listan är mindre än 1 så körs fuktionen delete_team_ranking i database.py och funktionen get_team_rank i team_rank.py.
+
+        Funktionen skickar in dagens daturm till database. py för att se om dagens datum finns i tabellen fhl_game_schedual.
+        Om listan är mindre än 1 så körs funktionen delete_play_schedual i database.py och funktioen get_play_schedual från play_schedual.py
+
+        Funktionen hämtar get_game_schedual, get_team_rank, get_fhl_highscore från database.py och skickar med dessa listor till unauthorized_index.html
+
+        return:
+            returnerar unauthorized_index.html tillsammans med lagranking, spelschema och highscore.
+    '''
     flask_login.logout_user()
-    return render_template('unauthorized_index.html')
+    todaydate = date.today()
+    rank_date_list=database.get_timestamp_fhl_team_ranking(todaydate)
+
+    schedual_date_list=database.get_date_fhl_game_schedual (todaydate)
+
+    if len(rank_date_list) < 1:
+        database.delete_team_ranking()
+        team_rank.get_team_rank()
+
+    teams_ranking=database.get_team_rank()
+
+    if len(schedual_date_list) < 1:
+        database.delete_play_schedual()
+        play_schedual.get_play_schedual ()
+    
+    game_schedual=database.get_game_schedual()
+    highscore =database.get_fhl_highscore()
+
+    return render_template('unauthorized_index.html', teams_ranking=teams_ranking, game_schedual=game_schedual, highscore=highscore)
 
 
 #index för icke inloggade
 @login_manager.unauthorized_handler
 def unauthorized_handler():
-    return render_template('unauthorized_index.html')
+    '''
+        Funktionen hanterar om användaren inte är inloggad.
+        Funktionen skickar in dagens datum till database.py för att få se om dagens datum finns i tabellen fhl_team_ranking i databasen.
+        Om listan är mindre än 1 så körs fuktionen delete_team_ranking i database.py och funktionen get_team_rank i team_rank.py.
+
+        Funktionen skickar in dagens daturm till database. py för att se om dagens datum finns i tabellen fhl_game_schedual.
+        Om listan är mindre än 1 så körs funktionen delete_play_schedual i database.py och funktioen get_play_schedual från play_schedual.py
+
+        Funktionen hämtar get_game_schedual, get_team_rank, get_fhl_highscore från database.py och skickar med dessa listor till unauthorized_index.html
+
+        return:
+            returnerar unauthorized_index.html tillsammans med lagranking, spelschema och highscore.
+    '''
+    todaydate = date.today()
+    rank_date_list=database.get_timestamp_fhl_team_ranking(todaydate)
+
+    schedual_date_list=database.get_date_fhl_game_schedual (todaydate)
+
+    if len(rank_date_list) < 1:
+        database.delete_team_ranking()
+        team_rank.get_team_rank()
+
+    teams_ranking=database.get_team_rank()
+
+    if len(schedual_date_list) < 1:
+        database.delete_play_schedual()
+        play_schedual.get_play_schedual ()
+    
+    game_schedual=database.get_game_schedual()
+    highscore =database.get_fhl_highscore()
+    return render_template('unauthorized_index.html', teams_ranking=teams_ranking, game_schedual=game_schedual, highscore=highscore)
 
 
 #Registration
 @FHL.route('/registration', methods=['GET','POST'])
 def registration():
+    '''
+        Funktionen ger användaren registration.html när denne klickar på "Registrera".
+        Funktionen tar emot värdena som användaren fyllt i i formuläret på registration.html och skickar dessa till databasen för att som om dessa finns lagrade eller inte.
+        Om mailen redan finns registrerad så returneras registration.html tillbaka med felmeddelande om att mailen redan finns registreras. 
+        Om användarnamnet redan finns registrerat så returneras registration.html tillbaka med felmeddelande om att användarnamnet redan finns. 
+        Annars kommer kommer användarnen in i systemet.
+
+    '''
     if request.method == 'GET':
         return render_template('registration.html')
     
@@ -88,8 +221,13 @@ def registration():
     hash_password=hashlib.md5(password.encode()).hexdigest()
 
     user=database.registrations(username, mail, f_name, l_name, hash_password)
-    print("fhl", user)
-    
+
+    for person in user:
+        if person[0]==mail:
+            return render_template("registration.html", existing_mail="Mailadressen du försöker använda finns redan registrerat, vänligen ange en annan mailadress eller logga in.")
+        elif person[1]==username:
+            return render_template("registration.html", existing_username="Användarnamnet du försöker använda finns redan registrerat, vänligen välj ett annat användarnamn ")
+        
     return render_template('index.html')
 
 
@@ -101,7 +239,7 @@ def guide():
 
 
 #Buy players
-@FHL.route('/köp-spelare/', methods=['GET', 'POST'])
+@FHL.route('/köp-spelare/', methods = ['GET', 'POST'])
 @flask_login.login_required
 def buy_players():
     '''
@@ -115,7 +253,11 @@ def buy_players():
     '''
     points=get_user_points()
 
-    players = get_all_players()
+    right_forwards = get_right_forward_players()
+    centers = get_center_players()
+    left_forwards = get_left_forward_players()
+    defense = get_defense_players()
+    goalies = get_goalie_players()
 
     if request.method == 'POST':
         player_id = request.form['id']
@@ -123,7 +265,52 @@ def buy_players():
 
         add_purchased_player_to_team(user_id, player_id)
     
-    return render_template('buy_players.html', points=points, players = players)
+    return render_template('buy_players.html', points=points, right_forwards = right_forwards, centers = centers,
+    left_forwards = left_forwards, defense = defense, goalies = goalies)
+
+#Play game
+@FHL.route('/spela-match/', methods= ['GET', 'POST'])
+@flask_login.login_required
+def play_game():
+    '''
+    Route för att spela match
+    '''
+    points=get_user_points()
+    user_id=flask_login.current_user.id
+    teams = get_other_users_lineup(user_id)
+    my_teams = get_users_lineup(user_id)
+
+    if request.method == 'POST':
+
+        opponent_team_form = request.form['opponent_team'].split(", ")
+        opponent_score = int(opponent_team_form[0])
+        opponent_user = opponent_team_form[1]
+
+        my_team_score_str = request.form['my_team']
+        my_team_score = int(my_team_score_str)
+        my_team_user = user_id
+
+        if my_team_score > opponent_score:
+            print("Du vinner!")
+            winner = my_team_user
+            looser = opponent_user
+
+            #add_game_to_match_history(my_team_user, opponent_user, winner, looser)
+            #Användaren får poäng
+
+        elif my_team_score < opponent_score:
+            print("Du förlorar!")
+            winner = opponent_user
+            looser = my_team_user
+
+            #add_game_to_match_history(my_team_user, opponent_user, winner, looser)
+            #Andra spelaren får poäng
+
+        else:
+            print("Vad ska vi göra när det blir lika?")
+
+
+    return render_template('play_game.html', points=points, teams = teams, my_teams = my_teams)
 
 
 #My players
@@ -138,17 +325,61 @@ def my_players():
     """
     points=get_user_points()
     user_id=flask_login.current_user.id
-    players = get_users_players(user_id)
-    
-    return render_template('my_players.html', points=points, players = players)
+    goalie = get_users_goalie(user_id)
+    defenseman = get_users_defenseman(user_id)
+    forward = get_users_forward(user_id)
+    center = get_users_center(user_id)
+    return render_template('my_players.html', points=points, goalie=goalie, defenseman=defenseman, center=center, forward=forward)
 
 
 #Game
-@FHL.route('/match/')
+@FHL.route('/match/', methods = ['GET', 'POST'])
 @flask_login.login_required
 def match():
     points=get_user_points()
-    return render_template('match.html', points=points)
+    user_id=flask_login.current_user.id
+    goalie = get_users_goalie(user_id)
+    defenseman = get_users_defenseman(user_id)
+    left_wing = get_users_left_wing(user_id)
+    center = get_users_center(user_id)
+    right_wing = get_users_right_wing(user_id)
+
+    if request.method == 'POST':
+        left_forward_form = request.form['left_forward'].split(", ")
+        left_forward_id = left_forward_form[0]
+        left_forward_score = left_forward_form[1]
+
+        center_form = request.form['center'].split(", ")
+        center_id = center_form[0]
+        center_score = center_form[1]
+
+        right_forward_form = request.form['right_forward'].split(", ")
+        right_forward_id = right_forward_form[0]
+        right_forward_score = right_forward_form[1]
+
+        left_defense_form = request.form['left_defense'].split(", ")
+        left_defense_id = left_defense_form[0]
+        left_defense_score = left_defense_form[1]
+
+        right_defense_form = request.form['right_defense'].split(", ")
+        right_defense_id = right_defense_form[0]
+        right_defense_score = right_defense_form[1]
+
+        goalie_form = request.form['goalie'].split(", ")
+        goalie_id = goalie_form[0]
+        goalie_score = goalie_form[1]
+
+        team_name = request.form['team_name']
+
+        score = int(left_forward_score) + int(center_score) + int(right_forward_score) + int(left_defense_score) + int(right_defense_score) + int(goalie_score)
+
+        user_id=flask_login.current_user.id
+
+        add_chosen_players_to_game(left_forward_id, center_id, right_forward_id, left_defense_id, 
+        right_defense_id, goalie_id, user_id, score, team_name)
+
+
+    return render_template('match.html', points=points, goalie=goalie, defenseman=defenseman, left_wing=left_wing, center=center, right_wing=right_wing)
 
 
 #Game history
@@ -176,18 +407,31 @@ def top_scorer():
 
 
 #Forum
-@FHL.route('/forum/')
+@FHL.route('/forum/', methods = ['GET', 'POST'])
 @flask_login.login_required
 def forum():
-    points=get_user_points()
-    fhldata=get_forum()
-    return render_template('forum.html', points=points, fhldata=fhldata)
+    """
+    Funktionen visar samtliga foruminlägg
+    """
+
+    if request.method == 'POST':
+        category = request.form['category']
+        print(category)
+        points=get_user_points()
+        fhldata=get_forum(category)
+        return render_template('forum.html', points=points, fhldata=fhldata)
+    else:
+        return render_template('forum.html')
 
 
+    
 #Forum posts created by logged in user
 @FHL.route('/forum/mina/inlägg/')
 @flask_login.login_required
 def forum_username():
+    """
+    Funktionen visas den inloggade användarens foruminlägg
+    """
     points=get_user_points()
     user_id=flask_login.current_user.id
     fhluserdata = get_forum_username(user_id)
@@ -198,6 +442,9 @@ def forum_username():
 @FHL.route('/inlägg/')
 @flask_login.login_required
 def write_post():
+    """
+    Functionen låter användaren skapa ett nytt foruminlägg
+    """
     points=get_user_points()
     #user_id=flask_login.current_user.id? 
     return render_template('write_post.html', points=points)
@@ -207,7 +454,7 @@ def write_post():
 @FHL.route('/form', methods=['POST'])
 def form():
     """
-    Function inserts post to database
+    Funktionen sparar ett foruminlägg till databasen
     """
     points=get_user_points()
     #current user_id sends to function post_forum
@@ -222,8 +469,6 @@ def form():
 @flask_login.login_required
 def get_user_points():
     user_id=flask_login.current_user.id
-    
-    print("hejpådig", user_id)
     points=database.get_points(user_id)
     
     for i in points:

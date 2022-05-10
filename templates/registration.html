@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--Länkar till static style.css, för att ändra tillbaka till "vanliga" är det bara att ha href ="/static/style.css"-->
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-    <title>FHL</title>
+    <title>FHL registrera användare</title>
     <!--Browser icon-->
     <link rel="icon" href="/static/FHL.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,11 +45,13 @@
                 <div class="login_div">
                     <label for="mail">Epost:</label>
                 <input type="email" id="mail" name="mail" placeholder="Epost" required>
+                <p class="error">{{existing_mail}}</p>
                 </div>
                 
                 <div class="login_div">
                     <label for="username">Användarnamn:</label>
                     <input type="text" id="username" name="username"  placeholder="Användarnamn" required>
+                    <p class="error">{{existing_username}}</p>
                 </div>
                
                 <div class="login_div">

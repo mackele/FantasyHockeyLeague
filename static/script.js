@@ -14,6 +14,11 @@ function dropFunction_posts() {
   down()
   document.getElementById("posts").classList.toggle("show");
 }
+
+function dropFunction_mobile() {
+  down()
+  document.getElementById("mobile_content").classList.toggle("show");
+}
   
 window.onclick = function(e) {
   if (!e.target.matches('.dropbtn')) {
@@ -92,7 +97,7 @@ $(document).ready(function(){
         }
       },
       {
-        breakpoint: 760,
+        breakpoint: 670,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1

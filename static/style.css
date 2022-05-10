@@ -26,6 +26,11 @@ p, a, h3, h4, label{
 h3 {
     padding:10px;
     margin:0;
+    font-size: 30px;
+}
+
+h4 {
+    font-size: 20px;
 }
 select {
     cursor: pointer;
@@ -47,7 +52,7 @@ select {
 }
 
 #search_button:hover, .submit_button:hover {
-    background-color: #56657B;
+    background-color: #496A9B;
 }
 
 
@@ -73,7 +78,7 @@ button {
 }
 
 .dropdown:hover, .help:hover{
-    background-color:#56657B ;
+    background-color:#496A9B ;
 }
 
 .dropdown_content > a:hover {
@@ -82,7 +87,8 @@ button {
 
 
 #log img {
-    max-width: 85px;
+    max-width: 55px;
+    padding:10px;
 }
 #nav_right {
     display: flex;
@@ -116,17 +122,21 @@ button {
     box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
 }
 
+.error{
+    color:#CE1126;
+}
+
 .registration > a {
     color: white;
 }
 
 nav {
-   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#28313e+1,2c3e5a+50,56657b+100 */
-    background: #28313e; /* Old browsers */
-    background: -moz-linear-gradient(left,  #28313e 1%, #2c3e5a 50%, #56657b 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(left,  #28313e 1%,#2c3e5a 50%,#56657b 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to right,  #28313e 1%,#2c3e5a 50%,#56657b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28313e', endColorstr='#56657b',GradientType=1 ); /* IE6-9 */
+   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#28313e+1,2c3e5a+50#496A9B+100 */
+    background: #213149; /* Old browsers */
+    background: -moz-linear-gradient(left,  #213149 1%,#496A9B 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #213149 1%, #496A9B 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #213149 1%,#496A9B 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28313e', endColorstr='#496A9B',GradientType=1 ); /* IE6-9 */
 
     color: white;
     font-size: 16px;
@@ -143,9 +153,18 @@ nav {
     display: flex;
     align-items: center; 
 }
-#menu {
+#mobile_menu {
     display:flex;
     overflow:hidden;
+
+}
+
+.mobile{
+    display: none;
+}
+
+.dropdown_mobile {
+    display: flex;
 }
 .dropdown, .help {
     overflow: hidden;
@@ -219,7 +238,6 @@ nav {
 .show {
     display:block;
     box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
-    
 }
 
 .foldable {
@@ -245,13 +263,15 @@ nav {
     border-top: solid #F2F2F2;;
 }
 
+
+
 footer{
-   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#28313e+1,2c3e5a+50,56657b+100 */
-    background: #28313e; /* Old browsers */
-    background: -moz-linear-gradient(left,  #28313e 1%, #2c3e5a 50%, #56657b 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(left,  #28313e 1%,#2c3e5a 50%,#56657b 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to right,  #28313e 1%,#2c3e5a 50%,#56657b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28313e', endColorstr='#56657b',GradientType=1 ); /* IE6-9 */
+   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#28313e+1,2c3e5a+50#496A9B+100 */
+   background: #213149; /* Old browsers */
+    background: -moz-linear-gradient(left,  #213149 1%,#496A9B 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #213149 1%, #496A9B 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #213149 1%,#496A9B 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28313e', endColorstr='#496A9B',GradientType=1 ); /* IE6-9 */
 
     
     width: 100%;
@@ -276,6 +296,7 @@ footer p {
 }
 .bottom_row {
     display: flex;
+    justify-content: space-around;
     flex-wrap: wrap;
     margin:20px;
     
@@ -294,6 +315,16 @@ table {
 th, td {
     padding:7px;
 }
+
+#match_table div {
+    display:flex;
+    flex-direction: column;
+}
+
+#match_table td {
+    font-size: 10px;
+}
+
 .bold {
     font-weight: bold;
 }
@@ -306,10 +337,35 @@ tr:nth-child(even) {
 }
 
 
-#match_table, #hockey_score_table, #highscore_table {
+#highscore_table {
     padding:10px;
     margin: auto;
     text-align: center;  
+}
+#hockey_score_table, #match_table {
+    padding:10px;
+    text-align: center; 
+}
+
+#match_table{
+    padding-top: 46px ;
+}
+
+.team_loggo {
+    width: 50px;
+}
+
+.lock_div {
+    display: flex;
+    flex-direction: column;
+}
+
+.team_name {
+    padding:20px;
+}
+
+.team_name input {
+    width: 210px;
 }
 
 /* css till my_players*/
@@ -364,7 +420,7 @@ tr:nth-child(even) {
 
 #body_my_players, #index_body, #forum_body, #guide_body, #buy_players_body, #match_histor, main, #write_post_body, #topscorer_body,#forum_body, #guide_body, #write_post_body, #login_body, #registration_body {
     margin:auto;
-    max-width: 80%;
+    max-width: 90%;
     padding: 101px 0 50px 0;
     height: 100%;
 
@@ -470,7 +526,7 @@ main div {
     
 }
 .lock:hover {
-    background-color: #56657B;
+    background-color: #496A9B;
 }
 
 
@@ -508,7 +564,7 @@ background-color: white;
 #forumcategory {
     color: #F2F2F2;
     font-size: 10px;
-    background-color:#56657b;
+    background-color:#496A9B;
     box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
     width: 20%;
     margin: auto;
@@ -516,7 +572,7 @@ background-color: white;
 
 select {
     color:#F2F2F2;
-    background-color: #56657b;
+    background-color: #496A9B;
 }
 
 #user_and_date {
@@ -557,6 +613,12 @@ select {
 .card p {
     font-size: 12px;
     padding:5px 0;
+}
+
+.card img {
+    height: 170px;
+    width: auto;
+    margin: auto;
 }
 
 .card__inner {
@@ -640,15 +702,18 @@ select {
     color: white;
 }
 .cost_button:hover {
-    background-color: #56657B;
+    background-color: #496A9B;
 }
 .costs h5 {
 margin:0;
 
 }
+
+
 .FHLcategory {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+    padding:10px;
     box-sizing: border-box;
     font-size: 12px;
 }
@@ -703,7 +768,184 @@ form textarea {
     height: 100px;
 }
 
+/*Simon CSS */
+.left_forward:hover {
+    cursor: pointer;
+}
 
-.topscorer_title{
-    text-align: center;
+.center:hover {
+    cursor: pointer;
+}
+
+.right_forward:hover {
+    cursor: pointer;
+}
+
+.left_defense:hover {
+    cursor: pointer;
+}
+
+.right_defense:hover {
+    cursor: pointer;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10;
+    background-color: white;
+    width: 80%;
+    min-height: 80%;
+  }
+  
+  .modal.active {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  
+  .modal-header {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
+  }
+  
+  .modal-header .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .modal-header .close-button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .modal-body {
+    padding: 10px 15px;
+  }
+  
+  #overlay {
+    position: fixed;
+    opacity: 0;
+    transition: 90000ms ease;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
+    pointer-events: none;
+  }
+  
+  #overlay.active {
+    opacity: 0;
+    pointer-events: all;
+  }
+
+
+
+  @media screen and (max-width: 889px)  {
+   nav {
+       align-items: flex-start;
+   }
+   
+    #mobile_menu {
+        display: flex;
+        flex-direction: column;
+        
+        
+    }
+
+    .dropdown_content {
+        display: none;
+       
+    }
+    
+    .dropdown_content a {
+        float: none;
+        color: rgb(255, 255, 255);
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+      }
+
+
+    #log {
+        position: fixed;
+        left: 51px;
+        
+
+    }
+
+    #log img {
+        max-width: 42px;
+        padding:6px;
+    }
+
+    .dropdown_content::before {
+        display: none;
+    }
+
+    .left_nav {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: flex-start;
+        
+    }
+    .mobile{
+        display: block;
+        cursor: pointer;
+        border: none;
+        background-color: inherit;
+        color:white;
+        font-weight: bold;
+        height: 50px;
+    }
+
+    .mobile div {
+        width: 30px;
+        height: 3px;
+        background-color: white;
+        margin: 6px 0;
+    }
+
+    .dropdown_mobile{
+        display: none;
+        
+
+    }
+    .show {
+        display: contents;
+        box-shadow: none; 
+    }
+    .points p{
+        font-size: 29px;
+    }
+
+   /*Index */
+    td {
+        font-size: 10px;
+    }
+
+    td div {
+        padding: 0;
+    }
+
+    .dropdown:hover, .help:hover{
+        background-color:inherit ;
+       
+    }
+    .dropdown button:hover, .help button:hover{
+        color: #496A9B;
+    }
+
 }
