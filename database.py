@@ -542,7 +542,7 @@ def registrations(username, mail, f_name, l_name, password):
         cursor.execute("""select mail, username from fhl_user
                                 where  mail=%s""",
                                     (mail,))
-        user = cursor.fetchal()
+        user = cursor.fetchall()
 
         if len(user)==0:
             points=100
