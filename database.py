@@ -550,7 +550,6 @@ def registrations(username, mail, f_name, l_name, password):
                                         values (%s, %s, %s, %s, %s, %s) """)
                                             
             insert_to = (username, mail, f_name, l_name, password, points)
-            print (username, mail, f_name, l_name, password, points)
             cursor.execute(postgreSQL_insert, insert_to)
             conn.commit()
 

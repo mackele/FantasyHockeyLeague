@@ -1,4 +1,5 @@
 #Imported modules 
+from asyncio.windows_events import NULL
 from flask import Flask, render_template, redirect, url_for, request, redirect
 from datetime import date
 from datetime import datetime
@@ -221,12 +222,16 @@ def registration():
     hash_password=hashlib.md5(password.encode()).hexdigest()
 
     user=database.registrations(username, mail, f_name, l_name, hash_password)
-
-    for person in user:
-        if person[0]==mail:
-            return render_template("registration.html", existing_mail="Mailadressen du försöker använda finns redan registrerat, vänligen ange en annan mailadress eller logga in.")
-        elif person[1]==username:
-            return render_template("registration.html", existing_username="Användarnamnet du försöker använda finns redan registrerat, vänligen välj ett annat användarnamn ")
+    print(user)
+    
+    if user!=None:
+        print("1")
+        for person in user:
+            print("2")
+            if person[1]==mail:
+                return render_template("registration.html", existing_mail="Mailadressen du försöker använda finns redan registrerat, vänligen ange en annan mailadress eller logga in.")
+            elif person[0]==username:
+                return render_template("registration.html", existing_username="Användarnamnet du försöker använda finns redan registrerat, vänligen välj ett annat användarnamn ")
         
     return render_template('index.html')
 
