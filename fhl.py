@@ -1,5 +1,4 @@
 #Imported modules 
-from asyncio.windows_events import NULL
 from flask import Flask, render_template, redirect, url_for, request, redirect
 from datetime import date
 from datetime import datetime
