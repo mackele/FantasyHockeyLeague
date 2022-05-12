@@ -232,8 +232,27 @@ def registration():
                 return render_template("registration.html", existing_mail="Mailadressen du försöker använda finns redan registrerat, vänligen ange en annan mailadress eller logga in.")
             elif person[0]==username:
                 return render_template("registration.html", existing_username="Användarnamnet du försöker använda finns redan registrerat, vänligen välj ett annat användarnamn ")
-        
-    return render_template('index.html')
+   
+    todaydate = date.today()
+    rank_date_list=database.get_timestamp_fhl_team_ranking(todaydate)
+
+    schedual_date_list=database.get_date_fhl_game_schedual (todaydate)
+
+    if len(rank_date_list) < 1:
+        database.delete_team_ranking()
+        team_rank.get_team_rank()
+
+    teams_ranking=database.get_team_rank()
+
+    if len(schedual_date_list) < 1:
+        database.delete_play_schedual()
+        play_schedual.get_play_schedual ()
+    
+    game_schedual=database.get_game_schedual()
+    highscore =database.get_fhl_highscore()
+    points=get_user_points()
+
+    return render_template('index.html', teams_ranking=teams_ranking, game_schedual=game_schedual, points=points, highscore=highscore)   
 
 
 #Guide
@@ -248,17 +267,25 @@ def guide():
 @flask_login.login_required
 def buy_players():
     '''
+    När användaren kommer in i filen kollas det i databasen om fhl_players datum är datens datum.
+    Om det inte är daten datum körs funktionerna i team_score vilka även uppdaterar tabellen fhl_players med aktuell statistik.
+
     Funktion som först hämtar hur mycket poäng användaren har genon get_user_points() som finns i
     database.py och sedan hämtar alla spelare som finns genom get_all_players() som också finns i 
     database.py
 
     När användaren sedan klickar på köp i html filen buy_players skickas ett formulär tillbaka
     med id för den spelare som ska köpas. Sedan i funktionen add_purchased_player_to_team()
-    skickas spelaren och användarens id med och läggs sedan till i databasen
+    skickas spelaren och användarens id med och läggs sedan till i databasen.
+
+    När användaren kommer in i filen kollas det i databasen om fhl_players datum är datens datum.
+    Om det inte är daten datum körs funktionerna i team_score vilka även uppdaterar tabellen fhl_players med aktuell statistik.
     '''
-   
+    todaydate = date.today()
+    date_list=database.get_timestamp_fhl_players(todaydate)
 
-
+    if len(date_list) < 1:
+        team_score.insert_score_to_database()
 
     points=get_user_points()
 
@@ -331,7 +358,16 @@ def my_players():
     Den inloggade användarens mail sparas i denna: current_user.id. denna används för att ta ut saker ur databasen.
     Hämtar poäng och sedan vilka spelare som användaren har genom get_users_players() med användarens mail som 
     parameter.
+
+    När användaren kommer in i filen kollas det i databasen om fhl_players datum är datens datum.
+    Om det inte är daten datum körs funktionerna i team_score vilka även uppdaterar tabellen fhl_players med aktuell statistik.
     """
+    todaydate = date.today()
+    date_list=database.get_timestamp_fhl_players(todaydate)
+
+    if len(date_list) < 1:
+        team_score.insert_score_to_database()
+
     points=get_user_points()
     user_id=flask_login.current_user.id
     goalie = get_users_goalie(user_id)
@@ -345,6 +381,16 @@ def my_players():
 @FHL.route('/match/', methods = ['GET', 'POST'])
 @flask_login.login_required
 def match():
+    '''
+        När användaren kommer in i filen kollas det i databasen om fhl_players datum är datens datum.
+        Om det inte är daten datum körs funktionerna i team_score vilka även uppdaterar tabellen fhl_players med aktuell statistik.
+    '''
+    todaydate = date.today()
+    date_list=database.get_timestamp_fhl_players(todaydate)
+
+    if len(date_list) < 1:
+        team_score.insert_score_to_database()
+
     points=get_user_points()
     user_id=flask_login.current_user.id
     goalie = get_users_goalie(user_id)
@@ -404,7 +450,15 @@ def top_scorer():
     '''
     Funktion skickar med sig en lista av lexikon players som hämtad från funktionen get_all_players som finns i 
     database.py. Denna lista sorteras sedan utifrån vad spelarkorten ska sorteras på, exempelvis mål, assist mm.
+
+    När användaren kommer in i filen kollas det i databasen om fhl_players datum är datens datum.
+    Om det inte är daten datum körs funktionerna i team_score vilka även uppdaterar tabellen fhl_players med aktuell statistik.
     '''
+    todaydate = date.today()
+    date_list=database.get_timestamp_fhl_players(todaydate)
+
+    if len(date_list) < 1:
+        team_score.insert_score_to_database()
 
     players = get_all_players()
     top_players = sorted(players, key = lambda k: k['price'], reverse=True)

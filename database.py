@@ -24,11 +24,11 @@ def get_timestamp_fhl_players(todays_date):
         list = cursor.fetchall()
     
     return list
-
+'''
 def add_goalie_to_database(goalies):
-    '''
+   
     Funktion som lägger in målvakter som hämtas i en lista med lexikon från APIn i test.py
-    '''
+    
 
     with Postgres() as (cursor, conn):
         cursor.execute("""select * from fhl_players""")
@@ -40,11 +40,11 @@ def add_goalie_to_database(goalies):
 
         execute_values(cursor, query, values)
         conn.commit()
-        
+'''       
 
 def add_player_to_database(players):
     '''
-    Funktion som lägger in spelare som hämtas i en lista med lexikon från APIn i test.py
+    Funktion som lägger in spelare som hämtas i en lista med lexikon från APIn i player_info.py
     '''
 
     with Postgres() as (cursor, conn):
@@ -57,6 +57,15 @@ def add_player_to_database(players):
         execute_values(cursor, query, values)
         conn.commit()
 
+def delete_players_in_database():
+    '''
+        Funktionen raderar allt som finns i tabellen fhl_players i databasen om dagens datum inte stämmer 
+        överrens med det datum som är inlagt i databasen. Funktionen körs från fhl.py.
+    '''
+    with Postgres() as (cursor, conn):
+        postgreSQL_insert = (""" delete from fhl_players """)
+        cursor.execute(postgreSQL_insert)
+        conn.commit()
 
 def add_players_to_list(info):
     '''
@@ -845,14 +854,23 @@ def add_chosen_players_to_game(left_forward, center, right_forward, left_defense
         conn.close()
 
 def get_team_list_fhl_team():
-     
+    """
+        Funktionen hämtar ut en lista med alla lag i databasen som inte har någon match_score än.
+    """
     with Postgres() as (cursor, conn):
         cursor.execute("""select * from fhl_team 
                             where match_score is null""")
         team_list = cursor.fetchall()
     return team_list
 
+
 def insert_team_score(team_score, team_id):
+    """
+        Funktionen lägger in match_score i databasen till specifika lag. 
+        args:
+            team_score- variabel med ett visst lag sammanlaggda poäng.
+            team_id- variabel med ett visst lags id.
+    """
     with Postgres() as (cursor, conn):
         PostgreSQL_insert = (f"""update fhl_team
                                 set match_score = {team_score}
