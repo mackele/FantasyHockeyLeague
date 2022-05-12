@@ -107,14 +107,19 @@
             </article>
 
             </div>
-
+            
             <!--Loop-->
             {% for data in fhldata or fhluserdata %}
             <div id="article_div">
 
                 <div id="user_and_date">
-                    <!--Username (Change)-->
+                    <!--Username-->
                     <p>Användare: {{ data[8] }}</p>
+
+                    <!--ID-->
+                    <form method ="post" action="delete" id="delete">
+                        <button type="submit" name="delete" id="delete" value="{{ data[2] }}">Ta bort</button>
+                    </form> 
 
                     <!--Date-->
                     <p>Datum: {{ data[0] }} {{ data[1] }}</p>

@@ -417,18 +417,16 @@ def forum():
     """
     Funktionen visar samtliga foruminlägg
     """
-
     if request.method == 'POST':
         category = request.form['category']
         print(category)
-        points=get_user_points()
-        fhldata=get_forum(category)
+        points= get_user_points()
+        fhldata= get_category_forum(category)
         return render_template('forum.html', points=points, fhldata=fhldata)
     else:
         return render_template('forum.html')
 
 
-    
 #Forum posts created by logged in user
 @FHL.route('/forum/mina/inlägg/')
 @flask_login.login_required
@@ -442,7 +440,7 @@ def forum_username():
     return render_template('forum.html', points=points, fhluserdata=fhluserdata)
 
 
-#Forum form for creating new post
+#Forum new post form
 @FHL.route('/inlägg/')
 @flask_login.login_required
 def write_post():
@@ -450,22 +448,35 @@ def write_post():
     Functionen låter användaren skapa ett nytt foruminlägg
     """
     points=get_user_points()
-    #user_id=flask_login.current_user.id? 
     return render_template('write_post.html', points=points)
 
 
-#New post form data
+#Forum new post data
 @FHL.route('/form', methods=['POST'])
 def form():
     """
     Funktionen sparar ett foruminlägg till databasen
     """
     points=get_user_points()
-    #current user_id sends to function post_forum
     user_id=flask_login.current_user.id
     post = post_forum(user_id)
     fhldata = post_forum_redirect()
     return render_template('forum.html', points=points, post=post, fhldata=fhldata)
+
+
+#Forum delete post
+@FHL.route('/forum/delete', methods = ['GET', 'POST'])
+@flask_login.login_required
+def delete_post():
+    """
+    Funktionen låter använderan ta bort ett foruminlägg
+    """
+    if request.method == 'POST':
+        article_id = request.form['delete']
+        delete = delete_article_id(article_id)
+        return redirect(url_for('forum'))
+    else:
+        return redirect(url_for('forum'))
 
 
 #Logged in users points

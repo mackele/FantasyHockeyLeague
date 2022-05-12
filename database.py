@@ -767,7 +767,25 @@ def post_forum_redirect():
         return fhldata
 
 
-def get_forum(category):
+#Default for forum 
+def get_all_forum():
+    """
+    Function retrieves all form data
+    Used to display forum posts
+    """
+    with Postgres() as (cursor, conn):
+        with Postgres() as (cursor, conn):
+            cursor.execute(f"""select date, datetime, article_id, fhl_user, title, category, text, likes, username 
+                from fhl_forum_form
+                join fhl_user
+                on fhl_forum_form.fhl_user = fhl_user.mail """)
+            data = cursor.fetchall()
+            fhldata=data
+    return fhldata
+    return fhldata
+
+
+def get_category_forum(category):
     """
     Function retrieves all form data
     Used to display forum posts
@@ -809,6 +827,18 @@ def get_forum_username(user_id):
 
     return fhluserdata
     return fhluserdata
+
+
+def delete_article_id(article_id):
+    """
+    Function deletes form post
+    Args
+        'article_id' from html submit
+    """
+    with Postgres() as (cursor, conn):
+        delete_post = (f""" delete from fhl_forum_form where article_id = '{article_id}'""")
+        cursor.execute(delete_post)
+        conn.commit()
 
 
 def add_chosen_players_to_game(left_forward, center, right_forward, left_defense, right_defense, goalie, user_id_form, score, team_name):
