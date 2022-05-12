@@ -289,10 +289,22 @@ def play_game():
         opponent_team_form = request.form['opponent_team'].split(", ")
         opponent_score = int(opponent_team_form[0])
         opponent_user = opponent_team_form[1]
+        opponent_team_id = int(opponent_team_form[2])
 
-        my_team_score_str = request.form['my_team']
-        my_team_score = int(my_team_score_str)
+        my_team_form = request.form['my_team'].split(", ")
+        my_team_score = int(my_team_form[0])
         my_team_user = user_id
+        my_team_id = int(my_team_form[1])
+
+        print("Mitt lag info")
+        print(my_team_score)
+        print(my_team_user)
+        print(my_team_id)
+
+        print("***")
+        print(opponent_score)
+        print(opponent_user)
+        print(opponent_team_id)
 
         if my_team_score > opponent_score:
             print("Du vinner!")
