@@ -3,9 +3,27 @@ import sys
 from datetime import date
 from datetime import datetime
 from connect import Postgres
-from flask import Flask, render_template, redirect, url_for, request, redirect
+from flask import Flask, render_template, redirect, url_for, request, redirect #behövs denna?
 from psycopg2.extras import execute_values
 
+def get_timestamp_fhl_players(todays_date):
+    '''
+        Funktionen hämtar datumet från tabellen fhl_players som finns i databasen.
+
+        args:
+            syftar till dagens datum som skickas med från fhl.py
+        return:
+            returnerar en lista med resultatet från sökningen i databasen till fhl.py
+    '''
+    with Postgres() as (cursor, conn):
+        cursor.execute("""select insert_date
+                            from fhl_players
+                                where insert_date=%s 
+                                    limit 1""",
+                                (todays_date,))
+        list = cursor.fetchall()
+    
+    return list
 
 def add_goalie_to_database(goalies):
     '''
@@ -799,26 +817,25 @@ def get_forum_username(user_id):
     Used to display forum posts
     """
     with Postgres() as (cursor, conn):
-        with Postgres() as (cursor, conn):
-            cursor.execute(f"""select date, datetime, article_id, fhl_user, title, category, text, likes, username 
-                            from fhl_forum_form
-                            join fhl_user
-                            on fhl_forum_form.fhl_user = fhl_user.mail
-                            where fhl_user = '{user_id}'""")
-            fhluserdata = cursor.fetchall()
+        cursor.execute(f"""select date, datetime, article_id, fhl_user, title, category, text, likes, username 
+                        from fhl_forum_form
+                        join fhl_user
+                        on fhl_forum_form.fhl_user = fhl_user.mail
+                        where fhl_user = '{user_id}'""")
+        fhluserdata = cursor.fetchall()
 
     return fhluserdata
-    return fhluserdata
+    
 
 
-def add_chosen_players_to_game(left_forward, center, right_forward, left_defense, right_defense, goalie, user_id_form, score, team_name):
+def add_chosen_players_to_game(left_forward, center, right_forward, left_defense, right_defense, goalie, user_id_form, team_name):
     with Postgres() as (cursor, conn):
 
         todaydate = date.today()
 
-        PostgreSQL_insert = """ INSERT INTO fhl_team (team_name, match_score, left_forward, right_forward,
-        center, left_back, right_back, goalkeeper, fhl_user, team_date) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
-        insert_to = (team_name, score, left_forward, center, right_forward, left_defense, right_defense, goalie, user_id_form, todaydate)
+        PostgreSQL_insert = """ INSERT INTO fhl_team (team_name, left_forward, right_forward,
+        center, left_back, right_back, goalkeeper, fhl_user, team_date) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+        insert_to = (team_name, left_forward, center, right_forward, left_defense, right_defense, goalie, user_id_form, todaydate)
 
         cursor.execute(PostgreSQL_insert, insert_to)
 
@@ -827,6 +844,22 @@ def add_chosen_players_to_game(left_forward, center, right_forward, left_defense
         cursor.close()
         conn.close()
 
+def get_team_list_fhl_team():
+     
+    with Postgres() as (cursor, conn):
+        cursor.execute("""select * from fhl_team 
+                            where match_score is null""")
+        team_list = cursor.fetchall()
+    return team_list
+
+def insert_team_score(team_score, team_id):
+    with Postgres() as (cursor, conn):
+        PostgreSQL_insert = (f"""update fhl_team
+                                set match_score = {team_score}
+                                    where team_id ={team_id}""")
+        
+        cursor.execute(PostgreSQL_insert)
+        conn.commit()
 
 def get_other_users_lineup(user_id):
     with Postgres() as (cursor, conn):
@@ -856,6 +889,3 @@ def add_game_to_match_history(team_1, team_2, winner, looser):
         cursor.execute(PostgreSQL_insert, insert_to)
 
         conn.commit()
-
-        cursor.close()
-        conn.close()

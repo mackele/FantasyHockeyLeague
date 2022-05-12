@@ -8,6 +8,7 @@ import hashlib
 from database import *
 import team_rank
 import play_schedual
+import team_score
 
 
 
@@ -255,6 +256,10 @@ def buy_players():
     med id för den spelare som ska köpas. Sedan i funktionen add_purchased_player_to_team()
     skickas spelaren och användarens id med och läggs sedan till i databasen
     '''
+   
+
+
+
     points=get_user_points()
 
     right_forwards = get_right_forward_players()
@@ -351,36 +356,34 @@ def match():
     if request.method == 'POST':
         left_forward_form = request.form['left_forward'].split(", ")
         left_forward_id = left_forward_form[0]
-        left_forward_score = left_forward_form[1]
+        
 
         center_form = request.form['center'].split(", ")
         center_id = center_form[0]
-        center_score = center_form[1]
+        
 
         right_forward_form = request.form['right_forward'].split(", ")
         right_forward_id = right_forward_form[0]
-        right_forward_score = right_forward_form[1]
+        
 
         left_defense_form = request.form['left_defense'].split(", ")
         left_defense_id = left_defense_form[0]
-        left_defense_score = left_defense_form[1]
+        
 
         right_defense_form = request.form['right_defense'].split(", ")
         right_defense_id = right_defense_form[0]
-        right_defense_score = right_defense_form[1]
+        
 
         goalie_form = request.form['goalie'].split(", ")
         goalie_id = goalie_form[0]
-        goalie_score = goalie_form[1]
+        
 
         team_name = request.form['team_name']
-
-        score = int(left_forward_score) + int(center_score) + int(right_forward_score) + int(left_defense_score) + int(right_defense_score) + int(goalie_score)
 
         user_id=flask_login.current_user.id
 
         add_chosen_players_to_game(left_forward_id, center_id, right_forward_id, left_defense_id, 
-        right_defense_id, goalie_id, user_id, score, team_name)
+        right_defense_id, goalie_id, user_id, team_name)
 
 
     return render_template('match.html', points=points, goalie=goalie, defenseman=defenseman, left_wing=left_wing, center=center, right_wing=right_wing)
@@ -486,4 +489,4 @@ def get_user_points():
 
 
 #Server
-FHL.run(host="127.0.0.1", port=8080, debug=True)
+FHL.run(host="127.0.0.1", port=8080, debug=True)   
