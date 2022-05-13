@@ -476,7 +476,12 @@ def match():
 @flask_login.login_required
 def match_history():
     points=get_user_points()
-    return render_template('matchhistory.html', points=points)
+    user_id=flask_login.current_user.id
+
+    won_games = get_history_won_games(user_id)
+    lost_games = get_history_lost_games(user_id)
+
+    return render_template('matchhistory.html', points=points, won_games = won_games, lost_games = lost_games)
 
 
 #Toplist

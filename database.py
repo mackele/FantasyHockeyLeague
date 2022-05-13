@@ -1010,3 +1010,23 @@ def update_ranking_after_win(user_id):
         
         cursor.execute(PostgreSQL_insert)
         conn.commit()
+
+def get_history_won_games(user_id):
+    with Postgres() as (cursor, conn):
+        cursor.execute(f"""select * from fhl_match_history as m
+                                join fhl_user as u
+                                    on m.winner=u.mail
+                                        where m.winner='{user_id}'""")
+        teams= cursor.fetchall()
+        
+    return teams
+
+def get_history_lost_games(user_id):
+    with Postgres() as (cursor, conn):
+        cursor.execute(f"""select * from fhl_match_history as m
+                                join fhl_user as u
+                                    on m.winner=u.mail
+                                        where m.loser='{user_id}';""")
+        teams= cursor.fetchall()
+        
+    return teams
