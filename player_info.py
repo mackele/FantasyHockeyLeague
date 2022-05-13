@@ -1,21 +1,21 @@
 import requests
 import json
-from database import *
+from datetime import date
 
-def get_all_players():
+def get_all_players_API():
     '''
     Funktionen hämtar data från nhl:s api och sparar i en lista av lexikon.
-   
+    
+        return:
+            Returnerar en lista med lexikon med statistik från api:t.
     '''
+    todaydate = date.today()
     response_API=requests.get("https://statsapi.web.nhl.com/api/v1/teams?expand=team.roster")
     data = response_API.text
     json.loads(data) 
     parse_json=json.loads(data)
 
-    
-
     #all_players=[]
-    goalies = []
     players = []
 
     for team in parse_json["teams"]:
@@ -28,7 +28,7 @@ def get_all_players():
             position=person["position"]["name"]
             image_player = "http://nhl.bamcontent.com/images/headshots/current/168x168/" + str(person_id)+".jpg"
 
-            season="20202021"
+            season="20212022"
 
             response=requests.get("https://statsapi.web.nhl.com/api/v1/people/" + str(person_id) + "/stats?stats=statsSingleSeason&season=" + str(season))
 
@@ -45,7 +45,7 @@ def get_all_players():
                         penalty_time_goalie = 0
                         assists_goalie = 0
                         #Gjort lite ändringar så att det förs in i databasen i korrekt ordning
-                        goalies.append({"id":person_id, "team": team_name, "position": position, "goal": goal_goalie, "penalty_time": penalty_time_goalie, "assists": assists_goalie, "image": image_player, "price": price_goalie, "saves": saves, "name": person_name})
+                        players.append({"id":person_id, "team": team_name, "position": position, "goal": goal_goalie, "penalty_time": penalty_time_goalie, "assists": assists_goalie, "image": image_player, "price": price_goalie, "saves": saves, "name": person_name, "date":todaydate})
                         
 
             if position !="Goalie":
@@ -69,18 +69,12 @@ def get_all_players():
                             "image": image_player,
                             "price": price_player,
                             "saves": saves_player,
-                            "name": person_name                            
+                            "name": person_name,
+                            "date": todaydate                           
                         })
-
-    
-
-    #Funktioner som lägger till målvakter respektive spelare, bara att köra de enskilt för att mata in i databasen
-    
-    #add_goalie_to_database(goalies)  
-    #add_player_to_database(players)         
+            
+    return players
+            
              
-get_all_players()
 
-#Tar ca 2 min att köra, allt syns inte i vsc men laddas (Allt syns i kommandotolken). 853 personer
 
-#Kolla tabellen i databasen innan detta insertas där.

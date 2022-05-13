@@ -8,6 +8,7 @@ import hashlib
 from database import *
 import team_rank
 import play_schedual
+import team_score
 
 
 
@@ -231,8 +232,27 @@ def registration():
                 return render_template("registration.html", existing_mail="Mailadressen du försöker använda finns redan registrerat, vänligen ange en annan mailadress eller logga in.")
             elif person[0]==username:
                 return render_template("registration.html", existing_username="Användarnamnet du försöker använda finns redan registrerat, vänligen välj ett annat användarnamn ")
-        
-    return render_template('index.html')
+   
+    todaydate = date.today()
+    rank_date_list=database.get_timestamp_fhl_team_ranking(todaydate)
+
+    schedual_date_list=database.get_date_fhl_game_schedual (todaydate)
+
+    if len(rank_date_list) < 1:
+        database.delete_team_ranking()
+        team_rank.get_team_rank()
+
+    teams_ranking=database.get_team_rank()
+
+    if len(schedual_date_list) < 1:
+        database.delete_play_schedual()
+        play_schedual.get_play_schedual ()
+    
+    game_schedual=database.get_game_schedual()
+    highscore =database.get_fhl_highscore()
+    points=get_user_points()
+
+    return render_template('index.html', teams_ranking=teams_ranking, game_schedual=game_schedual, points=points, highscore=highscore)   
 
 
 #Guide
@@ -247,14 +267,27 @@ def guide():
 @flask_login.login_required
 def buy_players():
     '''
+    När användaren kommer in i filen kollas det i databasen om fhl_players datum är datens datum.
+    Om det inte är daten datum körs funktionerna i team_score vilka även uppdaterar tabellen fhl_players med aktuell statistik.
+
     Funktion som först hämtar hur mycket poäng användaren har genon get_user_points() som finns i
     database.py och sedan hämtar alla spelare som finns genom get_all_players() som också finns i 
     database.py
 
     När användaren sedan klickar på köp i html filen buy_players skickas ett formulär tillbaka
     med id för den spelare som ska köpas. Sedan i funktionen add_purchased_player_to_team()
-    skickas spelaren och användarens id med och läggs sedan till i databasen
+    skickas spelaren och användarens id med och läggs sedan till i databasen.
+
+    När användaren kommer in i filen kollas det i databasen om fhl_players datum är datens datum.
+    Om det inte är daten datum körs funktionerna i team_score vilka även uppdaterar tabellen fhl_players med aktuell statistik.
     '''
+    todaydate = date.today()
+    date_list=database.get_timestamp_fhl_players(todaydate)
+
+    if len(date_list) < 1:
+        print("hej")
+        team_score.insert_score_to_database()
+
     points=get_user_points()
 
     right_forwards = get_right_forward_players()
@@ -326,7 +359,16 @@ def my_players():
     Den inloggade användarens mail sparas i denna: current_user.id. denna används för att ta ut saker ur databasen.
     Hämtar poäng och sedan vilka spelare som användaren har genom get_users_players() med användarens mail som 
     parameter.
+
+    När användaren kommer in i filen kollas det i databasen om fhl_players datum är datens datum.
+    Om det inte är daten datum körs funktionerna i team_score vilka även uppdaterar tabellen fhl_players med aktuell statistik.
     """
+    todaydate = date.today()
+    date_list=database.get_timestamp_fhl_players(todaydate)
+
+    if len(date_list) < 1:
+        team_score.insert_score_to_database()
+
     points=get_user_points()
     user_id=flask_login.current_user.id
     goalie = get_users_goalie(user_id)
@@ -340,50 +382,71 @@ def my_players():
 @FHL.route('/match/', methods = ['GET', 'POST'])
 @flask_login.login_required
 def match():
+    '''
+        När användaren kommer in i filen kollas det i databasen om fhl_players datum är datens datum.
+        Om det inte är daten datum körs funktionerna i team_score vilka även uppdaterar tabellen fhl_players med aktuell statistik.
+    '''
+    todaydate = date.today()
+    date_list=database.get_timestamp_fhl_players(todaydate)
     points=get_user_points()
     user_id=flask_login.current_user.id
-    goalie = get_users_goalie(user_id)
-    defenseman = get_users_defenseman(user_id)
-    left_wing = get_users_left_wing(user_id)
-    center = get_users_center(user_id)
-    right_wing = get_users_right_wing(user_id)
 
-    if request.method == 'POST':
-        left_forward_form = request.form['left_forward'].split(", ")
-        left_forward_id = left_forward_form[0]
-        left_forward_score = left_forward_form[1]
+    if len(date_list) < 1:
+        print("Hämtar nyare data från API, tar ett tag, var god vänta")
+        team_score.insert_score_to_database()
 
-        center_form = request.form['center'].split(", ")
-        center_id = center_form[0]
-        center_score = center_form[1]
+    team_list=database.get_todays_team_list(todaydate, user_id)
+    
+    if len(team_list) > 0:
+        left_forward=database.get_todays_left_forward(todaydate, user_id)
+        right_forward=database.get_todays_right_forward(todaydate, user_id)
+        list_center=database.get_todays_center(todaydate, user_id)
+        left_back=database.get_todays_left_back(todaydate, user_id)
+        right_back=database.get_todays_right_back(todaydate, user_id)
+        goalkeeper=database.get_todays_goalie(todaydate, user_id)
+        return render_template('today_match.html',points=points, left_forward=left_forward, right_forward=right_forward, list_center=list_center, left_back=left_back, right_back=right_back, goalkeeper=goalkeeper, todaydate=todaydate)
 
-        right_forward_form = request.form['right_forward'].split(", ")
-        right_forward_id = right_forward_form[0]
-        right_forward_score = right_forward_form[1]
+    else:
+        goalie = get_users_goalie(user_id)
+        defenseman = get_users_defenseman(user_id)
+        left_wing = get_users_left_wing(user_id)
+        center = get_users_center(user_id)
+        right_wing = get_users_right_wing(user_id)
 
-        left_defense_form = request.form['left_defense'].split(", ")
-        left_defense_id = left_defense_form[0]
-        left_defense_score = left_defense_form[1]
+        if request.method == 'POST':
+            left_forward_form = request.form['left_forward'].split(", ")
+            left_forward_id = left_forward_form[0]
+            
 
-        right_defense_form = request.form['right_defense'].split(", ")
-        right_defense_id = right_defense_form[0]
-        right_defense_score = right_defense_form[1]
+            center_form = request.form['center'].split(", ")
+            center_id = center_form[0]
+            
 
-        goalie_form = request.form['goalie'].split(", ")
-        goalie_id = goalie_form[0]
-        goalie_score = goalie_form[1]
+            right_forward_form = request.form['right_forward'].split(", ")
+            right_forward_id = right_forward_form[0]
+            
 
-        team_name = request.form['team_name']
+            left_defense_form = request.form['left_defense'].split(", ")
+            left_defense_id = left_defense_form[0]
+            
 
-        score = int(left_forward_score) + int(center_score) + int(right_forward_score) + int(left_defense_score) + int(right_defense_score) + int(goalie_score)
+            right_defense_form = request.form['right_defense'].split(", ")
+            right_defense_id = right_defense_form[0]
+            
 
-        user_id=flask_login.current_user.id
+            goalie_form = request.form['goalie'].split(", ")
+            goalie_id = goalie_form[0]
+            
 
-        add_chosen_players_to_game(left_forward_id, center_id, right_forward_id, left_defense_id, 
-        right_defense_id, goalie_id, user_id, score, team_name)
+            team_name = request.form['team_name']
+
+            user_id=flask_login.current_user.id
+
+            add_chosen_players_to_game(left_forward_id, center_id, right_forward_id, left_defense_id, 
+            right_defense_id, goalie_id, user_id, team_name)
 
 
-    return render_template('match.html', points=points, goalie=goalie, defenseman=defenseman, left_wing=left_wing, center=center, right_wing=right_wing)
+        return render_template('match.html', points=points, goalie=goalie, defenseman=defenseman, left_wing=left_wing, center=center, right_wing=right_wing)
 
 
 #Game history
@@ -401,7 +464,15 @@ def top_scorer():
     '''
     Funktion skickar med sig en lista av lexikon players som hämtad från funktionen get_all_players som finns i 
     database.py. Denna lista sorteras sedan utifrån vad spelarkorten ska sorteras på, exempelvis mål, assist mm.
+
+    När användaren kommer in i filen kollas det i databasen om fhl_players datum är datens datum.
+    Om det inte är daten datum körs funktionerna i team_score vilka även uppdaterar tabellen fhl_players med aktuell statistik.
     '''
+    todaydate = date.today()
+    date_list=database.get_timestamp_fhl_players(todaydate)
+
+    if len(date_list) < 1:
+        team_score.insert_score_to_database()
 
     players = get_all_players()
     top_players = sorted(players, key = lambda k: k['price'], reverse=True)
@@ -490,11 +561,10 @@ def get_user_points():
         points=i[0]
         
     
-    print(points)
     return points
 
 
 
 
 #Server
-FHL.run(host="127.0.0.1", port=8080, debug=True)
+FHL.run(host="127.0.0.1", port=8080, debug=True)   

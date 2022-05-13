@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Länkar till static style.css, för att ändra tillbaka till "vanliga" är det bara att ha href ="/static/style.css"-->
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <title>FHL Lag</title>
+    <!--Browser icon-->
+    <link rel="icon" href="/static/FHL.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+</head>
+<body>
+    <nav>
+        <div class="left_nav">
+            <div id="log">
+                <a href="/">
+                    <!--Ändrat från img src="FHL.png" till "{{url_for('static', filename = 'FHL.png')}}" för att fungera med flask-->
+                    <img src="{{url_for('static', filename = 'FHL.png')}}" alt="Logga" href="index.html">
+                </a>
+            </div>
+            <div id="menu">
+                <div id="mobile_menu">
+                    <button class="dropbtn mobile" onclick="dropFunction_mobile()">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </button>
+                    <div class="dropdown_mobile" id="mobile_content">
+                        <div class="dropdown">
+                            <button class="dropbtn" onclick="dropFunction_players()">Hockeyspelare</button>
+                        
+                            <div class="dropdown_content" id="hockey_players">
+                                <a href="/top-spelare">Statistik över spelare</a>
+                                <a href="/köp-spelare">Köpa spelare</a>
+                                <a href="/mina-spelare">Mina spelare</a>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="dropbtn" onclick="dropFunction_matches()">Matcher</button>
+                        
+                            <div class="dropdown_content" id="matches">
+                                <a href="/match">Lägg Match</a>
+                                <a href="/spela-match">Spela Match</a>
+                                <a href="/match-historik">Min Matchhistorik</a>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="dropbtn" onclick="dropFunction_posts()">Inlägg</button>
+                        
+                            <div class="dropdown_content" id="posts">
+                                <a href="/forum">Forum</a>
+                                <a href="/inlägg">Skapa Inlägg</a>
+                                <a href="/forum/mina/inlägg">Mina Inlägg</a>
+                            </div>
+                        </div>
+                        <div id="help">
+                            <button class="help">Hjälp 
+                                <a href="/guide"></a>
+                                <div id="questionmark">
+                                    <p> ?</p>
+                                </div>
+                            </button> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <div id="nav_right">
+            <div class="points">
+               <p>{{points}} P</p>  <!--Från databasen skrivs användarens poäng ut-->
+            </div>
+            <div class="log_out">
+
+                <a href="/logout">Logga ut</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <h2>Mitt Lag</h2>
+        <h3 class="date">{{todaydate}}</h3>
+        <section id="players">
+            <div id="forwards">
+                <div class="left_forward">
+                    <p>Vänster forward</p>
+                    <div class="card__face card__face--front">
+                        {% for player in left_forward %}
+                        <img src="{{player[17]}}">
+                        <h4>{{player[20]}}</h4>
+                        <h4>Poäng: {{player[18]}}</h4>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <div class="center">
+                    <p>Center</p>
+                    <div class="card__face card__face--front">
+                        {% for player in list_center %}
+                        <img src="{{player[17]}}">
+                        <h4>{{player[20]}}</h4>
+                        <h4>Poäng: {{player[18]}}</h4>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="right_forward">
+                    <p>Höger forward</p>
+                    <div class="card__face card__face--front">
+                        {% for player in right_forward %}
+                        <img src="{{player[17]}}">
+                        <h4>{{player[20]}}</h4>
+                        <h4>Poäng: {{player[18]}}</h4>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div id="defense">
+                <div class="left_back">
+                    <p>Vänster back</p>
+                    <div class="card__face card__face--front">
+                        {% for player in left_back %}
+                        <img src="{{player[17]}}">
+                        <h4>{{player[20]}}</h4>
+                        <h4>Poäng: {{player[18]}}</h4>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="right_back">
+                    <p>Höger back</p>
+                    <div class="card__face card__face--front">
+                        {% for player in right_back %}
+                        <img src="{{player[17]}}">
+                        <h4>{{player[20]}}</h4>
+                        <h4>Poäng: {{player[18]}}</h4>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="goalie">
+                <p>Målvakt</p>
+                <div class="card__face card__face--front">
+                    {% for player in goalkeeper%}
+                    <img src="{{player[17]}}">
+                    <h4>{{player[20]}}</h4>
+                    <h4>Poäng: {{player[18]}}</h4>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>          
+    </main>
+    
+    <footer>
+        <p>Copyright© by FHL</p>
+    </footer>
+</body>
+<script src="{{url_for('static', filename = 'pop-up-script.js')}}"></script> 
+<script src="{{url_for('static', filename = 'script.js')}}"></script> 
+</html>
