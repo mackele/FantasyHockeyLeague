@@ -565,10 +565,11 @@ def registrations(username, mail, f_name, l_name, password):
 
         if len(user)==0:
             points=100
-            postgreSQL_insert = (""" insert into fhl_user (username, mail, f_name, l_name, password, points)
-                                        values (%s, %s, %s, %s, %s, %s) """)
+            ranking = 0
+            postgreSQL_insert = (""" insert into fhl_user (username, mail, f_name, l_name, password, points, ranking)
+                                        values (%s, %s, %s, %s, %s, %s, %s) """)
                                             
-            insert_to = (username, mail, f_name, l_name, password, points)
+            insert_to = (username, mail, f_name, l_name, password, points, ranking)
             cursor.execute(postgreSQL_insert, insert_to)
             conn.commit()
 
@@ -991,3 +992,41 @@ def add_game_to_match_history(team_1, team_2, winner, looser):
         cursor.execute(PostgreSQL_insert, insert_to)
 
         conn.commit()
+
+def update_points_after_win(user_id):
+    with Postgres() as (cursor, conn):
+        PostgreSQL_insert = (f"""update fhl_user
+                                set points = points + 50
+                                    where mail ='{user_id}'""")
+        
+        cursor.execute(PostgreSQL_insert)
+        conn.commit()
+
+def update_ranking_after_win(user_id):
+    with Postgres() as (cursor, conn):
+        PostgreSQL_insert = (f"""update fhl_user
+                                set ranking = ranking + 5
+                                    where mail ='{user_id}'""")
+        
+        cursor.execute(PostgreSQL_insert)
+        conn.commit()
+
+def get_history_won_games(user_id):
+    with Postgres() as (cursor, conn):
+        cursor.execute(f"""select * from fhl_match_history as m
+                                join fhl_user as u
+                                    on m.winner=u.mail
+                                        where m.winner='{user_id}'""")
+        teams= cursor.fetchall()
+        
+    return teams
+
+def get_history_lost_games(user_id):
+    with Postgres() as (cursor, conn):
+        cursor.execute(f"""select * from fhl_match_history as m
+                                join fhl_user as u
+                                    on m.winner=u.mail
+                                        where m.loser='{user_id}';""")
+        teams= cursor.fetchall()
+        
+    return teams

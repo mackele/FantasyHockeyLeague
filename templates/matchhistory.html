@@ -87,47 +87,51 @@
         <h2>Min matchhistorik</h2>
         <!--Representera vinnaren med grön färg, förloraren med röd-->
         <section>
-            <h3>2022-03-28</h3>
+            <h3>Vinster</h3>
 
-            <div class="teams">
+            {%for row in won_games%}
+                <div class="teams">
 
-                <div class="team_1">
-                    <h4>Mitt lag</h4> 
-                    <h5>Vinnare</h5>
-                    <p>4 mål</p>
-                    <img src="{{url_for('static', filename = 'FHL.png')}}"> <!--Man har en bild som representerar sitt lag, tog denna så länge-->
-                 </div>
+                    <div class="team_1">
+                        <h4>Mitt lag / Användare {{row[7]}}</h4> 
+                        <h5>Vinnare</h5>
+                        <p>Datum: {{row[4]}}</p>
+                        <img src="{{url_for('static', filename = 'FHL.png')}}"> <!--Man har en bild som representerar sitt lag, tog denna så länge-->
+                    </div>
 
-                <div class="team_2"> 
-                    <h4>Lukas' lag</h4>
-                    <h5>Förlorare</h5>
-                    <p>2 mål</p>
-                    <img src="{{url_for('static', filename = 'FHL.png')}}">
+                    <div class="team_2">
+                        <h4>Motståndare</h4> 
+                        <h5>Förlorare</h5>
+                        <p>Datum: {{row[4]}}</p>
+                        <img src="{{url_for('static', filename = 'FHL.png')}}"> <!--Man har en bild som representerar sitt lag, tog denna så länge-->
+                    </div>
+
                 </div>
-
-            </div>
+            {%endfor%}
         </section>
 
         <section>
-            <h3>2022-03-30</h3>
+            <h3>Förluster</h3>
 
-            <div class="teams">
+            {%for row in lost_games%}
+                <div class="teams">
 
-                <div class="team_1">
-                    <h4>Mitt lag</h4> 
-                    <h5>Vinnare</h5>
-                    <p>2 mål</p>
-                    <img src="{{url_for('static', filename = 'FHL.png')}}"> <!--Man har en bild som representerar sitt lag, tog denna så länge-->
-                 </div>
+                    <div class="team_1">
+                        <h4>Mitt lag / Användare: {{row[7]}}</h4> 
+                        <h5>Förlorare</h5>
+                        <p>Datum: {{row[4]}}</p>
+                        <img src="{{url_for('static', filename = 'FHL.png')}}"> <!--Man har en bild som representerar sitt lag, tog denna så länge-->
+                    </div>
 
-                <div class="team_2"> 
-                    <h4>Lukas' lag</h4>
-                    <h5>Förlorare</h5>
-                    <p>1 mål</p>
-                    <img src="{{url_for('static', filename = 'FHL.png')}}">
+                    <div class="team_1">
+                        <h4>Motståndare</h4> 
+                        <h5>Vinnare</h5>
+                        <p>Datum: {{row[4]}}</p>
+                        <img src="{{url_for('static', filename = 'FHL.png')}}"> <!--Man har en bild som representerar sitt lag, tog denna så länge-->
+                    </div>
+
                 </div>
-
-            </div>
+            {%endfor%}
         </section>
 
     </main>
