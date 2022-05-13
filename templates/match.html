@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--Länkar till static style.css, för att ändra tillbaka till "vanliga" är det bara att ha href ="/static/style.css"-->
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-    <title>FHL match</title>
+    <title>FHL Lag</title>
     <!--Browser icon-->
     <link rel="icon" href="/static/FHL.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -84,87 +84,87 @@
     </nav>
 
     <main>
-        <h2>Min match</h2>
+        <h2>Välj laguppsättning</h2>
         <form id="choose_players" method="post">
 
-        <section id="players">
+            <section id="players">
                 <div id="forwards">
                     
                     <div data-modal-target="#left-forward" class="left_forward">
                         <p>Vänster forward</p>
                     </div>
-
-                            <div class="modal" id="left-forward">
-                                <div class="modal-header">
+    
+                        <div class="modal" id="left-forward">
+                            <div class="modal-header">
                                 <div class="title">Vänster anfallare</div>
                                 <button data-close-button class="close-button">&times;</button>
-                                </div>
-                                <div class="modal-body">
-                                    <div id="left_forward">
-                                        <p>Vänster forward</p>
-                                        <select name="left_forward" id="left_forward_option" >
-                                            {% for player in left_wing %} 
-                                            <option value="{{player.id}}">{{player.name}}</option>                                
-                                            {% endfor %}                                            
-                                        </select>                                        
-                                    </div>
+                            </div>
+                            <div class="modal-body">
+                                <div id="left_forward">
+                                    <p>Vänster forward</p>
+                                    <select name="left_forward" id="left_forward_option" >
+                                        {% for player in left_wing %} 
+                                        <option value="{{player.id}}">{{player.name}}</option>                                
+                                        {% endfor %}                                            
+                                    </select>                                        
                                 </div>
                             </div>
-                        <div id="overlay"></div>
-
-
-                        <div data-modal-target="#center" class="left_forward">
-                            <p>Center</p>
                         </div>
-                            <div class="modal" id="center">
-                                <div class="modal-header">
-                                    <div class="title">Center</div>
-                                    <button data-close-button class="close-button">&times;</button>
-                                </div>
-                                <div class="modal-body">
-                                    <div id="center">
-                                        <p>Center</p>
-                                        <select name="center" id="center_option">
-                                            {% for player in center %} 
-                                            <option value="{{player.id}}">{{player.name}}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        <div id="overlay"></div>
-
-
-                        <div data-modal-target="#right-forward" class="left_forward">
-                            <p>Höger forward</p>
-                        </div>
-                            <div class="modal" id="right-forward">
-                                <div class="modal-header">
-                                <div class="title">Höger anfallare</div>
-                                <button data-close-button class="close-button">&times;</button>
-                                </div>
-                                <div class="modal-body">
-                                    <div id="right_forward">
-                                        <p>Höger forward</p>
-                                        <select name="right_forward" id="right_forward_option">
-                                            {% for player in right_wing %} 
-                                            <option value="{{player.id}}">{{player.name}}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        <div id="overlay"></div>
+                    <div id="overlay"></div>
+    
+    
+                    <div data-modal-target="#center" class="left_forward">
+                        <p>Center</p>
                     </div>
-
-                    <div id="defense">
+                        <div class="modal" id="center">
+                            <div class="modal-header">
+                                <div class="title">Center</div>
+                                <button data-close-button class="close-button">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="center">
+                                    <p>Center</p>
+                                    <select name="center" id="center_option">
+                                        {% for player in center %} 
+                                        <option value="{{player.id}}">{{player.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    <div id="overlay"></div>
+    
+    
+                    <div data-modal-target="#right-forward" class="left_forward">
+                        <p>Höger forward</p>
+                    </div>
+                        <div class="modal" id="right-forward">
+                            <div class="modal-header">
+                            <div class="title">Höger anfallare</div>
+                            <button data-close-button class="close-button">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="right_forward">
+                                    <p>Höger forward</p>
+                                    <select name="right_forward" id="right_forward_option">
+                                        {% for player in right_wing %} 
+                                        <option value="{{player.id}}">{{player.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    <div id="overlay"></div>
+                </div>
+    
+                <div id="defense">
                     <div data-modal-target="#left-defense" class="left_forward">
                         <p>Vänster back</p>
                     </div>
                         <div class="modal" id="left-defense">
                             <div class="modal-header">
-                            <div class="title">Vänster back</div>
-                            <button data-close-button class="close-button">&times;</button>
+                                <div class="title">Vänster back</div>
+                                <button data-close-button class="close-button">&times;</button>
                             </div>
                             <div class="modal-body">
                                 <div id="left_defense">
@@ -178,7 +178,7 @@
                             </div>
                         </div>
                     <div id="overlay"></div>
-
+    
                     <div data-modal-target="#right-defense" class="left_forward">
                         <p>Höger back</p>
                     </div>
@@ -200,15 +200,15 @@
                         </div>
                     <div id="overlay"></div>
                 </div>
-
-
+    
+    
                 <div data-modal-target="#goalie" class="left_forward">
                     <p>Målvakt</p>
                 </div>
                     <div class="modal" id="goalie">
                         <div class="modal-header">
-                        <div class="title">Målvakt</div>
-                        <button data-close-button class="close-button">&times;</button>
+                            <div class="title">Målvakt</div>
+                            <button data-close-button class="close-button">&times;</button>
                         </div>
                         <div class="modal-body">
                             <div id="right_defense">
@@ -222,10 +222,6 @@
                         </div>
                     </div>
                 <div id="overlay"></div>
-            </div>
-
-            
-
             </section>          
             <div class="lock_div">
                 <div class="team_name">
@@ -235,7 +231,7 @@
                 <input type = "submit" class = "lock" name = "Lås match">
             </div>
 
-    </form>
+        </form>
 
         
 

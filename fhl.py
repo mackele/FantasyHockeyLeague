@@ -285,6 +285,7 @@ def buy_players():
     date_list=database.get_timestamp_fhl_players(todaydate)
 
     if len(date_list) < 1:
+        print("hej")
         team_score.insert_score_to_database()
 
     points=get_user_points()
@@ -387,52 +388,65 @@ def match():
     '''
     todaydate = date.today()
     date_list=database.get_timestamp_fhl_players(todaydate)
-
-    if len(date_list) < 1:
-        team_score.insert_score_to_database()
-
     points=get_user_points()
     user_id=flask_login.current_user.id
-    goalie = get_users_goalie(user_id)
-    defenseman = get_users_defenseman(user_id)
-    left_wing = get_users_left_wing(user_id)
-    center = get_users_center(user_id)
-    right_wing = get_users_right_wing(user_id)
 
-    if request.method == 'POST':
-        left_forward_form = request.form['left_forward'].split(", ")
-        left_forward_id = left_forward_form[0]
-        
+    if len(date_list) < 1:
+        print("Hämtar nyare data från API, tar ett tag, var god vänta")
+        team_score.insert_score_to_database()
 
-        center_form = request.form['center'].split(", ")
-        center_id = center_form[0]
-        
+    team_list=database.get_todays_team_list(todaydate, user_id)
+    
+    if len(team_list) > 0:
+        left_forward=database.get_todays_left_forward(todaydate, user_id)
+        right_forward=database.get_todays_right_forward(todaydate, user_id)
+        list_center=database.get_todays_center(todaydate, user_id)
+        left_back=database.get_todays_left_back(todaydate, user_id)
+        right_back=database.get_todays_right_back(todaydate, user_id)
+        goalkeeper=database.get_todays_goalie(todaydate, user_id)
+        return render_template('today_match.html',points=points, left_forward=left_forward, right_forward=right_forward, list_center=list_center, left_back=left_back, right_back=right_back, goalkeeper=goalkeeper, todaydate=todaydate)
 
-        right_forward_form = request.form['right_forward'].split(", ")
-        right_forward_id = right_forward_form[0]
-        
+    else:
+        goalie = get_users_goalie(user_id)
+        defenseman = get_users_defenseman(user_id)
+        left_wing = get_users_left_wing(user_id)
+        center = get_users_center(user_id)
+        right_wing = get_users_right_wing(user_id)
 
-        left_defense_form = request.form['left_defense'].split(", ")
-        left_defense_id = left_defense_form[0]
-        
+        if request.method == 'POST':
+            left_forward_form = request.form['left_forward'].split(", ")
+            left_forward_id = left_forward_form[0]
+            
 
-        right_defense_form = request.form['right_defense'].split(", ")
-        right_defense_id = right_defense_form[0]
-        
+            center_form = request.form['center'].split(", ")
+            center_id = center_form[0]
+            
 
-        goalie_form = request.form['goalie'].split(", ")
-        goalie_id = goalie_form[0]
-        
+            right_forward_form = request.form['right_forward'].split(", ")
+            right_forward_id = right_forward_form[0]
+            
 
-        team_name = request.form['team_name']
+            left_defense_form = request.form['left_defense'].split(", ")
+            left_defense_id = left_defense_form[0]
+            
 
-        user_id=flask_login.current_user.id
+            right_defense_form = request.form['right_defense'].split(", ")
+            right_defense_id = right_defense_form[0]
+            
 
-        add_chosen_players_to_game(left_forward_id, center_id, right_forward_id, left_defense_id, 
-        right_defense_id, goalie_id, user_id, team_name)
+            goalie_form = request.form['goalie'].split(", ")
+            goalie_id = goalie_form[0]
+            
+
+            team_name = request.form['team_name']
+
+            user_id=flask_login.current_user.id
+
+            add_chosen_players_to_game(left_forward_id, center_id, right_forward_id, left_defense_id, 
+            right_defense_id, goalie_id, user_id, team_name)
 
 
-    return render_template('match.html', points=points, goalie=goalie, defenseman=defenseman, left_wing=left_wing, center=center, right_wing=right_wing)
+        return render_template('match.html', points=points, goalie=goalie, defenseman=defenseman, left_wing=left_wing, center=center, right_wing=right_wing)
 
 
 #Game history
@@ -536,7 +550,6 @@ def get_user_points():
         points=i[0]
         
     
-    print(points)
     return points
 
 

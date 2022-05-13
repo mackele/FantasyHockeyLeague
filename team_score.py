@@ -1,16 +1,17 @@
 import database
 import player_info
 
-players_API_list=player_info.get_all_players_API()
-players_database_list=database.get_all_players()
 
-def count_difference ():
+
+
+def count_difference (players_API_list):
     """
         Funktionen jämför spelarnas statistik i NHL:s API från dagens datum med spelarnas statistik i databasen som inte är dagens datum.
 
         Return:
             Returnerar en lista med lexikon med spelarnas id samt deras sammanlagda skillnader i statistiken.
     """
+    players_database_list=database.get_all_players()
     score_list=[]
 
     for player in players_database_list:
@@ -27,8 +28,6 @@ def count_difference ():
                 person_penelty_time=person["penalty_time"]
                 person_assists=person["assists"]
                 person_saves=person["saves"]
-                       
-                print(player_saves, person_saves)
 
                 goal_score= (person_goal - player_goal) * 2
                 penalty_time_score= round(int(person_penelty_time) - int(player_penalty_time))
@@ -38,14 +37,8 @@ def count_difference ():
 
                 score_list.append({"id":player_id, "score":all_score})
     
-    print(score_list)
     return score_list
 
-def delete_players ():
-    '''
-        Funktionen kör funktionen delete_players_in_database i databas.py. 
-    '''
-    database.delete_players_in_database()
 
 def insert_players_to_database(players_API_list):
     """
@@ -62,8 +55,8 @@ def insert_score_to_database():
         Poängen skickas in till databasen baserat på lagets id.
         Spelarna i databasen raderas och läggs in på nytt med ny statistik.
     """
-
-    player_score_list=count_difference()
+    players_API_list=player_info.get_all_players_API()
+    player_score_list=count_difference(players_API_list)
     fhl_user_team_list=database.get_team_list_fhl_team()
 
     for team in fhl_user_team_list:
@@ -81,8 +74,6 @@ def insert_score_to_database():
         for player in player_score_list:
             if player["id"]==first_player_id or player["id"]==second_player_id or player["id"] == third_player_id or player["id"]==fourth_player_id or player["id"]==fifth_player_id or player["id"]==sixth_player_id:
                 team_score = team_score + int(player["score"])
-        print(team_score, team_id)
         database.insert_team_score(team_score, team_id)
    
-    delete_players ()
     insert_players_to_database(players_API_list)   

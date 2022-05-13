@@ -23,49 +23,41 @@ def get_timestamp_fhl_players(todays_date):
                                 (todays_date,))
         list = cursor.fetchall()
     
-    return list
-'''
-def add_goalie_to_database(goalies):
-   
-    Funktion som lägger in målvakter som hämtas i en lista med lexikon från APIn i test.py
-    
-
-    with Postgres() as (cursor, conn):
-        cursor.execute("""select * from fhl_players""")
-        
-
-        columns = goalies[0].keys()
-        query = "INSERT INTO fhl_players ({}) VALUES %s".format(','.join(columns))
-        values = [[value for value in goalie.values()] for goalie in goalies]
-
-        execute_values(cursor, query, values)
-        conn.commit()
-'''       
+    return list     
 
 def add_player_to_database(players):
     '''
     Funktion som lägger in spelare som hämtas i en lista med lexikon från APIn i player_info.py
     '''
 
-    with Postgres() as (cursor, conn):
-        cursor.execute("""select * from fhl_players""")
-        
-        columns = players[0].keys()
-        query = "INSERT INTO fhl_players ({}) VALUES %s".format(','.join(columns))
-        values = [[value for value in player.values()] for player in players]
+    for player in players:
+        player_id=player["id"]
+        player_team=player["team"]
+        player_position=player["position"]
+        player_goal=player["goal"]
+        player_penalty_time=player["penalty_time"]
+        player_assists=player["assists"]
+        player_image=player["image"]
+        player_price=player["price"]
+        player_saves=player["saves"]
+        insert_date=player["date"]
 
-        execute_values(cursor, query, values)
-        conn.commit()
-
-def delete_players_in_database():
-    '''
-        Funktionen raderar allt som finns i tabellen fhl_players i databasen om dagens datum inte stämmer 
-        överrens med det datum som är inlagt i databasen. Funktionen körs från fhl.py.
-    '''
-    with Postgres() as (cursor, conn):
-        postgreSQL_insert = (""" delete from fhl_players """)
-        cursor.execute(postgreSQL_insert)
-        conn.commit()
+        with Postgres() as (cursor, conn):
+            PostgreSQL_insert = (f""" fhl_players
+                                    set team = '{player_team}',
+                                     position = '{player_position}',
+                                     goal = {player_goal},
+                                     penalty_time = {player_penalty_time},
+                                     assists = {player_assists},
+                                     image = '{player_image}',
+                                     price = {player_price},
+                                     saves = {player_saves},
+                                     insert_date= '{insert_date}'
+                                        where id ={player_id};""")
+            
+            cursor.execute(PostgreSQL_insert)
+            conn.commit()
+      
 
 def add_players_to_list(info):
     '''
@@ -747,6 +739,7 @@ def get_fhl_highscore():
     with Postgres() as (cursor, conn):
         cursor.execute("""select username, ranking 
                             from fhl_user
+                                where ranking is not null
                                 order by ranking desc
                                     limit 5""")
         highscore= cursor.fetchall()
@@ -862,6 +855,67 @@ def get_team_list_fhl_team():
                             where match_score is null""")
         team_list = cursor.fetchall()
     return team_list
+
+def get_todays_team_list(todaydate, user_id):
+    with Postgres() as (cursor, conn):
+        cursor.execute(f"""select team_date from fhl_team 
+                            where fhl_user='{user_id}' and team_date= '{todaydate}'""")
+        team_list = cursor.fetchall()
+    return team_list
+
+
+def get_todays_left_forward(todaydate, user_id):
+    with Postgres() as (cursor, conn):
+        cursor.execute(f"""select * from fhl_team 
+                                join fhl_players on fhl_players.id = fhl_team.left_forward 
+                            where fhl_team.fhl_user='{user_id}' and fhl_team.team_date= '{todaydate}'""")
+        left_forward = cursor.fetchall()
+    return left_forward
+
+
+def get_todays_right_forward(todaydate, user_id):
+    with Postgres() as (cursor, conn):
+        cursor.execute(f"""select * from fhl_team 
+                                join fhl_players on fhl_players.id = fhl_team.right_forward 
+                            where fhl_team.fhl_user='{user_id}' and fhl_team.team_date= '{todaydate}'""")
+        right_forward = cursor.fetchall()
+    return right_forward
+
+
+def get_todays_center(todaydate, user_id):
+    with Postgres() as (cursor, conn):
+        cursor.execute(f"""select * from fhl_team 
+                                join fhl_players on fhl_players.id = fhl_team.center 
+                            where fhl_team.fhl_user='{user_id}' and fhl_team.team_date= '{todaydate}'""")
+        center = cursor.fetchall()
+    return center
+
+
+def get_todays_left_back(todaydate, user_id):
+    with Postgres() as (cursor, conn):
+        cursor.execute(f"""select * from fhl_team 
+                                join fhl_players on fhl_players.id = fhl_team.left_back 
+                            where fhl_team.fhl_user='{user_id}' and fhl_team.team_date= '{todaydate}'""")
+        left_back = cursor.fetchall()
+    return left_back
+
+
+def get_todays_right_back(todaydate, user_id):
+    with Postgres() as (cursor, conn):
+        cursor.execute(f"""select * from fhl_team 
+                                join fhl_players on fhl_players.id = fhl_team.right_back
+                            where fhl_team.fhl_user='{user_id}' and fhl_team.team_date= '{todaydate}'""")
+        right_back = cursor.fetchall()
+    return right_back
+
+
+def get_todays_goalie(todaydate, user_id):
+    with Postgres() as (cursor, conn):
+        cursor.execute(f"""select * from fhl_team 
+                                join fhl_players on fhl_players.id = fhl_team.goalkeeper
+                            where fhl_team.fhl_user='{user_id}' and fhl_team.team_date= '{todaydate}'""")
+        goalie = cursor.fetchall()
+    return goalie
 
 
 def insert_team_score(team_score, team_id):

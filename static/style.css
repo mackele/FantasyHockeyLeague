@@ -529,7 +529,19 @@ main div {
     background-color: #496A9B;
 }
 
+.left_forward .card__face--front, .right_forward .card__face--front, .center .card__face--front, .right_back .card__face--front, .left_back .card__face--front, .goalie .card__face--front{
+    width: 200px;
+    height: 300px;
+    position: relative;
+}
 
+.goalie .card__face--front {
+    margin: auto;
+}
+
+.date{
+    text-align: center;
+}
 
 /*Css till forum*/
 #wiki_article{
