@@ -991,3 +991,21 @@ def add_game_to_match_history(team_1, team_2, winner, looser):
         cursor.execute(PostgreSQL_insert, insert_to)
 
         conn.commit()
+
+def update_points_after_win(user_id):
+    with Postgres() as (cursor, conn):
+        PostgreSQL_insert = (f"""update fhl_user
+                                set points = points + 50
+                                    where mail ='{user_id}'""")
+        
+        cursor.execute(PostgreSQL_insert)
+        conn.commit()
+
+def update_ranking_after_win(user_id):
+    with Postgres() as (cursor, conn):
+        PostgreSQL_insert = (f"""update fhl_user
+                                set ranking = ranking + 5
+                                    where mail ='{user_id}'""")
+        
+        cursor.execute(PostgreSQL_insert)
+        conn.commit()

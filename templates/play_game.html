@@ -105,14 +105,14 @@
             <h3>Välj ditt lag:</h3>
             <select name="my_team" id="left_forward_option" >
                 {%for team in my_teams%} 
-                <option value="{{team[1]}}">{{team[0]}}</option>                                
+                <option value="{{team[1]}}, {{team[9]}}">{{team[0]}}</option>                                
                 {%endfor%}                                            
             </select>
             
             <h3>Välj vem du vill möta:</h3>
             <select name="opponent_team" id="left_forward_option" >
                 {% for other_teams in teams%} 
-                <option value="{{other_teams[1]}}, {{other_teams[8]}}">{{other_teams[0]}}</option>                                
+                <option value="{{other_teams[1]}}, {{other_teams[8]}}, {{other_teams[9]}}">{{other_teams[0]}}</option>                                
                 {%endfor%}                                            
             </select>
 

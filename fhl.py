@@ -322,17 +322,35 @@ def play_game():
         opponent_team_form = request.form['opponent_team'].split(", ")
         opponent_score = int(opponent_team_form[0])
         opponent_user = opponent_team_form[1]
+        opponent_team_id = int(opponent_team_form[2])
 
-        my_team_score_str = request.form['my_team']
-        my_team_score = int(my_team_score_str)
+        my_team_form= request.form['my_team'].split(", ")
+        my_team_score = int(my_team_form[0])
         my_team_user = user_id
+        my_team_id = int(my_team_form[1])
 
         if my_team_score > opponent_score:
             print("Du vinner!")
             winner = my_team_user
             looser = opponent_user
 
-            #add_game_to_match_history(my_team_user, opponent_user, winner, looser)
+            print("Mitt lag")
+            print(my_team_score)
+            print(my_team_user)
+            print(my_team_id)
+
+            print("Motståndare")
+            print(opponent_score)
+            print(opponent_user)
+            print(opponent_team_id)
+
+            add_game_to_match_history(my_team_id, opponent_team_id, winner, looser)
+            
+            points = get_user_points
+            
+            update_points_after_win(user_id)
+            update_ranking_after_win(user_id)
+
             #Användaren får poäng
 
         elif my_team_score < opponent_score:
@@ -340,7 +358,10 @@ def play_game():
             winner = opponent_user
             looser = my_team_user
 
-            #add_game_to_match_history(my_team_user, opponent_user, winner, looser)
+            add_game_to_match_history(my_team_id, opponent_team_id, winner, looser)
+
+            update_points_after_win(winner)
+            update_ranking_after_win(winner)
             #Andra spelaren får poäng
 
         else:
