@@ -565,10 +565,11 @@ def registrations(username, mail, f_name, l_name, password):
 
         if len(user)==0:
             points=100
-            postgreSQL_insert = (""" insert into fhl_user (username, mail, f_name, l_name, password, points)
-                                        values (%s, %s, %s, %s, %s, %s) """)
+            ranking = 0
+            postgreSQL_insert = (""" insert into fhl_user (username, mail, f_name, l_name, password, points, ranking)
+                                        values (%s, %s, %s, %s, %s, %s, %s) """)
                                             
-            insert_to = (username, mail, f_name, l_name, password, points)
+            insert_to = (username, mail, f_name, l_name, password, points, ranking)
             cursor.execute(postgreSQL_insert, insert_to)
             conn.commit()
 

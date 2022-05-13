@@ -220,6 +220,7 @@ def registration():
     username=request.form['username']
     password=request.form['password']
     hash_password=hashlib.md5(password.encode()).hexdigest()
+    ranking = 0
 
     user=database.registrations(username, mail, f_name, l_name, hash_password)
     print(user)
