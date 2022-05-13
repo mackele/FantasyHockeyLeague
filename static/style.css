@@ -497,6 +497,22 @@ h2 {
     justify-content: space-between;
     text-align: center;
 }
+
+/* bakgrundsbild? 
+.match{
+    background-image: url("match_background.png");
+    background-origin: border-box;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: 80px;
+
+}
+.match main {
+    padding-top: 24px;
+}
+*/
+
 main img {
     width: 200px;
 }
@@ -530,10 +546,13 @@ main div {
 }
 
 .left_forward .card__face--front, .right_forward .card__face--front, .center .card__face--front, .right_back .card__face--front, .left_back .card__face--front, .goalie .card__face--front{
-    width: 200px;
     height: 300px;
+    width: 200px;
+    margin: auto;
     position: relative;
+    background-color: white;
 }
+
 
 .goalie .card__face--front {
     margin: auto;
@@ -958,6 +977,26 @@ form textarea {
     }
     .dropdown button:hover, .help button:hover{
         color: #496A9B;
+    }
+
+    .left_forward .card__face--front, .right_forward .card__face--front, .center .card__face--front, .right_back .card__face--front, .left_back .card__face--front, .goalie .card__face--front{
+        width: 114px;
+        height: 195px;
+        margin: auto;
+    }
+    .left_forward img, .right_forward img, .center img, .right_back img, .left_back img, .goalie img{
+        width: 114px;
+    }
+    .left_forward h4, .right_forward h4, .center h4, .right_back h4, .left_back h4, .goalie h4 {
+        font-size: 12px;
+    }
+    .left_forward p, .right_forward p, .center p, .right_back p, .left_back p, .goalie p {
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .match {
+        margin-top: 53px;
     }
 
 }
