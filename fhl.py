@@ -428,7 +428,7 @@ def forum():
 
 
 #Forum posts created by logged in user
-@FHL.route('/forum/mina/inlägg/')
+@FHL.route('/forum/mina/inlägg/', methods = ['GET', 'POST'])
 @flask_login.login_required
 def forum_username():
     """
@@ -437,7 +437,7 @@ def forum_username():
     points=get_user_points()
     user_id=flask_login.current_user.id
     fhluserdata = get_forum_username(user_id)
-    return render_template('forum.html', points=points, fhluserdata=fhluserdata)
+    return render_template('forum_delete.html', points=points, fhluserdata=fhluserdata)
 
 
 #Forum new post form
@@ -465,7 +465,7 @@ def form():
 
 
 #Forum delete post
-@FHL.route('/forum/delete', methods = ['GET', 'POST'])
+@FHL.route('/forum/mina/inlägg/delete', methods = ['GET', 'POST'])
 @flask_login.login_required
 def delete_post():
     """
@@ -474,9 +474,9 @@ def delete_post():
     if request.method == 'POST':
         article_id = request.form['delete']
         delete = delete_article_id(article_id)
-        return redirect(url_for('forum'))
+        return redirect(url_for('forum_username'))
     else:
-        return redirect(url_for('forum'))
+        return redirect(url_for('forum_username'))
 
 
 #Logged in users points
