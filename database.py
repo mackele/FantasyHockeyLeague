@@ -43,7 +43,7 @@ def add_player_to_database(players):
         insert_date=player["date"]
 
         with Postgres() as (cursor, conn):
-            PostgreSQL_insert = (f""" fhl_players
+            PostgreSQL_insert = (f""" update fhl_players
                                     set team = '{player_team}',
                                      position = '{player_position}',
                                      goal = {player_goal},

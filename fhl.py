@@ -278,15 +278,12 @@ def buy_players():
     När användaren sedan klickar på köp i html filen buy_players skickas ett formulär tillbaka
     med id för den spelare som ska köpas. Sedan i funktionen add_purchased_player_to_team()
     skickas spelaren och användarens id med och läggs sedan till i databasen.
-
-    När användaren kommer in i filen kollas det i databasen om fhl_players datum är datens datum.
-    Om det inte är daten datum körs funktionerna i team_score vilka även uppdaterar tabellen fhl_players med aktuell statistik.
     '''
     todaydate = date.today()
     date_list=database.get_timestamp_fhl_players(todaydate)
 
     if len(date_list) < 1:
-        print("hej")
+        print("Funktionen kommer att ta lång tid att köra, vänta ca 3 min.")
         team_score.insert_score_to_database()
 
     points=get_user_points()
@@ -389,6 +386,7 @@ def my_players():
     date_list=database.get_timestamp_fhl_players(todaydate)
 
     if len(date_list) < 1:
+        print("Funktionen kommer att ta lång tid att köra, va 3 min.")
         team_score.insert_score_to_database()
 
     points=get_user_points()
@@ -499,6 +497,7 @@ def top_scorer():
     date_list=database.get_timestamp_fhl_players(todaydate)
 
     if len(date_list) < 1:
+        ("Funktionen kommer att ta lång tid att köra, ca 3 min.")
         team_score.insert_score_to_database()
 
     players = get_all_players()
