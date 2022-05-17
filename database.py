@@ -23,7 +23,7 @@ def get_timestamp_fhl_players(todays_date):
                                 (todays_date,))
         list = cursor.fetchall()
     
-    return list     
+    return list   
 
 
 def add_player_to_database(players):
@@ -1052,3 +1052,24 @@ def get_history_lost_games(user_id):
         teams= cursor.fetchall()
         
     return teams
+
+def get_losses(user_id):
+      with Postgres() as (cursor, conn):
+        cursor.execute(f"""select loser, count(*) as amount 
+                            FROM fhl_match_history
+                                where loser = '{user_id}'
+                                    group by loser;""")
+        losses_sql = cursor.fetchall()
+        losses = losses_sql[0]
+        
+        return losses
+
+def get_wins(user_id):
+      with Postgres() as (cursor, conn):
+        cursor.execute(f"""select winner, count(*) as amount 
+                            FROM fhl_match_history
+                                where winner = '{user_id}'
+                                    group by winner;""")
+        wins_sql = cursor.fetchall()
+        wins = wins_sql[0]  
+        return wins
