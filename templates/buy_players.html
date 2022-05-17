@@ -129,15 +129,20 @@
                                     <!--Hämta namn-->
                                     <h4>{{player.name}}</h4>
                                     <!--Hämta lag-->
-                                    <p>Lag: {{player.team}}</p>
+                                    <p>Lag:</p>
+                                    <p class="line"> {{player.team}}</p>
                                     <!--Hämta position-->
-                                    <p>Position: {{player.position}}</p>
+                                    <p>Position:</p>
+                                    <p class="line"> {{player.position}}</p>
                                     <!--Hämta antal mål-->
-                                    <p>Mål: {{player.goal}}</p>
+                                    <p>Mål:</p>
+                                    <p class="line">{{player.goal}}</p>
                                     <!--Hämta antal assit-->
-                                    <p>Assist: {{player.assists}}</p>
+                                    <p>Assist:</p>
+                                    <p class="line">{{player.assists}}</p>
                                     <!--Hämta antal utvisningsminuter-->
-                                    <p>Utvisningsminuter: {{player.penalty_time}}</p>
+                                    <p>Utvisningsminuter:</p>
+                                    <p class="line">{{player.penalty_time}}</p>
                                 </div>
                             </div>
                         </div>
@@ -178,15 +183,20 @@
                                     <!--Hämta namn-->
                                     <h4>{{player.name}}</h4>
                                     <!--Hämta lag-->
-                                    <p>Lag: {{player.team}}</p>
+                                    <p>Lag:</p>
+                                    <p class="line"> {{player.team}}</p>
                                     <!--Hämta position-->
-                                    <p>Position: {{player.position}}</p>
+                                    <p>Position:</p>
+                                    <p class="line"> {{player.position}}</p>
                                     <!--Hämta antal mål-->
-                                    <p>Mål: {{player.goal}}</p>
+                                    <p>Mål:</p>
+                                    <p class="line">{{player.goal}}</p>
                                     <!--Hämta antal assit-->
-                                    <p>Assist: {{player.assists}}</p>
+                                    <p>Assist:</p>
+                                    <p class="line">{{player.assists}}</p>
                                     <!--Hämta antal utvisningsminuter-->
-                                    <p>Utvisningsminuter: {{player.penalty_time}}</p>
+                                    <p>Utvisningsminuter:</p>
+                                    <p class="line">{{player.penalty_time}}</p>
                                 </div>
                             </div>
                         </div>
@@ -226,15 +236,20 @@
                                     <!--Hämta namn-->
                                     <h4>{{player.name}}</h4>
                                     <!--Hämta lag-->
-                                    <p>Lag: {{player.team}}</p>
+                                    <p>Lag:</p>
+                                    <p class="line"> {{player.team}}</p>
                                     <!--Hämta position-->
-                                    <p>Position: {{player.position}}</p>
+                                    <p>Position:</p>
+                                    <p class="line"> {{player.position}}</p>
                                     <!--Hämta antal mål-->
-                                    <p>Mål: {{player.goal}}</p>
+                                    <p>Mål:</p>
+                                    <p class="line">{{player.goal}}</p>
                                     <!--Hämta antal assit-->
-                                    <p>Assist: {{player.assists}}</p>
+                                    <p>Assist:</p>
+                                    <p class="line">{{player.assists}}</p>
                                     <!--Hämta antal utvisningsminuter-->
-                                    <p>Utvisningsminuter: {{player.penalty_time}}</p>
+                                    <p>Utvisningsminuter:</p>
+                                    <p class="line">{{player.penalty_time}}</p>
                                 </div>
                             </div>
                         </div>
@@ -274,15 +289,20 @@
                                     <!--Hämta namn-->
                                     <h4>{{player.name}}</h4>
                                     <!--Hämta lag-->
-                                    <p>Lag: {{player.team}}</p>
+                                    <p>Lag:</p>
+                                    <p class="line">{{player.team}}</p>
                                     <!--Hämta position-->
-                                    <p>Position: {{player.position}}</p>
+                                    <p>Position:</p>
+                                    <p class="line">{{player.position}}</p>
                                     <!--Hämta antal mål-->
-                                    <p>Mål: {{player.goal}}</p>
+                                    <p>Mål:</p>
+                                    <p class="line">{{player.goal}}</p>
                                     <!--Hämta antal assit-->
-                                    <p>Assist: {{player.assists}}</p>
+                                    <p>Assist:</p>
+                                    <p class="line"> {{player.assists}}</p>
                                     <!--Hämta antal utvisningsminuter-->
-                                    <p>Utvisningsminuter: {{player.penalty_time}}</p>
+                                    <p>Utvisningsminuter:</p>
+                                    <p class="line"> {{player.penalty_time}}</p>
                                 </div>
                             </div>
                         </div>
@@ -322,11 +342,14 @@
                                     <!--Hämta namn-->
                                     <h4>{{player.name}}</h4>
                                     <!--Hämta lag-->
-                                    <p>Lag: {{player.team}}</p>
+                                    <p>Lag:</p>
+                                    <p class="line"> {{player.team}}</p>
                                     <!--Hämta position-->
-                                    <p>Position: {{player.position}}</p>
+                                    <p>Position:</p>
+                                    <p class="line"> {{player.position}}</p>
                                     <!--Hämta antal räddningar-->
-                                    <p>Räddningar: {{player.saves}}</p>
+                                    <p>Räddningar:</p>
+                                    <p class="line"> {{player.saves}}</p>
                                 </div>
                             </div>
                         </div>
@@ -337,9 +360,15 @@
 
     </div>
 </div>
-    <footer>
-        <p>Copyright© by FHL</p>
-    </footer>
+<footer>
+    <div id="log">
+        <a href="/">
+            <!--Ändrat från img src="FHL.png" till "{{url_for('static', filename = 'FHL.png')}}" för att fungera med flask-->
+            <img src="{{url_for('static', filename = 'FHL.png')}}" alt="Logga" >
+        </a>
+    </div>
+    <p>Copyright© by FHL</p>
+</footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>

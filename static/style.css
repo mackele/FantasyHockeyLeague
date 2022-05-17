@@ -280,6 +280,8 @@ footer{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    
     }
 
 footer p {
@@ -304,7 +306,27 @@ footer p {
 
 .top_row {
     margin:20px;
+    
+
 }
+
+.top_row div:first-child {
+    max-width: 770px;
+    padding: 20px 0 30px 0;
+    margin: auto;
+    border-bottom: #CE1126 2px solid;
+}
+
+.top_row div h5 {
+    text-align: center;
+}
+.top_row div p {
+    line-height: 27px;
+    font-size: 14px;
+}
+
+
+
 
 table {
     font-size: 14px;  
@@ -338,17 +360,17 @@ tr:nth-child(even) {
 
 
 #highscore_table {
-    padding:10px;
+    padding:50px 0 10px 0;
     margin: auto;
     text-align: center;  
 }
 #hockey_score_table, #match_table {
-    padding:10px;
+    padding:40px 0 10px 0;
     text-align: center; 
 }
 
 #match_table{
-    padding-top: 46px ;
+    padding-top: 75px ;
 }
 
 .team_loggo {
@@ -421,7 +443,7 @@ tr:nth-child(even) {
 #body_my_players, #index_body, #forum_body, #guide_body, #buy_players_body, #match_histor, main, #write_post_body, #topscorer_body,#forum_body, #guide_body, #write_post_body, #login_body, #registration_body {
     margin:auto;
     max-width: 90%;
-    padding: 101px 0 50px 0;
+    padding: 101px 0 200px 0;
     height: 100%;
 
    
@@ -657,10 +679,24 @@ select {
     margin: 20px;
 }
 
+
 .card p {
     font-size: 12px;
-    padding:5px 0;
+    text-align: center;
+    padding: 1px;
+    
 }
+
+.card h4 {
+    text-align: center;
+    font-size: 20px;
+}
+
+.line {
+    border-bottom: 1px solid #c1bfbf;
+   
+    margin: 0 0 5px 0;
+    }
 
 .card img {
     height: 170px;
@@ -719,6 +755,8 @@ select {
     position: relative;
     padding:10px;
 }
+
+
 
 .card__header:after {
     content: '';
@@ -985,6 +1023,13 @@ form textarea {
 
     td div {
         padding: 0;
+    }
+
+    .top_row {
+        margin:20px;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
     }
 
     .dropdown:hover, .help:hover{

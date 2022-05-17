@@ -50,6 +50,12 @@
    
     
     <footer>
+        <div id="log">
+            <a href="/">
+                <!--Ändrat från img src="FHL.png" till "{{url_for('static', filename = 'FHL.png')}}" för att fungera med flask-->
+                <img src="{{url_for('static', filename = 'FHL.png')}}" alt="Logga" >
+            </a>
+        </div>
         <p>Copyright© by FHL</p>
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
