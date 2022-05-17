@@ -788,7 +788,6 @@ def post_forum_redirect():
         return fhldata
 
 
-#Default for forum 
 def get_all_forum():
     """
     Function retrieves all form data
@@ -851,7 +850,6 @@ def get_forum_username(user_id):
     return fhluserdata
     
 
-
 def delete_article_id(article_id):
     """
     Function deletes form post
@@ -861,6 +859,18 @@ def delete_article_id(article_id):
     with Postgres() as (cursor, conn):
         delete_post = (f""" delete from fhl_forum_form where article_id = '{article_id}'""")
         cursor.execute(delete_post)
+        conn.commit()
+
+
+def like_article_id(article_id):
+    """
+    Function deletes form post
+    Args
+        'article_id' from html submit
+    """
+    with Postgres() as (cursor, conn):
+        like_article_id = (f"""UPDATE fhl_forum_form set likes = (likes + 1) where article_id = '{article_id}'""")
+        cursor.execute(like_article_id)
         conn.commit()
 
 

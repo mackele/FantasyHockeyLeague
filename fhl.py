@@ -524,6 +524,7 @@ def forum():
         return render_template('forum.html')
 
 
+
 #Forum posts created by logged in user
 @FHL.route('/forum/mina/inlägg/', methods = ['GET', 'POST'])
 @flask_login.login_required
@@ -586,6 +587,20 @@ def edit_post():
     points=get_user_points()
     return render_template('forum_edit.html', points=points)
 
+
+@FHL.route('/forum/like', methods = ['GET', 'POST'])
+@flask_login.login_required
+def forum_like():
+    """
+    Funktionen låter användare gilla inlägg
+    """
+    if request.method == 'POST':
+        article_id = request.form['like']
+        print(article_id)
+        like = like_article_id(article_id)
+        points= get_user_points()
+        fhldata = get_all_forum()
+        return render_template('forum.html', points=points, fhldata=fhldata)
 
 #Logged in users points
 @FHL.route('/points')

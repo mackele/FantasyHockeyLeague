@@ -129,6 +129,13 @@
                 <div id="text_in_post">
                     <p>{{ data[6] }}</p>
                 </div>
+
+                <div id="likes">
+                    <p>{{ data[7] }}</p>
+                    <form method ="post" action="like" id="like">
+                        <button type="submit" name="like" id="like" value="{{ data[2] }}">Like</button>
+                    </form> 
+                </div>
                     
             </div>
             {% endfor %}

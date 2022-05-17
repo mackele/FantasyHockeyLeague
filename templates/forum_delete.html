@@ -112,16 +112,6 @@
                     <!--Username-->
                     <p>Användare: {{ data[8] }}</p>
 
-                    <!--ID-->
-                    <form method ="post" action="delete" id="delete">
-                        <button type="submit" name="delete" id="delete" class="change" value="{{ data[2] }}">Ta bort</button>
-                    </form> 
-   
-                    <!--ID-->
-                    <form method ="post" action="edit" id="edit">
-                        <button type="submit" name="edit" id="edit" class="change" value="{{ data[2] }}">Redigera</button>
-                    </form> 
-
                     <!--Date-->
                     <p>Datum: {{ data[0] }} {{ data[1] }}</p>
                 </div>
@@ -134,6 +124,18 @@
                 <!--Text-->
                 <div id="text_in_post">
                     <p>{{ data[6] }}</p>
+                </div>
+
+                <div id="change">
+                    <!--ID-->
+                    <form method ="post" action="delete" id="delete">
+                        <button type="submit" name="delete" id="delete" class="change" value="{{ data[2] }}">Ta bort</button>
+                    </form> 
+    
+                    <!--ID-->
+                    <form method ="post" action="edit" id="edit">
+                        <button type="submit" name="edit" id="edit" class="change" value="{{ data[2] }}">Redigera</button>
+                    </form> 
                 </div>
                     
             </div>
