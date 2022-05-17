@@ -37,6 +37,14 @@
     </nav>
     <div id="index_body">
         <div class="top_row">
+            <div>
+                <h3>Välkommen till Fantasy Hockey League!</h3>
+                <p>På FHL:s webbsida kan du designa ditt egna hockeylag baserat på hockeyspelare från NHL. 
+                    Beroende på hur väl ditt laget är designat och beroende på hur bra det går för spelarna i dagens NHL matcher så får du poäng ut. 
+                    Poängen kan du sedan använda för att köpa nya och bättre hockeyspelare för att göra ditt lag ännu starkare. 
+                    Det finns även möjlighet att spela mot andra lag för att öka chansen att få ännu mer poäng samt möta sig mot andra designade lag. </p>
+                <h5>Lycka till!</h5>
+            </div>
             <div id="highscore_table">
                 <h5>Fantasy Hockey League</h5>
                 <h3>Highscore</h3>
@@ -129,6 +137,12 @@
         </div>
     </div>
     <footer>
+        <div id="log">
+            <a href="/">
+                <!--Ändrat från img src="FHL.png" till "{{url_for('static', filename = 'FHL.png')}}" för att fungera med flask-->
+                <img src="{{url_for('static', filename = 'FHL.png')}}" alt="Logga" >
+            </a>
+        </div>
         <p>Copyright© by FHL</p>
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>

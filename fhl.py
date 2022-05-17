@@ -70,7 +70,7 @@ def login():
         user.id=mail
         flask_login.login_user(user)
         return redirect(url_for('protected'))
-    
+
 
 class User (flask_login.UserMixin):
     pass
@@ -485,6 +485,7 @@ def match_history():
 
     won_games = get_history_won_games(user_id)
     lost_games = get_history_lost_games(user_id)
+    
 
     return render_template('matchhistory.html', points=points, won_games = won_games, lost_games = lost_games, wins=wins, losses=losses)
 
@@ -509,9 +510,14 @@ def top_scorer():
 
     players = get_all_players()
     top_players = sorted(players, key = lambda k: k['price'], reverse=True)
+    top_players =top_players[:10]
     most_goals = sorted(players, key = lambda k: k['goal'], reverse=True)
+    most_goals = most_goals[:10]
     most_assists = sorted(players, key = lambda k: k['assists'], reverse=True)
-    return render_template('topscorer.html', players = players, top_players = top_players, most_goals = most_goals, most_assists = most_assists, points=points)
+    most_assists = most_assists [:10]
+    most_saves= sorted(players, key = lambda k: k['saves'], reverse=True)
+    most_saves=most_saves [:10]
+    return render_template('topscorer.html', players = players, top_players = top_players, most_goals = most_goals, most_assists = most_assists, most_saves=most_saves, points=points)
 
 
 #Forum
@@ -521,7 +527,7 @@ def forum():
     """
     Funktionen visar samtliga foruminlägg
     """
-
+    points = get_user_points()
     if request.method == 'POST':
         category = request.form['category']
         print(category)
@@ -529,9 +535,7 @@ def forum():
         fhldata= get_category_forum(category)
         return render_template('forum.html', points=points, fhldata=fhldata)
     else:
-        points= get_user_points()
-        fhldata= get_all_forum()
-        return render_template('forum.html', points=points, fhldata=fhldata)
+        return render_template('forum.html', points = points)
 
 
 #Forum posts created by logged in user

@@ -97,16 +97,20 @@
                 <div class="teams">
 
                     <div class="team_1">
-                        <h4>Mitt lag / Användare {{row[7]}}</h4> 
+                        <h4>{{row[7]}}</h4> 
                         <h5>Vinnare</h5>
-                        <p>Datum: {{row[4]}}</p>
+                        <h5>Lagnamn: {{row[14]}}</h5>
+                        <h5>Lagets score: {{row[15]}}</h5>
+                        <h5>Datum: {{row[4]}}</h5>
                         <img src="{{url_for('static', filename = 'FHL.png')}}"> <!--Man har en bild som representerar sitt lag, tog denna så länge-->
                     </div>
 
                     <div class="team_2">
-                        <h4>Motståndare</h4> 
+                        <h4>{{row[13]}}</h4> 
                         <h5>Förlorare</h5>
-                        <p>Datum: {{row[4]}}</p>
+                        <h5>Lagnamn: {{row[17]}}</h5>
+                        <h5>Lagets score: {{row[16]}}</h5>
+                        <h5>Datum: {{row[4]}}</h5>
                         <img src="{{url_for('static', filename = 'FHL.png')}}"> <!--Man har en bild som representerar sitt lag, tog denna så länge-->
                     </div>
 
@@ -121,16 +125,18 @@
                 <div class="teams">
 
                     <div class="team_1">
-                        <h4>Mitt lag / Användare: {{row[7]}}</h4> 
-                        <h5>Förlorare</h5>
-                        <p>Datum: {{row[4]}}</p>
+                        <h4>{{row[3]}}</h4> 
+                        <h5>Lagnamn: {{row[13]}}</h5>
+                        <h5>Lagets score: {{row[12]}}</h5>
+                        <h5>Datum: {{row[0]}}</h5>
                         <img src="{{url_for('static', filename = 'FHL.png')}}"> <!--Man har en bild som representerar sitt lag, tog denna så länge-->
                     </div>
 
                     <div class="team_1">
-                        <h4>Motståndare</h4> 
-                        <h5>Vinnare</h5>
-                        <p>Datum: {{row[4]}}</p>
+                        <h4>{{row[9]}}</h4> 
+                        <h5>Lagnamn: {{row[10]}}</h5>
+                        <h5>Lagets score: {{row[11]}}</h5>
+                        <h5>Datum: {{row[0]}}</h5>
                         <img src="{{url_for('static', filename = 'FHL.png')}}"> <!--Man har en bild som representerar sitt lag, tog denna så länge-->
                     </div>
 
@@ -141,6 +147,12 @@
     </main>
     
     <footer>
+        <div id="log">
+            <a href="/">
+                <!--Ändrat från img src="FHL.png" till "{{url_for('static', filename = 'FHL.png')}}" för att fungera med flask-->
+                <img src="{{url_for('static', filename = 'FHL.png')}}" alt="Logga" >
+            </a>
+        </div>
         <p>Copyright© by FHL</p>
     </footer>
 </body>
