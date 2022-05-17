@@ -601,6 +601,7 @@ def delete_team_ranking():
         Funktionen raderar allt som finns i tabellen fhl_team_ranking i databasen om dagens datum inte stämmer 
         överrens med det datum som är inlagt i databasen. Funktionen körs från fhl.py.
     '''
+    print ("delete team ranking")
     with Postgres() as (cursor, conn):
         postgreSQL_insert = (""" delete from fhl_team_ranking """)
         cursor.execute(postgreSQL_insert)

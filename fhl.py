@@ -21,6 +21,7 @@ FHL = Flask(__name__)
 @flask_login.login_required
 def index():
     todaydate = date.today()
+    print(todaydate)
     rank_date_list=database.get_timestamp_fhl_team_ranking(todaydate)
 
     schedual_date_list=database.get_date_fhl_game_schedual (todaydate)
