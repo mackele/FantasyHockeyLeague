@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--Länkar till static style.css, för att ändra tillbaka till "vanliga" är det bara att ha href ="/static/style.css"-->
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <title>FHL forum</title>
-    <!--Browser icon-->
     <link rel="icon" href="/static/FHL.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +18,6 @@
         <div class="left_nav">
             <div id="log">
                 <a href="/">
-                    <!--Ändrat från img src="FHL.png" till "{{url_for('static', filename = 'FHL.png')}}" för att fungera med flask-->
                     <img src="{{url_for('static', filename = 'FHL.png')}}" alt="Logga" href="index.html">
                 </a>
             </div>
@@ -149,7 +146,6 @@
     <footer>
         <div id="log">
             <a href="/">
-                <!--Ändrat från img src="FHL.png" till "{{url_for('static', filename = 'FHL.png')}}" för att fungera med flask-->
                 <img src="{{url_for('static', filename = 'FHL.png')}}" alt="Logga" >
             </a>
         </div>
