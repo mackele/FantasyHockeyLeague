@@ -133,7 +133,9 @@
                 <div id="likes">
                     <p>{{ data[7] }}</p>
                     <form method ="post" action="like" id="like">
-                        <button type="submit" name="like" id="like" value="{{ data[2] }}">Like</button>
+                        <button type="submit" name="like" id="like" value="{{ data[2] }}">
+                            <img src="{{url_for('static', filename = 'like_btn.png')}}" alt="Gilla inlägget">
+                        </button>
                     </form> 
                 </div>
                     

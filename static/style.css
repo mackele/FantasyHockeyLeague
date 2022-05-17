@@ -570,7 +570,7 @@ background-color: white;
 }
 #article_div {
     background-color: #F2F2F2;
-    height: 200px;
+    height: 300px;
     margin: 40px;
     box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
 }
@@ -608,22 +608,33 @@ select {
 
 #user_and_date {
     display: flex;
-    /* Användare - Datum  */ 
     justify-content: space-between;
     flex-wrap: wrap;
     font-size: 12px;
     padding:5px;
 }
 
-button.change {
-    font-size: 75%;
-    border-radius: 15%;
-    height: 50%;
+#delete{
+    text-align: 80%;
+    margin-left: 1%;
 }
 
+#likes {
+    display: block;
+    margin-left: 2%;
+    width: 10%;
+}
+
+#likes button {
+    all: unset;
+    cursor: pointer;
+}
+
+#likes img {
+    width: 40%;
+}
 
 /*css till buy_players */
-
 #buy_players_body {
     display: flex;
     flex-direction: column;
