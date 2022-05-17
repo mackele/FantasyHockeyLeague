@@ -527,15 +527,15 @@ def forum():
     """
     Funktionen visar samtliga foruminlägg
     """
-    points = get_user_points()
     if request.method == 'POST':
         category = request.form['category']
-        print(category)
         points= get_user_points()
         fhldata= get_category_forum(category)
         return render_template('forum.html', points=points, fhldata=fhldata)
     else:
-        return render_template('forum.html', points = points)
+        points= get_user_points()
+        fhldata= get_all_forum()
+        return render_template('forum.html', points=points, fhldata=fhldata)
 
 
 #Forum posts created by logged in user
