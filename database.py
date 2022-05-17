@@ -799,7 +799,8 @@ def get_all_forum():
             cursor.execute(f"""select date, datetime, article_id, fhl_user, title, category, text, likes, username 
                 from fhl_forum_form
                 join fhl_user
-                on fhl_forum_form.fhl_user = fhl_user.mail """)
+                on fhl_forum_form.fhl_user = fhl_user.mail 
+                """)
             data = cursor.fetchall()
             fhldata=data
     return fhldata
@@ -818,13 +819,15 @@ def get_category_forum(category):
                         cursor.execute(f"""select date, datetime, article_id, fhl_user, title, category, text, likes, username 
                             from fhl_forum_form
                             join fhl_user
-                            on fhl_forum_form.fhl_user = fhl_user.mail """)
+                            on fhl_forum_form.fhl_user = fhl_user.mail 
+                            order by date desc """)
 
             else:
                 cursor.execute(f"""select date, datetime, article_id, fhl_user, title, category, text, likes, username 
                         from fhl_forum_form
                         join fhl_user
-                        on fhl_forum_form.fhl_user = fhl_user.mail where category ='{category}'; """)
+                        on fhl_forum_form.fhl_user = fhl_user.mail where category ='{category}'
+                        order by date desc; """)
                 
             data = cursor.fetchall()
             fhldata=data
