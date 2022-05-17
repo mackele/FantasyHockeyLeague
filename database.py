@@ -1034,21 +1034,33 @@ def update_ranking_after_win(user_id):
 
 def get_history_won_games(user_id):
     with Postgres() as (cursor, conn):
-        cursor.execute(f"""select * from fhl_match_history as m
-                                join fhl_user as u
-                                    on m.winner=u.mail
-                                        where m.winner='{user_id}'""")
-        teams= cursor.fetchall()
+        cursor.execute(f"""select m.*, u.*, q.username, t.team_name as my_team, t.match_score as my_score, s.match_score as opponent_score, s.team_name as opponent from fhl_match_history m
+                            join fhl_user as u
+                                on m.winner=u.mail
+                                    join fhl_team as t
+                                        on m.team_1 = t.team_id 
+                                            join fhl_team as s
+                                                on m.team_2 = s.team_id
+                                                    join fhl_user as q
+                                                        on m.loser = q.mail
+                                                            where m.winner='{user_id}';""")
+        wins= cursor.fetchall()
         
-    return teams
+        return wins
 
 
 def get_history_lost_games(user_id):
     with Postgres() as (cursor, conn):
-        cursor.execute(f"""select * from fhl_match_history as m
-                                join fhl_user as u
-                                    on m.winner=u.mail
-                                        where m.loser='{user_id}';""")
+        cursor.execute(f"""select m.match_date, m.match_id, u.*, q.username, t.team_name as opponent_team, t.match_score as opponent_score, s.match_score as my_score, s.team_name as my_team from fhl_match_history m
+                            join fhl_user as u
+                                on m.loser=u.mail
+                                    join fhl_team as t
+                                        on m.team_1 = t.team_id 
+                                            join fhl_team as s
+                                                on m.team_2 = s.team_id
+                                                    join fhl_user as q
+                                                        on m.winner = q.mail
+                                                        where m.loser='{user_id}';""")
         teams= cursor.fetchall()
         
     return teams
