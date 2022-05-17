@@ -521,6 +521,7 @@ def forum():
     """
     Funktionen visar samtliga foruminlägg
     """
+
     if request.method == 'POST':
         category = request.form['category']
         print(category)
@@ -528,7 +529,9 @@ def forum():
         fhldata= get_category_forum(category)
         return render_template('forum.html', points=points, fhldata=fhldata)
     else:
-        return render_template('forum.html')
+        points= get_user_points()
+        fhldata= get_all_forum()
+        return render_template('forum.html', points=points, fhldata=fhldata)
 
 
 #Forum posts created by logged in user
@@ -565,7 +568,7 @@ def form():
     user_id=flask_login.current_user.id
     post = post_forum(user_id)
     fhldata = post_forum_redirect()
-    return render_template('forum.html', points=points, post=post, fhldata=fhldata)
+    return redirect(url_for('forum'))
 
 
 #Forum delete post
@@ -595,7 +598,7 @@ def forum_like():
         like = like_article_id(article_id)
         points= get_user_points()
         fhldata = get_all_forum()
-        return render_template('forum.html', points=points, fhldata=fhldata)
+        return redirect(url_for('forum'))
 
 
 #Logged in users points

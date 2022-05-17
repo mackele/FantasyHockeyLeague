@@ -92,17 +92,16 @@
 
             <article class="FHLcategory" >
                 <header>
-                    <!--Category, access the choice through Python-->
             <form id="category" method="post">
             <label for="category">Filtrera:</label>
                 </header>
-                    <select id="category" name="category">
+                    <select id="category" name="category" onchange="this.form.submit();">
+                        <option name="category">Välj alternativ</option>
                         <option name="category" value="all">Alla inlägg</option>
                         <option name="category" value="player">Spelare</option>
                         <option name="category" value="game">Matcher</option>
                         <option name="category" value="team">Lag</option>
                     </select>    
-                    <input type="submit" name="Filtrera" value="Filtrera">
                     </form>
             </article>
 
