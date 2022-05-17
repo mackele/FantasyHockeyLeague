@@ -503,9 +503,14 @@ def top_scorer():
 
     players = get_all_players()
     top_players = sorted(players, key = lambda k: k['price'], reverse=True)
+    top_players =top_players[:10]
     most_goals = sorted(players, key = lambda k: k['goal'], reverse=True)
+    most_goals = most_goals[:10]
     most_assists = sorted(players, key = lambda k: k['assists'], reverse=True)
-    return render_template('topscorer.html', players = players, top_players = top_players, most_goals = most_goals, most_assists = most_assists, points=points)
+    most_assists = most_assists [:10]
+    most_saves= sorted(players, key = lambda k: k['saves'], reverse=True)
+    most_saves=most_saves [:10]
+    return render_template('topscorer.html', players = players, top_players = top_players, most_goals = most_goals, most_assists = most_assists, most_saves=most_saves, points=points)
 
 
 #Forum
