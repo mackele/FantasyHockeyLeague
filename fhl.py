@@ -576,6 +576,17 @@ def delete_post():
         return redirect(url_for('forum_username'))
 
 
+#Forum edit post
+@FHL.route('/forum/mina/inlägg/edit', methods = ['GET', 'POST'])
+@flask_login.login_required
+def edit_post():
+    """
+    Funktionen låter använderan redigera ett foruminlägg
+    """
+    points=get_user_points()
+    return render_template('forum_edit.html', points=points)
+
+
 #Logged in users points
 @FHL.route('/points')
 @flask_login.login_required

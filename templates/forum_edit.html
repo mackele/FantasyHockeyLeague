@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-    <title>FHL forum</title>
+    <title>FHL redigera inlägg</title>
     <link rel="icon" href="/static/FHL.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -80,76 +80,51 @@
         </div>
     </nav>
 
-    <div id="forum_body">
-        <div id="wiki_article">
-            
-            <div id="forumheader">
+    <div id="write_post_body">
+        <div id="post">
+
             <!--Header-->
-            <h2 id="forumtitle">Forum</h2>
+            <h2>Redigera ett inlägg</h2>
 
-            <article class="FHLcategory" >
-                <header>
-            <form id="category" method="post">
-            <label for="category">Filtrera:</label>
-                </header>
-                    <select id="category" name="category">
-                        <option name="category" value="all">Alla inlägg</option>
-                        <option name="category" value="player">Spelare</option>
-                        <option name="category" value="game">Matcher</option>
-                        <option name="category" value="team">Lag</option>
-                    </select>    
-                    <input type="submit" name="Filtrera" value="Filtrera">
-                    </form>
-            </article>
+            <!--Form-->
+            <form action="/form" method="post" id="form">
 
-            </div>
-            
-            <!--Loop-->
-            {% for data in fhldata or fhluserdata %}
-            <div id="article_div">
-
-                <div id="user_and_date">
-                    <!--Username-->
-                    <p>Användare: {{ data[8] }}</p>
-
-                    <!--ID-->
-                    <form method ="post" action="delete" id="delete">
-                        <button type="submit" name="delete" id="delete" class="change" value="{{ data[2] }}">Ta bort</button>
-                    </form> 
-   
-                    <!--ID-->
-                    <form method ="post" action="edit" id="edit">
-                        <button type="submit" name="edit" id="edit" class="change" value="{{ data[2] }}">Redigera</button>
-                    </form> 
-
-                    <!--Date-->
-                    <p>Datum: {{ data[0] }} {{ data[1] }}</p>
-                </div>
-            
-                <div id="title">
-                    <!--Title-->
-                    <p>{{ data[4] }}</p>
+                <!--Title-->
+                <div class="title_div">
+                    <label for="titlee">Titel</label>
+                    <input type="text" id="titlee" name="titlee" required>
                 </div>
 
+                <!--Category-->
+                <div class="post_category">
+                    <label for="categoryy">Välj kategori</label>
+                        <select id="categoryy" name="categoryy" required>
+                            <option name="categoryy" value="player">Spelare</option>
+                            <option name="categoryy" value="game">Matcher</option>
+                            <option name="categoryy" value="team">Lag</option>
+                        </select>    
+                </div>
+                
                 <!--Text-->
-                <div id="text_in_post">
-                    <p>{{ data[6] }}</p>
+                <div class="text_div">
+                    <label for="textt">Text</label>
+                    <textarea id="textt" name="textt" required></textarea>
                 </div>
-                    
-            </div>
-            {% endfor %}
-            <!--/Loop-->
-
-            </div>
-        </div>    
+                
+                <!--Send-->
+                <input class="submit_button" type="submit" value="Skicka" required>
+            </form>      
+            <!--/Form-->
+            
+        </div>
     </div>
-    
+
     <footer>
         <p>Copyright© by FHL</p>
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    <script src="{{url_for('static', filename = 'script.js')}}"></script>
+    <script src="{{url_for('static', filename = 'script.js')}}"></script> 
 </body>
 
 </html>

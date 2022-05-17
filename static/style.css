@@ -615,6 +615,11 @@ select {
     padding:5px;
 }
 
+button.change {
+    font-size: 75%;
+    border-radius: 15%;
+    height: 50%;
+}
 
 
 /*css till buy_players */
