@@ -25,6 +25,7 @@ def get_timestamp_fhl_players(todays_date):
     
     return list     
 
+
 def add_player_to_database(players):
     '''
     Funktion som lägger in spelare som hämtas i en lista med lexikon från APIn i player_info.py
@@ -890,6 +891,7 @@ def add_chosen_players_to_game(left_forward, center, right_forward, left_defense
         cursor.close()
         conn.close()
 
+
 def get_team_list_fhl_team():
     """
         Funktionen hämtar ut en lista med alla lag i databasen som inte har någon match_score än.
@@ -899,6 +901,7 @@ def get_team_list_fhl_team():
                             where match_score is null""")
         team_list = cursor.fetchall()
     return team_list
+
 
 def get_todays_team_list(todaydate, user_id):
     with Postgres() as (cursor, conn):
@@ -977,6 +980,7 @@ def insert_team_score(team_score, team_id):
         cursor.execute(PostgreSQL_insert)
         conn.commit()
 
+
 def get_other_users_lineup(user_id):
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select * from fhl_team where fhl_user != '{user_id}';""")
@@ -1006,6 +1010,7 @@ def add_game_to_match_history(team_1, team_2, winner, looser):
 
         conn.commit()
 
+
 def update_points_after_win(user_id):
     with Postgres() as (cursor, conn):
         PostgreSQL_insert = (f"""update fhl_user
@@ -1014,6 +1019,7 @@ def update_points_after_win(user_id):
         
         cursor.execute(PostgreSQL_insert)
         conn.commit()
+
 
 def update_ranking_after_win(user_id):
     with Postgres() as (cursor, conn):
@@ -1024,6 +1030,7 @@ def update_ranking_after_win(user_id):
         cursor.execute(PostgreSQL_insert)
         conn.commit()
 
+
 def get_history_won_games(user_id):
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select * from fhl_match_history as m
@@ -1033,6 +1040,7 @@ def get_history_won_games(user_id):
         teams= cursor.fetchall()
         
     return teams
+
 
 def get_history_lost_games(user_id):
     with Postgres() as (cursor, conn):
