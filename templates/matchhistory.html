@@ -87,7 +87,11 @@
         <h2>Min matchhistorik</h2>
         <!--Representera vinnaren med grön färg, förloraren med röd-->
         <section>
-            <h3>Vinster</h3>
+            <h3>Vinster: {{wins}}</h3>
+            <h3>Förluster: {{losses}}</h3>
+            
+
+            <h2>Vunna matcher</h2>
 
             {%for row in won_games%}
                 <div class="teams">
@@ -111,7 +115,7 @@
         </section>
 
         <section>
-            <h3>Förluster</h3>
+            <h2>Förlorade matcher</h2>
 
             {%for row in lost_games%}
                 <div class="teams">
