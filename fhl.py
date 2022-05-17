@@ -597,7 +597,6 @@ def forum_like():
     """
     if request.method == 'POST':
         article_id = request.form['like']
-        print(article_id)
         like = like_article_id(article_id)
         points= get_user_points()
         fhldata = get_all_forum()

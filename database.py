@@ -763,7 +763,7 @@ def post_forum(user_id):
         title = request.form.get("titlee")
         category = request.form.get("categoryy")
         text = request.form.get("textt")
-        likes = 21 
+        likes = 0 
 
         PostgreSQL_insert = """ INSERT INTO fhl_forum_form (date, datetime, fhl_user, title, category, text, likes) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
         insert_to = (todaydate, todaytime, fhl_user, title, category, text, likes)
