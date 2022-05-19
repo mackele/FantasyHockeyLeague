@@ -295,6 +295,9 @@ def search():
             
             points=get_user_points()
             return render_template('buy_players.html', points=points, search_result=search_result)
+        
+        else:
+           return redirect('/köp-spelare/') 
             
 @FHL.route('/buy', methods=['GET','POST'])
 def buy():
