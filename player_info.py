@@ -72,7 +72,7 @@ def get_all_players_API():
                             "name": person_name,
                             "date": todaydate                           
                         })
-            
+           
     return players
             
              

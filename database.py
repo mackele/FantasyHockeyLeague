@@ -537,6 +537,9 @@ def get_user(mail):
 
 
 def add_purchased_player_to_team(user_id, player_id):
+    '''
+    Funktion som lägger till köpt spelare till en användares lista över spelare
+    '''
     with Postgres() as (cursor, conn): 
 
         cursor.execute("""select * from fhl_my_players""")
@@ -550,7 +553,7 @@ def add_purchased_player_to_team(user_id, player_id):
         conn.commit()
 
 
-def registrations(username, mail, f_name, l_name, password):
+def registrations(username, mail, f_name, l_name, hash_password):
     '''
         Funktionen undersöker om användaren som försöker registrera sig redan finns i databasen. 
         Om användaren inte är registrerad så registreras denne.
@@ -570,12 +573,12 @@ def registrations(username, mail, f_name, l_name, password):
             postgreSQL_insert = (""" insert into fhl_user (username, mail, f_name, l_name, password, points, ranking)
                                         values (%s, %s, %s, %s, %s, %s, %s) """)
                                             
-            insert_to = (username, mail, f_name, l_name, password, points, ranking)
+            insert_to = (username, mail, f_name, l_name, hash_password, points, ranking)
             cursor.execute(postgreSQL_insert, insert_to)
             conn.commit()
 
-        else:
-            return user
+        
+    return user
 
 
 def get_points(user_id):
@@ -877,6 +880,9 @@ def like_article_id(article_id):
 
 
 def add_chosen_players_to_game(left_forward, center, right_forward, left_defense, right_defense, goalie, user_id_form, team_name):
+    '''
+    Funktion som lägger till valda spelare när användaren lägger ett lag
+    '''
     with Postgres() as (cursor, conn):
 
         todaydate = date.today()
@@ -905,6 +911,9 @@ def get_team_list_fhl_team():
 
 
 def get_todays_team_list(todaydate, user_id):
+    '''
+    Funktion som hämtar och returnerar en lista med det skapade lag som ska användes vid match
+    '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select team_date from fhl_team 
                             where fhl_user='{user_id}' and team_date= '{todaydate}'""")
@@ -913,6 +922,9 @@ def get_todays_team_list(todaydate, user_id):
 
 
 def get_todays_left_forward(todaydate, user_id):
+    '''
+    Funktion som hämtar och returnerar vänster forward som användes vid spelad match
+    '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select * from fhl_team 
                                 join fhl_players on fhl_players.id = fhl_team.left_forward 
@@ -922,6 +934,9 @@ def get_todays_left_forward(todaydate, user_id):
 
 
 def get_todays_right_forward(todaydate, user_id):
+    '''
+    Funktion som hämtar och returnerar höger forward som användes vid spelad match
+    '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select * from fhl_team 
                                 join fhl_players on fhl_players.id = fhl_team.right_forward 
@@ -931,6 +946,9 @@ def get_todays_right_forward(todaydate, user_id):
 
 
 def get_todays_center(todaydate, user_id):
+    '''
+    Funktion som hämtar och returnerar center användes i match som spelats 
+    '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select * from fhl_team 
                                 join fhl_players on fhl_players.id = fhl_team.center 
@@ -940,6 +958,9 @@ def get_todays_center(todaydate, user_id):
 
 
 def get_todays_left_back(todaydate, user_id):
+    '''
+    Funktion som hämtar och returnerar vänster back som användes vid spelad match
+    '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select * from fhl_team 
                                 join fhl_players on fhl_players.id = fhl_team.left_back 
@@ -949,6 +970,9 @@ def get_todays_left_back(todaydate, user_id):
 
 
 def get_todays_right_back(todaydate, user_id):
+    '''
+    Funktion som hämtar och returnerar höger back som användes vid spelad match
+    '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select * from fhl_team 
                                 join fhl_players on fhl_players.id = fhl_team.right_back
@@ -958,6 +982,9 @@ def get_todays_right_back(todaydate, user_id):
 
 
 def get_todays_goalie(todaydate, user_id):
+    '''
+    Funktion som hämtar och returnerar målvakten som användes vid spelad match
+    '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select * from fhl_team 
                                 join fhl_players on fhl_players.id = fhl_team.goalkeeper
@@ -983,6 +1010,9 @@ def insert_team_score(team_score, team_id):
 
 
 def get_other_users_lineup(user_id):
+    '''
+    Hämtar en annan användares lineup som användes vid en spelad match
+    '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select * from fhl_team where fhl_user != '{user_id}';""")
         teams= cursor.fetchall()
@@ -991,6 +1021,9 @@ def get_other_users_lineup(user_id):
 
 
 def get_users_lineup(user_id):
+    '''
+    Hämtar en användares lineup som användes vid en spelad match
+    '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select * from fhl_team where fhl_user = '{user_id}';""")
         teams= cursor.fetchall()
@@ -999,6 +1032,9 @@ def get_users_lineup(user_id):
 
 
 def add_game_to_match_history(team_1, team_2, winner, looser):
+    '''
+    Funktion som lägger till en match i matchhistorik med lagens id, vinnare och förlorare
+    '''
     with Postgres() as (cursor, conn):
 
         todaydate = date.today()
@@ -1013,6 +1049,9 @@ def add_game_to_match_history(team_1, team_2, winner, looser):
 
 
 def update_points_after_win(user_id):
+    '''
+    Funktion ökar en spelares poäng med 50 i databasen efter man har vunnit en match.
+    '''
     with Postgres() as (cursor, conn):
         PostgreSQL_insert = (f"""update fhl_user
                                 set points = points + 50
@@ -1029,6 +1068,9 @@ def update_points_after_bought_player(user_id, player_price):
         conn.commit()
                                 
 def update_ranking_after_win(user_id):
+    '''
+    Funktion ökar en spelares ranking med 5 i databasen efter man har vunnit en match.
+    '''
     with Postgres() as (cursor, conn):
         PostgreSQL_insert = (f"""update fhl_user
                                 set ranking = ranking + 5
@@ -1039,6 +1081,9 @@ def update_ranking_after_win(user_id):
 
 
 def get_history_won_games(user_id):
+    '''
+    Funktion som hämtar ut specifik matchhistorik för vunna matcher, där användarnamn och match score visas upp. Returnerar vinster
+    '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select m.*, u.*, q.username, t.team_name as my_team, t.match_score as my_score, s.match_score as opponent_score, s.team_name as opponent from fhl_match_history m
                             join fhl_user as u
@@ -1056,6 +1101,9 @@ def get_history_won_games(user_id):
 
 
 def get_history_lost_games(user_id):
+    '''
+    Funktion som hämtar ut specifik matchhistorik för förlorade matcher, där användarnamn och match score visas upp. Returnerar förluster
+    '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select m.match_date, m.match_id, u.*, q.username, t.team_name as opponent_team, t.match_score as opponent_score, s.match_score as my_score, s.team_name as my_team from fhl_match_history m
                             join fhl_user as u
@@ -1072,7 +1120,10 @@ def get_history_lost_games(user_id):
     return teams
 
 def get_losses(user_id):
-      with Postgres() as (cursor, conn):
+    '''
+    Funktion som hämtar ut antal förluster från databasen och returnerar detta till matchhistoriken
+    '''
+    with Postgres() as (cursor, conn):
         cursor.execute(f"""select loser, count(*) as amount 
                             FROM fhl_match_history
                                 where loser = '{user_id}'
@@ -1083,7 +1134,10 @@ def get_losses(user_id):
         return losses
 
 def get_wins(user_id):
-      with Postgres() as (cursor, conn):
+    '''
+    Funktion hämtar ut antal vinster från databasen och returnerar detta till matchhistoriken
+    '''
+    with Postgres() as (cursor, conn):
         cursor.execute(f"""select winner, count(*) as amount 
                             FROM fhl_match_history
                                 where winner = '{user_id}'

@@ -42,20 +42,20 @@
                 <div class="login_div">
                     <label for="mail">Epost:</label>
                 <input type="email" id="mail" name="mail" placeholder="Epost" required>
-                <p class="error">{{existing_mail}}</p>
                 </div>
                 
                 <div class="login_div">
                     <label for="username">Användarnamn:</label>
                     <input type="text" id="username" name="username"  placeholder="Användarnamn" required>
-                    <p class="error">{{existing_username}}</p>
                 </div>
                
                 <div class="login_div">
                     <label for="password">Lösenord:</label>
                     <input type="password" id="password" name="password" placeholder="Lösenord" required>
                 </div>
-                
+                <div class="error">
+                    <p>{{existing}}</p>
+                </div>
                 <input type="submit" value="Skapa Konto" class="submit_button">
             </form>
 

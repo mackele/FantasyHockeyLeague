@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-    <title>FHL match</title>
+    <title>FHL</title>
     <link rel="icon" href="/static/FHL.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,6 +54,7 @@
                                 <a href="/forum">Forum</a>
                                 <a href="/inlägg">Skapa Inlägg</a>
                                 <a href="/forum/mina/inlägg">Mina Inlägg</a>
+                                
                             </div>
                         </div>
                         <div id="help">
@@ -80,52 +81,16 @@
         </div>
     </nav>
 
-    <main id ="play_game_content">
-
-        <h2>Så här funkar det!</h2>
-        <p>
-            Välj ett av dina lag som ska utmana en annan användares lag. Laget som har högst score vinner matchen (du kan inte välja lag som är skapade samma dag)!
-            Tänk på att välja ett av dina starkare lag, du kan hitta vilken score ditt lag har genom att bläddra ner på sidan.
-            Du kan inte se vad motståndarens lag har för score... Lycka till och må bäste lag vinna!
-        </p>
-
-        <h2>Spela match</h2>
-
-        <form id="challenge_players" method="post">
-            <h3>Välj ditt lag:</h3>
-            <select name="my_team" id="left_forward_option" >
-                {%for team in my_teams%} 
-                <option value="{{team[1]}}, {{team[9]}}">{{team[0]}}</option>                                
-                {%endfor%}                                            
-            </select>
-            
-            <h3>Välj vem du vill möta:</h3>
-            <select name="opponent_team" id="left_forward_option" >
-                {% for other_teams in teams%} 
-                <option value="{{other_teams[1]}}, {{other_teams[8]}}, {{other_teams[9]}}">{{other_teams[0]}}</option>                                
-                {%endfor%}                                            
-            </select>
-
-            <input type = "submit" class = "lock" name = "Spela">
-        </form>
-
-        <h2>Skapade lag</h2>
-
-        <h3>Mina lag</h3>
-        {%for team in my_teams%}
-            <ul>
-                <li>Namn: {{team[0]}}. Score= {{team[1]}}</li>
-            </ul>
-        {%endfor%} 
-
-        <h3>Andras lag</h3>
-        {%for user in teams%}
-            <ul>
-                <li>Namn: {{user[0]}}</li>
-            </ul>
-        {%endfor%} 
-
+    <main>
+        <div>
+            <h3>Det verkar tyvärr som att det blev ett fel</h3>
+            <h4>Testa att välja andra lag när du utmanar</h4>
+            <p>Du kan inte spela med lag du skapat samma dag, vilket är likadant för motståndarnas lag</p>
+            <img src="https://media1.giphy.com/media/YMYZRGrJ0QmTc3ViPo/giphy.gif" alt="celebration" class="result">
+            <h5>Testa igen!</h5>
+        </div>
     </main>
+    
     
     <footer>
         <div id="log">
@@ -135,6 +100,11 @@
         </div>
         <p>Copyright© by FHL</p>
     </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="{{url_for('static', filename = 'script.js')}}"></script>
+
+    
 </body>
-<script src="{{url_for('static', filename = 'script.js')}}"></script> 
+
 </html>

@@ -89,7 +89,6 @@ def user_loader(mail):
 
 #Index
 @FHL.route('/protected')
-@flask_login.login_required 
 def protected():
     '''
         När användaren loggats in körs denna funktionen.
@@ -221,40 +220,20 @@ def registration():
     username=request.form['username']
     password=request.form['password']
     hash_password=hashlib.md5(password.encode()).hexdigest()
-    
 
     user=database.registrations(username, mail, f_name, l_name, hash_password)
     print(user)
     
-    if user!=None:
-        print("1")
-        for person in user:
-            print("2")
-            if person[1]==mail:
-                return render_template("registration.html", existing_mail="Mailadressen du försöker använda finns redan registrerat, vänligen ange en annan mailadress eller logga in.")
-            elif person[0]==username:
-                return render_template("registration.html", existing_username="Användarnamnet du försöker använda finns redan registrerat, vänligen välj ett annat användarnamn ")
-   
-    todaydate = date.today()
-    rank_date_list=database.get_timestamp_fhl_team_ranking(todaydate)
-
-    schedual_date_list=database.get_date_fhl_game_schedual (todaydate)
-
-    if len(rank_date_list) < 1:
-        database.delete_team_ranking()
-        team_rank.get_team_rank()
-
-    teams_ranking=database.get_team_rank()
-
-    if len(schedual_date_list) < 1:
-        database.delete_play_schedual()
-        play_schedual.get_play_schedual ()
-    
-    game_schedual=database.get_game_schedual()
-    highscore =database.get_fhl_highscore()
-    points=get_user_points()
-
-    return render_template('index.html', teams_ranking=teams_ranking, game_schedual=game_schedual, points=points, highscore=highscore)   
+    if len(user)>0:
+        existing="Mailadressen eller användarnamnet du försökte använda finns redan, vänligen försök igen."
+        return render_template('registration.html', existing=existing)
+            
+    else:
+        user=User()
+        user.id=mail
+        flask_login.login_user(user)
+        return redirect(url_for('protected'))
+         
 
 
 #Guide
@@ -321,62 +300,69 @@ def play_game():
 
     if request.method == 'POST':
 
-        opponent_team_form = request.form['opponent_team'].split(", ")
-        opponent_score = int(opponent_team_form[0])
-        opponent_user = opponent_team_form[1]
-        opponent_team_id = int(opponent_team_form[2])
+        try:
 
-        my_team_form= request.form['my_team'].split(", ")
-        my_team_score = int(my_team_form[0])
-        my_team_user = user_id
-        my_team_id = int(my_team_form[1])
+            opponent_team_form = request.form['opponent_team'].split(", ")
+            opponent_score = int(opponent_team_form[0])
+            opponent_user = opponent_team_form[1]
+            opponent_team_id = int(opponent_team_form[2])
 
-        if my_team_score > opponent_score:
-            print("Du vinner!")
-            winner = my_team_user
-            looser = opponent_user
+            my_team_form= request.form['my_team'].split(", ")
+            my_team_score = int(my_team_form[0])
+            my_team_user = user_id
+            my_team_id = int(my_team_form[1])
 
-            print("Mitt lag")
-            print(my_team_score)
-            print(my_team_user)
-            print(my_team_id)
+            if my_team_score > opponent_score:
+                print("Du vinner!")
+                winner = my_team_user
+                looser = opponent_user
 
-            print("Motståndare")
-            print(opponent_score)
-            print(opponent_user)
-            print(opponent_team_id)
+                print("Mitt lag")
+                print(my_team_score)
+                print(my_team_user)
+                print(my_team_id)
 
-            add_game_to_match_history(my_team_id, opponent_team_id, winner, looser)
-            
-            #points = get_user_points
-            
-            update_points_after_win(user_id)
-            update_ranking_after_win(user_id)
+                print("Motståndare")
+                print(opponent_score)
+                print(opponent_user)
+                print(opponent_team_id)
 
-            new_points = get_user_points()
+                add_game_to_match_history(my_team_id, opponent_team_id, winner, looser)
+                
+                #points = get_user_points
+                
+                update_points_after_win(user_id)
+                update_ranking_after_win(user_id)
 
-            return render_template('vinnare.html', new_points = new_points, my_score = my_team_score, opponent_score = opponent_score)
+                new_points = get_user_points()
 
-            #Användaren får poäng
+                return render_template('vinnare.html', new_points = new_points, my_score = my_team_score, opponent_score = opponent_score)
 
-        elif my_team_score < opponent_score:
-            print("Du förlorar!")
-            winner = opponent_user
-            looser = my_team_user
+                #Användaren får poäng
 
-            add_game_to_match_history(my_team_id, opponent_team_id, winner, looser)
+            elif my_team_score < opponent_score:
+                print("Du förlorar!")
+                winner = opponent_user
+                looser = my_team_user
 
-            update_points_after_win(winner)
-            update_ranking_after_win(winner)
+                add_game_to_match_history(my_team_id, opponent_team_id, winner, looser)
 
-            points_loss = get_user_points()
+                update_points_after_win(winner)
+                update_ranking_after_win(winner)
 
-            return render_template('förlorare.html', points = points_loss, my_score = my_team_score, opponent_score = opponent_score)
-            #Andra spelaren får poäng
+                points_loss = get_user_points()
 
-        else:
-            
-            print("Vad ska vi göra när det blir lika?")
+                return render_template('förlorare.html', points = points_loss, my_score = my_team_score, opponent_score = opponent_score)
+                #Andra spelaren får poäng
+
+            else:
+                
+                return render_template('lika.html', points=get_user_points(), opponent_score = opponent_score, my_score = my_team_score)
+
+        except:
+            return render_template('error_game.html', points = get_user_points())
+        
+
 
 
     return render_template('play_game.html', points=points, teams = teams, my_teams = my_teams)
@@ -639,6 +625,16 @@ def winner():
 def looser():
     points=get_user_points()
     return render_template('förlorare.html', points=points)
+
+@FHL.route('/lika/')
+def tie():
+    points=get_user_points()
+    return render_template('lika.html', points=points)
+
+@FHL.route('/fel-match/')
+def error_game():
+    points=get_user_points()
+    return render_template('error_game.html', points=points)
 
 
 #Server
