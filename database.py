@@ -550,7 +550,7 @@ def add_purchased_player_to_team(user_id, player_id):
         conn.commit()
 
 
-def registrations(username, mail, f_name, l_name, password):
+def registrations(username, mail, f_name, l_name, hash_password):
     '''
         Funktionen undersöker om användaren som försöker registrera sig redan finns i databasen. 
         Om användaren inte är registrerad så registreras denne.
@@ -570,12 +570,12 @@ def registrations(username, mail, f_name, l_name, password):
             postgreSQL_insert = (""" insert into fhl_user (username, mail, f_name, l_name, password, points, ranking)
                                         values (%s, %s, %s, %s, %s, %s, %s) """)
                                             
-            insert_to = (username, mail, f_name, l_name, password, points, ranking)
+            insert_to = (username, mail, f_name, l_name, hash_password, points, ranking)
             cursor.execute(postgreSQL_insert, insert_to)
             conn.commit()
 
-        else:
-            return user
+        
+    return user
 
 
 def get_points(user_id):

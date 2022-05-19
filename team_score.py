@@ -12,6 +12,8 @@ def count_difference (players_API_list):
             Returnerar en lista med lexikon med spelarnas id samt deras sammanlagda skillnader i statistiken.
     """
     players_database_list=database.get_all_players()
+    print("2"*30)
+    print(players_database_list)
     score_list=[]
 
     for player in players_database_list:
@@ -36,7 +38,7 @@ def count_difference (players_API_list):
                 all_score = (goal_score + penalty_time_score + assists_score + saves_score)
 
                 score_list.append({"id":player_id, "score":all_score})
-    
+                
     return score_list
 
 
@@ -56,7 +58,11 @@ def insert_score_to_database():
         Spelarna i databasen raderas och läggs in på nytt med ny statistik.
     """
     players_API_list=player_info.get_all_players_API()
+    print("1"*30)
+    print (players_API_list)
     player_score_list=count_difference(players_API_list)
+    print("3"*30)
+    print(player_score_list)
     fhl_user_team_list=database.get_team_list_fhl_team()
 
     for team in fhl_user_team_list:
@@ -74,6 +80,10 @@ def insert_score_to_database():
         for player in player_score_list:
             if player["id"]==first_player_id or player["id"]==second_player_id or player["id"] == third_player_id or player["id"]==fourth_player_id or player["id"]==fifth_player_id or player["id"]==sixth_player_id:
                 team_score = team_score + int(player["score"])
+        print("5"*30)
+        print(team_score, team_id)
         database.insert_team_score(team_score, team_id)
    
     insert_players_to_database(players_API_list)   
+
+

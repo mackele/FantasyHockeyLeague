@@ -221,40 +221,17 @@ def registration():
     username=request.form['username']
     password=request.form['password']
     hash_password=hashlib.md5(password.encode()).hexdigest()
-    
 
     user=database.registrations(username, mail, f_name, l_name, hash_password)
     print(user)
     
-    if user!=None:
-        print("1")
-        for person in user:
-            print("2")
-            if person[1]==mail:
-                return render_template("registration.html", existing_mail="Mailadressen du försöker använda finns redan registrerat, vänligen ange en annan mailadress eller logga in.")
-            elif person[0]==username:
-                return render_template("registration.html", existing_username="Användarnamnet du försöker använda finns redan registrerat, vänligen välj ett annat användarnamn ")
-   
-    todaydate = date.today()
-    rank_date_list=database.get_timestamp_fhl_team_ranking(todaydate)
-
-    schedual_date_list=database.get_date_fhl_game_schedual (todaydate)
-
-    if len(rank_date_list) < 1:
-        database.delete_team_ranking()
-        team_rank.get_team_rank()
-
-    teams_ranking=database.get_team_rank()
-
-    if len(schedual_date_list) < 1:
-        database.delete_play_schedual()
-        play_schedual.get_play_schedual ()
-    
-    game_schedual=database.get_game_schedual()
-    highscore =database.get_fhl_highscore()
-    points=get_user_points()
-
-    return render_template('index.html', teams_ranking=teams_ranking, game_schedual=game_schedual, points=points, highscore=highscore)   
+    if len(user)>0:
+        existing="Mailadressen eller användarnamnet du försökte använda finns redan, vänligen försök igen."
+        return render_template('registration.html', existing=existing)
+            
+    else:
+        
+        return redirect(url_for('protected'))   
 
 
 #Guide
