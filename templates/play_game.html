@@ -80,22 +80,14 @@
         </div>
     </nav>
 
-    <main>
-        <h1>Lag du kan utmana</h1>
+    <main id ="play_game_content">
 
-        <h2>Andras lag</h2>
-        {%for user in teams%}
-            <ul>
-                <li>Namn: {{user[0]}}. Score = {{user[1]}}<input type="button" value="Utmana {{user[0]}}"> </li>
-            </ul>
-        {%endfor%} 
-
-        <h2>Mina lag</h2>
-        {%for team in my_teams%}
-            <ul>
-                <li>Namn: {{team[0]}}. Score= {{team[1]}} <input type="button" value="Välj lag: {{team[0]}}"> </li>
-            </ul>
-        {%endfor%} 
+        <h2>Så här funkar det!</h2>
+        <p>
+            Välj ett av dina lag som ska utmana en annan användares lag. Laget som har högst score vinner matchen (du kan inte välja lag som är skapade samma dag)!
+            Tänk på att välja ett av dina starkare lag, du kan hitta vilken score ditt lag har genom att bläddra ner på sidan.
+            Du kan inte se vad motståndarens lag har för score... Lycka till och må bäste lag vinna!
+        </p>
 
         <h2>Spela match</h2>
 
@@ -116,6 +108,22 @@
 
             <input type = "submit" class = "lock" name = "Spela">
         </form>
+
+        <h2>Skapade lag</h2>
+
+        <h3>Mina lag</h3>
+        {%for team in my_teams%}
+            <ul>
+                <li>Namn: {{team[0]}}. Score= {{team[1]}}</li>
+            </ul>
+        {%endfor%} 
+
+        <h3>Andras lag</h3>
+        {%for user in teams%}
+            <ul>
+                <li>Namn: {{user[0]}}</li>
+            </ul>
+        {%endfor%} 
 
     </main>
     
