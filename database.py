@@ -1022,6 +1022,7 @@ def update_points_after_win(user_id):
         conn.commit()
 
 
+
 def update_ranking_after_win(user_id):
     with Postgres() as (cursor, conn):
         PostgreSQL_insert = (f"""update fhl_user

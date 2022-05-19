@@ -345,10 +345,14 @@ def play_game():
 
             add_game_to_match_history(my_team_id, opponent_team_id, winner, looser)
             
-            points = get_user_points
+            #points = get_user_points
             
             update_points_after_win(user_id)
             update_ranking_after_win(user_id)
+
+            new_points = get_user_points()
+
+            return render_template('vinnare.html', new_points = new_points, my_score = my_team_score, opponent_score = opponent_score)
 
             #Användaren får poäng
 
@@ -361,9 +365,14 @@ def play_game():
 
             update_points_after_win(winner)
             update_ranking_after_win(winner)
+
+            points_loss = get_user_points()
+
+            return render_template('förlorare.html', points = points_loss, my_score = my_team_score, opponent_score = opponent_score)
             #Andra spelaren får poäng
 
         else:
+            
             print("Vad ska vi göra när det blir lika?")
 
 
@@ -618,7 +627,15 @@ def get_user_points():
     
     return points
 
+@FHL.route('/vinnare/')
+def winner():
+    points=get_user_points()
+    return render_template('vinnare.html', points=points)
 
+@FHL.route('/förlorare/')
+def looser():
+    points=get_user_points()
+    return render_template('förlorare.html', points=points)
 
 
 #Server
