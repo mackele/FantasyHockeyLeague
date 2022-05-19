@@ -82,18 +82,89 @@
 
     <div id="buy_players_body">
         <div class="FHLcategory">
-            <div>
-                <label for="dog-names">Filtrera:</label>
-                <select name="dog-names" id="dog-names">
-                    <option value="rigatoni">Namn</option>
-                    <option value="dave">Lag</option>
-                    <option value="pumpernickel">Rating</option>
-                    <option value="reeses">Poäng</option>
-                </select>  
+            <div id="search_div">
+                <form action="/search" method="post">
+                    <div>
+                        <label for="search">Sök efter hockeyspelare med helt namn:</label>
+                    </div>
+                    <input type="text" id="search" name="search">
+                    <input type="submit" value="Sök" class="submit_button">
+                </form>  
             </div>               
         </div>
 
         <h2>Köp spelare</h2>
+        {% for person in search_result %}
+        <div id="search_player">
+            <div class="card">
+                <div class="card__inner">
+                    <div class="card__face card__face--front">
+                        
+                        <!--Player statistics-->
+                        <img src="{{person[6]}}">
+                        <!--Hämta namn från databas-->
+                        <h4>{{person[9]}}</h4>                                  
+                            <!--Hämta poäng från databas ("Poäng: " + database value)-->
+                            <div class="costs">
+                                <h5>Pris: {{person[7]}}</h5>
+                                <form action="/buy" method="post">
+                                    <input type="hidden" id="player_id" name="id" value={{person[0]}}>
+
+                                    <input type = "submit" class="cost_button" value="Köp">
+                                </form>
+                                
+                            </div>
+                    </div>
+                    {% if person[2] == "Goalie" %}
+                    <div class="card__face card__face--back">
+                        <div class="card__content">
+                            <div class="card__header">
+                                <!--Spelarstatistik från databasen-->
+                                <!--Hämta namn-->
+                                <h4>{{person[9]}}</h4>
+                                <!--Hämta lag-->
+                                <p>Lag:</p>
+                                <p class="line"> {{person[1]}}</p>
+                                <!--Hämta position-->
+                                <p>Position:</p>
+                                <p class="line"> {{person[2]}}</p>
+                                <!--Hämta antal räddningar-->
+                                <p>Räddningar:</p>
+                                <p class="line"> {{person[8]}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="card__face card__face--back">
+                        <div class="card__content">
+                            <div class="card__header">
+                                <!--Spelarstatistik från databasen-->
+                                <!--Hämta namn-->
+                                <h4>{{person[9]}}</h4>
+                                <!--Hämta lag-->
+                                <p>Lag:</p>
+                                <p class="line"> {{person[1]}}</p>
+                                <!--Hämta position-->
+                                <p>Position:</p>
+                                <p class="line"> {{person[2]}}</p>
+                                <!--Hämta antal mål-->
+                                <p>Mål:</p>
+                                <p class="line">{{person[3]}}</p>
+                                <!--Hämta antal assit-->
+                                <p>Assist:</p>
+                                <p class="line">{{person[5]}}</p>
+                                <!--Hämta antal utvisningsminuter-->
+                                <p>Utvisningsminuter:</p>
+                                <p class="line">{{person[4]}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
 
         <h3>Center</h3>
 

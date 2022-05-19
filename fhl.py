@@ -280,11 +280,32 @@ def buy_players():
         player_price = request.form["price"]
         update_points_after_bought_player(player_price, user_id)
         add_purchased_player_to_team(user_id, player_id)
-        
-        
-    
+   
     return render_template('buy_players.html', points=points, right_forwards = right_forwards, centers = centers,
     left_forwards = left_forwards, defense = defense, goalies = goalies)
+
+@FHL.route('/search', methods=['GET', 'POST'])
+def search():
+
+    if request.method =='POST':
+        user_search=request.form['search']
+        search_result=database.search(user_search)
+    
+        if len(search_result) > 0:
+            
+            points=get_user_points()
+            return render_template('buy_players.html', points=points, search_result=search_result)
+            
+@FHL.route('/buy', methods=['GET','POST'])
+def buy():
+    if request.method =='POST':
+        player_id = request.form['id']
+        user_id=flask_login.current_user.id
+
+        add_purchased_player_to_team(user_id, player_id)
+
+    return redirect('/köp-spelare/')
+        
 
 #Play game
 @FHL.route('/spela-match/', methods= ['GET', 'POST'])
