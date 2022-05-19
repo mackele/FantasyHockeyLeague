@@ -662,6 +662,17 @@ select {
     flex-direction: column;
 }
 
+
+#search_div form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#search_div input, #search_div label {
+    margin:5px;
+}
+
 #searchbuy {
     display: flex;
     

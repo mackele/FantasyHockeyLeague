@@ -59,6 +59,19 @@ def add_player_to_database(players):
             cursor.execute(PostgreSQL_insert)
             conn.commit()
       
+def search(user_search):
+    with Postgres() as (cursor, conn):
+        '''
+        cursor.execute(f"""select * from fhl_players 
+                            where name ='{user_search}' """)
+        '''
+        cursor.execute("""select *
+                            from fhl_players
+                                where name=%s""",
+                                (user_search,))
+        list = cursor.fetchall()
+    
+    return list
 
 def add_players_to_list(info):
     '''
