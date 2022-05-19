@@ -373,7 +373,7 @@ def play_game():
 
         else:
             
-            print("Vad ska vi göra när det blir lika?")
+            return render_template('lika.html', points=get_user_points(), opponent_score = opponent_score, my_score = my_team_score)
 
 
     return render_template('play_game.html', points=points, teams = teams, my_teams = my_teams)
@@ -636,6 +636,11 @@ def winner():
 def looser():
     points=get_user_points()
     return render_template('förlorare.html', points=points)
+
+@FHL.route('/lika/')
+def tie():
+    points=get_user_points()
+    return render_template('lika.html', points=points)
 
 
 #Server
