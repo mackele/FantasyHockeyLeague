@@ -89,7 +89,6 @@ def user_loader(mail):
 
 #Index
 @FHL.route('/protected')
-@flask_login.login_required 
 def protected():
     '''
         När användaren loggats in körs denna funktionen.
@@ -230,8 +229,11 @@ def registration():
         return render_template('registration.html', existing=existing)
             
     else:
-        
-        return redirect(url_for('protected'))   
+        user=User()
+        user.id=mail
+        flask_login.login_user(user)
+        return redirect(url_for('protected'))
+         
 
 
 #Guide
