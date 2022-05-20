@@ -283,10 +283,14 @@ def buy_players():
             update_points_after_bought_player(player_price, user_id)
             add_purchased_player_to_team(user_id, player_id)
 
+            return render_template('my_players.html', user_id = user_id, goalie = get_users_goalie(user_id), defenseman = get_users_defenseman(user_id),
+            forward = get_users_forward(user_id), center = get_users_center(user_id))
+
         except:
+            revert_points_after_error(player_price, user_id)
             return render_template('error_köp.html', points = get_user_points())
    
-    return render_template('buy_players.html', points=points, right_forwards = right_forwards, centers = centers,
+    return render_template('buy_players.html', points=get_user_points(), right_forwards = right_forwards, centers = centers,
     left_forwards = left_forwards, defense = defense, goalies = goalies)
 
 @FHL.route('/fel-köp/')

@@ -1073,9 +1073,16 @@ def update_points_after_win(user_id):
         cursor.execute(PostgreSQL_insert)
         conn.commit()
 
-def update_points_after_bought_player(user_id, player_price):
+def update_points_after_bought_player(player_price, user_id):
     with Postgres() as (cursor, conn):
-        PostgreSQL_insert = (f"""UPDATE fhl_user SET points = (points - '{user_id}') WHERE mail ='{player_price}'""")
+        PostgreSQL_insert = (f"""UPDATE fhl_user SET points = (points - '{player_price}') WHERE mail ='{user_id}'""")
+
+        cursor.execute(PostgreSQL_insert)
+        conn.commit()
+
+def revert_points_after_error(player_price, user_id):
+    with Postgres() as (cursor, conn):
+        PostgreSQL_insert = (f"""UPDATE fhl_user SET points = (points + '{player_price}') WHERE mail ='{user_id}'""")
 
         cursor.execute(PostgreSQL_insert)
         conn.commit()
