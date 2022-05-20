@@ -281,10 +281,17 @@ def buy_players():
             player_id = request.form["id"]
             player_price = request.form["price"]
             update_points_after_bought_player(player_price, user_id)
-            add_purchased_player_to_team(user_id, player_id)
+            points_validate = get_user_points()
 
-            return render_template('my_players.html', user_id = user_id, goalie = get_users_goalie(user_id), defenseman = get_users_defenseman(user_id),
-            forward = get_users_forward(user_id), center = get_users_center(user_id))
+            if points_validate <=0:
+                revert_points_after_error(player_price, user_id)
+                return render_template('fel_poäng.html', points=get_user_points())
+
+            else:
+                add_purchased_player_to_team(user_id, player_id)
+
+                return render_template('my_players.html', user_id = user_id, goalie = get_users_goalie(user_id), defenseman = get_users_defenseman(user_id),
+                forward = get_users_forward(user_id), center = get_users_center(user_id))
 
         except:
             revert_points_after_error(player_price, user_id)
@@ -295,6 +302,11 @@ def buy_players():
 
 @FHL.route('/fel-köp/')
 def error_purchase():
+    points=get_user_points()
+    return render_template('error_köp.html', points=points)
+
+@FHL.route('/fel-poäng/')
+def error_points():
     points=get_user_points()
     return render_template('error_köp.html', points=points)
 
