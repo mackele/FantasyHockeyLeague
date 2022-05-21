@@ -20,6 +20,18 @@ FHL = Flask(__name__)
 @FHL.route('/')
 @flask_login.login_required
 def index():
+    '''
+        Funktionen skickar in dagens datum till database.py för att få se om dagens datum finns i tabellen fhl_team_ranking i databasen.
+        Om listan är mindre än 1 så körs fuktionen delete_team_ranking i database.py och funktionen get_team_rank i team_rank.py.
+
+        Funktionen skickar in dagens daturm till database. py för att se om dagens datum finns i tabellen fhl_game_schedual.
+        Om listan är mindre än 1 så körs funktionen delete_play_schedual i database.py och funktioen get_play_schedual från play_schedual.py
+
+        Funktionen hämtar get_game_schedual, get_team_rank, get_fhl_highscore från database.py och skickar med dessa listor till unauthorized_index.html
+
+        return:
+            returnerar unauthorized_index.html tillsammans med lagranking, spelschema och highscore.
+    '''
     todaydate = date.today()
     print(todaydate)
     rank_date_list=database.get_timestamp_fhl_team_ranking(todaydate)
@@ -239,6 +251,11 @@ def registration():
 #Guide
 @FHL.route('/guide/')
 def guide():
+    '''
+    Funktionen hämtar användarens poäng från databasen genom funktionen get_user_points.
+    Return
+        Funktionen returnerar html filen guide.htm tillsammans med den inloggade användarens poäng.
+    '''
     points=get_user_points()
     return render_template('guide.html', points=points)
 
@@ -291,7 +308,7 @@ def buy_players():
                 add_purchased_player_to_team(user_id, player_id)
 
                 return render_template('my_players.html', user_id = user_id, goalie = get_users_goalie(user_id), defenseman = get_users_defenseman(user_id),
-                forward = get_users_forward(user_id), center = get_users_center(user_id))
+                forward = get_users_forward(user_id), center = get_users_center(user_id), points=get_user_points())
 
         except:
             revert_points_after_error(player_price, user_id)
@@ -312,6 +329,15 @@ def error_points():
 
 @FHL.route('/search', methods=['GET', 'POST'])
 def search():
+    '''
+        Funktionen tar emot en sträng med ordet som användaren sökt efter i buy_player.html. 
+        Sökningen skickas till database.py för att hitta i databasen.
+
+        return
+            Om listan längd som kommer från databasen är större än 0 returneras listan med sökresultat till puy_players.html tillsammans med användarens poäng.
+            Annars rederectas användaren tillbaka till utgångssidan.
+
+    '''
 
     if request.method =='POST':
         user_search=request.form['search']
@@ -327,6 +353,12 @@ def search():
             
 @FHL.route('/buy', methods=['GET','POST'])
 def buy():
+    '''
+        Om användaren vill köpa en spelare som den sökt efter kör denna funktionen. 
+        Funktionen tar emot spelaren som ska köpas id samt användarens id och för in i databasen.
+        Return
+            Användaren rederectas till buy_player.html
+    '''
     if request.method =='POST':
         player_id = request.form['id']
         user_id=flask_login.current_user.id
@@ -653,10 +685,14 @@ def forum_like():
         return redirect(url_for('forum'))
 
 
-#Logged in users points
 @FHL.route('/points')
 @flask_login.login_required
 def get_user_points():
+    ''' 
+    Funktionen hämtar den inloggade användarens poäng från databasen.
+    Return
+        Returnerar poängen
+    '''
     user_id=flask_login.current_user.id
     points=database.get_points(user_id)
     

@@ -9,11 +9,9 @@ def count_difference (players_API_list):
         Funktionen jämför spelarnas statistik i NHL:s API från dagens datum med spelarnas statistik i databasen som inte är dagens datum.
 
         Return:
-            Returnerar en lista med lexikon med spelarnas id samt deras sammanlagda skillnader i statistiken.
+            Returnerar en lista med lexikon med spelarnas id samt deras sammanlagda skillnader i statistiken samt grund poäng kopplat till spelaren.
     """
     players_database_list=database.get_all_players()
-    print("2"*30)
-    print(players_database_list)
     score_list=[]
 
     for player in players_database_list:
@@ -31,11 +29,23 @@ def count_difference (players_API_list):
                 person_assists=person["assists"]
                 person_saves=person["saves"]
 
+                price_points=person["price"]
+                
+                if price_points <= 0:
+                    basic_points=0
+                
+                elif price_points < 100:
+                    basic_points= int(price_points)/ 5
+                
+                else:
+                    basic_points=int(price_points)/ 25
+
                 goal_score= (person_goal - player_goal) * 2
                 penalty_time_score= round(int(person_penelty_time) - int(player_penalty_time))
                 assists_score= person_assists - player_assists 
                 saves_score= person_saves - player_saves
-                all_score = (goal_score + penalty_time_score + assists_score + saves_score)
+                
+                all_score = (goal_score + penalty_time_score + assists_score + saves_score + basic_points)
 
                 score_list.append({"id":player_id, "score":all_score})
                 

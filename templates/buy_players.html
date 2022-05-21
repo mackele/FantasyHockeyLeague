@@ -84,7 +84,7 @@
         <div class="FHLcategory">
             <div id="search_div">
                 <form action="/search" method="post">
-                    <label for="search">Sök efter hockeyspelare med helt namn:</label>
+                    <label for="search">Sök efter hockeyspelare:</label>
                     <div>
                         <input type="text" id="search" name="search">
                         <input type="submit" value="Sök" class="submit_button">
@@ -94,8 +94,9 @@
         </div>
 
         <h2>Köp spelare</h2>
-        {% for person in search_result %}
+        
         <div id="search_player">
+            {% for person in search_result %}
             <div class="card">
                 <div class="card__inner">
                     <div class="card__face card__face--front">
@@ -162,9 +163,9 @@
                     {% endif %}
                 </div>
             </div>
-
+            {% endfor %}
         </div>
-        {% endfor %}
+        
 
         <h3>Center</h3>
 

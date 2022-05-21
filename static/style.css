@@ -669,6 +669,10 @@ select {
     align-items: center;
 }
 
+#search_player {
+    display: flex;
+}
+
 #search_div input, #search_div label {
     margin:5px;
 }

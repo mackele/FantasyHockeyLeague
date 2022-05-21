@@ -67,8 +67,8 @@ def search(user_search):
         '''
         cursor.execute("""select *
                             from fhl_players
-                                where name=%s""",
-                                (user_search,))
+                                where name like %s""",
+                                ('%' + user_search + '%',))
         list = cursor.fetchall()
     
     return list
