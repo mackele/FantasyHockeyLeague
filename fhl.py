@@ -77,11 +77,17 @@ def login():
     hash_password=hashlib.md5(password.encode()).hexdigest()
     user=database.login(mail, hash_password) 
 
+
     if len(user)>0:
         user=User()
         user.id=mail
         flask_login.login_user(user)
-        return redirect(url_for('protected'))
+        return redirect('/')
+            
+    else:
+        existing="Lösenordet du angav hör inte ihop med användarnamnet, vänligen försök igen!"
+        return render_template('login.html', existing=existing)
+       
 
 
 class User (flask_login.UserMixin):
@@ -97,46 +103,6 @@ def user_loader(mail):
     user = User()
     user.id = mail
     return user
-
-
-#Index
-@FHL.route('/protected')
-def protected():
-    '''
-        När användaren loggats in körs denna funktionen.
-
-        Funktionen skickar in dagens datum till database.py för att få se om dagens datum finns i tabellen fhl_team_ranking i databasen.
-        Om listan är mindre än 1 så körs fuktionen delete_team_ranking i database.py och funktionen get_team_rank i team_rank.py.
-
-        Funktionen skickar in dagens daturm till database. py för att se om dagens datum finns i tabellen fhl_game_schedual.
-        Om listan är mindre än 1 så körs funktionen delete_play_schedual i database.py och funktioen get_play_schedual från play_schedual.py
-
-        Funktionen hämtar get_game_schedual, get_team_rank, get_fhl_highscore från database.py och skickar med dessa listor till index.html tillsammans med användarens poäng
-
-        return:
-             returnerar index.html tillsammans med lagranking, spelschema, och poäng och highscore.
-
-    '''
-    todaydate = date.today()
-    rank_date_list=database.get_timestamp_fhl_team_ranking(todaydate)
-
-    schedual_date_list=database.get_date_fhl_game_schedual (todaydate)
-
-    if len(rank_date_list) < 1:
-        database.delete_team_ranking()
-        team_rank.get_team_rank()
-
-    teams_ranking=database.get_team_rank()
-
-    if len(schedual_date_list) < 1:
-        database.delete_play_schedual()
-        play_schedual.get_play_schedual ()
-    
-    game_schedual=database.get_game_schedual()
-    highscore =database.get_fhl_highscore()
-    points=get_user_points()
-    return render_template('index.html', points=points, teams_ranking=teams_ranking, game_schedual=game_schedual, highscore=highscore)
-
 
 #Sign out
 @FHL.route('/logout')
@@ -244,7 +210,7 @@ def registration():
         user=User()
         user.id=mail
         flask_login.login_user(user)
-        return redirect(url_for('protected'))
+        return redirect(url_for('/'))
          
 
 
