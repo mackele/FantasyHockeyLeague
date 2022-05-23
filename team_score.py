@@ -35,10 +35,10 @@ def count_difference (players_API_list):
                     basic_points=0
                 
                 elif price_points < 100:
-                    basic_points= int(price_points)/ 5
+                    basic_points= round(int(price_points)/ 5)
                 
                 else:
-                    basic_points=int(price_points)/ 25
+                    basic_points=round(int(price_points)/ 25)
 
                 goal_score= (person_goal - player_goal) * 2
                 penalty_time_score= round(int(person_penelty_time) - int(player_penalty_time))
@@ -68,11 +68,7 @@ def insert_score_to_database():
         Spelarna i databasen raderas och läggs in på nytt med ny statistik.
     """
     players_API_list=player_info.get_all_players_API()
-    print("1"*30)
-    print (players_API_list)
     player_score_list=count_difference(players_API_list)
-    print("3"*30)
-    print(player_score_list)
     fhl_user_team_list=database.get_team_list_fhl_team()
 
     for team in fhl_user_team_list:
@@ -84,14 +80,20 @@ def insert_score_to_database():
         sixth_player_id=team[7]
 
         team_id=team[9]
+
+        user_id=team[8]
         
         team_score= 0
 
         for player in player_score_list:
             if player["id"]==first_player_id or player["id"]==second_player_id or player["id"] == third_player_id or player["id"]==fourth_player_id or player["id"]==fifth_player_id or player["id"]==sixth_player_id:
                 team_score = team_score + int(player["score"])
-        print("5"*30)
-        print(team_score, team_id)
+        
+        old_points=database.get_points(user_id)
+        for points in old_points:
+            new_points=points[0] + team_score
+
+        database.update_points(new_points, user_id)
         database.insert_team_score(team_score, team_id)
    
     insert_players_to_database(players_API_list)   

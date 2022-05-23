@@ -56,7 +56,7 @@ def index():
 
 
 #Sign in
-FHL.secret_key='hej' #ändra senare!
+FHL.secret_key='hej'
 login_manager=flask_login.LoginManager()
 login_manager.init_app (FHL)
 @FHL.route('/login', methods=['GET', 'POST'])
@@ -85,11 +85,9 @@ def login():
         return redirect('/')
             
     else:
-        existing="Lösenordet du angav hör inte ihop med användarnamnet, vänligen försök igen!"
+        existing="Lösenordet du angavhör inte ihop med användarnamnet, vänligen försök igen!"
         return render_template('login.html', existing=existing)
        
-
-
 class User (flask_login.UserMixin):
     pass
 
