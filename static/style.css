@@ -1084,4 +1084,8 @@ form textarea {
 
 }
 
-
+#body_my_players img {
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+}
