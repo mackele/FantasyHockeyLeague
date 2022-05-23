@@ -520,20 +520,31 @@ def match():
 @FHL.route('/match-historik/')
 @flask_login.login_required
 def match_history():
+    try:
+        points=get_user_points()
+        user_id=flask_login.current_user.id
+
+        wins_get = get_wins(user_id)
+        losses_get = get_losses(user_id)
+
+        wins = wins_get[1]
+        losses = losses_get[1]
+
+        won_games = get_history_won_games(user_id)
+        lost_games = get_history_lost_games(user_id)
+        
+
+        return render_template('matchhistory.html', points=points, won_games = won_games, lost_games = lost_games, wins=wins, losses=losses)
+
+    except:
+        points=get_user_points()
+        return render_template('historik-fel.html', points = points)
+
+@FHL.route('/historik-fel/')
+@flask_login.login_required
+def history_error():
     points=get_user_points()
-    user_id=flask_login.current_user.id
-
-    wins_get = get_wins(user_id)
-    losses_get = get_losses(user_id)
-
-    wins = wins_get[1]
-    losses = losses_get[1]
-
-    won_games = get_history_won_games(user_id)
-    lost_games = get_history_lost_games(user_id)
-    
-
-    return render_template('matchhistory.html', points=points, won_games = won_games, lost_games = lost_games, wins=wins, losses=losses)
+    return render_template('historik-fel.html', points = points)
 
 
 #Toplist

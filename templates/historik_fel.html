@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <title>FHL</title>
+    <link rel="icon" href="/static/FHL.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+</head>
+<body>
+    <nav>
+        <div class="left_nav">
+            <div id="log">
+                <a href="/">
+                    <img src="{{url_for('static', filename = 'FHL.png')}}" alt="Logga" href="index.html">
+                </a>
+            </div>
+            <div id="menu">
+                <div id="mobile_menu">
+                    <button class="dropbtn mobile" onclick="dropFunction_mobile()">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </button>
+                    <div class="dropdown_mobile" id="mobile_content">
+                        <div class="dropdown">
+                            <button class="dropbtn" onclick="dropFunction_players()">Hockeyspelare</button>
+                        
+                            <div class="dropdown_content" id="hockey_players">
+                                <a href="/top-spelare">Statistik över spelare</a>
+                                <a href="/köp-spelare">Köpa spelare</a>
+                                <a href="/mina-spelare">Mina spelare</a>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="dropbtn" onclick="dropFunction_matches()">Matcher</button>
+                        
+                            <div class="dropdown_content" id="matches">
+                                <a href="/match">Lägg Match</a>
+                                <a href="/spela-match">Spela Match</a>
+                                <a href="/match-historik">Min Matchhistorik</a>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="dropbtn" onclick="dropFunction_posts()">Inlägg</button>
+                        
+                            <div class="dropdown_content" id="posts">
+                                <a href="/forum">Forum</a>
+                                <a href="/inlägg">Skapa Inlägg</a>
+                                <a href="/forum/mina/inlägg">Mina Inlägg</a>
+                                
+                            </div>
+                        </div>
+                        <div id="help">
+                            <button class="help">Hjälp 
+                                <a href="/guide"></a>
+                                <div id="questionmark">
+                                    <p> ?</p>
+                                </div>
+                            </button> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <div id="nav_right">
+            <div class="points">
+               <p>{{points}} P</p>  <!--Från databasen skrivs användarens poäng ut-->
+            </div>
+            <div class="log_out">
+
+                <a href="/logout">Logga ut</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div>
+            <h3>Det verkar tyvärr som att det blev ett fel</h3>
+            <h4>Du har inte spelat några matcher och därför så kan inte en historik visas upp</h4>
+            <p>Kom igång genom att lägga ditt lag</p>
+            <img src="https://cdn.vox-cdn.com/uploads/chorus_asset/file/6694227/toewscupraise.0.gif" alt="celebration" class="result">
+            <h5>Nu kör vi!</h5>
+        </div>
+    </main>
+    
+    
+    <footer>
+        <div id="log">
+            <a href="/">
+                <img src="{{url_for('static', filename = 'FHL.png')}}" alt="Logga" >
+            </a>
+        </div>
+        <p>Copyright© by FHL</p>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="{{url_for('static', filename = 'script.js')}}"></script>
+
+    
+</body>
+
+</html>
