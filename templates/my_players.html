@@ -96,7 +96,11 @@
                                     <h4>{{player.name}}</h4>                                  
                                     <!--Hämta poäng från databas ("Poäng: " + database value)-->
                                     <h4>Poäng: {{player.price}} </h4>
-                                    <button class="cost_button">sälj</button>
+                                    <form action="/sell" method="post">
+                                        <input type="hidden" id="player_id" name="id" value={{player.id}}>
+                                        <input type="hidden" id="player_price" name="price" value="{{player.price}}">
+                                        <input type = "submit" class="cost_button" value="Sälj">
+                                    </form>
                                 </div>
 
                                 <div class="card__face card__face--back">
@@ -145,7 +149,11 @@
                                     <h3>{{player.name}}</h3>                                  
                                     <!--Hämta poäng från databas ("Poäng: " + database value)-->
                                     <h4>Poäng: {{player.price}} </h4>
-                                    <button class="cost_button">sälj</button>
+                                    <form action="/sell" method="post">
+                                        <input type="hidden" id="player_id" name="id" value={{player.id}}>
+                                        <input type="hidden" id="player_price" name="price" value="{{player.price}}">
+                                        <input type = "submit" class="cost_button" value="Sälj">
+                                    </form>
                                 </div>
 
                                 <div class="card__face card__face--back">
@@ -194,7 +202,11 @@
                                 <h3>{{player.name}}</h3>                                  
                                 <!--Hämta poäng från databas ("Poäng: " + database value)-->
                                 <h4>Poäng: {{player.price}} </h4>
-                                <button class="cost_button">sälj</button>
+                                <form action="/sell" method="post">
+                                    <input type="hidden" id="player_id" name="id" value={{player.id}}>
+                                    <input type="hidden" id="player_price" name="price" value="{{player.price}}">
+                                    <input type = "submit" class="cost_button" value="Sälj">
+                                </form>
                             </div>
 
                             <div class="card__face card__face--back">
@@ -243,7 +255,11 @@
                                     <h3>{{player.name}}</h3>                                  
                                     <!--Hämta poäng från databas ("Poäng: " + database value)-->
                                     <h4>Poäng: {{player.price}} </h4>
-                                    <button class="cost_button">sälj</button>
+                                    <form action="/sell" method="post">
+                                        <input type="hidden" id="player_id" name="id" value={{player.id}}>
+                                        <input type="hidden" id="player_price" name="price" value="{{player.price}}">
+                                        <input type = "submit" class="cost_button" value="Sälj">
+                                    </form>
                                 </div>
 
                                 <div class="card__face card__face--back">

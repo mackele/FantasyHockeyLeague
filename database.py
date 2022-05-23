@@ -59,6 +59,7 @@ def add_player_to_database(players):
             cursor.execute(PostgreSQL_insert)
             conn.commit()
       
+
 def search(user_search):
     with Postgres() as (cursor, conn):
         '''
@@ -72,6 +73,7 @@ def search(user_search):
         list = cursor.fetchall()
     
     return list
+
 
 def add_players_to_list(info):
     '''
@@ -1073,6 +1075,7 @@ def update_points_after_win(user_id):
         cursor.execute(PostgreSQL_insert)
         conn.commit()
 
+
 def update_points_after_bought_player(player_price, user_id):
     with Postgres() as (cursor, conn):
         PostgreSQL_insert = (f"""UPDATE fhl_user SET points = (points - '{player_price}') WHERE mail ='{user_id}'""")
@@ -1080,13 +1083,27 @@ def update_points_after_bought_player(player_price, user_id):
         cursor.execute(PostgreSQL_insert)
         conn.commit()
 
+
+def update_points_after_sell_player(player_id, player_price, user_id):
+    with Postgres() as (cursor, conn):
+        sell_player = (f""" delete from fhl_my_players where player = '{player_id}' and fhl_user = '{user_id}'""")
+        cursor.execute(sell_player)
+        conn.commit()
+
+    with Postgres() as (cursor, conn):
+        update_player_points = (f"""UPDATE fhl_user SET points = (points + '{player_price}') WHERE mail ='{user_id}'""")
+        cursor.execute(update_player_points)
+        conn.commit()
+
+
 def revert_points_after_error(player_price, user_id):
     with Postgres() as (cursor, conn):
         PostgreSQL_insert = (f"""UPDATE fhl_user SET points = (points + '{player_price}') WHERE mail ='{user_id}'""")
 
         cursor.execute(PostgreSQL_insert)
         conn.commit()
-                                
+
+
 def update_ranking_after_win(user_id):
     '''
     Funktion ökar en spelares ranking med 5 i databasen efter man har vunnit en match.
@@ -1139,6 +1156,7 @@ def get_history_lost_games(user_id):
         
     return teams
 
+
 def get_losses(user_id):
     '''
     Funktion som hämtar ut antal förluster från databasen och returnerar detta till matchhistoriken
@@ -1152,6 +1170,7 @@ def get_losses(user_id):
         losses = losses_sql[0]
         
         return losses
+
 
 def get_wins(user_id):
     '''

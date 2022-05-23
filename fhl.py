@@ -213,7 +213,6 @@ def registration():
         return redirect(url_for('/'))
          
 
-
 #Guide
 @FHL.route('/guide/')
 def guide():
@@ -283,15 +282,36 @@ def buy_players():
     return render_template('buy_players.html', points=get_user_points(), right_forwards = right_forwards, centers = centers,
     left_forwards = left_forwards, defense = defense, goalies = goalies)
 
+
+#Sell players
+@FHL.route('/sell', methods = ['GET', 'POST'])
+@flask_login.login_required
+def sell_players():
+    '''
+    Funktionen tillåter användaren att sälja spelare från sitt lag
+    '''
+    if request.method == 'POST':
+        user_id=flask_login.current_user.id
+        player_id = request.form["id"]
+        player_price = request.form["price"]
+        update_points_after_sell_player(player_id, player_price, user_id)
+        return redirect(url_for('my_players'))
+    
+    else: 
+        return redirect(url_for('my_players'))
+
+
 @FHL.route('/fel-köp/')
 def error_purchase():
     points=get_user_points()
     return render_template('error_köp.html', points=points)
 
+
 @FHL.route('/fel-poäng/')
 def error_points():
     points=get_user_points()
     return render_template('error_köp.html', points=points)
+
 
 @FHL.route('/search', methods=['GET', 'POST'])
 def search():
@@ -316,7 +336,8 @@ def search():
         
         else:
            return redirect('/köp-spelare/') 
-            
+
+
 @FHL.route('/buy', methods=['GET','POST'])
 def buy():
     '''
@@ -679,20 +700,24 @@ def get_user_points():
     
     return points
 
+
 @FHL.route('/vinnare/')
 def winner():
     points=get_user_points()
     return render_template('vinnare.html', points=points)
+
 
 @FHL.route('/förlorare/')
 def looser():
     points=get_user_points()
     return render_template('förlorare.html', points=points)
 
+
 @FHL.route('/lika/')
 def tie():
     points=get_user_points()
     return render_template('lika.html', points=points)
+
 
 @FHL.route('/fel-match/')
 def error_game():
