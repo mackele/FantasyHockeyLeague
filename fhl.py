@@ -481,6 +481,7 @@ def match():
         if request.method == 'POST':
             left_forward_form = request.form['left_forward'].split(", ")
             left_forward_id = left_forward_form[0]
+        
             
 
             center_form = request.form['center'].split(", ")
