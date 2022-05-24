@@ -2,6 +2,7 @@ import requests
 import json
 from datetime import date
 
+# Alexander, Emilia, Marcus, Simon 
 def get_all_players_API():
     '''
     Funktionen hämtar data från nhl:s api och sparar i en lista av lexikon.

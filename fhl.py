@@ -16,7 +16,7 @@ import team_score
 FHL = Flask(__name__)
 
 
-#Index 
+# Emilia 
 @FHL.route('/')
 @flask_login.login_required
 def index():
@@ -55,7 +55,7 @@ def index():
     return render_template('index.html', teams_ranking=teams_ranking, game_schedual=game_schedual, points=points, highscore=highscore)
 
 
-#Sign in
+# Emilia
 FHL.secret_key='hej' #ändra senare!
 login_manager=flask_login.LoginManager()
 login_manager.init_app (FHL)
@@ -89,10 +89,11 @@ def login():
         return render_template('login.html', existing=existing)
        
 
-
+# Emilia
 class User (flask_login.UserMixin):
     pass
 
+# Emilia
 @login_manager.user_loader
 def user_loader(mail):
     '''
@@ -105,6 +106,7 @@ def user_loader(mail):
     return user
 
 #Sign out
+# Emilia
 @FHL.route('/logout')
 def logout():
     '''
@@ -143,6 +145,7 @@ def logout():
 
 
 #index för icke inloggade
+# Emilia
 @login_manager.unauthorized_handler
 def unauthorized_handler():
     '''
@@ -179,6 +182,7 @@ def unauthorized_handler():
 
 
 #Registration
+# Emilia
 @FHL.route('/registration', methods=['GET','POST'])
 def registration():
     '''
@@ -214,6 +218,7 @@ def registration():
          
 
 #Guide
+# Simon
 @FHL.route('/guide/')
 def guide():
     '''
@@ -226,6 +231,7 @@ def guide():
 
 
 #Buy players
+# Simon, Alexander, Lukas, Marcus
 @FHL.route('/köp-spelare/', methods = ['GET', 'POST'])
 @flask_login.login_required
 def buy_players():
@@ -284,6 +290,7 @@ def buy_players():
 
 
 #Sell players
+# Simon, Alexander, Lukas
 @FHL.route('/sell', methods = ['GET', 'POST'])
 @flask_login.login_required
 def sell_players():
@@ -300,19 +307,19 @@ def sell_players():
     else: 
         return redirect(url_for('my_players'))
 
-
+# Marcus 
 @FHL.route('/fel-köp/')
 def error_purchase():
     points=get_user_points()
     return render_template('error_köp.html', points=points)
 
-
+# Marcus
 @FHL.route('/fel-poäng/')
 def error_points():
     points=get_user_points()
     return render_template('error_köp.html', points=points)
 
-
+# Emilia
 @FHL.route('/search', methods=['GET', 'POST'])
 def search():
     '''
@@ -337,7 +344,7 @@ def search():
         else:
            return redirect('/köp-spelare/') 
 
-
+# Emilia 
 @FHL.route('/buy', methods=['GET','POST'])
 def buy():
     '''
@@ -356,6 +363,7 @@ def buy():
         
 
 #Play game
+# Marcus
 @FHL.route('/spela-match/', methods= ['GET', 'POST'])
 @flask_login.login_required
 def play_game():
@@ -438,6 +446,7 @@ def play_game():
 
 
 #My players
+# Marcus, Lukas
 @FHL.route('/mina-spelare/')
 @flask_login.login_required
 def my_players():
@@ -467,6 +476,7 @@ def my_players():
 
 
 #Game
+# Marcus 
 @FHL.route('/match/', methods = ['GET', 'POST'])
 @flask_login.login_required
 def match():
@@ -538,6 +548,7 @@ def match():
 
 
 #Game history
+# Marcus och Emilia 
 @FHL.route('/match-historik/')
 @flask_login.login_required
 def match_history():
@@ -561,6 +572,7 @@ def match_history():
         points=get_user_points()
         return render_template('historik-fel.html', points = points)
 
+# Marcus
 @FHL.route('/historik-fel/')
 @flask_login.login_required
 def history_error():
@@ -569,6 +581,7 @@ def history_error():
 
 
 #Toplist
+# Marcus
 @FHL.route('/top-spelare')
 def top_scorer():
     points=get_user_points()
@@ -599,6 +612,7 @@ def top_scorer():
 
 
 #Forum
+# Lukas
 @FHL.route('/forum/', methods = ['GET', 'POST'])
 @flask_login.login_required
 def forum():
@@ -617,6 +631,7 @@ def forum():
 
 
 #Forum posts created by logged in user
+# Lukas
 @FHL.route('/forum/mina/inlägg/', methods = ['GET', 'POST'])
 @flask_login.login_required
 def forum_username():
@@ -630,6 +645,7 @@ def forum_username():
 
 
 #Forum new post form
+# Lukas
 @FHL.route('/inlägg/')
 @flask_login.login_required
 def write_post():
@@ -641,6 +657,7 @@ def write_post():
 
 
 #Forum new post data
+# Lukas
 @FHL.route('/form', methods=['POST'])
 def form():
     """
@@ -654,6 +671,7 @@ def form():
 
 
 #Forum delete post
+# Lukas
 @FHL.route('/forum/mina/inlägg/delete', methods = ['GET', 'POST'])
 @flask_login.login_required
 def delete_post():
@@ -669,6 +687,7 @@ def delete_post():
 
 
 #Forum like post
+# Lukas 
 @FHL.route('/forum/like', methods = ['GET', 'POST'])
 @flask_login.login_required
 def forum_like():
@@ -682,7 +701,7 @@ def forum_like():
         fhldata = get_all_forum()
         return redirect(url_for('forum'))
 
-
+# Emilia 
 @FHL.route('/points')
 @flask_login.login_required
 def get_user_points():
@@ -700,25 +719,25 @@ def get_user_points():
     
     return points
 
-
+# Marcus
 @FHL.route('/vinnare/')
 def winner():
     points=get_user_points()
     return render_template('vinnare.html', points=points)
 
-
+# Marcus 
 @FHL.route('/förlorare/')
 def looser():
     points=get_user_points()
     return render_template('förlorare.html', points=points)
 
-
+# Marcus 
 @FHL.route('/lika/')
 def tie():
     points=get_user_points()
     return render_template('lika.html', points=points)
 
-
+# Marcus 
 @FHL.route('/fel-match/')
 def error_game():
     points=get_user_points()

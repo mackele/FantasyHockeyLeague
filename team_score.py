@@ -3,7 +3,7 @@ import player_info
 
 
 
-
+# Emilia 
 def count_difference (players_API_list):
     """
         Funktionen jämför spelarnas statistik i NHL:s API från dagens datum med spelarnas statistik i databasen som inte är dagens datum.

@@ -6,6 +6,8 @@ from connect import Postgres
 from flask import Flask, render_template, redirect, url_for, request, redirect #behövs denna?
 from psycopg2.extras import execute_values
 
+
+# Emilia 
 def get_timestamp_fhl_players(todays_date):
     '''
         Funktionen hämtar datumet från tabellen fhl_players som finns i databasen.
@@ -25,7 +27,7 @@ def get_timestamp_fhl_players(todays_date):
     
     return list   
 
-
+# Marcus 
 def add_player_to_database(players):
     '''
     Funktion som lägger in spelare som hämtas i en lista med lexikon från APIn i player_info.py
@@ -59,7 +61,7 @@ def add_player_to_database(players):
             cursor.execute(PostgreSQL_insert)
             conn.commit()
       
-
+# Emilia 
 def search(user_search):
     with Postgres() as (cursor, conn):
         '''
@@ -74,7 +76,7 @@ def search(user_search):
     
     return list
 
-
+# Marcus 
 def add_players_to_list(info):
     '''
     Funktion som tar SQL frågan (info) och sedan tar denna och sorterar den i en lista av lexikon
@@ -113,7 +115,7 @@ def add_players_to_list(info):
 
     return players           
 
-
+# Marcus 
 def get_all_players():
     """
     Funktion som hämtar alla spelare till en lista av lexikon som sedan används i fhl.py för att printa ut 
@@ -130,7 +132,7 @@ def get_all_players():
 
         return players
 
-
+# Marcus 
 def get_center_players():
     """
     Funktion som hämtar alla center spelare till en lista av lexikon som sedan används i fhl.py för att printa ut 
@@ -147,7 +149,7 @@ def get_center_players():
 
         return players
 
-
+# Marcus 
 def get_right_forward_players():
     """
     Funktion som hämtar alla höger forward spelare till en lista av lexikon som sedan används i fhl.py för att printa ut 
@@ -164,7 +166,7 @@ def get_right_forward_players():
 
         return players
 
-
+# Marcus
 def get_left_forward_players():
     """
     Funktion som hämtar alla vänster forward spelare till en lista av lexikon som sedan används i fhl.py för att printa ut 
@@ -181,7 +183,7 @@ def get_left_forward_players():
 
         return players
 
-
+# Marcus
 def get_defense_players():
     """
     Funktion som hämtar alla backar till en lista av lexikon som sedan används i fhl.py för att printa ut 
@@ -198,7 +200,7 @@ def get_defense_players():
 
         return players
 
-
+# Marcus
 def get_goalie_players():
     """
     Funktion som hämtar alla målvakter till en lista av lexikon som sedan används i fhl.py för att printa ut 
@@ -215,7 +217,7 @@ def get_goalie_players():
 
         return players
 
-
+# Lukas
 def get_users_players(user_id):
     '''
         Funktion som hämtar den inloggade användarens köpta hockeyspelare.
@@ -260,7 +262,7 @@ def get_users_players(user_id):
 
         return players
 
-
+# Lukas
 def get_users_goalie(user_id):
     '''
         Funktion hämtar användarens goalies
@@ -302,7 +304,7 @@ def get_users_goalie(user_id):
     
         return goalie
 
-
+# Lukas
 def get_users_defenseman(user_id):
     '''
         Funktion hämtar användarens defenseman
@@ -344,7 +346,7 @@ def get_users_defenseman(user_id):
     
         return defenseman
 
-
+# Lukas
 def get_users_left_wing(user_id):
     '''
         Funktion hämtar användarens left wings
@@ -386,7 +388,7 @@ def get_users_left_wing(user_id):
     
         return left_wing
 
-
+# Lukas
 def get_users_center(user_id):
     '''
         Funktion hämtar användarens centers
@@ -428,7 +430,7 @@ def get_users_center(user_id):
     
         return center
 
-
+# Lukas
 def get_users_right_wing(user_id):
     '''
         Funktion hämtar användarens right wings
@@ -470,7 +472,7 @@ def get_users_right_wing(user_id):
     
         return right_wing
 
-
+# Lukas
 def get_users_forward(user_id):
     '''
         Funktion hämtar användarens forwards
@@ -512,7 +514,7 @@ def get_users_forward(user_id):
     
         return forward
 
-
+# Emilia
 def login(mail, password):
     '''
         Funktionen hämtar ut en lista med en specifik användare utifrån mail och lösenord från databasen.
@@ -531,7 +533,7 @@ def login(mail, password):
     
     return user
 
-
+# Emilia
 def get_user(mail):
     '''
         Funktionen hämtar ut en användares mail från databasen.
@@ -550,7 +552,7 @@ def get_user(mail):
     
     return user
 
-
+# Marcus
 def add_purchased_player_to_team(user_id, player_id):
     '''
     Funktion som lägger till köpt spelare till en användares lista över spelare
@@ -567,7 +569,7 @@ def add_purchased_player_to_team(user_id, player_id):
 
         conn.commit()
 
-
+# Emilia
 def registrations(username, mail, f_name, l_name, hash_password):
     '''
         Funktionen undersöker om användaren som försöker registrera sig redan finns i databasen. 
@@ -595,7 +597,7 @@ def registrations(username, mail, f_name, l_name, hash_password):
         
     return user
 
-
+# Emilia
 def get_points(user_id):
     '''
         Funktionen hämtar ut en specifik användares aktuella poäng.
@@ -614,7 +616,7 @@ def get_points(user_id):
     
     return point
 
-
+# Emilia
 def delete_team_ranking():
     '''
         Funktionen raderar allt som finns i tabellen fhl_team_ranking i databasen om dagens datum inte stämmer 
@@ -626,7 +628,7 @@ def delete_team_ranking():
         cursor.execute(postgreSQL_insert)
         conn.commit()
 
-
+# Emilia
 def insert_team_rank(all_teams):
     '''
         Funktionen lägger in nhl:S lags ranking i databasen. Funktionen körs efter att alla lag blivit raderade. Funktionen körs från fhl.py.
@@ -645,7 +647,7 @@ def insert_team_rank(all_teams):
             cursor.execute(postgreSQL_insert, insert_to)
             conn.commit()
 
-
+# Emilia
 def get_timestamp_fhl_team_ranking (todays_date):
     '''
         Funktionen hämtar datumet från tabellen fhl_team_rank som finns i databasen.
@@ -665,7 +667,7 @@ def get_timestamp_fhl_team_ranking (todays_date):
     
     return list
 
-
+# Emilia
 def get_team_rank():
     '''
         Funktionen hämtar ut lagstatistiken från tabellen fhl_team_rank som finns i databasen och skickar denna till fhl.py.
@@ -682,7 +684,7 @@ def get_team_rank():
         
     return team_rank
 
-
+# Emilia
 def delete_play_schedual():
     '''
         Funktionen redarer allt från tabellen fhl_tame_schedual i databasen om dagens datum inte är samma som datumet i tabellen. 
@@ -694,7 +696,7 @@ def delete_play_schedual():
         cursor.execute(postgreSQL_insert)
         conn.commit()
 
-
+# Emilia 
 def insert_play_schedual(current_days_games):
     '''
         Funktionen lägger in schemat för dagens matcher i tabellen fhl_game_schedual i databasen efter att tidigare data blivit raderat.
@@ -713,7 +715,7 @@ def insert_play_schedual(current_days_games):
             cursor.execute(postgreSQL_insert, insert_to)
             conn.commit()
 
-
+# Emilia
 def get_date_fhl_game_schedual (todays_date):
     '''
         Funktionen hämtar ut en lista med dagens datum från tabellen fhl_game_schedual i databasen
@@ -732,7 +734,7 @@ def get_date_fhl_game_schedual (todays_date):
     
     return list
 
-
+# Emilia
 def get_game_schedual():
     '''
         Funktionen hämtar dagens match schema från fhl_game_schedual från databasen. 
@@ -749,7 +751,7 @@ def get_game_schedual():
         
     return schedual
 
-
+# Emilia
 def get_fhl_highscore():
     '''
         Funktionen hämtar ut de 5 spelarna som har högst ranking från fhl_user.
@@ -767,7 +769,7 @@ def get_fhl_highscore():
         
     return highscore
 
-
+# Lukas
 def post_forum(user_id):
     """
     Function inserts post to database
@@ -793,7 +795,7 @@ def post_forum(user_id):
         cursor.close()
         conn.close()
 
-
+# Lukas
 def post_forum_redirect():
     """
     Function redirects user after saving post
@@ -807,7 +809,7 @@ def post_forum_redirect():
         fhldata = data
         return fhldata
 
-
+# Lukas
 def get_all_forum():
     """
     Function retrieves all form data
@@ -825,7 +827,7 @@ def get_all_forum():
     return fhldata
     return fhldata
 
-
+# Lukas
 def get_category_forum(category):
     """
     Function retrieves all form data
@@ -853,7 +855,7 @@ def get_category_forum(category):
     return fhldata
     return fhldata
 
-
+# Lukas
 def get_forum_username(user_id):
     """
     Function retrieves all form data posted by the logged in user
@@ -869,7 +871,7 @@ def get_forum_username(user_id):
 
     return fhluserdata
     
-
+# Lukas
 def delete_article_id(article_id):
     """
     Function deletes form post
@@ -881,7 +883,7 @@ def delete_article_id(article_id):
         cursor.execute(delete_post)
         conn.commit()
 
-
+# Lukas
 def like_article_id(article_id):
     """
     Function deletes form post
@@ -893,7 +895,7 @@ def like_article_id(article_id):
         cursor.execute(like_article_id)
         conn.commit()
 
-
+# Marcus
 def add_chosen_players_to_game(left_forward, center, right_forward, left_defense, right_defense, goalie, user_id_form, team_name):
     '''
     Funktion som lägger till valda spelare när användaren lägger ett lag
@@ -913,7 +915,7 @@ def add_chosen_players_to_game(left_forward, center, right_forward, left_defense
         cursor.close()
         conn.close()
 
-
+# Emilia
 def get_team_list_fhl_team():
     """
         Funktionen hämtar ut en lista med alla lag i databasen som inte har någon match_score än.
@@ -924,7 +926,7 @@ def get_team_list_fhl_team():
         team_list = cursor.fetchall()
     return team_list
 
-
+# Marcus 
 def get_todays_team_list(todaydate, user_id):
     '''
     Funktion som hämtar och returnerar en lista med det skapade lag som ska användes vid match
@@ -935,7 +937,7 @@ def get_todays_team_list(todaydate, user_id):
         team_list = cursor.fetchall()
     return team_list
 
-
+# Marcus
 def get_todays_left_forward(todaydate, user_id):
     '''
     Funktion som hämtar och returnerar vänster forward som användes vid spelad match
@@ -947,7 +949,7 @@ def get_todays_left_forward(todaydate, user_id):
         left_forward = cursor.fetchall()
     return left_forward
 
-
+# Marcus
 def get_todays_right_forward(todaydate, user_id):
     '''
     Funktion som hämtar och returnerar höger forward som användes vid spelad match
@@ -959,7 +961,7 @@ def get_todays_right_forward(todaydate, user_id):
         right_forward = cursor.fetchall()
     return right_forward
 
-
+# Marcus
 def get_todays_center(todaydate, user_id):
     '''
     Funktion som hämtar och returnerar center användes i match som spelats 
@@ -971,7 +973,7 @@ def get_todays_center(todaydate, user_id):
         center = cursor.fetchall()
     return center
 
-
+# Marcus
 def get_todays_left_back(todaydate, user_id):
     '''
     Funktion som hämtar och returnerar vänster back som användes vid spelad match
@@ -983,7 +985,7 @@ def get_todays_left_back(todaydate, user_id):
         left_back = cursor.fetchall()
     return left_back
 
-
+# Marcus
 def get_todays_right_back(todaydate, user_id):
     '''
     Funktion som hämtar och returnerar höger back som användes vid spelad match
@@ -995,7 +997,7 @@ def get_todays_right_back(todaydate, user_id):
         right_back = cursor.fetchall()
     return right_back
 
-
+# Marcus
 def get_todays_goalie(todaydate, user_id):
     '''
     Funktion som hämtar och returnerar målvakten som användes vid spelad match
@@ -1007,7 +1009,7 @@ def get_todays_goalie(todaydate, user_id):
         goalie = cursor.fetchall()
     return goalie
 
-
+# Marcus
 def insert_team_score(team_score, team_id):
     """
         Funktionen lägger in match_score i databasen till specifika lag. 
@@ -1023,7 +1025,7 @@ def insert_team_score(team_score, team_id):
         cursor.execute(PostgreSQL_insert)
         conn.commit()
 
-
+# Marcus 
 def get_other_users_lineup(user_id):
     '''
     Hämtar en annan användares lineup som användes vid en spelad match
@@ -1034,7 +1036,7 @@ def get_other_users_lineup(user_id):
         
     return teams
 
-
+# Marcus 
 def get_users_lineup(user_id):
     '''
     Hämtar en användares lineup som användes vid en spelad match
@@ -1045,7 +1047,7 @@ def get_users_lineup(user_id):
         
     return teams
 
-
+# Marcus
 def add_game_to_match_history(team_1, team_2, winner, looser):
     '''
     Funktion som lägger till en match i matchhistorik med lagens id, vinnare och förlorare
@@ -1062,7 +1064,7 @@ def add_game_to_match_history(team_1, team_2, winner, looser):
 
         conn.commit()
 
-
+# Marcus
 def update_points_after_win(user_id):
     '''
     Funktion ökar en spelares poäng med 50 i databasen efter man har vunnit en match.
@@ -1075,7 +1077,7 @@ def update_points_after_win(user_id):
         cursor.execute(PostgreSQL_insert)
         conn.commit()
 
-
+# Lukas, Simon, Alexander
 def update_points_after_bought_player(player_price, user_id):
     with Postgres() as (cursor, conn):
         PostgreSQL_insert = (f"""UPDATE fhl_user SET points = (points - '{player_price}') WHERE mail ='{user_id}'""")
@@ -1083,7 +1085,7 @@ def update_points_after_bought_player(player_price, user_id):
         cursor.execute(PostgreSQL_insert)
         conn.commit()
 
-
+# Lukas, Simon, Alexander
 def update_points_after_sell_player(player_id, player_price, user_id):
     with Postgres() as (cursor, conn):
         sell_player = (f""" delete from fhl_my_players where player = '{player_id}' and fhl_user = '{user_id}'""")
@@ -1095,7 +1097,7 @@ def update_points_after_sell_player(player_id, player_price, user_id):
         cursor.execute(update_player_points)
         conn.commit()
 
-
+# Marcus
 def revert_points_after_error(player_price, user_id):
     with Postgres() as (cursor, conn):
         PostgreSQL_insert = (f"""UPDATE fhl_user SET points = (points + '{player_price}') WHERE mail ='{user_id}'""")
@@ -1103,7 +1105,7 @@ def revert_points_after_error(player_price, user_id):
         cursor.execute(PostgreSQL_insert)
         conn.commit()
 
-
+# Marcus 
 def update_ranking_after_win(user_id):
     '''
     Funktion ökar en spelares ranking med 5 i databasen efter man har vunnit en match.
@@ -1116,7 +1118,7 @@ def update_ranking_after_win(user_id):
         cursor.execute(PostgreSQL_insert)
         conn.commit()
 
-
+# Marcus
 def get_history_won_games(user_id):
     '''
     Funktion som hämtar ut specifik matchhistorik för vunna matcher, där användarnamn och match score visas upp. Returnerar vinster
@@ -1136,7 +1138,7 @@ def get_history_won_games(user_id):
         
         return wins
 
-
+# Marcus
 def get_history_lost_games(user_id):
     '''
     Funktion som hämtar ut specifik matchhistorik för förlorade matcher, där användarnamn och match score visas upp. Returnerar förluster
@@ -1156,7 +1158,7 @@ def get_history_lost_games(user_id):
         
     return teams
 
-
+# Marcus 
 def get_losses(user_id):
     '''
     Funktion som hämtar ut antal förluster från databasen och returnerar detta till matchhistoriken
@@ -1171,7 +1173,7 @@ def get_losses(user_id):
         
         return losses
 
-
+# Marcus 
 def get_wins(user_id):
     '''
     Funktion hämtar ut antal vinster från databasen och returnerar detta till matchhistoriken
