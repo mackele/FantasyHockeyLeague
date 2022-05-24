@@ -616,6 +616,9 @@ main div {
 
 #choose_players select{
     width: 100px;
+    background-color: #496A9B;
+    color: white;
+    padding:1px;
 }
 
 /*Css till forum*/
