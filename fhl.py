@@ -55,7 +55,7 @@ def index():
     return render_template('index.html', teams_ranking=teams_ranking, game_schedual=game_schedual, points=points, highscore=highscore)
 
 
-# Emilia
+# Emilia. Grunden kommer från flask login.
 FHL.secret_key='hej' #ändra senare!
 login_manager=flask_login.LoginManager()
 login_manager.init_app (FHL)
@@ -85,7 +85,7 @@ def login():
         return redirect('/')
             
     else:
-        existing="Lösenordet du angav hör inte ihop med användarnamnet, vänligen försök igen!"
+        existing="Lösenordet du angavhör inte ihop med användarnamnet, vänligen försök igen!"
         return render_template('login.html', existing=existing)
        
 
@@ -514,6 +514,7 @@ def match():
         if request.method == 'POST':
             left_forward_form = request.form['left_forward'].split(", ")
             left_forward_id = left_forward_form[0]
+        
             
 
             center_form = request.form['center'].split(", ")
