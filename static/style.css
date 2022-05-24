@@ -89,6 +89,12 @@ button {
     cursor: pointer;
 }
 
+#light_blue {
+    background-color:#496A9B ;
+    
+}
+
+
 .help >a {
     margin: 0;
     padding: 0;
@@ -97,9 +103,7 @@ button {
     height: 25px;
 }
 
-.dropdown:hover, .help:hover{
-    background-color:#496A9B ;
-}
+
 
 .dropdown_content > a:hover {
     text-decoration: underline;
@@ -199,6 +203,10 @@ nav {
     color:white;
     font-weight: bold;
     
+}
+
+.dropbtn:hover{
+    text-decoration: underline;
 }
   
 .dropdown_content {
@@ -1006,7 +1014,7 @@ form textarea {
         float: none;
         color: rgb(255, 255, 255);
         padding: 12px 16px;
-        text-decoration: none;
+        text-decoration:none;
         display: block;
         text-align: left;
       }
