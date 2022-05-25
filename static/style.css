@@ -1095,9 +1095,7 @@ form textarea {
         background-color:inherit ;
        
     }
-    .dropdown button:hover, .help button:hover{
-        color: #496A9B;
-    }
+
 
     .left_forward .card__face--front, .right_forward .card__face--front, .center .card__face--front, .right_back .card__face--front, .left_back .card__face--front, .goalie .card__face--front{
         width: 114px;
