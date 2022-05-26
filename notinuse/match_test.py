@@ -1,6 +1,7 @@
 import json 
 import requests 
 
+#Alexander och Simon
 def request(url):
         response = requests.get(url)
         data = response.json()

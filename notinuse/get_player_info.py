@@ -3,7 +3,7 @@ import numpy as np
 import json
 import pandas as pd
 
-
+#Alexander och Simon
 def get_player_info():
     player_input = input("Ange id: ")
     playerId = player_input

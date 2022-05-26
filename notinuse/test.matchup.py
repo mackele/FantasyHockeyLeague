@@ -4,6 +4,7 @@ import json
 #import pandas as pd
 import math
 
+#Alexander och Simon
 def get():
     # make input 
     #playerid = "8479291"

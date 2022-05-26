@@ -2,6 +2,7 @@ from turtle import position
 import requests
 import json
 
+#Alexander och Simon
 def get():
     # Enter Team Id and Season Number (ex if season 2020-2021, enter 20202021)
     team_input = input("Enter a valid team: ")
