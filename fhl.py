@@ -295,7 +295,7 @@ def buy_players():
 @flask_login.login_required
 def sell_players():
     '''
-    Funktionen tillåter användaren att sälja spelare från sitt lag
+    Funktionen tillåter användaren att sälja en spelare från sitt lag. Dessutom adderas spelarens pris till användares poäng för att köpa nya spelare
     '''
     if request.method == 'POST':
         user_id=flask_login.current_user.id
@@ -307,17 +307,20 @@ def sell_players():
     else: 
         return redirect(url_for('my_players'))
 
+
 # Marcus 
 @FHL.route('/fel-köp/')
 def error_purchase():
     points=get_user_points()
     return render_template('error_köp.html', points=points)
 
+
 # Marcus
 @FHL.route('/fel-poäng/')
 def error_points():
     points=get_user_points()
     return render_template('error_köp.html', points=points)
+
 
 # Emilia
 @FHL.route('/search', methods=['GET', 'POST'])
@@ -343,6 +346,7 @@ def search():
         
         else:
            return redirect('/köp-spelare/') 
+
 
 # Emilia 
 @FHL.route('/buy', methods=['GET','POST'])
@@ -619,7 +623,7 @@ def top_scorer():
 @flask_login.login_required
 def forum():
     """
-    Funktionen visar samtliga foruminlägg
+    Funktionen visar alla foruminlägg
     """
     if request.method == 'POST':
         category = request.form['category']
@@ -638,7 +642,7 @@ def forum():
 @flask_login.login_required
 def forum_username():
     """
-    Funktionen visas den inloggade användarens foruminlägg
+    Funktionen visar enbart den inloggade användarens foruminlägg
     """
     points=get_user_points()
     user_id=flask_login.current_user.id
@@ -652,7 +656,7 @@ def forum_username():
 @flask_login.login_required
 def write_post():
     """
-    Functionen låter användaren skapa ett nytt foruminlägg
+    Funktionen låter användaren skapa ett nytt foruminlägg
     """
     points=get_user_points()
     return render_template('write_post.html', points=points)
@@ -678,7 +682,7 @@ def form():
 @flask_login.login_required
 def delete_post():
     """
-    Funktionen låter använderan ta bort ett foruminlägg
+    Funktionen tar bort ett foruminlägg från databasen
     """
     if request.method == 'POST':
         article_id = request.form['delete']
@@ -694,7 +698,7 @@ def delete_post():
 @flask_login.login_required
 def forum_like():
     """
-    Funktionen låter användare gilla inlägg
+    Funktionen låter användarna att gilla ett inlägg
     """
     if request.method == 'POST':
         article_id = request.form['like']

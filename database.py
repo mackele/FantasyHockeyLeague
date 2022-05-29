@@ -27,6 +27,7 @@ def get_timestamp_fhl_players(todays_date):
     
     return list   
 
+
 # Marcus 
 def add_player_to_database(players):
     '''
@@ -60,7 +61,8 @@ def add_player_to_database(players):
             
             cursor.execute(PostgreSQL_insert)
             conn.commit()
-      
+
+
 # Emilia 
 def search(user_search):
     with Postgres() as (cursor, conn):
@@ -75,6 +77,7 @@ def search(user_search):
         list = cursor.fetchall()
     
     return list
+
 
 # Marcus 
 def add_players_to_list(info):
@@ -115,6 +118,7 @@ def add_players_to_list(info):
 
     return players           
 
+
 # Marcus 
 def get_all_players():
     """
@@ -131,6 +135,7 @@ def get_all_players():
         players = add_players_to_list(info)
 
         return players
+
 
 # Marcus 
 def get_center_players():
@@ -149,6 +154,7 @@ def get_center_players():
 
         return players
 
+
 # Marcus 
 def get_right_forward_players():
     """
@@ -165,6 +171,7 @@ def get_right_forward_players():
         players = add_players_to_list(info)
 
         return players
+
 
 # Marcus
 def get_left_forward_players():
@@ -183,6 +190,7 @@ def get_left_forward_players():
 
         return players
 
+
 # Marcus
 def get_defense_players():
     """
@@ -199,6 +207,7 @@ def get_defense_players():
         players = add_players_to_list(info)
 
         return players
+
 
 # Marcus
 def get_goalie_players():
@@ -217,15 +226,13 @@ def get_goalie_players():
 
         return players
 
+
 # Lukas
 def get_users_players(user_id):
     '''
-        Funktion som hämtar den inloggade användarens köpta hockeyspelare.
-
+        Funktion hämtar den inloggade användarens spelare
         args:
-            user_id är den inloggade användarens personliga id.
-        return:
-            Returnerar användarens köpta spelare till fhl.py
+            user_id är den inloggade användarens id
     '''
 
     with Postgres() as (cursor, conn):
@@ -262,14 +269,13 @@ def get_users_players(user_id):
 
         return players
 
+
 # Lukas
 def get_users_goalie(user_id):
     '''
-        Funktion hämtar användarens goalies
+        Funktion hämtar den inloggade användarens målvakter
         args:
-            user_id är den inloggade användarens personliga id.
-        return:
-            Returnerar användarens köpta spelare till fhl.py
+            user_id är den inloggade användarens id
     '''
 
     with Postgres() as (cursor, conn):
@@ -304,14 +310,13 @@ def get_users_goalie(user_id):
     
         return goalie
 
+
 # Lukas
 def get_users_defenseman(user_id):
     '''
-        Funktion hämtar användarens defenseman
+        Funktion hämtar den inloggade användarens backar
         args:
-            user_id är den inloggade användarens personliga id.
-        return:
-            Returnerar användarens köpta spelare till fhl.py
+            user_id är den inloggade användarens id
     '''
 
     with Postgres() as (cursor, conn):
@@ -346,14 +351,13 @@ def get_users_defenseman(user_id):
     
         return defenseman
 
+
 # Lukas
 def get_users_left_wing(user_id):
     '''
-        Funktion hämtar användarens left wings
+        Funktion hämtar den inloggade användarens vänsterforwards 
         args:
-            user_id är den inloggade användarens personliga id.
-        return:
-            Returnerar användarens köpta spelare till fhl.py
+            user_id är den inloggade användarens id
     '''
 
     with Postgres() as (cursor, conn):
@@ -388,14 +392,13 @@ def get_users_left_wing(user_id):
     
         return left_wing
 
+
 # Lukas
 def get_users_center(user_id):
     '''
-        Funktion hämtar användarens centers
+        Funktion hämtar den inloggade användarens centrar
         args:
-            user_id är den inloggade användarens personliga id.
-        return:
-            Returnerar användarens köpta spelare till fhl.py
+            user_id är den inloggade användarens id
     '''
 
     with Postgres() as (cursor, conn):
@@ -430,14 +433,13 @@ def get_users_center(user_id):
     
         return center
 
+
 # Lukas
 def get_users_right_wing(user_id):
     '''
-        Funktion hämtar användarens right wings
+        Funktion hämtar den inloggade användarens högerforwards
         args:
-            user_id är den inloggade användarens personliga id.
-        return:
-            Returnerar användarens köpta spelare till fhl.py
+            user_id är den inloggade användarens id
     '''
 
     with Postgres() as (cursor, conn):
@@ -472,14 +474,13 @@ def get_users_right_wing(user_id):
     
         return right_wing
 
+
 # Lukas
 def get_users_forward(user_id):
     '''
-        Funktion hämtar användarens forwards
+        Funktion hämtar den inloggade användarens forwards
         args:
-            user_id är den inloggade användarens personliga id.
-        return:
-            Returnerar användarens köpta spelare till fhl.py
+            user_id är den inloggade användarens id
     '''
 
     with Postgres() as (cursor, conn):
@@ -514,6 +515,7 @@ def get_users_forward(user_id):
     
         return forward
 
+
 # Emilia
 def login(mail, password):
     '''
@@ -532,6 +534,7 @@ def login(mail, password):
         user = cursor.fetchall()
     
     return user
+
 
 # Emilia
 def get_user(mail):
@@ -552,6 +555,7 @@ def get_user(mail):
     
     return user
 
+
 # Marcus
 def add_purchased_player_to_team(user_id, player_id):
     '''
@@ -568,6 +572,7 @@ def add_purchased_player_to_team(user_id, player_id):
         cursor.execute(postgreSQL_insert, insert_to)
 
         conn.commit()
+
 
 # Emilia
 def registrations(username, mail, f_name, l_name, hash_password):
@@ -597,6 +602,7 @@ def registrations(username, mail, f_name, l_name, hash_password):
         
     return user
 
+
 # Emilia
 def get_points(user_id):
     '''
@@ -616,6 +622,7 @@ def get_points(user_id):
     
     return point
 
+
 # Emilia
 def delete_team_ranking():
     '''
@@ -627,6 +634,7 @@ def delete_team_ranking():
         postgreSQL_insert = (""" delete from fhl_team_ranking """)
         cursor.execute(postgreSQL_insert)
         conn.commit()
+
 
 # Emilia
 def insert_team_rank(all_teams):
@@ -646,6 +654,7 @@ def insert_team_rank(all_teams):
             
             cursor.execute(postgreSQL_insert, insert_to)
             conn.commit()
+
 
 # Emilia
 def get_timestamp_fhl_team_ranking (todays_date):
@@ -667,6 +676,7 @@ def get_timestamp_fhl_team_ranking (todays_date):
     
     return list
 
+
 # Emilia
 def get_team_rank():
     '''
@@ -684,6 +694,7 @@ def get_team_rank():
         
     return team_rank
 
+
 # Emilia
 def delete_play_schedual():
     '''
@@ -695,6 +706,7 @@ def delete_play_schedual():
         postgreSQL_insert = (""" delete from fhl_game_schedual """)
         cursor.execute(postgreSQL_insert)
         conn.commit()
+
 
 # Emilia 
 def insert_play_schedual(current_days_games):
@@ -715,6 +727,7 @@ def insert_play_schedual(current_days_games):
             cursor.execute(postgreSQL_insert, insert_to)
             conn.commit()
 
+
 # Emilia
 def get_date_fhl_game_schedual (todays_date):
     '''
@@ -734,6 +747,7 @@ def get_date_fhl_game_schedual (todays_date):
     
     return list
 
+
 # Emilia
 def get_game_schedual():
     '''
@@ -750,6 +764,7 @@ def get_game_schedual():
         schedual= cursor.fetchall()
         
     return schedual
+
 
 # Emilia
 def get_fhl_highscore():
@@ -769,10 +784,11 @@ def get_fhl_highscore():
         
     return highscore
 
+
 # Lukas
 def post_forum(user_id):
     """
-    Function inserts post to database
+    Funktionen lägger till ett foruminlägg till databasen
     """
    
     with Postgres() as (cursor, conn):
@@ -795,10 +811,11 @@ def post_forum(user_id):
         cursor.close()
         conn.close()
 
+
 # Lukas
 def post_forum_redirect():
     """
-    Function redirects user after saving post
+    Funktionen redirectar en användare efter att ha skapat ett inlägg
     """
     with Postgres() as (cursor, conn):
         cursor.execute("""select date, datetime, article_id, fhl_user, title, category, text, likes, username 
@@ -809,11 +826,11 @@ def post_forum_redirect():
         fhldata = data
         return fhldata
 
+
 # Lukas
 def get_all_forum():
     """
-    Function retrieves all form data
-    Used to display forum posts
+    Funktionen hämtar all forumdata vilket används för att visa alla inlägg
     """
     with Postgres() as (cursor, conn):
         with Postgres() as (cursor, conn):
@@ -827,11 +844,11 @@ def get_all_forum():
     return fhldata
     return fhldata
 
+
 # Lukas
 def get_category_forum(category):
     """
-    Function retrieves all form data
-    Used to display forum posts
+    Funktionen hämtar all forumdata inom en specifik kategori vilket används för att visa alla inlägg inom denna
     """
     with Postgres() as (cursor, conn):
         with Postgres() as (cursor, conn):
@@ -855,11 +872,11 @@ def get_category_forum(category):
     return fhldata
     return fhldata
 
+
 # Lukas
 def get_forum_username(user_id):
     """
-    Function retrieves all form data posted by the logged in user
-    Used to display forum posts
+    Funktionen hämtar alla forumdata som den inloggade användaren skapat vilket används för att visa alla inlägg
     """
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select date, datetime, article_id, fhl_user, title, category, text, likes, username 
@@ -870,11 +887,12 @@ def get_forum_username(user_id):
         fhluserdata = cursor.fetchall()
 
     return fhluserdata
-    
+
+
 # Lukas
 def delete_article_id(article_id):
     """
-    Function deletes form post
+    Funktionen tar bort ett foruminlägg från databasen
     Args
         'article_id' from html submit
     """
@@ -883,10 +901,11 @@ def delete_article_id(article_id):
         cursor.execute(delete_post)
         conn.commit()
 
+
 # Lukas
 def like_article_id(article_id):
     """
-    Function deletes form post
+    Funktionen gillar ett foruminlägg genom att uppdatera antalet gilla-markeringar i databasen
     Args
         'article_id' from html submit
     """
@@ -894,6 +913,7 @@ def like_article_id(article_id):
         like_article_id = (f"""UPDATE fhl_forum_form set likes = (likes + 1) where article_id = '{article_id}'""")
         cursor.execute(like_article_id)
         conn.commit()
+
 
 # Marcus
 def add_chosen_players_to_game(left_forward, center, right_forward, left_defense, right_defense, goalie, user_id_form, team_name):
@@ -915,6 +935,7 @@ def add_chosen_players_to_game(left_forward, center, right_forward, left_defense
         cursor.close()
         conn.close()
 
+
 # Emilia
 def get_team_list_fhl_team():
     """
@@ -926,6 +947,7 @@ def get_team_list_fhl_team():
         team_list = cursor.fetchall()
     return team_list
 
+
 # Marcus 
 def get_todays_team_list(todaydate, user_id):
     '''
@@ -936,6 +958,7 @@ def get_todays_team_list(todaydate, user_id):
                             where fhl_user='{user_id}' and team_date= '{todaydate}'""")
         team_list = cursor.fetchall()
     return team_list
+
 
 # Marcus
 def get_todays_left_forward(todaydate, user_id):
@@ -949,6 +972,7 @@ def get_todays_left_forward(todaydate, user_id):
         left_forward = cursor.fetchall()
     return left_forward
 
+
 # Marcus
 def get_todays_right_forward(todaydate, user_id):
     '''
@@ -960,6 +984,7 @@ def get_todays_right_forward(todaydate, user_id):
                             where fhl_team.fhl_user='{user_id}' and fhl_team.team_date= '{todaydate}'""")
         right_forward = cursor.fetchall()
     return right_forward
+
 
 # Marcus
 def get_todays_center(todaydate, user_id):
@@ -973,6 +998,7 @@ def get_todays_center(todaydate, user_id):
         center = cursor.fetchall()
     return center
 
+
 # Marcus
 def get_todays_left_back(todaydate, user_id):
     '''
@@ -984,6 +1010,7 @@ def get_todays_left_back(todaydate, user_id):
                             where fhl_team.fhl_user='{user_id}' and fhl_team.team_date= '{todaydate}'""")
         left_back = cursor.fetchall()
     return left_back
+
 
 # Marcus
 def get_todays_right_back(todaydate, user_id):
@@ -997,6 +1024,7 @@ def get_todays_right_back(todaydate, user_id):
         right_back = cursor.fetchall()
     return right_back
 
+
 # Marcus
 def get_todays_goalie(todaydate, user_id):
     '''
@@ -1008,6 +1036,7 @@ def get_todays_goalie(todaydate, user_id):
                             where fhl_team.fhl_user='{user_id}' and fhl_team.team_date= '{todaydate}'""")
         goalie = cursor.fetchall()
     return goalie
+
 
 # Marcus
 def insert_team_score(team_score, team_id):
@@ -1025,6 +1054,7 @@ def insert_team_score(team_score, team_id):
         cursor.execute(PostgreSQL_insert)
         conn.commit()
 
+
 # Marcus 
 def get_other_users_lineup(user_id):
     '''
@@ -1036,6 +1066,7 @@ def get_other_users_lineup(user_id):
         
     return teams
 
+
 # Marcus 
 def get_users_lineup(user_id):
     '''
@@ -1046,6 +1077,7 @@ def get_users_lineup(user_id):
         teams= cursor.fetchall()
         
     return teams
+
 
 # Marcus
 def add_game_to_match_history(team_1, team_2, winner, looser):
@@ -1063,6 +1095,7 @@ def add_game_to_match_history(team_1, team_2, winner, looser):
         cursor.execute(PostgreSQL_insert, insert_to)
 
         conn.commit()
+
 
 # Marcus
 def update_points(new_points, user_id):
@@ -1086,16 +1119,31 @@ def update_points_after_win(user_id):
         cursor.execute(PostgreSQL_insert)
         conn.commit()
 
+
 # Lukas, Simon, Alexander
 def update_points_after_bought_player(player_price, user_id):
+    """
+    Funktionen drar bort spelarens kostnad från den inloggade användarens poäng
+    Args
+        player_price = spelarens pris
+        user_id = den inloggade användarens id
+    """
     with Postgres() as (cursor, conn):
         PostgreSQL_insert = (f"""UPDATE fhl_user SET points = (points - '{player_price}') WHERE mail ='{user_id}'""")
 
         cursor.execute(PostgreSQL_insert)
         conn.commit()
 
+
 # Lukas, Simon, Alexander
 def update_points_after_sell_player(player_id, player_price, user_id):
+    """
+    Funktionen säljer en spelare från den inloggade användarens lag samt adderar spelarens pris till användarens poäng
+    Args
+        player_id = spelarens id
+        player_price = spelarens pris
+        user_id = den inloggade användarens id
+    """
     with Postgres() as (cursor, conn):
         sell_player = (f""" delete from fhl_my_players where player = '{player_id}' and fhl_user = '{user_id}'""")
         cursor.execute(sell_player)
@@ -1106,6 +1154,7 @@ def update_points_after_sell_player(player_id, player_price, user_id):
         cursor.execute(update_player_points)
         conn.commit()
 
+
 # Marcus
 def revert_points_after_error(player_price, user_id):
     with Postgres() as (cursor, conn):
@@ -1113,6 +1162,7 @@ def revert_points_after_error(player_price, user_id):
 
         cursor.execute(PostgreSQL_insert)
         conn.commit()
+
 
 # Marcus 
 def update_ranking_after_win(user_id):
@@ -1126,6 +1176,7 @@ def update_ranking_after_win(user_id):
         
         cursor.execute(PostgreSQL_insert)
         conn.commit()
+
 
 # Marcus
 def get_history_won_games(user_id):
@@ -1147,6 +1198,7 @@ def get_history_won_games(user_id):
         
         return wins
 
+
 # Marcus
 def get_history_lost_games(user_id):
     '''
@@ -1167,6 +1219,7 @@ def get_history_lost_games(user_id):
         
     return teams
 
+
 # Marcus 
 def get_losses(user_id):
     '''
@@ -1181,6 +1234,7 @@ def get_losses(user_id):
         losses = losses_sql[0]
         
         return losses
+
 
 # Marcus 
 def get_wins(user_id):
