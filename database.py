@@ -137,8 +137,8 @@ def get_all_players():
         return players
 
 
-# Marcus 
-def get_center_players():
+# Marcus, Emilia
+def get_center_players(user_id):
     """
     Funktion som hämtar alla center spelare till en lista av lexikon som sedan används i fhl.py för att printa ut 
     spelarkort.
@@ -146,17 +146,34 @@ def get_center_players():
         Returns: center_players
         Detta är en lista av lexikon med samtliga värden
     """
+    
     with Postgres() as (cursor, conn):
-        cursor.execute ("""select * from fhl_players where position = 'Center' order by price desc""")
-        info=cursor.fetchall()
+        
+        cursor.execute (f""" select * from fhl_players join fhl_my_players on fhl_my_players.player=fhl_players.id 
+                            where fhl_my_players.fhl_user='{user_id}' and fhl_players.position = 'Center' """)
+        my_players=cursor.fetchall()
 
-        players = add_players_to_list(info)
+        
+            
+        cursor.execute (f"""select * from fhl_players
+                        where position = 'Center' order by price desc """)
+        all_players=cursor.fetchall()
 
-        return players
+        players = add_players_to_list(all_players)
+
+        for player in my_players:
+            player_id=player[0]
+
+            for i, person in enumerate(players):
+                person_id=person["id"]
+                if player_id==person_id:
+                    del players[i]
+
+    return players
 
 
-# Marcus 
-def get_right_forward_players():
+# Marcus, Emilia
+def get_right_forward_players(user_id):
     """
     Funktion som hämtar alla höger forward spelare till en lista av lexikon som sedan används i fhl.py för att printa ut 
     spelarkort.
@@ -165,16 +182,28 @@ def get_right_forward_players():
         Detta är en lista av lexikon med samtliga värden
     """
     with Postgres() as (cursor, conn):
+        cursor.execute (f""" select * from fhl_players join fhl_my_players on fhl_my_players.player=fhl_players.id 
+                            where fhl_my_players.fhl_user='{user_id}' and fhl_players.position = 'Right Wing' """)
+        my_players=cursor.fetchall()
+
         cursor.execute ("""select * from fhl_players where position = 'Right Wing' order by price desc""")
-        info=cursor.fetchall()
+        all_players=cursor.fetchall()
 
-        players = add_players_to_list(info)
+        players = add_players_to_list(all_players)
 
-        return players
+        for player in my_players:
+            player_id=player[0]
+
+            for i, person in enumerate(players):
+                person_id=person["id"]
+                if player_id==person_id:
+                    del players[i]
+
+    return players
 
 
-# Marcus
-def get_left_forward_players():
+# Marcus, Emilia
+def get_left_forward_players(user_id):
     """
     Funktion som hämtar alla vänster forward spelare till en lista av lexikon som sedan används i fhl.py för att printa ut 
     spelarkort.
@@ -183,16 +212,28 @@ def get_left_forward_players():
         Detta är en lista av lexikon med samtliga värden
     """
     with Postgres() as (cursor, conn):
+        cursor.execute (f""" select * from fhl_players join fhl_my_players on fhl_my_players.player=fhl_players.id 
+                            where fhl_my_players.fhl_user='{user_id}' and fhl_players.position = 'Left Wing' """)
+        my_players=cursor.fetchall()
+
         cursor.execute ("""select * from fhl_players where position = 'Left Wing' order by price desc""")
-        info=cursor.fetchall()
+        all_players=cursor.fetchall()
 
-        players = add_players_to_list(info)
+        players = add_players_to_list(all_players)
 
-        return players
+        for player in my_players:
+            player_id=player[0]
+
+            for i, person in enumerate(players):
+                person_id=person["id"]
+                if player_id==person_id:
+                    del players[i]
+
+    return players
 
 
-# Marcus
-def get_defense_players():
+# Marcus, Emilia
+def get_defense_players(user_id):
     """
     Funktion som hämtar alla backar till en lista av lexikon som sedan används i fhl.py för att printa ut 
     spelarkort.
@@ -201,16 +242,29 @@ def get_defense_players():
         Detta är en lista av lexikon med samtliga värden
     """
     with Postgres() as (cursor, conn):
+
+        cursor.execute (f""" select * from fhl_players join fhl_my_players on fhl_my_players.player=fhl_players.id 
+                            where fhl_my_players.fhl_user='{user_id}' and fhl_players.position = 'Defenseman' """)
+        my_players=cursor.fetchall()
+
         cursor.execute ("""select * from fhl_players where position = 'Defenseman' order by price desc""")
-        info=cursor.fetchall()
+        all_players=cursor.fetchall()
 
-        players = add_players_to_list(info)
+        players = add_players_to_list(all_players)
 
-        return players
+        for player in my_players:
+            player_id=player[0]
+
+            for i, person in enumerate(players):
+                person_id=person["id"]
+                if player_id==person_id:
+                    del players[i]
+
+    return players
 
 
-# Marcus
-def get_goalie_players():
+# Marcus, Emilia
+def get_goalie_players(user_id):
     """
     Funktion som hämtar alla målvakter till en lista av lexikon som sedan används i fhl.py för att printa ut 
     spelarkort.
@@ -219,12 +273,24 @@ def get_goalie_players():
         Detta är en lista av lexikon med samtliga värden
     """
     with Postgres() as (cursor, conn):
+        cursor.execute (f""" select * from fhl_players join fhl_my_players on fhl_my_players.player=fhl_players.id 
+                            where fhl_my_players.fhl_user='{user_id}' and fhl_players.position = 'Goalie' """)
+        my_players=cursor.fetchall()
+
         cursor.execute ("""select * from fhl_players where position = 'Goalie' order by price desc""")
-        info=cursor.fetchall()
+        all_players=cursor.fetchall()
 
-        players = add_players_to_list(info)
+        players = add_players_to_list(all_players)
 
-        return players
+        for player in my_players:
+            player_id=player[0]
+
+            for i, person in enumerate(players):
+                person_id=person["id"]
+                if player_id==person_id:
+                    del players[i]
+
+    return players
 
 
 # Lukas

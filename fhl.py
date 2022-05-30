@@ -256,11 +256,13 @@ def buy_players():
 
     points=get_user_points()
 
-    right_forwards = get_right_forward_players()
-    centers = get_center_players()
-    left_forwards = get_left_forward_players()
-    defense = get_defense_players()
-    goalies = get_goalie_players()
+    user_id=flask_login.current_user.id
+
+    right_forwards = get_right_forward_players(user_id)
+    centers = get_center_players(user_id)
+    left_forwards = get_left_forward_players(user_id)
+    defense = get_defense_players(user_id)
+    goalies = get_goalie_players(user_id)
     
 
     if request.method == 'POST':

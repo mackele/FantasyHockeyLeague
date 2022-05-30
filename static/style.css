@@ -708,6 +708,7 @@ select {
 
 #search_player {
     display: flex;
+    flex-wrap: wrap;
 }
 
 #search_div input, #search_div label {
