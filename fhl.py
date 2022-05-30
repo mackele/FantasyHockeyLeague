@@ -311,6 +311,9 @@ def sell_players():
 # Marcus 
 @FHL.route('/fel-köp/')
 def error_purchase():
+    '''
+    Felhantering för när det blir något fel vid köp av spelare, användaren skickas vidare till en route som förklarar problemet
+    '''
     points=get_user_points()
     return render_template('error_köp.html', points=points)
 
@@ -318,6 +321,9 @@ def error_purchase():
 # Marcus
 @FHL.route('/fel-poäng/')
 def error_points():
+    '''
+    Felhantering för när det blir något fel vid köp av spelare pga för lite poäng, användaren skickas vidare till en route som förklarar problemet
+    '''
     points=get_user_points()
     return render_template('error_köp.html', points=points)
 
@@ -372,7 +378,12 @@ def buy():
 @flask_login.login_required
 def play_game():
     '''
-    Route för att spela match
+    Route för att spela match, användaren skickar via ett formulär in sitt lag och utmanar ett annat lag
+    Poäng hämtas via formuläret för både användarens lag och motståndarens lag och sedan beroende på det lag som har flest
+    poäng så avgörs vinnaren
+
+    Användarens ranking och poäng avgörs genom att först kolla vem som har bäst lag och sedan genom funktionerna 
+    update_points_after_win och update_ranking_after_win så får den vinnande användaren sin nya statistik
     '''
     points=get_user_points()
     user_id=flask_login.current_user.id
@@ -410,8 +421,6 @@ def play_game():
 
                 add_game_to_match_history(my_team_id, opponent_team_id, winner, looser)
                 
-                #points = get_user_points
-                
                 update_points_after_win(user_id)
                 update_ranking_after_win(user_id)
 
@@ -442,9 +451,6 @@ def play_game():
 
         except:
             return render_template('error_game.html', points = get_user_points())
-        
-
-
 
     return render_template('play_game.html', points=points, teams = teams, my_teams = my_teams)
 
@@ -485,8 +491,10 @@ def my_players():
 @flask_login.login_required
 def match():
     '''
+        Route för att lägga ett lag, väljaren väljer via sina köpta spelare som placeras ut på positioner som sedan beräknar hur bra ens lag är
         När användaren kommer in i filen kollas det i databasen om fhl_players datum är datens datum.
         Om det inte är daten datum körs funktionerna i team_score vilka även uppdaterar tabellen fhl_players med aktuell statistik.
+
     '''
     todaydate = date.today()
     date_list=database.get_timestamp_fhl_players(todaydate)
@@ -518,36 +526,28 @@ def match():
         if request.method == 'POST':
             left_forward_form = request.form['left_forward'].split(", ")
             left_forward_id = left_forward_form[0]
-        
-            
 
             center_form = request.form['center'].split(", ")
             center_id = center_form[0]
             
-
             right_forward_form = request.form['right_forward'].split(", ")
             right_forward_id = right_forward_form[0]
             
-
             left_defense_form = request.form['left_defense'].split(", ")
             left_defense_id = left_defense_form[0]
             
-
             right_defense_form = request.form['right_defense'].split(", ")
             right_defense_id = right_defense_form[0]
             
-
             goalie_form = request.form['goalie'].split(", ")
             goalie_id = goalie_form[0]
             
-
             team_name = request.form['team_name']
 
             user_id=flask_login.current_user.id
 
             add_chosen_players_to_game(left_forward_id, center_id, right_forward_id, left_defense_id, 
             right_defense_id, goalie_id, user_id, team_name)
-
 
         return render_template('match.html', points=points, goalie=goalie, defenseman=defenseman, left_wing=left_wing, center=center, right_wing=right_wing)
 
@@ -557,6 +557,9 @@ def match():
 @FHL.route('/match-historik/')
 @flask_login.login_required
 def match_history():
+    '''
+    Route för ens matchhistorik, den hämtar samtliga vunna och förlade matcher och visar upp detta för användaren
+    '''
 
     try:
         points=get_user_points()
@@ -570,7 +573,6 @@ def match_history():
 
         won_games = get_history_won_games(user_id)
         lost_games = get_history_lost_games(user_id)
-        
 
         return render_template('matchhistory.html', points=points, won_games = won_games, lost_games = lost_games, wins=wins, losses=losses)
 
@@ -582,9 +584,11 @@ def match_history():
 @FHL.route('/historik-fel/')
 @flask_login.login_required
 def history_error():
+    '''
+    Felhanteringssida för om man inte skulle ha några spelade matcher i matchhistoriken
+    '''
     points=get_user_points()
     return render_template('historik_fel.html', points = points)
-
 
 #Toplist
 # Marcus
@@ -728,24 +732,36 @@ def get_user_points():
 # Marcus
 @FHL.route('/vinnare/')
 def winner():
+    '''
+    Route som visar upp att användaren har vunnit en match
+    '''
     points=get_user_points()
     return render_template('vinnare.html', points=points)
 
 # Marcus 
 @FHL.route('/förlorare/')
 def looser():
+    '''
+    Route som visar upp att användaren har förlorat en match
+    '''
     points=get_user_points()
     return render_template('förlorare.html', points=points)
 
 # Marcus 
 @FHL.route('/lika/')
 def tie():
+    '''
+    Route som visar upp att användaren har fått lika i en match
+    '''
     points=get_user_points()
     return render_template('lika.html', points=points)
 
 # Marcus 
 @FHL.route('/fel-match/')
 def error_game():
+    '''
+    Route som visar upp om det blivit fel vid en match, exempelvis att ett lag inte har några poäng
+    '''
     points=get_user_points()
     return render_template('error_game.html', points=points)
 
