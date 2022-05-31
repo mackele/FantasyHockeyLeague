@@ -64,19 +64,43 @@ def add_player_to_database(players):
 
 
 # Emilia 
-def search(user_search):
+def search(user_search, user_id):
+
+    '''
+        Funktionen hämtar ut användarens sökning från databasen. Datan jämförs med listan med användarens köpta spelare och tar bort dessa från söklistan. 
+
+        args:
+            user_serch är den variabel som skickas med i sökningen för att hitta det användaren söker efter.
+        
+        return:
+            Funktionen returnerar listan med de spelare som matchar med sökningen användaren gjorde. 
+    '''
+
     with Postgres() as (cursor, conn):
-        '''
-        cursor.execute(f"""select * from fhl_players 
-                            where name ='{user_search}' """)
-        '''
+       
         cursor.execute("""select *
                             from fhl_players
                                 where name like %s""",
                                 ('%' + user_search + '%',))
-        list = cursor.fetchall()
+        all_players = cursor.fetchall()
+
+        cursor.execute (f""" select * from fhl_players join fhl_my_players on fhl_my_players.player=fhl_players.id 
+                            where fhl_my_players.fhl_user='{user_id}' """)
+        my_players=cursor.fetchall()
+
+        players = add_players_to_list(all_players)
+
+        for player in my_players:
+            player_id=player[0]
+
+            for i, person in enumerate(players):
+                person_id=person["id"]
+
+                if player_id==person_id:
+                    del players[i]
+
+    return players
     
-    return list
 
 
 # Marcus 
@@ -140,12 +164,15 @@ def get_all_players():
 # Marcus, Emilia
 def get_center_players(user_id):
     """
-    Funktion som hämtar alla center spelare till en lista av lexikon som sedan används i fhl.py för att printa ut 
-    spelarkort.
+        Funktion som hämtar alla center spelare som inte är köpta av användaren till en lista av lexikon som sedan används i fhl.py för att printa ut 
+        spelarkort.
+
+        args:
+            user_id är användarens mail och används för hämta ut användarens köpta spelare och ta bort dessa i listan
 
         Returns: center_players
-        Detta är en lista av lexikon med samtliga värden
-    """
+            Detta är en lista av lexikon med de icke köpta spelarna
+        """
     
     with Postgres() as (cursor, conn):
         
@@ -175,11 +202,14 @@ def get_center_players(user_id):
 # Marcus, Emilia
 def get_right_forward_players(user_id):
     """
-    Funktion som hämtar alla höger forward spelare till en lista av lexikon som sedan används i fhl.py för att printa ut 
-    spelarkort.
+        Funktion som hämtar alla höger forward spelare som inte är köpta av användaren till en lista av lexikon som sedan används i fhl.py för att printa ut 
+        spelarkort.
+
+        args:
+            user_id är användarens mail och används för hämta ut användarens köpta spelare och ta bort dessa i listan
 
         Returns: center_players
-        Detta är en lista av lexikon med samtliga värden
+            Detta är en lista av lexikon med de icke köpta spelarna
     """
     with Postgres() as (cursor, conn):
         cursor.execute (f""" select * from fhl_players join fhl_my_players on fhl_my_players.player=fhl_players.id 
@@ -205,11 +235,14 @@ def get_right_forward_players(user_id):
 # Marcus, Emilia
 def get_left_forward_players(user_id):
     """
-    Funktion som hämtar alla vänster forward spelare till en lista av lexikon som sedan används i fhl.py för att printa ut 
-    spelarkort.
+        Funktion som hämtar alla vänster forward spelare som inte är köpta av användaren till en lista av lexikon som sedan används i fhl.py för att printa ut 
+        spelarkort.
+
+        args:
+            user_id är användarens mail och används för hämta ut användarens köpta spelare och ta bort dessa i listan
 
         Returns: center_players
-        Detta är en lista av lexikon med samtliga värden
+            Detta är en lista av lexikon med de icke köpta spelarna
     """
     with Postgres() as (cursor, conn):
         cursor.execute (f""" select * from fhl_players join fhl_my_players on fhl_my_players.player=fhl_players.id 
@@ -235,11 +268,14 @@ def get_left_forward_players(user_id):
 # Marcus, Emilia
 def get_defense_players(user_id):
     """
-    Funktion som hämtar alla backar till en lista av lexikon som sedan används i fhl.py för att printa ut 
-    spelarkort.
+        Funktion som hämtar alla backar spelare som inte är köpta av användaren till en lista av lexikon som sedan används i fhl.py för att printa ut 
+        spelarkort.
+
+        args:
+            user_id är användarens mail och används för hämta ut användarens köpta spelare och ta bort dessa i listan
 
         Returns: center_players
-        Detta är en lista av lexikon med samtliga värden
+            Detta är en lista av lexikon med de icke köpta spelarna
     """
     with Postgres() as (cursor, conn):
 
@@ -266,11 +302,14 @@ def get_defense_players(user_id):
 # Marcus, Emilia
 def get_goalie_players(user_id):
     """
-    Funktion som hämtar alla målvakter till en lista av lexikon som sedan används i fhl.py för att printa ut 
-    spelarkort.
+        Funktion som hämtar alla målvakter spelare som inte är köpta av användaren till en lista av lexikon som sedan används i fhl.py för att printa ut 
+        spelarkort.
+
+        args:
+            user_id är användarens mail och används för hämta ut användarens köpta spelare och ta bort dessa i listan
 
         Returns: center_players
-        Detta är en lista av lexikon med samtliga värden
+            Detta är en lista av lexikon med de icke köpta spelarna
     """
     with Postgres() as (cursor, conn):
         cursor.execute (f""" select * from fhl_players join fhl_my_players on fhl_my_players.player=fhl_players.id 

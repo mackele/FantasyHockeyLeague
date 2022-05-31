@@ -106,36 +106,36 @@
                     <div class="card__face card__face--front">
                         
                         <!--Player statistics-->
-                        <img src="{{person[6]}}">
+                        <img src="{{person.image}}">
                         <!--Hämta namn från databas-->
-                        <h4>{{person[9]}}</h4>                                  
+                        <h4>{{person.name}}</h4>                                  
                             <!--Hämta poäng från databas ("Poäng: " + database value)-->
                             <div class="costs">
-                                <h5>Pris: {{person[7]}}</h5>
+                                <h5>Pris: {{person.price}}</h5>
                                 <form action="/buy" method="post">
-                                    <input type="hidden" id="player_id" name="id" value={{person[0]}}>
+                                    <input type="hidden" id="player_id" name="id" value={{person.id}}>
 
                                     <input type = "submit" class="cost_button" value="Köp">
                                 </form>
                                 
                             </div>
                     </div>
-                    {% if person[2] == "Goalie" %}
+                    {% if person.position == "Goalie" %}
                     <div class="card__face card__face--back">
                         <div class="card__content">
                             <div class="card__header">
                                 <!--Spelarstatistik från databasen-->
                                 <!--Hämta namn-->
-                                <h4>{{person[9]}}</h4>
+                                <h4>{{person.name}}</h4>
                                 <!--Hämta lag-->
                                 <p>Lag:</p>
-                                <p class="line"> {{person[1]}}</p>
+                                <p class="line"> {{person.team}}</p>
                                 <!--Hämta position-->
                                 <p>Position:</p>
-                                <p class="line"> {{person[2]}}</p>
+                                <p class="line"> {{person.position}}</p>
                                 <!--Hämta antal räddningar-->
                                 <p>Räddningar:</p>
-                                <p class="line"> {{person[8]}}</p>
+                                <p class="line"> {{person.saves}}</p>
                             </div>
                         </div>
                     </div>
@@ -145,22 +145,22 @@
                             <div class="card__header">
                                 <!--Spelarstatistik från databasen-->
                                 <!--Hämta namn-->
-                                <h4>{{person[9]}}</h4>
+                                <h4>{{person.name}}</h4>
                                 <!--Hämta lag-->
                                 <p>Lag:</p>
-                                <p class="line"> {{person[1]}}</p>
+                                <p class="line"> {{person.team}}</p>
                                 <!--Hämta position-->
                                 <p>Position:</p>
-                                <p class="line"> {{person[2]}}</p>
+                                <p class="line"> {{person.position}}</p>
                                 <!--Hämta antal mål-->
                                 <p>Mål:</p>
-                                <p class="line">{{person[3]}}</p>
+                                <p class="line">{{person.goal}}</p>
                                 <!--Hämta antal assit-->
                                 <p>Assist:</p>
-                                <p class="line">{{person[5]}}</p>
+                                <p class="line">{{person.assists}}</p>
                                 <!--Hämta antal utvisningsminuter-->
                                 <p>Utvisningsminuter:</p>
-                                <p class="line">{{person[4]}}</p>
+                                <p class="line">{{person.penalty_time}}</p>
                             </div>
                         </div>
                     </div>

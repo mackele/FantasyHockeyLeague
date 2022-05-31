@@ -231,7 +231,7 @@ def guide():
 
 
 #Buy players
-# Simon, Alexander, Lukas, Marcus
+# Simon, Alexander, Lukas, Marcus, Emilia
 @FHL.route('/köp-spelare/', methods = ['GET', 'POST'])
 @flask_login.login_required
 def buy_players():
@@ -240,7 +240,7 @@ def buy_players():
     Om det inte är daten datum körs funktionerna i team_score vilka även uppdaterar tabellen fhl_players med aktuell statistik.
 
     Funktion som först hämtar hur mycket poäng användaren har genon get_user_points() som finns i
-    database.py och sedan hämtar alla spelare som finns genom get_all_players() som också finns i 
+    database.py och sedan hämtar alla spelare som användaren inte redan köpt och finns genom get_..._players(user_id) som också finns i 
     database.py
 
     När användaren sedan klickar på köp i html filen buy_players skickas ett formulär tillbaka
@@ -342,10 +342,11 @@ def search():
             Annars rederectas användaren tillbaka till utgångssidan.
 
     '''
+    user_id=flask_login.current_user.id
 
     if request.method =='POST':
         user_search=request.form['search']
-        search_result=database.search(user_search)
+        search_result=database.search(user_search, user_id)
     
         if len(search_result) > 0:
             
@@ -353,7 +354,8 @@ def search():
             return render_template('buy_players.html', points=points, search_result=search_result)
         
         else:
-           return redirect('/köp-spelare/') 
+            print("då")
+            return redirect('/köp-spelare/') 
 
 
 # Emilia 
@@ -363,7 +365,7 @@ def buy():
         Om användaren vill köpa en spelare som den sökt efter kör denna funktionen. 
         Funktionen tar emot spelaren som ska köpas id samt användarens id och för in i databasen.
         Return
-            Användaren rederectas till buy_player.html
+            Användaren rederectas till my_players.html
     '''
     if request.method =='POST':
         player_id = request.form['id']
@@ -371,7 +373,7 @@ def buy():
 
         add_purchased_player_to_team(user_id, player_id)
 
-    return redirect('/köp-spelare/')
+    return redirect('/mina-spelare/')
         
 
 #Play game
