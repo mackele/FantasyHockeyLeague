@@ -1335,7 +1335,10 @@ def update_points(new_points, user_id):
 
 def update_points_after_win(user_id):
     '''
-    Funktion ökar en spelares poäng med 50 i databasen efter man har vunnit en match.
+        Funktion ökar en spelares poäng med 50 i databasen efter man har vunnit en match.
+        
+        args:
+            user_id är den inloggade användarens id
     '''
     with Postgres() as (cursor, conn):
         PostgreSQL_insert = (f"""update fhl_user
@@ -1349,10 +1352,11 @@ def update_points_after_win(user_id):
 # Lukas, Simon, Alexander
 def update_points_after_bought_player(player_price, user_id):
     """
-    Funktionen drar bort spelarens kostnad från den inloggade användarens poäng
-    Args
-        player_price = spelarens pris
-        user_id = den inloggade användarens id
+        Funktionen drar bort spelarens kostnad från den inloggade användarens poäng
+        
+        Args:
+            player_price = spelarens pris
+            user_id = den inloggade användarens id
     """
     with Postgres() as (cursor, conn):
         PostgreSQL_insert = (f"""UPDATE fhl_user SET points = (points - '{player_price}') WHERE mail ='{user_id}'""")
@@ -1364,11 +1368,12 @@ def update_points_after_bought_player(player_price, user_id):
 # Lukas, Simon, Alexander
 def update_points_after_sell_player(player_id, player_price, user_id):
     """
-    Funktionen säljer en spelare från den inloggade användarens lag samt adderar spelarens pris till användarens poäng
-    Args
-        player_id = spelarens id
-        player_price = spelarens pris
-        user_id = den inloggade användarens id
+        Funktionen säljer en spelare från den inloggade användarens lag samt adderar spelarens pris till användarens poäng
+       
+        Args:
+            player_id = spelarens id
+            player_price = spelarens pris
+            user_id = den inloggade användarens id
     """
     with Postgres() as (cursor, conn):
         sell_player = (f""" delete from fhl_my_players where player = '{player_id}' and fhl_user = '{user_id}'""")
@@ -1383,6 +1388,13 @@ def update_points_after_sell_player(player_id, player_price, user_id):
 
 # Marcus
 def revert_points_after_error(player_price, user_id):
+    '''
+        Funktionen ändrar tillbaka användarens poäng om ett error har skett.
+
+        args:
+            player_price är hockespelarens pris vid köp
+            user_id är den inloggade användarens id
+    '''
     with Postgres() as (cursor, conn):
         PostgreSQL_insert = (f"""UPDATE fhl_user SET points = (points + '{player_price}') WHERE mail ='{user_id}'""")
 
@@ -1393,7 +1405,10 @@ def revert_points_after_error(player_price, user_id):
 # Marcus 
 def update_ranking_after_win(user_id):
     '''
-    Funktion ökar en spelares ranking med 5 i databasen efter man har vunnit en match.
+        Funktion ökar en spelares ranking med 5 i databasen efter man har vunnit en match.
+
+        args:
+            user_id är den inloggade användarens id.
     '''
     with Postgres() as (cursor, conn):
         PostgreSQL_insert = (f"""update fhl_user
@@ -1407,7 +1422,13 @@ def update_ranking_after_win(user_id):
 # Marcus
 def get_history_won_games(user_id):
     '''
-    Funktion som hämtar ut specifik matchhistorik för vunna matcher, där användarnamn och match score visas upp. Returnerar vinster
+        Funktion som hämtar ut specifik matchhistorik för vunna matcher, där användarnamn och match score visas upp. Returnerar vinster
+
+        args:
+            user_id är den inloggade användarens id
+
+        return:
+            returnerar en lista med användarens vunna matcher
     '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select m.*, u.*, q.username, t.team_name as my_team, t.match_score as my_score, s.match_score as opponent_score, s.team_name as opponent from fhl_match_history m
@@ -1428,7 +1449,13 @@ def get_history_won_games(user_id):
 # Marcus
 def get_history_lost_games(user_id):
     '''
-    Funktion som hämtar ut specifik matchhistorik för förlorade matcher, där användarnamn och match score visas upp. Returnerar förluster
+        Funktion som hämtar ut specifik matchhistorik för förlorade matcher, där användarnamn och match score visas upp. Returnerar förluster
+
+        args:
+            user_id är den inloggade användarens id
+
+        return:
+            returnerar en lista med användarens förlorade matcher
     '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select m.match_date, m.match_id, u.*, q.username, t.team_name as opponent_team, t.match_score as opponent_score, s.match_score as my_score, s.team_name as my_team from fhl_match_history m
@@ -1449,7 +1476,13 @@ def get_history_lost_games(user_id):
 # Marcus 
 def get_losses(user_id):
     '''
-    Funktion som hämtar ut antal förluster från databasen och returnerar detta till matchhistoriken
+        Funktion som hämtar ut antal förluster från databasen och returnerar detta till matchhistoriken
+
+        args:
+            user_id är den inloggade användarens id
+
+        return:
+            Returnerar en lista med den inloggade användarens antal förluster
     '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select loser, count(*) as amount 
@@ -1465,7 +1498,13 @@ def get_losses(user_id):
 # Marcus 
 def get_wins(user_id):
     '''
-    Funktion hämtar ut antal vinster från databasen och returnerar detta till matchhistoriken
+        Funktion hämtar ut antal vinster från databasen och returnerar detta till matchhistoriken
+        
+        args:
+            user_id är den inloggade användarens id
+        
+        return:
+            Returnerar en lista med den inloggade användarens antal vinster.
     '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select winner, count(*) as amount 
