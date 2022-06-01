@@ -9,13 +9,13 @@ import pytz
 # Emilia 
 def get_play_schedual ():
     '''
-    funktionen körs från fhl.py
+        funktionen körs från fhl.py
 
-    Funktionen hämtar data från nhl:s api utifrån dagens datum. 
-    Tiden som hämtas ut ändras till sveriges tidszon och delas upp i datum och tid.
-    Lagens loggor hämtas ut utifrån lagens id.
-    Allt sparas i en lista med lexikon. 
-    Listan skickas till funktionen insert_play_schedual i filen database.py. 
+        Funktionen hämtar data från nhl:s api utifrån dagens datum. 
+        Tiden som hämtas ut ändras till sveriges tidszon och delas upp i datum och tid.
+        Lagens loggor hämtas ut utifrån lagens id.
+        Allt sparas i en lista med lexikon. 
+        Listan skickas till funktionen insert_play_schedual i filen database.py. 
     '''
     todaydate = date.today()
     response_API=requests.get("https://statsapi.web.nhl.com/api/v1/schedule?startDate=" + str(todaydate) + "&endDate=" + str(todaydate))

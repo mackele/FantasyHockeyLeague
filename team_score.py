@@ -55,6 +55,7 @@ def count_difference (players_API_list):
 def insert_players_to_database(players_API_list):
     """
         Funktionen kör funktionen add_player_to_database i filen databas.py.
+        
         args:
             Listan med lexikon med spelarna och deras statistik som hämtats från NHL:s API. Listan skickas mer till databas.py
     """
