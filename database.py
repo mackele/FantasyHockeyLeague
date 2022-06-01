@@ -14,6 +14,7 @@ def get_timestamp_fhl_players(todays_date):
 
         args:
             syftar till dagens datum som skickas med från fhl.py
+        
         return:
             returnerar en lista med resultatet från sökningen i databasen till fhl.py
     '''
@@ -31,7 +32,7 @@ def get_timestamp_fhl_players(todays_date):
 # Marcus 
 def add_player_to_database(players):
     '''
-    Funktion som lägger in spelare som hämtas i en lista med lexikon från APIn i player_info.py
+        Funktion som lägger in spelare som hämtas i en lista med lexikon från APIn i player_info.py
     '''
 
     for player in players:
@@ -106,11 +107,11 @@ def search(user_search, user_id):
 # Marcus 
 def add_players_to_list(info):
     '''
-    Funktion som tar SQL frågan (info) och sedan tar denna och sorterar den i en lista av lexikon
-    som sedan läggs till i en tom lista och skickas tillbaka
+        Funktion som tar SQL frågan (info) och sedan tar denna och sorterar den i en lista av lexikon
+        som sedan läggs till i en tom lista och skickas tillbaka
 
-    Return: players 
-    Som är alla de spelare som fanns i SQL-frågan sorterade i en ny lista av lexikon
+        Return: 
+            players som är alla de spelare som fanns i SQL-frågan sorterade i en ny lista av lexikon
     '''
 
     players = []
@@ -146,11 +147,11 @@ def add_players_to_list(info):
 # Marcus 
 def get_all_players():
     """
-    Funktion som hämtar alla spelare till en lista av lexikon som sedan används i fhl.py för att printa ut 
-    spelarkort.
+        Funktion som hämtar alla spelare till en lista av lexikon som sedan används i fhl.py för att printa ut 
+        spelarkort.
 
-        Returns: players
-        Detta är en lista av lexikon med samtliga värden
+        Returns: 
+            players detta är en lista av lexikon med samtliga värden
     """
     with Postgres() as (cursor, conn):
         cursor.execute ("""select * from fhl_players""")
@@ -336,6 +337,7 @@ def get_goalie_players(user_id):
 def get_users_players(user_id):
     '''
         Funktion hämtar den inloggade användarens spelare
+        
         args:
             user_id är den inloggade användarens id
     '''
@@ -379,6 +381,7 @@ def get_users_players(user_id):
 def get_users_goalie(user_id):
     '''
         Funktion hämtar den inloggade användarens målvakter
+        
         args:
             user_id är den inloggade användarens id
     '''
@@ -420,6 +423,7 @@ def get_users_goalie(user_id):
 def get_users_defenseman(user_id):
     '''
         Funktion hämtar den inloggade användarens backar
+        
         args:
             user_id är den inloggade användarens id
     '''
@@ -461,6 +465,7 @@ def get_users_defenseman(user_id):
 def get_users_left_wing(user_id):
     '''
         Funktion hämtar den inloggade användarens vänsterforwards 
+        
         args:
             user_id är den inloggade användarens id
     '''
@@ -502,6 +507,7 @@ def get_users_left_wing(user_id):
 def get_users_center(user_id):
     '''
         Funktion hämtar den inloggade användarens centrar
+        
         args:
             user_id är den inloggade användarens id
     '''
@@ -543,6 +549,7 @@ def get_users_center(user_id):
 def get_users_right_wing(user_id):
     '''
         Funktion hämtar den inloggade användarens högerforwards
+       
         args:
             user_id är den inloggade användarens id
     '''
@@ -584,6 +591,7 @@ def get_users_right_wing(user_id):
 def get_users_forward(user_id):
     '''
         Funktion hämtar den inloggade användarens forwards
+        
         args:
             user_id är den inloggade användarens id
     '''
@@ -664,7 +672,12 @@ def get_user(mail):
 # Marcus
 def add_purchased_player_to_team(user_id, player_id):
     '''
-    Funktion som lägger till köpt spelare till en användares lista över spelare
+        Funktion som lägger till köpt spelare till en användares lista över spelare
+
+        args:
+            user_id är användarens id
+            player_id är en specifik hockeyspelares id.
+
     '''
     with Postgres() as (cursor, conn): 
 
@@ -715,6 +728,7 @@ def get_points(user_id):
 
         args:
             syftar till den inloggade användaren.
+        
         return:
             returnerar en lista med användarens poäng.
     '''
@@ -768,6 +782,7 @@ def get_timestamp_fhl_team_ranking (todays_date):
 
         args:
             syftar till dagens datum som skickas med från fhl.py
+
         return:
             returnerar en lista med resultatet från sökningen i databasen till fhl.py
     '''
@@ -837,8 +852,10 @@ def insert_play_schedual(current_days_games):
 def get_date_fhl_game_schedual (todays_date):
     '''
         Funktionen hämtar ut en lista med dagens datum från tabellen fhl_game_schedual i databasen
+        
         args:
             variabel med dagens datum
+
         return:
             returnerar en lista med dagens datum om denna finns i tabellen, till fhl.py
     '''
@@ -893,7 +910,10 @@ def get_fhl_highscore():
 # Lukas
 def post_forum(user_id):
     """
-    Funktionen lägger till ett foruminlägg till databasen
+        Funktionen lägger till ett foruminlägg till databasen
+
+        args:
+            user_id är den inloggade användarens id.
     """
    
     with Postgres() as (cursor, conn):
@@ -920,7 +940,10 @@ def post_forum(user_id):
 # Lukas
 def post_forum_redirect():
     """
-    Funktionen redirectar en användare efter att ha skapat ett inlägg
+        Funktionen redirectar en användare efter att ha skapat ett inlägg
+
+        return:
+            Returnerar en lista med alla inlägg.
     """
     with Postgres() as (cursor, conn):
         cursor.execute("""select date, datetime, article_id, fhl_user, title, category, text, likes, username 
@@ -935,7 +958,10 @@ def post_forum_redirect():
 # Lukas
 def get_all_forum():
     """
-    Funktionen hämtar all forumdata vilket används för att visa alla inlägg
+        Funktionen hämtar all forumdata vilket används för att visa alla inlägg
+        
+        return:
+            Returnerar en lista med alla foruminlägg.
     """
     with Postgres() as (cursor, conn):
         with Postgres() as (cursor, conn):
@@ -947,13 +973,18 @@ def get_all_forum():
             data = cursor.fetchall()
             fhldata=data
     return fhldata
-    return fhldata
 
 
 # Lukas
 def get_category_forum(category):
     """
-    Funktionen hämtar all forumdata inom en specifik kategori vilket används för att visa alla inlägg inom denna
+        Funktionen hämtar all forumdata inom en specifik kategori vilket används för att visa alla inlägg inom denna
+
+        args:
+            category innehåller information om den kategori som användaren valt att sortera inläggen i forumet efter.
+        
+        return:
+            Returnerar en lista med foruminlägg.
     """
     with Postgres() as (cursor, conn):
         with Postgres() as (cursor, conn):
@@ -975,13 +1006,19 @@ def get_category_forum(category):
             data = cursor.fetchall()
             fhldata=data
     return fhldata
-    return fhldata
 
 
 # Lukas
 def get_forum_username(user_id):
     """
-    Funktionen hämtar alla forumdata som den inloggade användaren skapat vilket används för att visa alla inlägg
+        Funktionen hämtar alla forumdata som den inloggade användaren skapat vilket används för att visa alla inlägg
+        
+        args:
+            user_id är den inloggade användarens id.
+        
+        return:
+            returnerar en lista med en specifik användares inlägg
+
     """
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select date, datetime, article_id, fhl_user, title, category, text, likes, username 
@@ -997,9 +1034,10 @@ def get_forum_username(user_id):
 # Lukas
 def delete_article_id(article_id):
     """
-    Funktionen tar bort ett foruminlägg från databasen
-    Args
-        'article_id' from html submit
+        Funktionen tar bort ett foruminlägg från databasen
+        
+        Args:
+            'article_id' from html submit
     """
     with Postgres() as (cursor, conn):
         delete_post = (f""" delete from fhl_forum_form where article_id = '{article_id}'""")
@@ -1010,9 +1048,9 @@ def delete_article_id(article_id):
 # Lukas
 def like_article_id(article_id):
     """
-    Funktionen gillar ett foruminlägg genom att uppdatera antalet gilla-markeringar i databasen
-    Args
-        'article_id' from html submit
+        Funktionen gillar ett foruminlägg genom att uppdatera antalet gilla-markeringar i databasen
+        Args:
+            'article_id' from html submit
     """
     with Postgres() as (cursor, conn):
         like_article_id = (f"""UPDATE fhl_forum_form set likes = (likes + 1) where article_id = '{article_id}'""")
@@ -1023,7 +1061,12 @@ def like_article_id(article_id):
 # Marcus
 def add_chosen_players_to_game(left_forward, center, right_forward, left_defense, right_defense, goalie, user_id_form, team_name):
     '''
-    Funktion som lägger till valda spelare när användaren lägger ett lag
+        Funktion som lägger till valda spelare när användaren lägger ett lag
+
+        args:
+            left_forward, center, right_forward, left_defense, right_defense, goalie är de spelarna som avändaren valt att ha i sitt lag.
+            user_id_form är den inloggade användarens id.
+            team_name är namnet på laget som användaren angett.
     '''
     with Postgres() as (cursor, conn):
 
@@ -1045,6 +1088,9 @@ def add_chosen_players_to_game(left_forward, center, right_forward, left_defense
 def get_team_list_fhl_team():
     """
         Funktionen hämtar ut en lista med alla lag i databasen som inte har någon match_score än.
+
+        return:
+            funktionen returnerar en lista med information om de lag som inte har fått någon score än.
     """
     with Postgres() as (cursor, conn):
         cursor.execute("""select * from fhl_team 
@@ -1056,7 +1102,14 @@ def get_team_list_fhl_team():
 # Marcus 
 def get_todays_team_list(todaydate, user_id):
     '''
-    Funktion som hämtar och returnerar en lista med det skapade lag som ska användes vid match
+        Funktion som hämtar och returnerar en lista med det skapade lag som ska användes vid match
+
+        args:
+            todaydate är dagens datum
+            user_id är den inloggade användarens id.
+
+        return:
+            Returnerar en lista med de inlaggda datumen på lag som användaren skapat under samma dag.
     '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select team_date from fhl_team 
@@ -1068,7 +1121,14 @@ def get_todays_team_list(todaydate, user_id):
 # Marcus
 def get_todays_left_forward(todaydate, user_id):
     '''
-    Funktion som hämtar och returnerar vänster forward som användes vid spelad match
+        Funktion som hämtar och returnerar vänster forward som användes vid spelad match
+        
+        args:
+            todaydate är dagens datum
+            user_id är den inloggade användarens id.
+        
+        return:
+            returnerar en lista med left_forward som finns i den inloggade användarens team under dagens datum.
     '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select * from fhl_team 
@@ -1081,7 +1141,14 @@ def get_todays_left_forward(todaydate, user_id):
 # Marcus
 def get_todays_right_forward(todaydate, user_id):
     '''
-    Funktion som hämtar och returnerar höger forward som användes vid spelad match
+        Funktion som hämtar och returnerar höger forward som användes vid spelad match
+
+        args:
+            todaydate är dagens datum
+            user_id är den inloggade användarens id.
+        
+        return:
+            returnerar en lista med right_forward som finns i den inloggade användarens team under dagens datum.
     '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select * from fhl_team 
@@ -1094,8 +1161,15 @@ def get_todays_right_forward(todaydate, user_id):
 # Marcus
 def get_todays_center(todaydate, user_id):
     '''
-    Funktion som hämtar och returnerar center användes i match som spelats 
-    '''
+        Funktion som hämtar och returnerar center användes i match som spelats 
+
+        args:
+            todaydate är dagens datum
+            user_id är den inloggade användarens id.
+        
+        return:
+            returnerar en lista med center som finns i den inloggade användarens team under dagens datum.
+'''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select * from fhl_team 
                                 join fhl_players on fhl_players.id = fhl_team.center 
@@ -1107,7 +1181,14 @@ def get_todays_center(todaydate, user_id):
 # Marcus
 def get_todays_left_back(todaydate, user_id):
     '''
-    Funktion som hämtar och returnerar vänster back som användes vid spelad match
+        Funktion som hämtar och returnerar vänster back som användes vid spelad match
+
+        args:
+            todaydate är dagens datum
+            user_id är den inloggade användarens id.
+        
+        return:
+            returnerar en lista med left_back som finns i den inloggade användarens team under dagens datum.
     '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select * from fhl_team 
@@ -1120,7 +1201,14 @@ def get_todays_left_back(todaydate, user_id):
 # Marcus
 def get_todays_right_back(todaydate, user_id):
     '''
-    Funktion som hämtar och returnerar höger back som användes vid spelad match
+        Funktion som hämtar och returnerar höger back som användes vid spelad match
+
+        args:
+            todaydate är dagens datum
+            user_id är den inloggade användarens id.
+        
+        return:
+            returnerar en lista med right_back som finns i den inloggade användarens team under dagens datum.
     '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select * from fhl_team 
@@ -1133,7 +1221,14 @@ def get_todays_right_back(todaydate, user_id):
 # Marcus
 def get_todays_goalie(todaydate, user_id):
     '''
-    Funktion som hämtar och returnerar målvakten som användes vid spelad match
+        Funktion som hämtar och returnerar målvakten som användes vid spelad match
+
+        args:
+            todaydate är dagens datum
+            user_id är den inloggade användarens id.
+        
+        return:
+            returnerar en lista med goalie som finns i den inloggade användarens team under dagens datum.
     '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select * from fhl_team 
@@ -1147,6 +1242,7 @@ def get_todays_goalie(todaydate, user_id):
 def insert_team_score(team_score, team_id):
     """
         Funktionen lägger in match_score i databasen till specifika lag. 
+
         args:
             team_score- variabel med ett visst lag sammanlaggda poäng.
             team_id- variabel med ett visst lags id.
@@ -1163,7 +1259,13 @@ def insert_team_score(team_score, team_id):
 # Marcus 
 def get_other_users_lineup(user_id):
     '''
-    Hämtar en annan användares lineup som användes vid en spelad match
+        Hämtar en annan användares lineup som användes vid en spelad match
+
+        args:
+            user_id är den inloggade användarens id.
+        
+        return:
+            Returnerar en lista med lag som ej är användarens.
     '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select * from fhl_team where fhl_user != '{user_id}';""")
@@ -1175,7 +1277,13 @@ def get_other_users_lineup(user_id):
 # Marcus 
 def get_users_lineup(user_id):
     '''
-    Hämtar en användares lineup som användes vid en spelad match
+        Hämtar en användares lineup som användes vid en spelad match
+
+        args:
+            user_id är den inloggade användarens id.
+        
+        return:
+            Returnerar en lista med lag som är användarens.
     '''
     with Postgres() as (cursor, conn):
         cursor.execute(f"""select * from fhl_team where fhl_user = '{user_id}';""")
@@ -1187,7 +1295,13 @@ def get_users_lineup(user_id):
 # Marcus
 def add_game_to_match_history(team_1, team_2, winner, looser):
     '''
-    Funktion som lägger till en match i matchhistorik med lagens id, vinnare och förlorare
+        Funktion som lägger till en match i matchhistorik med lagens id, vinnare och förlorare
+
+        args:
+            team_1 är användarens lag
+            team_2 är motståndarens lag
+            winner är det vinnande laget, laget som har högst poäng
+            looser är det förlorande laget, laget som har lägst poäng
     '''
     with Postgres() as (cursor, conn):
 
@@ -1204,7 +1318,14 @@ def add_game_to_match_history(team_1, team_2, winner, looser):
 
 # Marcus
 def update_points(new_points, user_id):
-     with Postgres() as (cursor, conn):
+    '''
+        Funktionen uppdaterar användarens päng och lägger in i databasen.
+
+        args:
+            new_points är användarens nya poäng
+            user_id är de inloggade användaren
+    '''
+    with Postgres() as (cursor, conn):
         PostgreSQL_insert = (f"""update fhl_user
                                 set points = {new_points}
                                     where mail ='{user_id}' """)
