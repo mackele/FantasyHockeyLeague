@@ -62,11 +62,14 @@ login_manager.init_app (FHL)
 @FHL.route('/login', methods=['GET', 'POST'])
 def login():
     '''
-    Funktionen visar html filen login.html om användaren klickar på "logga in" på webbsidan.
-    Funktionen hämtar datan som användaren fyllt in när denne försöker logga in. 
-    Lösenordet krypteras.
-    mail och lösenord skickas in i database.py för att kolla om datan finns i databasen eller inte. 
-    Om listan med mail och lösenord är längre än o så loggas användaren in och redirectas till index.html.
+        Funktionen visar html filen login.html om användaren klickar på "logga in" på webbsidan.
+        Funktionen hämtar datan som användaren fyllt in när denne försöker logga in. 
+        Lösenordet krypteras.
+        mail och lösenord skickas in i database.py för att kolla om datan finns i databasen eller inte. 
+        
+        return:
+            Om listan med mail och lösenord är längre än o så loggas användaren in och redirectas till index.html.
+            Annars returners login.html tillsammans med ett error meddelande.
     '''
 
     if request.method == 'GET':
@@ -98,6 +101,7 @@ class User (flask_login.UserMixin):
 def user_loader(mail):
     '''
         Funktionen sätter user.id till användarens mail. (En del av Flask_login)
+        
         return:
             returnerar användarens mail som user.
     '''
@@ -188,9 +192,10 @@ def registration():
     '''
         Funktionen ger användaren registration.html när denne klickar på "Registrera".
         Funktionen tar emot värdena som användaren fyllt i i formuläret på registration.html och skickar dessa till databasen för att som om dessa finns lagrade eller inte.
-        Om mailen redan finns registrerad så returneras registration.html tillbaka med felmeddelande om att mailen redan finns registreras. 
-        Om användarnamnet redan finns registrerat så returneras registration.html tillbaka med felmeddelande om att användarnamnet redan finns. 
-        Annars kommer kommer användarnen in i systemet.
+       
+        Return:
+            Om mailen eller användarnamnet redan finns registrerad så returneras registration.html tillbaka med felmeddelande om att mailen elelr användarnamnet redan finns registreras. 
+            Annars kommer kommer användarnen in i systemet.
 
     '''
     if request.method == 'GET':
@@ -222,9 +227,10 @@ def registration():
 @FHL.route('/guide/')
 def guide():
     '''
-    Funktionen hämtar användarens poäng från databasen genom funktionen get_user_points.
-    Return
-        Funktionen returnerar html filen guide.htm tillsammans med den inloggade användarens poäng.
+        Funktionen hämtar användarens poäng från databasen genom funktionen get_user_points.
+        
+        Return
+            Funktionen returnerar html filen guide.htm tillsammans med den inloggade användarens poäng.
     '''
     points=get_user_points()
     return render_template('guide.html', points=points)
@@ -236,16 +242,25 @@ def guide():
 @flask_login.login_required
 def buy_players():
     '''
-    När användaren kommer in i filen kollas det i databasen om fhl_players datum är datens datum.
-    Om det inte är daten datum körs funktionerna i team_score vilka även uppdaterar tabellen fhl_players med aktuell statistik.
+        När användaren kommer in i filen kollas det i databasen om fhl_players datum är datens datum.
+        Om det inte är daten datum körs funktionerna i team_score vilka även uppdaterar tabellen fhl_players med aktuell statistik.
 
-    Funktion som först hämtar hur mycket poäng användaren har genon get_user_points() som finns i
-    database.py och sedan hämtar alla spelare som användaren inte redan köpt och finns genom get_..._players(user_id) som också finns i 
-    database.py
+        Funktion som först hämtar hur mycket poäng användaren har genon get_user_points() som finns i
+        database.py och sedan hämtar alla spelare som användaren inte redan köpt och finns genom get_..._players(user_id) som också finns i 
+        database.py
 
-    När användaren sedan klickar på köp i html filen buy_players skickas ett formulär tillbaka
-    med id för den spelare som ska köpas. Sedan i funktionen add_purchased_player_to_team()
-    skickas spelaren och användarens id med och läggs sedan till i databasen.
+        När användaren sedan klickar på köp i html filen buy_players skickas ett formulär tillbaka
+        med id för den spelare som ska köpas. Sedan i funktionen add_purchased_player_to_team()
+        skickas spelaren och användarens id med och läggs sedan till i databasen.
+
+        return:
+            GET:
+            returnerar buy_players.html med alla spelare som användaren kan köpa och dennes poäng.
+
+            POST:
+            Om användaren försöker köpa en spelare som är för dyr returneras filen fel_poäng.html tillsammans med användarens poäng.
+            Om användaren köper en spelare så returneras my_players.html med alla sina köpta spelare och aktuella poäng.
+            Om användaren köper en spelare som denne redan har returneras error_köp.html med användarens poäng (borde ej kunna ske.)
     '''
     todaydate = date.today()
     date_list=database.get_timestamp_fhl_players(todaydate)
@@ -297,7 +312,10 @@ def buy_players():
 @flask_login.login_required
 def sell_players():
     '''
-    Funktionen tillåter användaren att sälja en spelare från sitt lag. Dessutom adderas spelarens pris till användares poäng för att köpa nya spelare
+        Funktionen tillåter användaren att sälja en spelare från sitt lag. Dessutom adderas spelarens pris till användares poäng för att köpa nya spelare
+
+        return:
+            returnerar my_players.html
     '''
     if request.method == 'POST':
         user_id=flask_login.current_user.id
@@ -314,7 +332,10 @@ def sell_players():
 @FHL.route('/fel-köp/')
 def error_purchase():
     '''
-    Felhantering för när det blir något fel vid köp av spelare, användaren skickas vidare till en route som förklarar problemet
+        Felhantering för när det blir något fel vid köp av spelare, användaren skickas vidare till en route som förklarar problemet
+        
+        return:
+            Returnerar error_köp.html tillsammans med användarens poäng.
     '''
     points=get_user_points()
     return render_template('error_köp.html', points=points)
@@ -325,6 +346,10 @@ def error_purchase():
 def error_points():
     '''
     Felhantering för när det blir något fel vid köp av spelare pga för lite poäng, användaren skickas vidare till en route som förklarar problemet
+
+    return:
+        returnerar error_köp.html tillsammans med användarens poäng.
+
     '''
     points=get_user_points()
     return render_template('error_köp.html', points=points)
@@ -364,6 +389,7 @@ def buy():
     '''
         Om användaren vill köpa en spelare som den sökt efter kör denna funktionen. 
         Funktionen tar emot spelaren som ska köpas id samt användarens id och för in i databasen.
+        
         Return
             Användaren rederectas till my_players.html
     '''
@@ -382,12 +408,15 @@ def buy():
 @flask_login.login_required
 def play_game():
     '''
-    Route för att spela match, användaren skickar via ett formulär in sitt lag och utmanar ett annat lag
-    Poäng hämtas via formuläret för både användarens lag och motståndarens lag och sedan beroende på det lag som har flest
-    poäng så avgörs vinnaren
+        Route för att spela match, användaren skickar via ett formulär in sitt lag och utmanar ett annat lag
+        Poäng hämtas via formuläret för både användarens lag och motståndarens lag och sedan beroende på det lag som har flest
+        poäng så avgörs vinnaren
 
-    Användarens ranking och poäng avgörs genom att först kolla vem som har bäst lag och sedan genom funktionerna 
-    update_points_after_win och update_ranking_after_win så får den vinnande användaren sin nya statistik
+        Användarens ranking och poäng avgörs genom att först kolla vem som har bäst lag och sedan genom funktionerna 
+        update_points_after_win och update_ranking_after_win så får den vinnande användaren sin nya statistik
+
+        return:
+            returnerar vinnare.html med användarens nya poäng, lagets poäng och motståndarens poäng
     '''
     points=get_user_points()
     user_id=flask_login.current_user.id
@@ -466,12 +495,16 @@ def play_game():
 def my_players():
 
     """
-    Den inloggade användarens mail sparas i denna: current_user.id. denna används för att ta ut saker ur databasen.
-    Hämtar poäng och sedan vilka spelare som användaren har genom get_users_players() med användarens mail som 
-    parameter.
+        Den inloggade användarens mail sparas i denna: current_user.id. denna används för att ta ut saker ur databasen.
+        Hämtar poäng och sedan vilka spelare som användaren har genom get_users_players() med användarens mail som 
+        parameter.
 
-    När användaren kommer in i filen kollas det i databasen om fhl_players datum är datens datum.
-    Om det inte är daten datum körs funktionerna i team_score vilka även uppdaterar tabellen fhl_players med aktuell statistik.
+        När användaren kommer in i filen kollas det i databasen om fhl_players datum är datens datum.
+        Om det inte är daten datum körs funktionerna i team_score vilka även uppdaterar tabellen fhl_players med aktuell statistik.
+
+        return:
+            returnerar my_players.html med användarens poäng och dennes köpta spelare
+
     """
     todaydate = date.today()
     date_list=database.get_timestamp_fhl_players(todaydate)
@@ -498,6 +531,10 @@ def match():
         Route för att lägga ett lag, väljaren väljer via sina köpta spelare som placeras ut på positioner som sedan beräknar hur bra ens lag är
         När användaren kommer in i filen kollas det i databasen om fhl_players datum är datens datum.
         Om det inte är daten datum körs funktionerna i team_score vilka även uppdaterar tabellen fhl_players med aktuell statistik.
+
+        return:
+            Om användaren sedan tidigare under dagen skapat ett lag så returneras today_match.html med användarens poäng och de spelare som användaren tidigare valt att ha med i laget.'
+            Annars returneras match.html med listor med användarens köpta spelare som kan användas för att skapa ett lag.
 
     '''
     todaydate = date.today()
@@ -562,7 +599,11 @@ def match():
 @flask_login.login_required
 def match_history():
     '''
-    Route för ens matchhistorik, den hämtar samtliga vunna och förlade matcher och visar upp detta för användaren
+        Route för ens matchhistorik, den hämtar samtliga vunna och förlade matcher och visar upp detta för användaren
+
+        return:
+            returnerar matchhistory tillsammans med päng och listor på vunna matcher, förlorade matcher och antal vunna och förlorade matcher, om användaren har spelat matcher.
+            Annars returneras historik_fel.html med användarens poäng om inga matcher spelats eller om dessa matcher enbart vunnits eller förlorats.
     '''
 
     try:
@@ -589,7 +630,10 @@ def match_history():
 @flask_login.login_required
 def history_error():
     '''
-    Felhanteringssida för om man inte skulle ha några spelade matcher i matchhistoriken
+        Felhanteringssida för om man inte skulle ha några spelade matcher i matchhistoriken
+
+        return:
+            returnerar historik_fel.html tillsammans med användarens poäng.
     '''
     points=get_user_points()
     return render_template('historik_fel.html', points = points)
@@ -600,11 +644,14 @@ def history_error():
 def top_scorer():
     points=get_user_points()
     '''
-    Funktion skickar med sig en lista av lexikon players som hämtad från funktionen get_all_players som finns i 
-    database.py. Denna lista sorteras sedan utifrån vad spelarkorten ska sorteras på, exempelvis mål, assist mm.
+        Funktion skickar med sig en lista av lexikon players som hämtad från funktionen get_all_players som finns i 
+        database.py. Denna lista sorteras sedan utifrån vad spelarkorten ska sorteras på, exempelvis mål, assist mm.
 
-    När användaren kommer in i filen kollas det i databasen om fhl_players datum är datens datum.
-    Om det inte är daten datum körs funktionerna i team_score vilka även uppdaterar tabellen fhl_players med aktuell statistik.
+        När användaren kommer in i filen kollas det i databasen om fhl_players datum är datens datum.
+        Om det inte är daten datum körs funktionerna i team_score vilka även uppdaterar tabellen fhl_players med aktuell statistik.
+
+        return:
+            returnerar topscorer.html med listor på hockeyspelare som varit bäst inom de olika kategorierna.
     '''
     todaydate = date.today()
     date_list=database.get_timestamp_fhl_players(todaydate)
@@ -631,7 +678,12 @@ def top_scorer():
 @flask_login.login_required
 def forum():
     """
-    Funktionen visar alla foruminlägg
+        Funktionen visar alla foruminlägg
+
+        return:
+            POST:
+            returnerar forum.html med användarens poäng och en lista med inlägg inom en specifik kategori
+            Annars returneras forum.html med användarens poäng och en lista på alla inlägg
     """
     if request.method == 'POST':
         category = request.form['category']
@@ -650,7 +702,10 @@ def forum():
 @flask_login.login_required
 def forum_username():
     """
-    Funktionen visar enbart den inloggade användarens foruminlägg
+        Funktionen visar enbart den inloggade användarens foruminlägg
+
+        return:
+            returnerar forum_delete.html med användarens poäng och en lista med den inloggade användarens skapade inlägg.
     """
     points=get_user_points()
     user_id=flask_login.current_user.id
@@ -664,7 +719,10 @@ def forum_username():
 @flask_login.login_required
 def write_post():
     """
-    Funktionen låter användaren skapa ett nytt foruminlägg
+        Funktionen låter användaren skapa ett nytt foruminlägg
+
+        return:
+            write_post.html med användarens poäng
     """
     points=get_user_points()
     return render_template('write_post.html', points=points)
@@ -675,7 +733,10 @@ def write_post():
 @FHL.route('/form', methods=['POST'])
 def form():
     """
-    Funktionen sparar ett foruminlägg till databasen
+        Funktionen sparar ett foruminlägg till databasen
+        
+        return:
+            rederectar användaren till forum
     """
     points=get_user_points()
     user_id=flask_login.current_user.id
@@ -690,7 +751,10 @@ def form():
 @flask_login.login_required
 def delete_post():
     """
-    Funktionen tar bort ett foruminlägg från databasen
+        Funktionen tar bort ett foruminlägg från databasen
+
+        return:
+            redirectar användaren till forum_username
     """
     if request.method == 'POST':
         article_id = request.form['delete']
@@ -706,7 +770,10 @@ def delete_post():
 @flask_login.login_required
 def forum_like():
     """
-    Funktionen låter användarna att gilla ett inlägg
+        Funktionen låter användarna att gilla ett inlägg
+
+        return:
+            redirectar användaren till forum
     """
     if request.method == 'POST':
         article_id = request.form['like']
@@ -720,9 +787,9 @@ def forum_like():
 @flask_login.login_required
 def get_user_points():
     ''' 
-    Funktionen hämtar den inloggade användarens poäng från databasen.
-    Return
-        Returnerar poängen
+        Funktionen hämtar den inloggade användarens poäng från databasen.
+        Return
+            Returnerar poängen
     '''
     user_id=flask_login.current_user.id
     points=database.get_points(user_id)
@@ -737,7 +804,10 @@ def get_user_points():
 @FHL.route('/vinnare/')
 def winner():
     '''
-    Route som visar upp att användaren har vunnit en match
+        Route som visar upp att användaren har vunnit en match
+
+        return:
+            returnerar vinnare.html med användarens poäng
     '''
     points=get_user_points()
     return render_template('vinnare.html', points=points)
@@ -746,7 +816,10 @@ def winner():
 @FHL.route('/förlorare/')
 def looser():
     '''
-    Route som visar upp att användaren har förlorat en match
+        Route som visar upp att användaren har förlorat en match
+
+        return:
+            returnerar förlorare.html med användarens poäng
     '''
     points=get_user_points()
     return render_template('förlorare.html', points=points)
@@ -755,7 +828,10 @@ def looser():
 @FHL.route('/lika/')
 def tie():
     '''
-    Route som visar upp att användaren har fått lika i en match
+        Route som visar upp att användaren har fått lika i en match
+
+        return:
+            returnerar lika.html med användarens poäng
     '''
     points=get_user_points()
     return render_template('lika.html', points=points)
@@ -764,7 +840,10 @@ def tie():
 @FHL.route('/fel-match/')
 def error_game():
     '''
-    Route som visar upp om det blivit fel vid en match, exempelvis att ett lag inte har några poäng
+        Route som visar upp om det blivit fel vid en match, exempelvis att ett lag inte har några poäng
+
+        return:
+            returnerar error_game.html med användarens poäng
     '''
     points=get_user_points()
     return render_template('error_game.html', points=points)
