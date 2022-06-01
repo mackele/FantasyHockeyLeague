@@ -2,7 +2,7 @@ import psycopg2
 import traceback
 
 
-# Emilia 
+# Emilia, Kod utifrån
 class Postgres ():
     def __enter__(self, *args, **kwargs):
         try:
@@ -22,18 +22,3 @@ class Postgres ():
             self.con.close()
         if self.cur:
             self.cur.close()
-
-"""
-används:
-
-from connect import Postgres
-with Postgres() as cursor:
-    cursor.execute ( select )
-    result=cursor.fetchall()
-
-result kan användas var som (ej enbart i with)
-
-Skrivs om och om igen
-
-
-"""
