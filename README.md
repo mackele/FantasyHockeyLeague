@@ -7,6 +7,7 @@ request
 psycopg2
 pytz
 
+GIT: https://github.com/mackele/FantasyHockeyLeague
 
 HTML / CSS / JSS-ursprung: 
 Emilia: huvudansvarig för html/css
