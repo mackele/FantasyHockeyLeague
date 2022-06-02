@@ -98,5 +98,3 @@ def insert_score_to_database():
         database.insert_team_score(team_score, team_id)
    
     insert_players_to_database(players_API_list)   
-
-
