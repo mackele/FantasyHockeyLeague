@@ -9,6 +9,8 @@ pytz
 
 GIT: https://github.com/mackele/FantasyHockeyLeague
 
+Databasfilen i separat fil: Det är tabellerna som startar med FHL om är aktuella
+
 HTML / CSS / JSS-ursprung: 
 Emilia: huvudansvarig för html/css
 Simon: huvudansvarig för JS 
